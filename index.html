@@ -1,239 +1,179 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AIVO – AI Video Studio</title>
-  <meta name="description" content="AIVO is an AI-powered video studio that turns your music and ideas into vibrant, ready-to-share videos in seconds.">
+  <title>AIVO – AI Video Orchestration</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <div class="logo">
-        <div class="logo-wave"></div>
-        <span class="logo-text">AIVO</span>
-      </div>
-      <nav class="nav">
-        <a href="#features">Features</a>
-        <a href="#how-it-works">How it works</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
+      <div class="logo" data-i18n="nav.logo">AIVO</div>
+      <nav class="main-nav">
+        <a href="#features" data-i18n="nav.features">Özellikler</a>
+        <a href="#how" data-i18n="nav.how">Nasıl Çalışır?</a>
+        <a href="#pricing" data-i18n="nav.pricing">Fiyatlandırma</a>
       </nav>
-      <a href="#pricing" class="btn btn-outline small">Sign in</a>
+      <div class="lang-switcher">
+        <select id="languageSwitcher" aria-label="Dil seçici">
+          <option value="tr">TR</option>
+          <option value="en">EN</option>
+          <option value="de">DE</option>
+          <option value="ar">AR</option>
+          <option value="es">ES</option>
+          <option value="ja">JA</option>
+        </select>
+      </div>
     </div>
   </header>
 
   <main>
-    <!-- Hero -->
     <section class="hero">
-      <div class="hero-gradient"></div>
       <div class="container hero-inner">
         <div class="hero-copy">
-          <h1>Turn your sound<br><span class="text-gradient">into living video</span></h1>
-          <p class="hero-subtitle">
-            AIVO is a next‑generation AI video studio that transforms your music,
-            vocals and ideas into vibrant, share‑ready visuals in seconds.
+          <div class="badge" data-i18n="hero.badge">Suno &amp; Eita ile entegre AI video stüdyosu</div>
+          <h1 data-i18n="hero.title">Sesini yaşayan videoya dönüştür</h1>
+          <p class="hero-subtitle" data-i18n="hero.subtitle">
+            AIVO, Suno ve Eita çıktılarından saniyeler içinde dinamik müzik videoları, lyric videolar
+            ve sosyal medya içerikleri üretmen için tasarlanmış akıllı bir orkestrasyon paneli.
           </p>
           <div class="hero-actions">
-            <a href="#pricing" class="btn btn-primary">Get started with credits</a>
-            <a href="#how-it-works" class="btn btn-ghost">See how it works</a>
+            <a href="#how" class="btn primary" data-i18n="hero.primary_button">Nasıl çalıştığını gör</a>
+            <a href="#pricing" class="btn ghost" data-i18n="hero.secondary_button">Erken erişim talep et</a>
           </div>
-          <div class="hero-meta">
-            <span>⚡ No editing skills needed</span>
-            <span>🎵 Perfect for artists & creators</span>
-          </div>
+          <p class="hero-note" data-i18n="hero.note">
+            Kod yok, render bekleme yok. Sadece müziğini yükle, geri kalanını AIVO halletsin.
+          </p>
         </div>
-
-        <div class="hero-preview">
-          <div class="preview-card">
-            <div class="preview-badge">AI Video Preview</div>
-            <div class="preview-video">
-              <div class="wave-row">
-                <span class="wave-bar"></span>
-                <span class="wave-bar"></span>
-                <span class="wave-bar"></span>
-                <span class="wave-bar"></span>
-                <span class="wave-bar"></span>
-              </div>
+        <div class="hero-media">
+          <div class="hero-card">
+            <div class="hero-card-header">
+              <span data-i18n="hero.preview_label">Canlı Önizleme</span>
+              <span class="hero-status" data-i18n="hero.preview_status">Otomatik senkronize ediliyor…</span>
             </div>
-            <div class="preview-info">
-              <div>
-                <p class="preview-title">“Kül Bahçesi” Visualizer</p>
-                <p class="preview-sub">Electro‑Anatolian · Neon mode</p>
+            <div class="hero-card-body">
+              <div class="hero-waveform" data-i18n="hero.waveform">
+                Kül Bahçesi · Harun Erkezen (Dalzal)
               </div>
-              <button class="btn btn-chip">Generate again 🔁</button>
+              <ul class="hero-bullets">
+                <li data-i18n="hero.bullet_1">Suno’dan gelen ses dosyasını yükle</li>
+                <li data-i18n="hero.bullet_2">Eita / Runway için sahne sahne storyboard al</li>
+                <li data-i18n="hero.bullet_3">TikTok, YouTube, Reels formatlarına tek tıkla uyarla</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- How it works -->
-    <section id="how-it-works" class="section">
+    <section id="features" class="section">
       <div class="container">
-        <h2 class="section-title">How AIVO works</h2>
-        <p class="section-subtitle">From raw idea to finished video in three simple steps.</p>
-        <div class="grid steps-grid">
-          <div class="card step-card">
-            <div class="step-number">1</div>
-            <h3>Upload your sound</h3>
-            <p>Drop in your song, beat, vocal or podcast. AIVO analyses tempo, mood and energy.</p>
-          </div>
-          <div class="card step-card">
-            <div class="step-number">2</div>
-            <h3>Pick a visual style</h3>
-            <p>Choose from neon clubs, retro VHS, anime, cinematic or create your own custom prompt.</p>
-          </div>
-          <div class="card step-card">
-            <div class="step-number">3</div>
-            <h3>Generate & share</h3>
-            <p>AIVO renders a ready‑to‑post video for YouTube, TikTok, Instagram Reels and more.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Features -->
-    <section id="features" class="section section-alt">
-      <div class="container">
-        <h2 class="section-title">Built for modern creators</h2>
-        <p class="section-subtitle">Fast, colourful and optimized for the platforms you care about.</p>
-        <div class="grid features-grid">
-          <div class="card feature-card">
-            <h3>Music‑aware visuals</h3>
-            <p>
-              Beat‑synchronized animations that react to your kicks, snares and vocals,
-              not random stock footage.
+        <h2 data-i18n="features.title">Tüm AI video sürecin tek panelde</h2>
+        <p class="section-intro" data-i18n="features.subtitle">
+          AIVO, müziğini farklı platformlara göre parçalara ayırır, otomatik sahne önerir,
+          prompt’ları hazırlar ve hepsini senin yerine senkronize eder.
+        </p>
+        <div class="grid-3">
+          <div class="card">
+            <h3 data-i18n="features.card1_title">Akıllı storyboard</h3>
+            <p data-i18n="features.card1_body">
+              Şarkının BPM, enerji ve duygusuna göre sahne sahne storyboard ve prompt üret.
             </p>
           </div>
-          <div class="card feature-card">
-            <h3>Preset packs & prompts</h3>
-            <p>
-              One‑click presets inspired by pop, EDM, trap, Anatolian, synthwave and more – plus custom prompts.
+          <div class="card">
+            <h3 data-i18n="features.card2_title">Çoklu platform çıkış</h3>
+            <p data-i18n="features.card2_body">
+              YouTube, TikTok, Reels ve Shorts için oran ve süreleri otomatik ayarla.
             </p>
           </div>
-          <div class="card feature-card">
-            <h3>Multi‑platform exports</h3>
-            <p>
-              Export in perfect sizes for Spotify Canvas, YouTube, Shorts, Instagram and TikTok.
-            </p>
-          </div>
-          <div class="card feature-card">
-            <h3>Credit‑based system</h3>
-            <p>
-              Only pay for what you generate. No subscription lock‑in, ideal for independent artists.
+          <div class="card">
+            <h3 data-i18n="features.card3_title">Çok dilli arayüz</h3>
+            <p data-i18n="features.card3_body">
+              Türkçe, Almanca, Arapça, İspanyolca ve Japonca arayüzle global kullanım.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Pricing -->
+    <section id="how" class="section muted">
+      <div class="container">
+        <h2 data-i18n="how.title">3 adımda AI video</h2>
+        <div class="steps">
+          <div class="step">
+            <span class="step-number">1</span>
+            <h3 data-i18n="how.step1_title">Sesini içeri al</h3>
+            <p data-i18n="how.step1_body">
+              Suno, DAW (Logic, Ableton vb.) veya master dosyanı yükle.
+            </p>
+          </div>
+          <div class="step">
+            <span class="step-number">2</span>
+            <h3 data-i18n="how.step2_title">Sahneleri seç</h3>
+            <p data-i18n="how.step2_body">
+              AIVO’nun önerdiği sahneleri, geçişleri ve metinleri isteğine göre düzenle.
+            </p>
+          </div>
+          <div class="step">
+            <span class="step-number">3</span>
+            <h3 data-i18n="how.step3_title">Platforma göre çıktıyı al</h3>
+            <p data-i18n="how.step3_body">
+              Seçtiğin AI video aracına (Eita, Runway vb.) özel prompt ve dosya paketini indir.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="pricing" class="section">
       <div class="container">
-        <h2 class="section-title">Simple credit‑based pricing</h2>
-        <p class="section-subtitle">
-          Start small, scale when your videos start taking off. No contracts. No hidden fees.
+        <h2 data-i18n="pricing.title">Erken erişime katıl</h2>
+        <p class="section-intro" data-i18n="pricing.subtitle">
+          AIVO şu anda kapalı beta aşamasında. İlk kullanıcılar için ömür boyu indirimli planlar açıyoruz.
         </p>
-        <div class="grid pricing-grid">
+        <div class="pricing-grid">
           <div class="card pricing-card">
-            <h3>Starter</h3>
-            <p class="price">€9<span>/pack</span></p>
-            <p class="price-sub">Perfect for trying AIVO.</p>
-            <ul class="pricing-list">
-              <li>50 video credits</li>
-              <li>Up to 30s per video</li>
-              <li>HD exports</li>
+            <h3 data-i18n="pricing.card1_title">Producer</h3>
+            <p class="pricing-price" data-i18n="pricing.card1_price">Aylık 0₺ (beta)</p>
+            <ul class="pricing-features">
+              <li data-i18n="pricing.card1_feat1">Ayda 10 video proje</li>
+              <li data-i18n="pricing.card1_feat2">Suno &amp; Eita için hazır prompt presetleri</li>
+              <li data-i18n="pricing.card1_feat3">TR + EN arayüz</li>
             </ul>
-            <button class="btn btn-outline full">Buy Starter</button>
           </div>
-
-          <div class="card pricing-card pricing-card-featured">
-            <div class="badge">Most popular</div>
-            <h3>Creator</h3>
-            <p class="price">€29<span>/pack</span></p>
-            <p class="price-sub">For active artists & creators.</p>
-            <ul class="pricing-list">
-              <li>250 video credits</li>
-              <li>Up to 60s per video</li>
-              <li>Priority rendering</li>
-              <li>Spotify Canvas presets</li>
+          <div class="card pricing-card popular">
+            <div class="tag" data-i18n="pricing.popular">En çok tercih edilen</div>
+            <h3 data-i18n="pricing.card2_title">Label</h3>
+            <p class="pricing-price" data-i18n="pricing.card2_price">Aylık 0₺ (beta)</p>
+            <ul class="pricing-features">
+              <li data-i18n="pricing.card2_feat1">Sınırsız proje</li>
+              <li data-i18n="pricing.card2_feat2">Takım kullanımı</li>
+              <li data-i18n="pricing.card2_feat3">TR + EN + DE + AR + ES + JA</li>
             </ul>
-            <button class="btn btn-primary full">Buy Creator Pack</button>
-          </div>
-
-          <div class="card pricing-card">
-            <h3>Studio</h3>
-            <p class="price">€79<span>/pack</span></p>
-            <p class="price-sub">Labels, agencies & studios.</p>
-            <ul class="pricing-list">
-              <li>1000 video credits</li>
-              <li>Up to 90s per video</li>
-              <li>Team access</li>
-              <li>Dedicated support</li>
-            </ul>
-            <button class="btn btn-outline full">Contact Studio</button>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq" class="section section-alt">
-      <div class="container">
-        <h2 class="section-title">FAQ</h2>
-        <p class="section-subtitle">A few quick answers before you start generating.</p>
-        <div class="faq-grid">
-          <div class="faq-item">
-            <h3>What is a credit?</h3>
-            <p>
-              A credit is a unit you spend when generating a new video.
-              Longer videos and higher resolutions use more credits.
-            </p>
+        <form class="waitlist-form">
+          <label for="email" data-i18n="form.label">Erken erişim için e-posta bırak:</label>
+          <div class="waitlist-input-row">
+            <input id="email" type="email" placeholder="you@example.com" />
+            <button type="submit" class="btn primary" data-i18n="form.button">Listeye katıl</button>
           </div>
-          <div class="faq-item">
-            <h3>Can I use AIVO videos commercially?</h3>
-            <p>
-              Yes. You can use AIVO videos in your own music videos, ads, streams and social content.
-              Just make sure you own the music rights.
-            </p>
-          </div>
-          <div class="faq-item">
-            <h3>Do I need any editing skills?</h3>
-            <p>
-              No. AIVO is designed so that artists and creators can generate content
-              without touching a timeline or keyframes.
-            </p>
-          </div>
-          <div class="faq-item">
-            <h3>Will there be a free trial?</h3>
-            <p>
-              We plan to offer free starter credits during launch so you can test the platform
-              before buying larger packs.
-            </p>
-          </div>
-        </div>
+          <p class="form-note" data-i18n="form.note">
+            Spam yok, söz. Sadece AIVO hazır olduğunda haber vereceğiz.
+          </p>
+        </form>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div class="footer-brand">
-        <div class="logo small">
-          <div class="logo-wave"></div>
-          <span class="logo-text">AIVO</span>
-        </div>
-        <p>AI‑powered video studio for modern music creators.</p>
-      </div>
-      <div class="footer-links">
-        <a href="#pricing">Pricing</a>
-        <a href="#features">Features</a>
-        <a href="#faq">FAQ</a>
-      </div>
-      <p class="footer-copy">© 2025 AIVO. All rights reserved.</p>
+      <span data-i18n="footer.copy">© 2025 AIVO · Harun Erkezen (Dalzal)</span>
+      <span data-i18n="footer.made">Müziğini sevenler için tasarlandı.</span>
     </div>
   </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
