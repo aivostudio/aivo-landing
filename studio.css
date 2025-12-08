@@ -4,12 +4,15 @@
   box-sizing: border-box;
 }
 
-body.aivo-body {
+body {
   margin: 0;
+  padding: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-  background: radial-gradient(circle at top left, #3b1f9f 0, #0d1230 45%, #020308 100%);
-  color: #f5f7ff;
-  min-height: 100vh;
+  color: #e5e7eb;
+  background:
+    radial-gradient(circle at top, rgba(139, 92, 246, 0.35) 0, transparent 40%),
+    radial-gradient(circle at 80% 0, rgba(45, 212, 191, 0.25) 0, transparent 45%),
+    #050712;
 }
 
 a {
