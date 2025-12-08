@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const body = document.body;
+
   const basicBtn = document.getElementById("mode-basic-btn");
   const advBtn = document.getElementById("mode-advanced-btn");
   const basicForm = document.getElementById("basic-form");
@@ -9,17 +11,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const coverPanel = document.getElementById("cover-panel");
   const pricingSection = document.getElementById("pricing-section");
 
-  /* ==== 0. ÜST NAV – Müzik / Kapak ==== */
+  /* ========= 0. ÜST NAV – Müzik / Kapak / Üretimlerim ========= */
 
   const navPills = document.querySelectorAll(".nav-pill");
 
   function showSection(target) {
+    if (!musicPanel || !coverPanel) return;
+
     if (target === "music") {
       musicPanel.classList.remove("hidden-card");
       coverPanel.classList.add("hidden-card");
+      body.classList.remove("panel-cover");
+      body.classList.add("panel-music");
     } else if (target === "cover") {
-      musicPanel.classList.add("hidden-card");
       coverPanel.classList.remove("hidden-card");
+      musicPanel.classList.add("hidden-card");
+      body.classList.remove("panel-music");
+      body.classList.add("panel-cover");
     } else if (target === "projects") {
       alert("Üretimlerim sayfası yakında eklenecek.");
     }
@@ -28,33 +36,38 @@ document.addEventListener("DOMContentLoaded", () => {
   navPills.forEach((btn) => {
     btn.addEventListener("click", () => {
       const target = btn.dataset.target;
+
       navPills.forEach((b) => b.classList.remove("nav-pill-active"));
       btn.classList.add("nav-pill-active");
+
       showSection(target);
     });
   });
 
-  // Sol menüden Müzik Üret bağlantısı
+  // Sol menüden “Müzik Üret” tıklanınca üstteki tabı da tetikle
   document
     .querySelectorAll('.side-menu-item[data-target="music"]')
     .forEach((btn) => {
       btn.addEventListener("click", () => {
-        navPills.forEach((b) => {
-          if (b.dataset.target === "music") b.click();
+        navPills.forEach((pill) => {
+          if (pill.dataset.target === "music") pill.click();
         });
       });
     });
 
-  // Kredi Al → fiyat tablosuna scroll
+  // “Kredi Al” → fiyat tablosuna kaydır
   document
     .querySelectorAll('[data-open="pricing"]')
     .forEach((btn) => {
       btn.addEventListener("click", () => {
-        pricingSection?.scrollIntoView({ behavior: "smooth" });
+        if (pricingSection) {
+          pricingSection.scrollIntoView({ behavior: "smooth" });
+        }
       });
     });
 
-  /* ==== 1. KEY LISTESİ (24 nota) ==== */
+  /* ========= 1. KARAR SESİ LİSTESİ (24 nota) ========= */
+
   const KEY_OPTIONS = {
     major: [
       "C",
@@ -89,6 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function fillKeySelect(selectEl) {
     if (!selectEl) return;
     selectEl.innerHTML = "";
+
     const groupMaj = document.createElement("optgroup");
     groupMaj.label = "Majör (Maj)";
     KEY_OPTIONS.major.forEach((k) => {
@@ -97,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
       opt.textContent = k;
       groupMaj.appendChild(opt);
     });
+
     const groupMin = document.createElement("optgroup");
     groupMin.label = "Minör (Min)";
     KEY_OPTIONS.minor.forEach((k) => {
@@ -105,6 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
       opt.textContent = k;
       groupMin.appendChild(opt);
     });
+
     selectEl.appendChild(groupMaj);
     selectEl.appendChild(groupMin);
     selectEl.value = "C";
@@ -113,7 +129,8 @@ document.addEventListener("DOMContentLoaded", () => {
   fillKeySelect(document.getElementById("basic-key"));
   fillKeySelect(document.getElementById("adv-key"));
 
-  /* ==== 2. BPM ÖNERİSİ ==== */
+  /* ========= 2. BPM ÖNERİLERİ ========= */
+
   const genreBpm = {
     pop: "90–120",
     trap: "130–150",
@@ -145,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateBpmHint("adv-genre", "adv-bpm-hint")
   );
 
-  /* ==== 3. Hızlı presetler ==== */
+  /* ========= 3. HIZLI PRESETLER ========= */
 
   function applyPreset(genre, mood) {
     if (basicGenre && genre) {
@@ -173,33 +190,40 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* ==== 4. Basit / Gelişmiş modu ==== */
+  /* ========= 4. BASİT / GELİŞMİŞ MOD GEÇİŞİ + RENK EFEKTİ ========= */
 
   function setMode(mode) {
     if (!basicBtn || !advBtn || !basicForm || !advForm) return;
+
     if (mode === "basic") {
       basicBtn.classList.add("active");
       advBtn.classList.remove("active");
       basicForm.classList.remove("hidden");
       advForm.classList.add("hidden");
+      body.classList.add("mode-basic");
+      body.classList.remove("mode-advanced");
     } else {
       advBtn.classList.add("active");
       basicBtn.classList.remove("active");
       advForm.classList.remove("hidden");
       basicForm.classList.add("hidden");
+      body.classList.add("mode-advanced");
+      body.classList.remove("mode-basic");
     }
   }
 
   basicBtn?.addEventListener("click", () => setMode("basic"));
   advBtn?.addEventListener("click", () => setMode("advanced"));
 
-  // Varsayılan: Gelişmiş açık olsun
+  // Varsayılan: Gelişmiş açık
   setMode("advanced");
+  body.classList.add("panel-music");
 
-  /* ==== 5. Demo – payload log ==== */
+  /* ========= 5. DEMO – PAYLOAD LOG ========= */
 
   generateBtn?.addEventListener("click", (e) => {
     e.preventDefault();
+
     const isBasicVisible = !basicForm.classList.contains("hidden");
 
     if (isBasicVisible) {
@@ -213,7 +237,9 @@ document.addEventListener("DOMContentLoaded", () => {
         key: document.getElementById("basic-key")?.value || "C"
       };
       console.log("BASIT MOD PAYLOAD", payload);
-      alert("Basit mod verileri konsola yazıldı (demo). Gerçek üretim için backend'e bağlanacak.");
+      alert(
+        "Basit mod verileri konsola yazıldı (demo). Gerçek üretim için backend'e bağlanacak."
+      );
     } else {
       const payload = {
         mode: "advanced",
@@ -228,7 +254,9 @@ document.addEventListener("DOMContentLoaded", () => {
         vocal: document.getElementById("adv-vocal")?.value || ""
       };
       console.log("GELISMIS MOD PAYLOAD", payload);
-      alert("Gelişmiş mod verileri konsola yazıldı (demo). Gerçek üretim için backend'e bağlanacak.");
+      alert(
+        "Gelişmiş mod verileri konsola yazıldı (demo). Gerçek üretim için backend'e bağlanacak."
+      );
     }
   });
 });
