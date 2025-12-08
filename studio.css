@@ -7,7 +7,7 @@
 body.aivo-body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-  background: radial-gradient(circle at top left, #2e1b7a 0, #050814 45%, #020308 100%);
+  background: radial-gradient(circle at top left, #3b1f9f 0, #0d1230 45%, #020308 100%);
   color: #f5f7ff;
   min-height: 100vh;
 }
@@ -433,4 +433,19 @@ legend {
     align-items: flex-start;
     gap: 10px;
   }
+}
+
+
+/* === Basic / Advanced mode visibility === */
+.music-form[data-mode="basic"] .advanced-only {
+  display: none;
+}
+
+.music-form[data-mode="advanced"] .basic-only {
+  display: none;
+}
+
+/* Varsayılan: gelişmiş mod */
+.music-form:not([data-mode]) .basic-only {
+  display: none;
 }
