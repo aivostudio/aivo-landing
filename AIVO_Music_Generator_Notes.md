@@ -1,103 +1,36 @@
-# AIVO Studio – Müzik Üret (Atlas Notları)
+# AIVO Müzik Üretici – Teknik Notlar
 
-Bu dosya, AIVO Müzik Üret ekranının hem Basit Mod hem de Gelişmiş Mod için temel notlarını içerir.
+Bu doküman, `studio.html` / `studio.js` arayüzünün nasıl çalıştığını özetler.
 
-## 1. Modlar
+## Modlar
 
-- Basit Mod:
-  - Az alan, az seçenek.
-  - Açıklama + hızlı öneri + vokal.
-  - Tempo, tür, mood, key, enstrümanlar AI tarafından otomatik seçilir.
+- Basit Mod
+  - Kullanıcı yalnızca kısa bir açıklama ve vokal tipi seçer.
+  - Tür, BPM, mood gibi alanlar otomatik önerilir (backend tarafında).
+- Gelişmiş Mod
+  - Tür, mood, BPM, karar sesi (key), vokal tipi, mix stili, Türk/modern enstrümanlar seçilebilir.
+  - `KEY_OPTIONS` ile 24 major/minor nota dropdown'u oluşturulur.
 
-- Gelişmiş Mod:
-  - Tür, mood, tempo, key, makam, enstrüman seçimi gibi tüm parametreler kullanıcı tarafından kontrol edilebilir.
-  - Profesyonel kullanıcılar ve ince ayar isteyenler içindir.
+## BPM Öneri Mantığı (Front-end)
 
-## 2. Gelişmiş Mod Özet (Müzikal Alanlar)
+`studio.js` içinde `updateBpmHint()` fonksiyonu, seçilen tür ve mood'a göre basit bir BPM aralığı önerir:
 
-- Şarkı adı
-- Açıklama
-- Şarkı sözleri (opsiyonel)
-- Tür (Genre)
-- Mood
-- Tempo (BPM)
-- Karar sesi (Key) – 24'lü Major/Minor yapı
-- Vokal türü (enstrümantal, erkek, kadın, çoklu, koro)
-- Makam / dizi (Hicaz, Hüseyni, Rast vb.)
-- Enstrüman seçimi (Türk + modern enstrümanlar)
-- Ek prompt
+- Pop + Enerjik → 112–124
+- Pop + Diğer mood'lar → 96–108
+- Rock → 120–140
+- Rap / Trap → 80–96
+- EDM → 122–130
+- Anadolu Pop → 96–112
 
-## 3. Karar Sesi (Key) – 24'lü Tam Liste
+Bu aralıkların ortalama değeri input alanına otomatik yazılır (eğer kullanıcı BPM girmediyse).
 
-Major (Maj):
-- C
-- C# / Db
-- D
-- D# / Eb
-- E
-- F
-- F# / Gb
-- G
-- G# / Ab
-- A
-- A# / Bb
-- B
+## Key (Karar Sesi) Dropdown'u
 
-Minor (Min):
-- Cm
-- C#m / Dbm
-- Dm
-- D#m / Ebm
-- Em
-- Fm
-- F#m / Gbm
-- Gm
-- G#m / Abm
-- Am
-- A#m / Bbm
-- Bm
+`KEY_OPTIONS`:
 
-Bu liste Suno/Eita gibi modern müzik üreticilerdeki standart tonalite setine karşılık gelir.
+- `major`: C, C# / Db, D, ... B
+- `minor`: Cm, C#m / Dbm, ... Bm
 
-## 4. Key Dropdown UI Önerisi
+Bu değerler hem `music/keys/keys.json` içinde saklanır, hem de `studio.js` içinde kullanıma hazırdır.
 
-Select içinde iki grup:
-
-Major (Maj)
-──────────
-C
-C# / Db
-D
-D# / Eb
-E
-F
-F# / Gb
-G
-G# / Ab
-A
-A# / Bb
-B
-
-Minor (Min)
-──────────
-Cm
-C#m / Dbm
-Dm
-D#m / Ebm
-Em
-Fm
-F#m / Gbm
-Gm
-G#m / Abm
-Am
-A#m / Bbm
-Bm
-
-## 5. Basit Mod ve Gelişmiş Mod İlişkisi
-
-- Basit Mod:
-  - Kullanıcı sade arayüzle sadece "ne hissettiğini" anlatır.
-  - Arka planda Gelişmiş Mod parametreleri AI tarafından set edilir.
-
-- Gelişmiş Mod:
-  - Basit Mod'da auto seçilen tüm parametreler, kullanıcıya açılır ve düzenlenebilir hale gelir.
+Backend tarafında bu listeler doğrudan kullanılabilir.

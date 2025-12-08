@@ -1,30 +1,12 @@
-AIVO Studio - Müzik Üret UI (Basit + Gelişmiş Mod)
+# AIVO Studio – Full Pro Paket
 
-Bu paket, Basit/Gelişmiş mod geçişi ve eksiksiz nota listesi ile çalışan
-örnek bir Müzik Üret sayfası içerir.
+Bu paket, AIVO Studio'nun Müzik Üret ekranı için tam bir örnek arayüz, JS davranışı ve notları içerir.
 
-Klasör yapısı:
+- `studio.html` – Ana HTML sayfası (navbar + müzik formu + sağ panel)
+- `studio.css` – AIVO tarzı koyu arayüz, gradient'ler, layout
+- `studio.js` – Basit & Gelişmiş mod geçişi, BPM öneri mantığı, key dropdown (24 nota)
+- `atlas/AIVO_Music_Generator_Notes.md` – Üretim mantığı ve geliştirici notları
+- `ui/AIVO_Basic_Mod_UI.md` – Basit & gelişmiş form alanlarının açıklaması
+- `music/keys/*` – 24 adet majör/minör key için veri dosyaları
 
-- music/keys/keys.ts       -> Major/Minor 24 notalık KEY_OPTIONS
-- music/keys/keys.json     -> Aynı verinin JSON hali
-- music/keys/keys_notes.txt-> İnsan okunabilir liste
-- src/components/AivoBasicMusicForm.tsx
-- src/components/AivoAdvancedMusicForm.tsx
-- src/components/AivoMusicPage.tsx      -> Mod state'ini yöneten ana sayfa
-
-Projene entegrasyon için:
-
-1) Bu klasörü kendi proje köküne kopyala.
-2) music/keys/keys.ts dosya yolunu import path'lerine göre düzenle.
-3) AivoMusicPage'i istediğin route altında render et:
-
-   Örneğin Next.js:
-   - app/aivo/music/page.tsx içinde:
-
-      import { AivoMusicPage } from "@/src/components/AivoMusicPage";
-
-      export default function Page() {
-        return <AivoMusicPage />;
-      }
-
-4) Advanced form'un içindeki alanları, kendi mevcut Gelişmiş form alanlarınla birleştirebilirsin.
+Gerçek üretim için sadece `studio.js` içindeki `console.log/alert` kısımlarını backend entegrasyonu ile değiştirmeniz yeterlidir.
