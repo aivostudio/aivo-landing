@@ -1,143 +1,145 @@
+document.addEventListener("DOMContentLoaded", function () {
+  // Mod toggle
+  const basicBtn = document.getElementById("mode-basic-btn");
+  const advBtn = document.getElementById("mode-advanced-btn");
+  const basicForm = document.getElementById("basic-form");
+  const advancedForm = document.getElementById("advanced-form");
 
-const navLinks = document.querySelectorAll(".nav-link");
-const sideTabs = document.querySelectorAll(".side-tab");
-const views = document.querySelectorAll(".view");
-const modeBtns = document.querySelectorAll(".mode-btn");
-const presetChips = document.querySelectorAll(".preset-chip");
-const bpmInput = document.getElementById("bpm");
-const moodSelect = document.getElementById("mood");
-const genreSelect = document.getElementById("genre");
-const bpmHint = document.getElementById("bpmHint");
-const createTrackBtn = document.getElementById("createTrack");
-const trackGrid = document.getElementById("trackGrid");
+  function setMode(mode) {
+    if (!basicBtn || !advBtn || !basicForm || !advancedForm) return;
 
-function activateView(viewName) {
-  navLinks.forEach((btn) => {
-    btn.classList.toggle("active", btn.dataset.view === viewName);
-  });
-
-  sideTabs.forEach((btn) => {
-    btn.classList.toggle("active", btn.dataset.view === viewName);
-  });
-
-  views.forEach((v) => {
-    if (v.classList.contains(`view-${viewName}`)) {
-      v.classList.add("active");
+    if (mode === "basic") {
+      basicBtn.classList.add("active");
+      advBtn.classList.remove("active");
+      basicForm.style.display = "block";
+      advancedForm.style.display = "none";
     } else {
-      v.classList.remove("active");
+      advBtn.classList.add("active");
+      basicBtn.classList.remove("active");
+      advancedForm.style.display = "block";
+      basicForm.style.display = "none";
     }
-  });
-}
+  }
 
-navLinks.forEach((btn) => {
-  btn.addEventListener("click", () => activateView(btn.dataset.view));
+  if (basicBtn && advBtn) {
+    basicBtn.addEventListener("click", function () {
+      setMode("basic");
+    });
+    advBtn.addEventListener("click", function () {
+      setMode("advanced");
+    });
+  }
+
+  // Başlangıç modu: Basit
+  setMode("basic");
+
+  // KEY OPTIONS - 24 nota (Major + Minor)
+  const KEY_OPTIONS = {
+    major: [
+      "C",
+      "C# / Db",
+      "D",
+      "D# / Eb",
+      "E",
+      "F",
+      "F# / Gb",
+      "G",
+      "G# / Ab",
+      "A",
+      "A# / Bb",
+      "B",
+    ],
+    minor: [
+      "Cm",
+      "C#m / Dbm",
+      "Dm",
+      "D#m / Ebm",
+      "Em",
+      "Fm",
+      "F#m / Gbm",
+      "Gm",
+      "G#m / Abm",
+      "Am",
+      "A#m / Bbm",
+      "Bm",
+    ],
+  };
+
+  // Karar Sesi dropdown'unu doldur
+  const keySelect = document.getElementById("key-select");
+  if (keySelect) {
+    // Önce içini temizle
+    keySelect.innerHTML = "";
+
+    const majorGroup = document.createElement("optgroup");
+    majorGroup.label = "Major (Maj)";
+    KEY_OPTIONS.major.forEach((k) => {
+      const opt = document.createElement("option");
+      opt.value = k;
+      opt.textContent = k;
+      majorGroup.appendChild(opt);
+    });
+
+    const minorGroup = document.createElement("optgroup");
+    minorGroup.label = "Minor (Min)";
+    KEY_OPTIONS.minor.forEach((k) => {
+      const opt = document.createElement("option");
+      opt.value = k;
+      opt.textContent = k;
+      minorGroup.appendChild(opt);
+    });
+
+    keySelect.appendChild(majorGroup);
+    keySelect.appendChild(minorGroup);
+
+    keySelect.value = "C";
+  }
+
+  // Basit form - öneri chip'leri seçilebilir hale getir
+  const suggestionContainer = document.getElementById("basic-suggestions");
+  if (suggestionContainer) {
+    suggestionContainer.addEventListener("click", function (e) {
+      const target = e.target;
+      if (target instanceof HTMLElement && target.classList.contains("chip")) {
+        // Tek seçim: önce diğerlerinden active'i kaldır
+        Array.from(suggestionContainer.querySelectorAll(".chip")).forEach((chip) =>
+          chip.classList.remove("active")
+        );
+        target.classList.add("active");
+      }
+    });
+  }
+
+  // Basit ve gelişmiş submit butonları sadece konsola log atıyor (şimdilik)
+  const basicSubmit = document.getElementById("basic-submit");
+  if (basicSubmit) {
+    basicSubmit.addEventListener("click", function () {
+      const title = /** @type {HTMLInputElement} */ (document.getElementById("basic-title"))?.value || "";
+      const desc = /** @type {HTMLTextAreaElement} */ (document.getElementById("basic-description"))?.value || "";
+      let suggestion = null;
+      if (suggestionContainer) {
+        const activeChip = suggestionContainer.querySelector(".chip.active");
+        suggestion = activeChip ? activeChip.textContent : null;
+      }
+      let vocal = "instrumental";
+      const radios = document.querySelectorAll('input[name="basic-vocal"]');
+      radios.forEach((r) => {
+        const input = /** @type {HTMLInputElement} */ (r);
+        if (input.checked) vocal = input.value;
+      });
+
+      console.log("BASIT MOD PAYLOAD", { title, desc, suggestion, vocal });
+      alert("Basit mod verileri konsola yazıldı (demo). Gerçek üretim için backend'e bağlanacak.");
+    });
+  }
+
+  const advancedSubmit = document.getElementById("advanced-submit");
+  if (advancedSubmit) {
+    advancedSubmit.addEventListener("click", function () {
+      const key =
+        /** @type {HTMLSelectElement} */ (document.getElementById("key-select"))?.value || "C";
+      console.log("GELISMIŞ MOD - Seçilen Key:", key);
+      alert("Gelişmiş mod verileri konsola yazıldı (demo). Gerçek üretim için backend'e bağlanacak.");
+    });
+  }
 });
-
-sideTabs.forEach((btn) => {
-  btn.addEventListener("click", () => activateView(btn.dataset.view));
-});
-
-// mode (şimdilik sadece görsel)
-modeBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    modeBtns.forEach((b) => b.classList.remove("active"));
-    btn.classList.add("active");
-  });
-});
-
-// Presetler
-const presetConfigs = {
-  gulsentype: {
-    genre: "Türkçe Pop",
-    mood: "Enerjik",
-    bpm: 118,
-  },
-  hadise: {
-    genre: "Türkçe Pop",
-    mood: "Enerjik",
-    bpm: 122,
-  },
-  deep: {
-    genre: "EDM",
-    mood: "Melankolik",
-    bpm: 124,
-  },
-  anadolu: {
-    genre: "Anadolu",
-    mood: "Duygusal",
-    bpm: 100,
-  },
-  slowed: {
-    genre: "Pop",
-    mood: "Melankolik",
-    bpm: 90,
-  },
-};
-
-presetChips.forEach((chip) => {
-  chip.addEventListener("click", () => {
-    const key = chip.dataset.preset;
-    const cfg = presetConfigs[key];
-    if (!cfg) return;
-    genreSelect.value = cfg.genre;
-    moodSelect.value = cfg.mood;
-    bpmInput.value = cfg.bpm;
-    updateBpmHint();
-  });
-});
-
-// BPM öneri güncelleme (basit logic)
-function updateBpmHint() {
-  const genre = genreSelect.value;
-  const mood = moodSelect.value;
-
-  let range = "112–116";
-  if (genre === "EDM" || genre === "Trap") range = "120–128";
-  if (genre === "Balad" || mood === "Duygusal" || mood === "Melankolik")
-    range = "80–96";
-  if (genre === "Anadolu") range = "96–110";
-
-  bpmHint.textContent = "Önerilen BPM: " + range;
-}
-
-genreSelect.addEventListener("change", updateBpmHint);
-moodSelect.addEventListener("change", updateBpmHint);
-
-// Sahte track oluşturma (UI için)
-let trackCount = 0;
-
-function createFakeTrackCard() {
-  trackCount += 1;
-  const title = document.getElementById("title").value || "İsimsiz Parça " + trackCount;
-  const duration = Math.floor(150 + Math.random() * 90); // saniye
-  const min = Math.floor(duration / 60);
-  const sec = String(duration % 60).padStart(2, "0");
-
-  const card = document.createElement("div");
-  card.className = "track-card";
-  card.innerHTML = `
-    <div class="track-cover">AIVO</div>
-    <div class="track-meta">
-      <strong>${title}</strong>
-      <small>${min}:${sec} • ${genreSelect.value} / ${moodSelect.value}</small>
-    </div>
-    <div class="track-actions">
-      <button>Dinle</button>
-      <button>İndir</button>
-      <button>Projeye Ekle</button>
-    </div>
-  `;
-  return card;
-}
-
-createTrackBtn.addEventListener("click", () => {
-  const empty = trackGrid.querySelector(".empty-state");
-  if (empty) empty.remove();
-
-  const card = createFakeTrackCard();
-  trackGrid.prepend(card);
-});
-
-// ilk açılış
-activateView("music");
-updateBpmHint();
