@@ -475,4 +475,7 @@ main,
   grid-template-columns: minmax(260px, 0.9fr) minmax(680px, 2fr) minmax(320px, 1.1fr);
   gap: 32px;
   align-items: flex-start;
+}body {
+  min-height: 100vh;
 }
+
