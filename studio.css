@@ -460,3 +460,19 @@ legend {
 .music-form:not([data-mode]) .basic-only {
   display: none;
 }
+/* Ana içerik alanını büyüt ve ortala */
+main,
+.aivo-layout {
+  max-width: 1480px;               /* geniş ekranlarda daha yayvan */
+  margin: 0 auto;                  /* yatayda ortala */
+  padding: 32px 40px 72px;         /* üst / yan / alt boşluk */
+}
+
+/* İçerik kartlarını daha düzgün hizala (3 kolon: sidebar + müzik + sağ panel) */
+.studio-layout,
+.aivo-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.9fr) minmax(680px, 2fr) minmax(320px, 1.1fr);
+  gap: 32px;
+  align-items: flex-start;
+}
