@@ -86,7 +86,7 @@ presetChips.forEach((chip) => {
   });
 });
 
-// BPM öneri güncelleme (çok basit logic)
+// BPM öneri güncelleme (basit logic)
 function updateBpmHint() {
   const genre = genreSelect.value;
   const mood = moodSelect.value;
@@ -131,7 +131,6 @@ function createFakeTrackCard() {
 }
 
 createTrackBtn.addEventListener("click", () => {
-  // empty message varsa temizle
   const empty = trackGrid.querySelector(".empty-state");
   if (empty) empty.remove();
 
