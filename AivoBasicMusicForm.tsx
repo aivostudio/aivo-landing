@@ -122,23 +122,7 @@ export const AivoBasicMusicForm: React.FC<AivoBasicMusicFormProps> = ({ onSubmit
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-semibold">Müzik Üret</h1>
-          <p className="text-sm opacity-70">
-            AI ile saniyeler içinde özgün müzik üretin.
-          </p>
-        </div>
-        <div className="flex items-center gap-2 text-sm">
-          <button className="px-3 py-1 rounded-full bg-white/10 border border-white/20">
-            Basit Mod
-          </button>
-          <button className="px-3 py-1 rounded-full border border-white/10 opacity-70">
-            Gelişmiş Mod
-          </button>
-        </div>
-      </div>
-
+      {/* Şarkı Adı */}
       <div className="flex flex-col gap-2">
         <label className="text-sm font-medium">Şarkı Adı (opsiyonel)</label>
         <input
@@ -150,6 +134,7 @@ export const AivoBasicMusicForm: React.FC<AivoBasicMusicFormProps> = ({ onSubmit
         />
       </div>
 
+      {/* Açıklama */}
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
           <label className="text-sm font-medium">Müzik Açıklaması</label>
@@ -169,6 +154,7 @@ export const AivoBasicMusicForm: React.FC<AivoBasicMusicFormProps> = ({ onSubmit
         </p>
       </div>
 
+      {/* Hızlı Öneriler */}
       <div className="flex flex-col gap-2">
         <label className="text-sm font-medium">Hızlı Öneriler</label>
         <div className="flex flex-wrap gap-2">
@@ -192,6 +178,7 @@ export const AivoBasicMusicForm: React.FC<AivoBasicMusicFormProps> = ({ onSubmit
         </div>
       </div>
 
+      {/* Vokal Türü */}
       <div className="flex flex-col gap-2">
         <label className="text-sm font-medium">Vokal</label>
         <div className="flex flex-wrap gap-4 text-sm">
@@ -222,6 +209,7 @@ export const AivoBasicMusicForm: React.FC<AivoBasicMusicFormProps> = ({ onSubmit
         </div>
       </div>
 
+      {/* Aksiyon Butonu */}
       <div className="flex flex-col gap-2">
         <button
           type="button"
