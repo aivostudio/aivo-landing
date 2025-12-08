@@ -1,29 +1,7 @@
-AIVO Key Listesi – 24 nota (Major + Minor)
+AIVO Key Options (24 nota):
 
 Major:
-- C
-- C# / Db
-- D
-- D# / Eb
-- E
-- F
-- F# / Gb
-- G
-- G# / Ab
-- A
-- A# / Bb
-- B
+C, C# / Db, D, D# / Eb, E, F, F# / Gb, G, G# / Ab, A, A# / Bb, B
 
 Minor:
-- Cm
-- C#m / Dbm
-- Dm
-- D#m / Ebm
-- Em
-- Fm
-- F#m / Gbm
-- Gm
-- G#m / Abm
-- Am
-- A#m / Bbm
-- Bm
+Cm, C#m / Dbm, Dm, D#m / Ebm, Em, Fm, F#m / Gbm, Gm, G#m / Abm, Am, A#m / Bbm, Bm

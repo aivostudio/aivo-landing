@@ -1,12 +1,19 @@
-# AIVO Studio – Full Pro Paket
+AIVO Studio – Full Pro v2
 
-Bu paket, AIVO Studio'nun Müzik Üret ekranı için tam bir örnek arayüz, JS davranışı ve notları içerir.
+Bu klasör, demo amaçlı tam bir AIVO Studio arayüzü içerir:
 
-- `studio.html` – Ana HTML sayfası (navbar + müzik formu + sağ panel)
-- `studio.css` – AIVO tarzı koyu arayüz, gradient'ler, layout
-- `studio.js` – Basit & Gelişmiş mod geçişi, BPM öneri mantığı, key dropdown (24 nota)
-- `atlas/AIVO_Music_Generator_Notes.md` – Üretim mantığı ve geliştirici notları
-- `ui/AIVO_Basic_Mod_UI.md` – Basit & gelişmiş form alanlarının açıklaması
-- `music/keys/*` – 24 adet majör/minör key için veri dosyaları
+- studio.html
+- studio.css
+- studio.js
+- aivo-logo.png
+- atlas/AIVO_Music_Generator_Notes.md
+- music/keys/*
 
-Gerçek üretim için sadece `studio.js` içindeki `console.log/alert` kısımlarını backend entegrasyonu ile değiştirmeniz yeterlidir.
+Kullanım (GitHub + Vercel):
+
+1. GitHub reposunda (ör: aivo-landing) bu dosyaları `studio.html`, `studio.css`,
+   `studio.js` ve `aivo-logo.png` olarak root’a yükleyin (varsa eskilerinin üzerine yazın).
+2. `atlas` ve `music/keys` klasörlerini de isteğe bağlı olarak ekleyebilirsiniz;
+   sadece dokümantasyon amaçlıdır.
+3. Commit sonrası Vercel otomatik olarak deploy eder.
+4. Tarayıcıda `/studio.html` adresini açarak arayüzü kullanabilirsiniz.
