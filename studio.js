@@ -1,204 +1,194 @@
-// AIVO Studio front-end demo logic
-document.addEventListener("DOMContentLoaded", function () {
-  // Mode toggle (Basit / Gelişmiş)
+
+document.addEventListener("DOMContentLoaded", () => {
   const basicBtn = document.getElementById("mode-basic-btn");
   const advBtn = document.getElementById("mode-advanced-btn");
-  const musicForm = document.getElementById("music-form");
+  const basicForm = document.getElementById("basic-form");
+  const advForm = document.getElementById("advanced-form");
+  const generateBtn = document.getElementById("generate-btn");
 
-  function setMode(mode) {
-    if (!basicBtn || !advBtn || !musicForm) return;
-    if (mode === "basic") {
-      basicBtn.classList.add("active");
-      advBtn.classList.remove("active");
-      musicForm.dataset.mode = "basic";
-    } else {
-      advBtn.classList.add("active");
-      basicBtn.classList.remove("active");
-      musicForm.dataset.mode = "advanced";
-    }
-  }
-
-  if (basicBtn && advBtn) {
-    basicBtn.addEventListener("click", function () { setMode("basic"); });
-    advBtn.addEventListener("click", function () { setMode("advanced"); });
-  }
-  setMode("advanced"); // varsayılan
-
-  // Key options (24 nota)
+  /* ==== 1. KEY LISTESİ (24 nota) ==== */
   const KEY_OPTIONS = {
     major: [
-      "C","C# / Db","D","D# / Eb","E","F","F# / Gb","G","G# / Ab","A","A# / Bb","B"
+      "C",
+      "C# / Db",
+      "D",
+      "D# / Eb",
+      "E",
+      "F",
+      "F# / Gb",
+      "G",
+      "G# / Ab",
+      "A",
+      "A# / Bb",
+      "B"
     ],
     minor: [
-      "Cm","C#m / Dbm","Dm","D#m / Ebm","Em","Fm","F#m / Gbm","Gm","G#m / Abm","Am","A#m / Bbm","Bm"
+      "Cm",
+      "C#m / Dbm",
+      "Dm",
+      "D#m / Ebm",
+      "Em",
+      "Fm",
+      "F#m / Gbm",
+      "Gm",
+      "G#m / Abm",
+      "Am",
+      "A#m / Bbm",
+      "Bm"
     ]
   };
 
-  const keySelect = document.getElementById("key-select");
-  if (keySelect) {
-    keySelect.innerHTML = "";
-    const majorGroup = document.createElement("optgroup");
-    majorGroup.label = "Major (Maj)";
-    KEY_OPTIONS.major.forEach(k => {
+  function fillKeySelect(selectEl) {
+    if (!selectEl) return;
+    selectEl.innerHTML = "";
+    const groupMaj = document.createElement("optgroup");
+    groupMaj.label = "Majör (Maj)";
+    KEY_OPTIONS.major.forEach((k) => {
       const opt = document.createElement("option");
       opt.value = k;
       opt.textContent = k;
-      majorGroup.appendChild(opt);
+      groupMaj.appendChild(opt);
     });
-    const minorGroup = document.createElement("optgroup");
-    minorGroup.label = "Minor (Min)";
-    KEY_OPTIONS.minor.forEach(k => {
+    const groupMin = document.createElement("optgroup");
+    groupMin.label = "Minör (Min)";
+    KEY_OPTIONS.minor.forEach((k) => {
       const opt = document.createElement("option");
       opt.value = k;
       opt.textContent = k;
-      minorGroup.appendChild(opt);
+      groupMin.appendChild(opt);
     });
-    keySelect.appendChild(majorGroup);
-    keySelect.appendChild(minorGroup);
-    keySelect.value = "C";
+    selectEl.appendChild(groupMaj);
+    selectEl.appendChild(groupMin);
+    selectEl.value = "C";
   }
 
-  // BPM suggestion based on genre + mood
-  const genreSelect = document.getElementById("genre");
-  const moodSelect = document.getElementById("song-mood");
-  const bpmInput = document.getElementById("bpm");
-  const bpmRangeText = document.getElementById("bpm-range-text");
+  fillKeySelect(document.getElementById("basic-key"));
+  fillKeySelect(document.getElementById("adv-key"));
 
-  function getBpmSuggestion(genre, mood) {
-    // basit tablo
-    let min = 90, max = 120;
-    if (genre === "pop" && mood === "enerjik") { min = 110; max = 126; }
-    else if (genre === "pop" && mood === "duygusal") { min = 80; max = 100; }
-    else if (genre === "deep-house") { min = 118; max = 126; }
-    else if (genre === "trap") { min = 130; max = 150; }
-    else if (genre === "lofi") { min = 70; max = 86; }
-    else if (genre === "arabesk") { min = 80; max = 110; }
-    return { min, max, mid: Math.round((min + max) / 2) };
+  /* ==== 2. BPM ÖNERİSİ – çok basit mantık ==== */
+  const genreBpm = {
+    pop: "90–120",
+    trap: "130–150",
+    deep: "118–124",
+    rock: "100–140",
+    anadolu: "90–110",
+    slow: "60–80"
+  };
+
+  function updateBpmHint(selectId, hintId) {
+    const select = document.getElementById(selectId);
+    const hint = document.getElementById(hintId);
+    if (!select || !hint) return;
+
+    const value = select.value;
+    const range = genreBpm[value];
+    hint.textContent = range
+      ? `Önerilen BPM: ${range}`
+      : "Önerilen BPM: 90–120";
   }
 
-  function updateBpmHint() {
-    if (!bpmInput || !bpmRangeText) return;
-    const genre = genreSelect ? genreSelect.value : "";
-    const mood = moodSelect ? moodSelect.value : "";
-    const { min, max, mid } = getBpmSuggestion(genre, mood);
-    bpmRangeText.textContent = `Önerilen BPM: ${min}–${max}`;
-    if (!bpmInput.dataset.userTouched) {
-      bpmInput.value = String(mid);
+  const basicGenre = document.getElementById("basic-genre");
+  const advGenre = document.getElementById("adv-genre");
+
+  if (basicGenre) {
+    basicGenre.addEventListener("change", () =>
+      updateBpmHint("basic-genre", "basic-bpm-hint")
+    );
+  }
+  if (advGenre) {
+    advGenre.addEventListener("change", () =>
+      updateBpmHint("adv-genre", "adv-bpm-hint")
+    );
+  }
+
+  /* ==== 3. Hızlı presetler (sol & form içi) ==== */
+  function applyPreset(genre, mood) {
+    if (basicGenre && genre) {
+      basicGenre.value = genre;
+      updateBpmHint("basic-genre", "basic-bpm-hint");
+    }
+    const moodSelect = document.getElementById("basic-mood");
+    if (moodSelect && mood) {
+      moodSelect.value = mood;
     }
   }
 
-  if (bpmInput) {
-    bpmInput.addEventListener("input", () => {
-      bpmInput.dataset.userTouched = "1";
+  document.querySelectorAll(".preset-chip").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const genre = btn.getAttribute("data-genre");
+      const mood = btn.getAttribute("data-mood");
+      applyPreset(genre, mood);
     });
-  }
-  if (genreSelect) genreSelect.addEventListener("change", updateBpmHint);
-  if (moodSelect) moodSelect.addEventListener("change", updateBpmHint);
-  updateBpmHint();
+  });
 
-  // Hızlı preset chipleri
-  const chips = document.querySelectorAll(".chip");
-  if (chips.length) {
-    chips.forEach(chip => {
-      chip.addEventListener("click", () => {
-        const genre = chip.dataset.genre;
-        const mood = chip.dataset.mood;
-        if (genreSelect && genre) genreSelect.value = genre;
-        if (moodSelect && mood) moodSelect.value = mood;
-        updateBpmHint();
-      });
+  document.querySelectorAll(".chip[data-genre]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const genre = btn.getAttribute("data-genre");
+      applyPreset(genre, null);
     });
-  }
+  });
 
-  // Main view switching (Müzik / Kapak / Üretimlerim)
-  const tabButtons = document.querySelectorAll("[data-main-view]");
-  const panels = document.querySelectorAll("[data-main-panel]");
+  /* ==== 4. Basit / Gelişmiş modu ==== */
 
-  function setMainView(view) {
-    tabButtons.forEach(btn => {
-      btn.classList.toggle("active", btn.getAttribute("data-main-view") === view);
-    });
-    panels.forEach(panel => {
-      panel.classList.toggle("active", panel.getAttribute("data-main-panel") === view);
-    });
+  function setMode(mode) {
+    if (!basicBtn || !advBtn || !basicForm || !advForm) return;
+    if (mode === "basic") {
+      basicBtn.classList.add("active");
+      advBtn.classList.remove("active");
+      basicForm.classList.remove("hidden");
+      advForm.classList.add("hidden");
+    } else {
+      advBtn.classList.add("active");
+      basicBtn.classList.remove("active");
+      advForm.classList.remove("hidden");
+      basicForm.classList.add("hidden");
+    }
   }
 
-  if (tabButtons.length && panels.length) {
-    tabButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        const view = btn.getAttribute("data-main-view");
-        if (view) setMainView(view);
-      });
-    });
+  if (basicBtn) {
+    basicBtn.addEventListener("click", () => setMode("basic"));
   }
-  setMainView("music");
-
-  // Dil seçimi (şimdilik demo)
-  const langSelect = document.getElementById("lang-select");
-  if (langSelect) {
-    langSelect.addEventListener("change", () => {
-      console.log("Seçilen dil:", langSelect.value);
-    });
+  if (advBtn) {
+    advBtn.addEventListener("click", () => setMode("advanced"));
   }
 
-  // Form submit - demo payload
-  const musicSubmit = document.getElementById("music-submit");
-  const coverSubmit = document.getElementById("cover-submit");
-  const recentList = document.getElementById("recent-list");
+  setMode("advanced"); // girişte gelişmiş açık olsun
 
-  function collectFormData(form) {
-    const data = {};
-    const formData = new FormData(form);
-    for (const [key, value] of formData.entries()) {
-      if (data[key]) {
-        if (Array.isArray(data[key])) data[key].push(value);
-        else data[key] = [data[key], value];
+  /* ==== 5. Sadece demo için – veriyi console.log ==== */
+
+  if (generateBtn) {
+    generateBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const isBasicVisible = !basicForm.classList.contains("hidden");
+
+      if (isBasicVisible) {
+        const payload = {
+          mode: "basic",
+          title: document.getElementById("basic-title")?.value || "",
+          mood: document.getElementById("basic-mood")?.value || "",
+          desc: document.getElementById("basic-desc")?.value || "",
+          genre: document.getElementById("basic-genre")?.value || "",
+          bpm: document.getElementById("basic-bpm")?.value || "",
+          key: document.getElementById("basic-key")?.value || "C"
+        };
+        console.log("BASIT MOD PAYLOAD", payload);
+        alert("Basit mod verileri konsola yazıldı (demo). Gerçek üretim için backend'e bağlanacak.");
       } else {
-        data[key] = value;
+        const payload = {
+          mode: "advanced",
+          title: document.getElementById("adv-title")?.value || "",
+          mood: document.getElementById("adv-mood")?.value || "",
+          desc: document.getElementById("adv-desc")?.value || "",
+          lyrics: document.getElementById("adv-lyrics")?.value || "",
+          genre: document.getElementById("adv-genre")?.value || "",
+          bpm: document.getElementById("adv-bpm")?.value || "",
+          key: document.getElementById("adv-key")?.value || "C",
+          mixStyle: document.getElementById("adv-mix-style")?.value || "",
+          vocal: document.getElementById("adv-vocal")?.value || ""
+        };
+        console.log("GELISMIS MOD PAYLOAD", payload);
+        alert("Gelişmiş mod verileri konsola yazıldı (demo). Gerçek üretim için backend'e bağlanacak.");
       }
-    }
-    return data;
-  }
-
-  function addRecentItem(title, meta) {
-    if (!recentList) return;
-    recentList.classList.remove("empty");
-    const empty = recentList.querySelector(".empty-state");
-    if (empty) empty.remove();
-
-    const item = document.createElement("div");
-    item.className = "recent-item";
-    const h = document.createElement("div");
-    h.className = "recent-item-title";
-    h.textContent = title || "İsimsiz Üretim";
-    const m = document.createElement("div");
-    m.className = "recent-item-meta";
-    m.textContent = meta;
-    item.appendChild(h);
-    item.appendChild(m);
-    recentList.prepend(item);
-  }
-
-  if (musicForm && musicSubmit) {
-    musicForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const payload = collectFormData(musicForm);
-      console.log("MUSIC PAYLOAD", payload);
-      const bpm = payload.bpm || "—";
-      const key = payload.key || "—";
-      addRecentItem(payload.title || "Yeni Şarkı", `BPM ${bpm} • Key ${key}`);
-      alert("Demo: Müzik formu verileri konsola yazıldı. Gerçek üretim için backend bağlı değil.");
-    });
-  }
-
-  const coverForm = document.getElementById("cover-form");
-  if (coverForm && coverSubmit) {
-    coverForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const payload = collectFormData(coverForm);
-      console.log("COVER PAYLOAD", payload);
-      addRecentItem(payload.title || "Yeni Kapak", `Kapak stili: ${payload.style || "—"}`);
-      alert("Demo: Kapak formu verileri konsola yazıldı. Görsel üretim için backend bağlı değil.");
     });
   }
 });
