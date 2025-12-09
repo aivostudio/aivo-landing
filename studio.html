@@ -91,7 +91,11 @@
             <span class="credit-count" id="creditCount">78</span>
           </button>
 
-      
+          <div class="mode-toggle" id="modeToggle">
+            <button class="mode-btn is-active" data-mode="basic">Basit</button>
+            <button class="mode-btn" data-mode="advanced">Gelişmiş</button>
+            <div class="mode-highlight"></div>
+          </div>
 
           <button class="top-btn ghost" type="button">Giriş Yap</button>
           <button class="top-btn primary" type="button">Kayıt Ol</button>
@@ -100,20 +104,6 @@
 
       <!-- PAGES -->
       <div class="pages">
-        <!-- MOD GEÇİŞİ -->
-<div class="mode-row">
-    <div class="mode-label">
-        Çalışma Modu
-        <span>İlk kez başlıyorsan Basit modla başla, sonra Gelişmiş’e geç.</span>
-    </div>
-
-    <div class="mode-toggle mode-toggle-large" id="modeToggle">
-        <button class="mode-btn is-active" data-mode="basic">Basit Mod</button>
-        <button class="mode-btn" data-mode="advanced">Gelişmiş Mod</button>
-        <div class="mode-highlight"></div>
-    </div>
-</div>
-
         <!-- MÜZİK ÜRET -->
         <section class="page is-active" data-page="music">
           <div class="columns">
@@ -347,120 +337,81 @@
         </section>
 
         <!-- KAPAK ÜRET -->
-      <section class="page" data-page="cover">
-  <div class="columns">
-    <!-- SOL: KAPAK FORMU -->
-    <div class="col col-main">
-      <header class="page-header">
-        <h1>Kapak Üret</h1>
-        <p>Spotify, Apple Music ve YouTube için AI destekli kapak görselleri üret.</p>
-      </header>
+        <section class="page" data-page="cover">
+          <div class="columns">
+            <div class="col col-main">
+              <header class="page-header">
+                <h1>Kapak Üret</h1>
+                <p>Spotify, Apple Music ve YouTube için AI destekli kapak görselleri üret.</p>
+              </header>
 
-      <form class="card form-card" id="coverForm">
-        <div class="form-section">
-          <div class="field">
-            <label>Kapak Başlığı</label>
-            <input
-              type="text"
-              name="coverTitle"
-              placeholder="Örn: Kül Bahçesi – Single Kapak"
-            />
-          </div>
+              <div class="card form-card">
+                <div class="form-section">
+                  <div class="field inline-3">
+                    <div>
+                      <label>Platform Preset</label>
+                      <select>
+                        <option>Spotify (1:1)</option>
+                        <option>YouTube (16:9)</option>
+                        <option>YouTube Shorts (9:16)</option>
+                        <option>Apple Music</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label>Renk Teması</label>
+                      <select>
+                        <option>Mor / Lila</option>
+                        <option>Gece Mavisi</option>
+                        <option>Pastel Bahçe</option>
+                        <option>Karanlık Neon</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label>Stil</label>
+                      <select>
+                        <option>Fotoğraf Gerçekçi</option>
+                        <option>Illustrasyon</option>
+                        <option>Vaporwave</option>
+                        <option>Sinema Afişi</option>
+                      </select>
+                    </div>
+                  </div>
 
-          <div class="field inline-3">
-            <div>
-              <label>Platform Preset</label>
-              <select name="coverPlatform">
-                <option value="spotify">Spotify (1:1)</option>
-                <option value="youtube">YouTube (16:9)</option>
-                <option value="shorts">YouTube Shorts (9:16)</option>
-                <option value="apple">Apple Music</option>
-              </select>
+                  <div class="field">
+                    <label>Kapak Açıklaması / Prompt</label>
+                    <textarea rows="3" placeholder="Örn: Mor ve mavi neon ışıklar, sisli gece, şehir manzarası..."></textarea>
+                  </div>
+
+                  <div class="form-footer">
+                    <button type="button" class="primary-cta">
+                      <span class="cta-icon">🖼️</span>
+                      <span>Kapak Üret</span>
+                    </button>
+                    <span class="form-footnote">
+                      Yakında: Üretilen kapağı kırpma ve ince ayar editörü.
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div>
-              <label>Renk Teması</label>
-              <select name="coverTheme">
-                <option value="neon">Mor / Lila Neon</option>
-                <option value="night">Gece Mavisi</option>
-                <option value="pastel">Pastel Bahçe</option>
-                <option value="dark">Karanlık Neon</option>
-              </select>
-            </div>
-            <div>
-              <label>Stil</label>
-              <select name="coverStyle">
-                <option value="photo">Fotoğraf Gerçekçi</option>
-                <option value="illustration">Illustrasyon</option>
-                <option value="vaporwave">Vaporwave</option>
-                <option value="poster">Sinema Afişi</option>
-              </select>
-            </div>
+
+            <aside class="col col-side">
+              <div class="card recent-card">
+                <header class="recent-header">
+                  <h2>Son Kapaklar</h2>
+                  <span class="recent-meta">Yakında</span>
+                </header>
+                <div class="recent-empty">
+                  <div class="empty-icon">🖼️</div>
+                  <p>Kapak stüdyosu geliştirme aşamasında.</p>
+                  <p class="empty-sub">
+                    Ürettiğin müzikler için otomatik kapak önerileri burada görünecek.
+                  </p>
+                </div>
+              </div>
+            </aside>
           </div>
-
-          <div class="field inline-2">
-            <div>
-              <label>Görüntü Sayısı</label>
-              <select name="coverCount">
-                <option value="1">1 Görüntü</option>
-                <option value="2">2 Görüntü</option>
-                <option value="4">4 Görüntü</option>
-              </select>
-            </div>
-            <div>
-              <label>En Boy Oranı</label>
-              <select name="coverRatio">
-                <option value="1:1">Kare (1:1)</option>
-                <option value="16:9">Geniş (16:9)</option>
-                <option value="9:16">Dikey (9:16)</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="field">
-            <label>Kapak Açıklaması / Prompt</label>
-            <textarea
-              name="coverPrompt"
-              rows="3"
-              placeholder="Örn: Mor ve mavi neon ışıklar, sisli gece, şehir manzarası, hafif grain efektli..."
-            ></textarea>
-          </div>
-
-          <div class="form-footer">
-            <button type="submit" class="primary-cta">
-              <span class="cta-icon">🖼️</span>
-              <span>Kapak Üret</span>
-            </button>
-            <span class="form-footnote">
-              Şu an MVP modunda: AI API bağlandığında burada gerçek görseller üretilecek.
-            </span>
-          </div>
-        </div>
-      </form>
-    </div>
-
-    <!-- SAĞ: KAPAK GALERİSİ -->
-    <aside class="col col-side">
-      <div class="card recent-card">
-        <header class="recent-header">
-          <h2>Kapak Galerin</h2>
-          <span class="recent-meta" id="coverMeta">Toplam 0 kapak</span>
-        </header>
-
-        <div class="recent-empty" id="coverEmpty">
-          <div class="empty-icon">🖼️</div>
-          <p>Henüz kapak üretmedin.</p>
-          <p class="empty-sub">
-            Soldaki formu doldurup <strong>Kapak Üret</strong> tuşuna bastığında
-            oluşturulan kapaklar burada listelenecek.
-          </p>
-        </div>
-
-        <ul class="cover-gallery" id="coverList"></ul>
-      </div>
-    </aside>
-  </div>
-</section>
-
+        </section>
 
         <!-- ÜRETİKLERİM -->
         <section class="page" data-page="library">
