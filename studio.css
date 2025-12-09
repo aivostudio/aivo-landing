@@ -1198,4 +1198,162 @@ textarea:focus {
   color: #fff;
   font-weight: 600;
 }
+/* ==== MÜZİK GÖRÜNÜMLERİ (GELENEKSEL / SES KAYDI) ==== */
+
+.music-view {
+  display: none;
+}
+
+.music-view.is-active {
+  display: block;
+}
+
+/* SES KAYDI ÜST KARTI */
+
+.record-intro-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  background: radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
+              radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
+              var(--bg-card-soft);
+}
+
+.record-intro-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.record-intro-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.record-intro-text {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.record-badges {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.record-intro-right {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+}
+
+.record-pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+/* SES KAYDI ANA KARTI */
+
+.record-main-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+  gap: 24px;
+  align-items: center;
+}
+
+.record-main-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 10px;
+}
+
+.record-circle {
+  width: 96px;
+  height: 96px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 0, #fd79a8, transparent 60%),
+              radial-gradient(circle at 70% 100%, #6c5ce7, transparent 60%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
+}
+
+.record-icon {
+  font-size: 34px;
+}
+
+.record-main-title {
+  margin: 4px 0 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.record-main-text {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.record-btn {
+  margin-top: 6px;
+}
+
+.record-hint {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+/* SAĞ TARAF: DOSYA YÜKLEME */
+
+.record-main-right {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.record-upload-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.record-upload-text {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.record-upload-dropzone {
+  margin-top: 6px;
+}
+
+.record-upload-hint {
+  margin: 4px 0 0;
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+/* Küçük ekranlarda Ses Kaydı kartlarını alt alta göster */
+@media (max-width: 992px) {
+  .record-main-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 
