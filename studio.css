@@ -375,22 +375,32 @@ body {
 
 .mode-toggle {
   display: inline-flex;
-  padding: 3px;
+  padding: 5px; /* biraz daha kalın çerçeve */
   border-radius: 999px;
   background: rgba(7, 9, 40, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .mode-btn {
+  position: relative; /* Yıldızı bu butonun içine sabitler */
   border: none;
-  padding: 6px 14px;
+  padding: 9px 22px; /* daha büyük buton */
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 13px;    /* yazı da biraz büyüdü */
   color: var(--text-soft);
   background: transparent;
   cursor: pointer;
   transition: background var(--transition-med), color var(--transition-med),
     box-shadow var(--transition-med), transform var(--transition-med);
+}
+
+.mode-btn.is-active {
+  background: linear-gradient(135deg, #6c5ce7, #a55eea);
+  color: #fff;
+  box-shadow: 0 10px 28px rgba(108, 92, 231, 0.6);
+  transform: translateY(-1px);
+}
+
 }
 
 .mode-btn.is-active {
