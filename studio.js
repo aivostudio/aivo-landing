@@ -347,3 +347,44 @@ if (creditModal) {
     if (e.target === creditModal) closeModal();
   });
 }
+/* -------------------------------------------------- */
+/*  AIVO LARGE MODE TOGGLE (Basit / Gelişmiş) Switch  */
+/* -------------------------------------------------- */
+
+const modeToggle = document.getElementById("modeToggle");
+if (modeToggle) {
+    const buttons = modeToggle.querySelectorAll(".mode-btn");
+    const highlight = modeToggle.querySelector(".mode-highlight");
+
+    buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const selectedMode = btn.dataset.mode;
+
+            // Aktif butonu değiştir
+            buttons.forEach(b => b.classList.remove("is-active"));
+            btn.classList.add("is-active");
+
+            // Highlight pozisyonunu değiştir
+            if (selectedMode === "basic") {
+                modeToggle.setAttribute("data-active", "basic");
+            } else {
+                modeToggle.setAttribute("data-active", "advanced");
+            }
+
+            // FORM ALANLARINI DEĞİŞTİRME
+            const basicFields = document.querySelectorAll("[data-basic]");
+            const advancedFields = document.querySelectorAll("[data-advanced]");
+
+            if (selectedMode === "basic") {
+                basicFields.forEach(el => el.style.display = "block");
+                advancedFields.forEach(el => el.style.display = "none");
+            }
+
+            if (selectedMode === "advanced") {
+                basicFields.forEach(el => el.style.display = "none");
+                advancedFields.forEach(el => el.style.display = "block");
+            }
+        });
+    });
+}
+
