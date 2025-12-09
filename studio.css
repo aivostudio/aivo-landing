@@ -202,10 +202,11 @@ body {
 .layout {
   display: grid;
   grid-template-columns: 250px minmax(0, 1.7fr) 320px;
-  padding: 0;               /* İÇ KENAR BOŞLUĞU DA SIFIR */
-  gap: 16px;
-  min-height: 640px;
+  padding: 0;
+  gap: 14px;
+  min-height: 560px;   /* 640’tan 560’a düşürdük */
 }
+
 
 /* Kapak / Görsel Üret sayfasında sağ kolon boş kalmasın,
    sadece sidebar + ana içerik olsun */
