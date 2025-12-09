@@ -1401,4 +1401,86 @@ textarea:focus {
 .music-view[data-music-view="ses-kaydi"] .record-main-card {
   margin-top: 130px;   /* kartın komple aşağı inişi – istersen 110 / 150 ile oynayabilirsin */
 }
+/* === SES KAYDI – SON HİZALAMA (ÜST KART + DAİRE + ALT KART) === */
+
+/* Alt kartı daha aşağı indir ve üstten boşluk aç */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 48px;
+
+  /* ÜST KARTTAN UZAKLAŞTIR: kart komple aşağı iner */
+  margin-top: 190px;          /* daha az istiyorsan 170; daha çok istiyorsan 210 yapabilirsin */
+
+  /* DAİRE İÇİN ÜSTTE BOŞLUK: metin dairenin altından başlasın */
+  padding: 140px 42px 56px;   /* 140px → yazı dairenin altından başlar */
+
+  min-height: 420px;          /* sağ panelle hizayı ayarlayan yükseklik */
+}
+
+/* Sol / sağ bloklar içeriği kartın ALTINA yaslasın */
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  z-index: 2;                 /* metin, dairenin önünde kalsın */
+}
+
+/* DAİRE – ÜST KART İLE ALT KARTIN TAM ARASINDA */
+.music-view[data-music-view="ses-kaydi"] .record-circle {
+  position: absolute;
+  top: 0;                     /* kartın üst kenarına göre hesaplanacak */
+  left: 50%;
+  transform: translate(-50%, -50%);  /* yarısı üstte, yarısı kartın içinde */
+
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: #050816;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 40px rgba(255, 255, 255, 0.12),
+    0 0 90px rgba(132, 94, 247, 0.45);
+  z-index: 1;
+  overflow: visible;
+}
+
+/* Dıştaki dönen renkli halka */
+.music-view[data-music-view="ses-kaydi"] .record-circle::before {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    #ff7675,
+    #fd79a8,
+    #a29bfe,
+    #74b9ff,
+    #55efc4,
+    #ffeaa7,
+    #ff7675
+  );
+  filter: blur(1px);
+  animation: spinRing 5s linear infinite;
+  z-index: -1;
+}
+
+/* Mikrofon ikonu ortada kalsın */
+.music-view[data-music-view="ses-kaydi"] .record-icon {
+  font-size: 80px;
+  text-shadow:
+    0 0 18px rgba(255, 255, 255, 0.9),
+    0 0 40px rgba(253, 121, 168, 0.8);
+  position: relative;
+  z-index: 2;
+}
+
 
