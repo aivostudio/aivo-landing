@@ -182,4 +182,21 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+// === SES KAYDI – KAYIT BUTONU ANİMASYONU ===
+(function () {
+  const recordBtn = document.querySelector('.record-btn');
+  const recordCircle = document.querySelector('.record-circle');
+
+  if (!recordBtn || !recordCircle) return;
+
+  let isRecording = false;
+
+  recordBtn.addEventListener('click', () => {
+    isRecording = !isRecording;
+
+    recordCircle.classList.toggle('is-recording', isRecording);
+    recordBtn.textContent = isRecording ? '⏹ Kaydı Durdur' : '⏺ Kaydı Başlat';
+  });
+})();
+
 
