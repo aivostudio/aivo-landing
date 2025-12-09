@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.classList.toggle("is-active", btnMode === mode);
     });
 
-    // Görünürlük kontrolü
     advancedSections.forEach((el) => {
       if (mode === "basic") {
         el.classList.add("hidden");
@@ -73,21 +72,58 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (pricingModal) {
-    pricingModal.addEventListener("click", (e) => {
-      if (e.target === pricingModal || e.target.classList.contains("pricing-backdrop")) {
-        closePricingModal();
-      }
+    const backdrop = pricingModal.querySelector(".pricing-backdrop");
+    if (backdrop) {
+      backdrop.addEventListener("click", closePricingModal);
+    }
+  }
+
+  /* ==== MÜZİK ÜRET BUTONU (sadece UI feedback) ==== */
+  const musicGenerateBtn = document.getElementById("musicGenerateBtn");
+  if (musicGenerateBtn) {
+    musicGenerateBtn.addEventListener("click", () => {
+      if (musicGenerateBtn.classList.contains("is-loading")) return;
+      const originalText = musicGenerateBtn.textContent;
+      musicGenerateBtn.classList.add("is-loading");
+      musicGenerateBtn.textContent = "Üretiliyor...";
+
+      setTimeout(() => {
+        musicGenerateBtn.classList.remove("is-loading");
+        musicGenerateBtn.textContent = originalText;
+        console.log("Müzik üretim isteği burada API'ye gidecek.");
+      }, 1200);
     });
   }
 
-  /* ==== SAHTE KREDİ SAYACI (isteğe bağlı) ==== */
-  // İleride backend’den gerçek kredi sayısını çekeceksin.
-  // Şimdilik butonlara tıklanınca konsola log atıyoruz.
-  const pricingButtons = document.querySelectorAll(".pricing-card .primary-btn");
-  pricingButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      console.log("Kredi paketi satın alma akışı burada başlatılacak.");
-      // Buraya Stripe / iyzico entegrasyonunu koyacaksın.
+  /* ==== KAPAK ÜRET BÖLÜMÜ ==== */
+  const coverSection = document.getElementById("artworkSection");
+  const coverGenerateBtn = document.getElementById("coverGenerateBtn");
+  const gotoCoverButtons = document.querySelectorAll("[data-goto-cover]");
+
+  // Sol menüde "Kapak Üret"e tıklayınca kapak bölümüne kaydır
+  gotoCoverButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (!coverSection) return;
+      coverSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      coverSection.classList.add("highlight-cover");
+      setTimeout(() => coverSection.classList.remove("highlight-cover"), 1000);
     });
   });
+
+  // Kapak Üret butonu (şimdilik sadece görsel feedback + console)
+  if (coverGenerateBtn) {
+    coverGenerateBtn.addEventListener("click", () => {
+      if (coverGenerateBtn.classList.contains("is-loading")) return;
+      const originalText = coverGenerateBtn.textContent;
+      coverGenerateBtn.classList.add("is-loading");
+      coverGenerateBtn.textContent = "Kapak üretiliyor...";
+
+      setTimeout(() => {
+        coverGenerateBtn.classList.remove("is-loading");
+        coverGenerateBtn.textContent = originalText;
+        console.log("Kapak üretim isteği burada görsel AI API'ye gidecek.");
+      }, 1400);
+    });
+  }
 });
