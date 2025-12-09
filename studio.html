@@ -85,6 +85,76 @@
     </button>
 
 </div>
+<div class="music-view" data-music-view="ses-kaydi">
+  <div class="panel-header">
+    <h2 class="panel-title">Ses Kaydı</h2>
+    <p class="panel-subtitle">
+      Mikrofonundan ses kaydet ya da hazır ses dosyası yükle; AIVO müziğini buna göre şekillendirsin.
+    </p>
+  </div>
+
+  <!-- Üst bilgi kartı -->
+  <div class="card record-intro-card">
+    <div class="record-intro-left">
+      <h3 class="record-intro-title">Ses Kaydetme Stüdyosu</h3>
+      <p class="record-intro-text">
+        Müzik üretiminde kullanmak istediğin vokali veya rehber melodiyi burada kaydedebilirsin.
+      </p>
+      <ul class="record-badges">
+        <li>🎙 Yüksek kalite kayıt</li>
+        <li>⏱ Maksimum 120 saniye</li>
+        <li>🎧 MP3 / WAV destekli</li>
+      </ul>
+    </div>
+    <div class="record-intro-right">
+      <span class="record-pill">Mikrofon + Dosya Yükleme</span>
+    </div>
+  </div>
+
+  <!-- Ana kayıt / upload alanı -->
+  <div class="card record-main-card">
+    <div class="record-main-left">
+      <div class="record-circle">
+        <div class="record-icon">🎤</div>
+      </div>
+      <h3 class="record-main-title">Ses Kaydetmeye Başlayın</h3>
+      <p class="record-main-text">
+        “Kaydı Başlat” tuşuna basarak mikrofonundan kayıt al. Bitirince AIVO bu kaydı projene ekler.
+      </p>
+      <button class="primary-btn record-btn" type="button">
+        ⏺ Kaydı Başlat
+      </button>
+      <p class="record-hint">
+        İlk kullanımda tarayıcı mikrofon izni isteyebilir. İzne “İzin ver” demeyi unutma.
+      </p>
+    </div>
+
+    <div class="record-main-right">
+      <h4 class="record-upload-title">MP3 / WAV Dosyası Yükle</h4>
+      <p class="record-upload-text">
+        Mikrofondan kayıt almak yerine daha önce kaydettiğin bir ses dosyasını yükleyebilirsin.
+      </p>
+
+      <label class="upload-dropzone record-upload-dropzone">
+        <div class="upload-icon">⬆️</div>
+        <div class="upload-text">
+          <strong>Ses dosyası seç veya sürükleyip bırak</strong>
+          <span>MP3, WAV — maksimum 10MB</span>
+        </div>
+        <input
+          class="upload-input"
+          type="file"
+          accept="audio/mp3,audio/mpeg,audio/wav"
+          id="record-file-input"
+        />
+      </label>
+
+      <p class="record-upload-hint">
+        Yüklediğin ses dosyası analiz edilerek ritim, tempo ve vokal karakteri AIVO üretimine yansıtılır.
+      </p>
+    </div>
+  </div>
+</div>
 
 
               <!-- Diğer menü elemanları -->
