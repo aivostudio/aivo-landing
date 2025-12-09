@@ -30,8 +30,8 @@ body {
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
     "Segoe UI", sans-serif;
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.6;
   background:
     radial-gradient(160% 220% at 0% 0%, #292a63 0, transparent 45%),
     radial-gradient(160% 220% at 100% 0%, #5810a5 0, transparent 45%),
@@ -68,7 +68,7 @@ body {
 }
 
 .logo-text {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   letter-spacing: 0.03em;
 }
@@ -79,12 +79,13 @@ body {
 }
 
 .nav-pill {
-  padding: 7px 14px;
+  padding: 8px 16px;
   border-radius: 999px;
   border: 1px solid transparent;
+  background: transparent;
   color: var(--text-muted);
-  text-decoration: none;
   font-size: 14px;
+  cursor: pointer;
 }
 
 .nav-pill-active {
@@ -98,6 +99,30 @@ body {
   align-items: center;
   gap: 14px;
 }
+
+/* KREDİ BADGE */
+
+.credit-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: radial-gradient(circle at top, #3b1f72, #120826);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 13px;
+}
+
+.credit-label {
+  color: var(--text-muted);
+}
+
+.credit-value {
+  font-weight: 600;
+  color: var(--accent-strong);
+}
+
+/* MODE TOGGLE & BUTONLAR */
 
 .mode-toggle {
   display: inline-flex;
@@ -164,50 +189,66 @@ body {
   padding: 18px 16px 18px;
   border: 1px solid var(--border-subtle);
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .side-title {
   margin: 0 0 4px;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 600;
-}
-
-.side-text {
-  margin: 0 0 12px;
-  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
   color: var(--text-muted);
 }
 
+/* SOL MENÜ */
+
+.side-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.side-menu-item {
+  width: 100%;
+  padding: 7px 11px;
+  border-radius: 9px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.side-menu-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.side-menu-item-active {
+  background: linear-gradient(135deg, #2b2f6d, #4e1e7a);
+  color: #ffffff;
+}
+
+.side-menu-item-danger {
+  color: var(--danger);
+}
+
+/* Preset & ipucu */
+
 .side-section {
-  margin-top: 16px;
+  margin-top: 4px;
 }
 
 .side-section-title {
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-muted);
-}
-
-.side-chip {
-  width: 100%;
-  padding: 8px 12px;
-  margin-bottom: 6px;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  background: rgba(16, 20, 52, 0.8);
-  color: var(--text-muted);
-  font-size: 13px;
-  text-align: left;
-  cursor: pointer;
-}
-
-.side-chip-active {
-  background: linear-gradient(135deg, #252e71, #471973);
-  color: var(--text-main);
-  border-color: var(--accent-soft);
 }
 
 .chip-row {
@@ -245,6 +286,10 @@ body {
   min-height: calc(100vh - 120px);
 }
 
+.hidden-card {
+  display: none;
+}
+
 .music-header {
   display: flex;
   justify-content: space-between;
@@ -261,7 +306,7 @@ body {
 
 .page-subtitle {
   margin: 0;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-muted);
 }
 
@@ -301,7 +346,7 @@ body {
 }
 
 .form-label {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-muted);
 }
 
@@ -313,8 +358,8 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(3, 6, 22, 0.9);
   color: var(--text-main);
-  font-size: 14px;
-  padding: 7px 10px;
+  font-size: 15px;
+  padding: 8px 11px;
   outline: none;
 }
 
@@ -336,7 +381,7 @@ body {
 
 .field-hint {
   margin: 2px 0 0;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 
@@ -363,7 +408,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(10, 14, 40, 0.9);
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
 }
 
@@ -379,7 +424,7 @@ body {
 
 .instrument-title {
   margin: 0 0 2px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -387,12 +432,18 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-muted);
 }
 
 .check-row input {
   accent-color: var(--accent);
+}
+
+.platform-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 /* ALT KISIM */
@@ -412,7 +463,7 @@ body {
   cursor: pointer;
   background: linear-gradient(135deg, var(--accent), #ff79c9);
   color: #050617;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.7);
 }
@@ -487,6 +538,70 @@ body {
   color: var(--text-muted);
 }
 
+/* KREDİ TABLOSU */
+
+.pricing-section {
+  max-width: 1320px;
+  margin: 0 auto 40px;
+  padding: 0 32px;
+}
+
+.pricing-card {
+  margin-top: 8px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: radial-gradient(circle at top, #311c64, #090b1f);
+  padding: 18px 20px 20px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+}
+
+.pricing-title {
+  margin: 0 0 2px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.pricing-subtitle {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.pricing-plan {
+  border-radius: 16px;
+  padding: 12px 14px;
+  background: rgba(5, 7, 26, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pricing-plan-highlight {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(180, 108, 255, 0.5);
+}
+
+.pricing-plan h3 {
+  margin: 0 0 4px;
+  font-size: 15px;
+}
+
+.pricing-price {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.pricing-detail {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
 /* =========== RESPONSIVE =========== */
 
 @media (max-width: 1040px) {
@@ -497,6 +612,10 @@ body {
   .side-nav {
     order: -1;
   }
+
+  .pricing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 720px) {
@@ -506,7 +625,9 @@ body {
   }
 
   .top-nav {
-    display: none;
+    order: 3;
+    width: 100%;
+    justify-content: center;
   }
 
   .aivo-main {
@@ -530,5 +651,13 @@ body {
   .form-footer {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .pricing-section {
+    padding-inline: 16px;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
   }
 }
