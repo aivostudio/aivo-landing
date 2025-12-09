@@ -531,4 +531,21 @@ body {
     flex-direction: column;
     align-items: flex-start;
   }
+}/* === AIVO küçük iyileştirmeler === */
+
+/* Genel fontu bir tık büyütelim */
+body {
+  font-size: 14px;
 }
+
+/* Orta panel ve sağ panel biraz daha geniş, sayfanın ortasına otursun */
+.aivo-layout {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Sol PANELLER yüksek dursun, sayfanın boyunu doldursun */
+.sidebar {
+  min-height: calc(100vh - 140px);
+}
+
