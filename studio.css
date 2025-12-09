@@ -25,13 +25,14 @@
 
 html,
 body {
-  margin: 0;
+  margin: 0;               /* Tarayıcı varsayılan boşluklarını kaldır */
   padding: 0;
-  height: 100%;
-  background: radial-gradient(circle at top left, #281c50 0, #050816 40%, #02010a 100%);
-  color: var(--text);
+  min-height: 100vh;       /* Sayfa yüksekliği ekran kadar olsun */
+  background: radial-gradient(circle at top left, #222b4b 0, #050816 45%, #02030a 100%);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  color: #f5f5ff;
 }
+
 
 body {
   display: flex;
