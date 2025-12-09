@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title>AIVO Studio – Müzik & Kapak Üret</title>
+  <title>AIVO Studio – Müzik Üret</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="studio.css" />
 </head>
@@ -17,16 +17,12 @@
     </div>
 
     <nav class="top-nav">
-      <button class="nav-pill nav-pill-active" data-target="music">Müzik Üret</button>
-      <button class="nav-pill" data-target="cover">Kapak Üret</button>
-      <button class="nav-pill" data-target="projects">Üretimlerim</button>
+      <a href="studio.html" class="nav-pill nav-pill-active">Müzik Üret</a>
+      <a href="#kapak" class="nav-pill">Kapak Üret</a>
+      <a href="#projeler" class="nav-pill">Üretimlerim</a>
     </nav>
 
     <div class="top-right">
-      <div class="credit-badge">
-        <span class="credit-label">Kredi</span>
-        <span class="credit-value">78</span>
-      </div>
       <div class="mode-toggle" aria-label="Üretim modu">
         <button id="mode-basic-btn" class="mode-btn active" data-mode="basic">Basit</button>
         <button id="mode-advanced-btn" class="mode-btn" data-mode="advanced">Gelişmiş</button>
@@ -40,25 +36,22 @@
   <main class="aivo-main">
     <!-- SOL SİDEBAR -->
     <aside class="side-nav">
-      <h2 class="side-title">Paneller</h2>
+      <h2 class="side-title">AIVO Studio</h2>
+      <p class="side-text">
+        Müzik ve kapak üretimini tek panelde yönet.
+      </p>
 
-      <nav class="side-menu">
-        <button class="side-menu-item">Anasayfa</button>
-        <button class="side-menu-item">Dashboard</button>
-        <button class="side-menu-item">Ürettiklerim</button>
-        <button class="side-menu-item side-menu-item-active" data-target="music">Müzik Üret</button>
-        <button class="side-menu-item" data-open="pricing">Kredi Al</button>
-        <button class="side-menu-item">Faturalarım</button>
-        <button class="side-menu-item">Profil</button>
-        <button class="side-menu-item">Ayarlar</button>
-        <button class="side-menu-item side-menu-item-danger">Çıkış Yap</button>
-      </nav>
+      <div class="side-section">
+        <h3 class="side-section-title">MODLAR</h3>
+        <button class="side-chip side-chip-active">Music Studio</button>
+        <button class="side-chip">Artwork Studio</button>
+      </div>
 
       <div class="side-section">
         <h3 class="side-section-title">Hızlı Presetler</h3>
         <div class="chip-row">
           <button class="preset-chip" data-genre="pop" data-mood="enerjik">Türkçe Pop</button>
-          <button class="preset-chip" data-genre="pop" data-mood="enerjik">Enerjik Pop</button>
+          <button class="preset-chip" data-genre="pop" data-mood="duygusal">Hadise Enerjik</button>
           <button class="preset-chip" data-genre="deep" data-mood="enerjik">Deep House Club</button>
           <button class="preset-chip" data-genre="anadolu" data-mood="duygusal">Anadolu Pop</button>
           <button class="preset-chip" data-genre="slow" data-mood="melankolik">Slowed + Reverb</button>
@@ -68,12 +61,13 @@
       <div class="side-section">
         <h3 class="side-section-title">İpucu</h3>
         <p class="side-tip">
-          Önce şarkının duygusunu ve temposunu seç. Presetlerden biriyle başla, kalan ayarları AIVO senin için doldurur.
+          Önce şarkının duygusunu ve temposunu seç. Gerekirse presetlerden birini kullan,
+          AIVO diğer alanları senin için doldurur.
         </p>
       </div>
     </aside>
 
-    <!-- ORTA ANA KART – MÜZİK -->
+    <!-- ORTA ANA KART -->
     <section class="music-main-card" id="music-panel">
       <header class="music-header">
         <div>
@@ -298,81 +292,6 @@
       </section>
     </section>
 
-    <!-- ORTA ANA KART – KAPAK -->
-    <section class="music-main-card hidden-card" id="cover-panel">
-      <header class="music-header">
-        <div>
-          <h1 class="page-title">Kapak Üret</h1>
-          <p class="page-subtitle">
-            Şarkın için AIVO tarzı kapak görselleri oluştur.
-          </p>
-        </div>
-      </header>
-
-      <form class="music-form">
-        <div class="form-row">
-          <label class="form-label" for="cover-title">Kapak / Şarkı Adı</label>
-          <input id="cover-title" type="text" class="input" placeholder="Örn: Kül Bahçesi Kapak" />
-        </div>
-
-        <div class="form-row">
-          <label class="form-label" for="cover-desc">Kapak Açıklaması</label>
-          <textarea id="cover-desc" class="textarea" maxlength="200"
-            placeholder="Kapağın atmosferini kısaca anlat..."></textarea>
-        </div>
-
-        <div class="form-row form-row-inline">
-          <div class="form-col">
-            <label class="form-label" for="cover-style">Stil</label>
-            <select id="cover-style" class="select">
-              <option value="neon">Neon / Cyber</option>
-              <option value="minimal">Minimal</option>
-              <option value="dark">Dark / Sinematik</option>
-              <option value="pastel">Pastel</option>
-              <option value="anadolu">Anadolu motifli</option>
-            </select>
-          </div>
-          <div class="form-col">
-            <label class="form-label" for="cover-mood">Mood</label>
-            <select id="cover-mood" class="select">
-              <option value="enerjik">Enerjik</option>
-              <option value="duygusal">Duygusal</option>
-              <option value="gece">Gece / Şehir</option>
-              <option value="melankolik">Melankolik</option>
-              <option value="renkli">Renkli / Fun</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <label class="form-label">Platform & Oran</label>
-          <div class="platform-row">
-            <label class="check-row">
-              <input type="checkbox" checked />
-              Spotify / Apple Music (1:1 – 3000x3000)
-            </label>
-            <label class="check-row">
-              <input type="checkbox" />
-              YouTube Kapak (16:9)
-            </label>
-            <label class="check-row">
-              <input type="checkbox" />
-              TikTok / Reels Kapak (9:16)
-            </label>
-          </div>
-        </div>
-
-        <div class="form-footer">
-          <button type="button" class="btn-gradient">
-            🎨 Kapak Üret
-          </button>
-          <p class="beta-note">
-            Görseller demo amaçlıdır; telif kontrolünü yayın öncesi mutlaka yap.
-          </p>
-        </div>
-      </form>
-    </section>
-
     <!-- SAĞ PANEL -->
     <section class="output-panel">
       <h2 class="output-title">Son Üretilen Müzikler</h2>
@@ -384,31 +303,6 @@
       </div>
     </section>
   </main>
-
-  <!-- KREDİ TABLOSU -->
-  <section id="pricing-section" class="pricing-section">
-    <div class="pricing-card">
-      <h2 class="pricing-title">Kredi Paketleri</h2>
-      <p class="pricing-subtitle">İhtiyacına göre kredi paketini seç.</p>
-      <div class="pricing-grid">
-        <div class="pricing-plan">
-          <h3>Starter</h3>
-          <p class="pricing-price">₺49</p>
-          <p class="pricing-detail">50 kredi</p>
-        </div>
-        <div class="pricing-plan pricing-plan-highlight">
-          <h3>Pro</h3>
-          <p class="pricing-price">₺99</p>
-          <p class="pricing-detail">120 kredi</p>
-        </div>
-        <div class="pricing-plan">
-          <h3>Studio</h3>
-          <p class="pricing-price">₺199</p>
-          <p class="pricing-detail">280 kredi</p>
-        </div>
-      </div>
-    </div>
-  </section>
 </div>
 
 <script src="studio.js"></script>
