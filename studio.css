@@ -1155,3 +1155,35 @@ textarea:focus {
   50%  { transform: rotate(180deg) scale(1.2); opacity: 1; }
   100% { transform: rotate(360deg) scale(1);  opacity: .7; }
 }
+/* ==== PANELLER TİPOGRAFİ GÜNCELLEME ==== */
+
+/* Kart içi biraz daha nefesli olsun */
+.sidebar-section {
+  padding: 18px 18px 16px;
+}
+
+/* "PANELLER" başlığı */
+.sidebar-title {
+  font-size: 13px;                 /* 12 -> 13 */
+  letter-spacing: 0.18em;          /* biraz daha karakter aralığı */
+  margin-bottom: 14px;             /* başlıktan menüye mesafe */
+}
+
+/* Ana grup başlığı: "Müzik Üret" satırı */
+.sidebar-group .sidebar-link-main {
+  font-size: 15px;                 /* daha büyük */
+  font-weight: 600;
+}
+
+/* Alt menü: Geleneksel, Ses Kaydı, Vokale Göre... */
+.sidebar-sublink {
+  font-size: 13px;                 /* 12 -> 13 */
+  padding: 8px 12px;               /* hafif daha yüksek ve geniş */
+}
+
+/* Diğer normal linkler (Ürettiklerim, AIVO Studio, Kredi / Faturalarım...) */
+.sidebar-link {
+  font-size: 14px;                 /* 13 -> 14 */
+  padding: 9px 12px;
+}
+
