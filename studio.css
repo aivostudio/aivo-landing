@@ -690,7 +690,9 @@ textarea:focus {
 .right-panel {
   display: flex;
   flex-direction: column;
+  height: 100%;        /* sağ taraf full yükseklik */
 }
+
 
 .right-card {
   height: 100%;
