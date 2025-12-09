@@ -63,31 +63,29 @@
                 </button>
 
                 <!-- Alt seçenekler -->
-                <div class="sidebar-submenu is-open" data-submenu="music">
-                  <!-- Şu an sadece Geleneksel gerçek sayfaya gidiyor -->
-                  <button
-                    type="button"
-                    class="sidebar-sublink is-active"
-                    data-page-link="music"
-                  >
-                    Geleneksel
-                  </button>
+               <div class="sidebar-submenu is-open" data-submenu="music">
 
-                  <!-- Bunlar şimdilik sadece görsel; ileride ayrı sayfa yapılacak -->
-                  <button
-                    type="button"
-                    class="sidebar-sublink"
-                  >
-                    Ses Kaydı
-                  </button>
-                  <button
-                    type="button"
-                    class="sidebar-sublink"
-                  >
-                    Vokale Göre
-                  </button>
-                </div>
-              </div>
+    <!-- Varsayılan açık sekme -->
+    <button type="button"
+            class="sidebar-sublink is-active"
+            data-music-tab="geleneksel">
+        Geleneksel
+    </button>
+
+    <button type="button"
+            class="sidebar-sublink"
+            data-music-tab="ses-kaydi">
+        Ses Kaydı
+    </button>
+
+    <button type="button"
+            class="sidebar-sublink"
+            data-music-tab="vokale-gore">
+        Vokale Göre
+    </button>
+
+</div>
+
 
               <!-- Diğer menü elemanları -->
               <button class="sidebar-link" data-page-link="music">
