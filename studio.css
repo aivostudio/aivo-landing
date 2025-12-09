@@ -381,8 +381,9 @@ body {
 .cover-main {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;   /* 14’ten 10’a düşürdük */
 }
+
 
 .panel-header {
   margin-bottom: 4px;
