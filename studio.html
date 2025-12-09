@@ -1,1124 +1,510 @@
-.sidebar {
-  position: relative; /* watermark için önemli */
-}
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AIVO Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="studio.css" />
+  </head>
+  <body class="aivo-body">
+    <div class="app-shell">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="logo-circle">
+            <!-- Logo dosyan burada nasıl ise o ismi kullan: aivo-logo.png vs -->
+            <img src="aivo-logo.png" alt="AIVO" class="logo-img" />
+          </div>
+          <div class="logo-text">
+            <div class="logo-title">AIVO Studio</div>
+            <div class="logo-sub">AI Music & Artwork</div>
+          </div>
+        </div>
 
-/* ALTTA SAYDAM LOGO */
+        <div>
+          <div class="nav-section-label">Paneller</div>
+          <nav class="sidebar-nav">
+            <button class="nav-item js-page-link" data-target="music">
+              Müzik Üret
+            </button>
+            <button class="nav-item js-page-link" data-target="cover">
+              Kapak Üret
+            </button>
+            <button class="nav-item js-page-link" data-target="library">
+              Ürettiklerim
+            </button>
+            <button class="nav-item">
+              AIVO Studio
+              <span class="nav-pill">BETA</span>
+            </button>
+            <button class="nav-item">Kredi / Faturalar</button>
+            <button class="nav-item">Ayarlar</button>
+            <button class="nav-item nav-item-danger">Çıkış Yap</button>
+          </nav>
+        </div>
 
-.sidebar-watermark {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 18px;
-  display: flex;
-  justify-content: center;
-  pointer-events: none; /* tıklamayı engellemesin */
-  opacity: 0.12;
-}
+        <div class="sidebar-section">
+          <div class="nav-section-label">Hızlı Presetler</div>
+          <div class="preset-grid">
+            <button class="preset-chip">Türkçe Pop</button>
+            <button class="preset-chip">Enerjik Pop</button>
+            <button class="preset-chip">Deep House Club</button>
+            <button class="preset-chip">Anadolu Pop</button>
+            <button class="preset-chip">Lo-fi Chill</button>
+            <button class="preset-chip">Slowed + Reverb</button>
+          </div>
+        </div>
 
-.sidebar-watermark img {
-  max-width: 160px;
-  width: 70%;
-  filter: blur(0.3px);
-}
+        <div class="sidebar-section">
+          <div class="nav-section-label">İpucu</div>
+          <p class="sidebar-tip">
+            Önce şarkının duygusunu ve temposunu seç. Presetlerden biriyle başla, kalan
+            ayarları AIVO senin için doldurur.
+          </p>
+        </div>
+      </aside>
 
-——————
-Studio.css 
-:root {
-  --bg: #020617;
-  --bg-alt: #030712;
-  --card: rgba(10, 16, 40, 0.96);
-  --border-subtle: rgba(148, 163, 184, 0.22);
-  --accent: #a855ff;
-  --accent2: #22d3ee;
-  --text: #e5e7eb;
-  --text-soft: #9ca3af;
-  --danger: #fb7185;
-  --radius-lg: 20px;
-  --radius-xl: 26px;
-  --shadow-soft: 0 18px 60px rgba(0, 0, 0, 0.65);
-}
+      <!-- MAIN AREA -->
+      <div class="main-area">
+        <!-- TOPBAR -->
+        <header class="topbar">
+          <div class="topbar-left">
+            <nav class="top-tabs">
+              <button
+                class="top-tab js-page-link is-active"
+                data-target="music"
+              >
+                Müzik Üret
+              </button>
+              <button class="top-tab js-page-link" data-target="cover">
+                Kapak Üret
+              </button>
+              <button class="top-tab js-page-link" data-target="library">
+                Ürettiklerim
+              </button>
+            </nav>
+          </div>
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+          <div class="topbar-right">
+            <button
+              class="credit-pill"
+              type="button"
+              id="openCreditModal"
+            >
+              <span>Kredi</span>
+              <span class="credit-count" id="creditCount">78</span>
+            </button>
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-    "Inter", sans-serif;
-  color: var(--text);
-  background: radial-gradient(circle at top left, #4c1d95 0%, #020617 38%, #000 100%);
-}
+            <button class="top-btn ghost" type="button">Giriş Yap</button>
+            <button class="top-btn primary" type="button">Kayıt Ol</button>
+          </div>
+        </header>
 
-.aivo-body {
-  min-height: 100vh;
-}
+        <!-- PAGES -->
+        <div class="pages">
+          <!-- MÜZİK ÜRET -->
+          <section class="page is-active" data-page="music">
+            <div class="columns">
+              <!-- SOL: FORM -->
+              <div class="col col-main">
+                <header class="page-header">
+                  <h1>Müzik Üret</h1>
+                  <p>
+                    Ritim, vokal, mood ve makam seç — AIVO şarkıyı senin için
+                    oluştursun.
+                  </p>
+                </header>
 
-.app-shell {
-  display: flex;
-  min-height: 100vh;
-  padding: 18px 22px;
-  gap: 18px;
-}
+                <form class="card form-card" id="musicForm">
+                  <!-- MOD GEÇİŞİ -->
+                  <div class="mode-row">
+                    <div class="mode-label">
+                      Çalışma Modu
+                      <span
+                        >İlk kez başlıyorsan Basit modla başla, sonra
+                        Gelişmiş’e geç.</span
+                      >
+                    </div>
 
-/* SIDEBAR */
+                    <div
+                      class="mode-toggle mode-toggle-large"
+                      id="modeToggle"
+                    >
+                      <button
+                        class="mode-btn is-active"
+                        data-mode="basic"
+                        type="button"
+                      >
+                        Basit Mod
+                      </button>
+                      <button
+                        class="mode-btn"
+                        data-mode="advanced"
+                        type="button"
+                      >
+                        Gelişmiş Mod
+                      </button>
+                      <div class="mode-highlight"></div>
+                    </div>
+                  </div>
 
-.sidebar {
-  width: 260px;
-  background: radial-gradient(circle at top left, #581c87 0%, #020617 55%, #000 100%);
-  border-radius: var(--radius-xl);
-  padding: 18px 18px 22px;
-  box-shadow: var(--shadow-soft);
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
+                  <!-- TEMEL ALANLAR (her iki modda da görünsün) -->
+                  <div class="form-section">
+                    <div class="field">
+                      <label>Şarkı Adı</label>
+                      <input
+                        type="text"
+                        name="songTitle"
+                        placeholder="Örn: Kül Bahçesi, Midnight Drive..."
+                      />
+                    </div>
 
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+                    <div class="field">
+                      <label>Şarkı Açıklaması (max 200 karakter)</label>
+                      <textarea
+                        name="description"
+                        rows="2"
+                        placeholder="Şarkının genel havasını kısaca anlat..."
+                      ></textarea>
+                    </div>
 
-.logo-circle {
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  background: radial-gradient(circle at 10% 0, #ec4899 0, #a855f7 40%, #22d3ee 80%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.6);
-}
+                    <div class="field">
+                      <label>Ruh Hali (Mood)</label>
+                      <select name="mood">
+                        <option value="">Ruh halini seç</option>
+                        <option value="Enerjik">Enerjik</option>
+                        <option value="Hüzünlü">Hüzünlü</option>
+                        <option value="Romantik">Romantik</option>
+                        <option value="Sakin">Sakin</option>
+                        <option value="Epik">Epik</option>
+                      </select>
+                    </div>
 
-.logo-img {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-}
+                    <div class="field">
+                      <label>Şarkı Sözleri (isteğe bağlı)</label>
+                      <textarea
+                        name="lyrics"
+                        rows="3"
+                        placeholder="Şarkı sözlerinizi buraya yazın veya boş bırakın; AIVO enstrümantal üretir..."
+                      ></textarea>
+                    </div>
 
-.logo-text {
-  display: flex;
-  flex-direction: column;
-}
+                    <div class="field">
+                      <label>Ek Açıklama / Prompt</label>
+                      <textarea
+                        name="prompt"
+                        rows="3"
+                        placeholder="Müzikte özellikle vurgulamak istediğin detayları yaz..."
+                      ></textarea>
+                    </div>
 
-.logo-title {
-  font-size: 14px;
-  font-weight: 600;
-}
+                    <div class="field">
+                      <label>Referans Ses Yükle (opsiyonel)</label>
+                      <label class="upload-dropzone">
+                        <div class="upload-icon">⬆️</div>
+                        <div class="upload-text">
+                          <strong>Ses dosyası seç veya sürükleyip bırak</strong>
+                          <span>MP3, WAV, M4A — maksimum 10MB</span>
+                        </div>
+                        <input
+                          type="file"
+                          name="referenceAudio"
+                          accept="audio/*"
+                        />
+                      </label>
+                    </div>
+                  </div>
 
-.logo-sub {
-  font-size: 11px;
-  color: var(--text-soft);
-}
+                  <!-- GELİŞMİŞ ALANLAR -->
+                  <div class="form-section js-advanced-section">
+                    <div class="inline-3">
+                      <div class="field">
+                        <label>Tür (Genre)</label>
+                        <select name="genre">
+                          <option value="">Tür seçin</option>
+                          <option value="Türkçe Pop">Türkçe Pop</option>
+                          <option value="Anadolu Pop">Anadolu Pop</option>
+                          <option value="Arabesk">Arabesk</option>
+                          <option value="Deep House">Deep House</option>
+                          <option value="Lo-fi">Lo-fi</option>
+                          <option value="Trap">Trap</option>
+                        </select>
+                      </div>
 
-.nav-section-label {
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(209, 213, 219, 0.66);
-  margin-bottom: 6px;
-}
+                      <div class="field">
+                        <label>Tempo (BPM)</label>
+                        <input
+                          type="number"
+                          name="tempo"
+                          placeholder="Örn: 105"
+                        />
+                        <div class="field-hint">Önerilen BPM: 90–120</div>
+                      </div>
 
-.sidebar-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
+                      <div class="field">
+                        <label>Karar Sesi (Key)</label>
+                        <select name="key">
+                          <option value="C">C</option>
+                          <option value="D">D</option>
+                          <option value="E">E</option>
+                          <option value="F">F</option>
+                          <option value="G">G</option>
+                          <option value="A">A</option>
+                          <option value="B">B</option>
+                        </select>
+                      </div>
+                    </div>
 
-.nav-item {
-  border: none;
-  background: transparent;
-  color: var(--text-soft);
-  padding: 8px 10px;
-  border-radius: 12px;
-  font-size: 13px;
-  text-align: left;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  transition: background 140ms ease, color 140ms ease, transform 100ms ease;
-}
+                    <div class="field">
+                      <label>Türk Enstrümanları</label>
+                      <div class="checkbox-grid">
+                        <label
+                          ><input type="checkbox" /> Bağlama</label
+                        >
+                        <label><input type="checkbox" /> Saz</label>
+                        <label><input type="checkbox" /> Kanun</label>
+                        <label><input type="checkbox" /> Ney</label>
+                        <label><input type="checkbox" /> Darbuka</label>
+                        <label><input type="checkbox" /> Ud</label>
+                        <label><input type="checkbox" /> Zurna</label>
+                      </div>
+                    </div>
 
-.nav-item:hover {
-  background: rgba(15, 23, 42, 0.92);
-  color: var(--text);
-  transform: translateY(-1px);
-}
+                    <div class="field">
+                      <label>Modern Enstrümanlar</label>
+                      <div class="checkbox-grid">
+                        <label><input type="checkbox" /> Piyano</label>
+                        <label><input type="checkbox" /> Gitar</label>
+                        <label><input type="checkbox" /> Elektro Gitar</label>
+                        <label><input type="checkbox" /> Bas Gitar</label>
+                        <label><input type="checkbox" /> Synth</label>
+                        <label><input type="checkbox" /> Trap Drums</label>
+                        <label><input type="checkbox" /> Strings</label>
+                      </div>
+                    </div>
+                  </div>
 
-.nav-item.is-active {
-  background: linear-gradient(135deg, #4c1d95, #6366f1);
-  color: #f9fafb;
-}
+                  <div class="form-footer">
+                    <button class="primary-cta" type="submit">
+                      <span class="cta-icon">🎵</span>
+                      <span>Müzik Üret</span>
+                    </button>
+                    <div class="form-footnote">
+                      AIVO şu anda kapalı beta aşamasında. Günlük 10 ücretsiz
+                      üretim.
+                    </div>
+                  </div>
+                </form>
+              </div>
 
-.nav-item-danger {
-  color: var(--danger);
-}
+              <!-- SAĞ: SON ÜRETİLEN MÜZİKLER -->
+              <aside class="col col-side">
+                <div class="card recent-card">
+                  <header class="recent-header">
+                    <h2>Son Üretilen Müzikler</h2>
+                    <span class="recent-meta" id="recentMeta">Toplam 0 müzik</span>
+                  </header>
 
-.nav-item-danger:hover {
-  background: rgba(248, 113, 113, 0.12);
-}
+                  <div class="recent-empty" id="recentEmpty">
+                    <div class="empty-icon">🎵</div>
+                    <p>Henüz müzik üretmedin.</p>
+                    <p class="empty-sub">
+                      Soldaki formu doldurup Müzik Üret tuşuna basarak başla.
+                    </p>
+                  </div>
 
-.nav-pill {
-  font-size: 10px;
-  padding: 2px 6px;
-  border-radius: 999px;
-  background: rgba(52, 211, 153, 0.18);
-  color: #bbf7d0;
-}
+                  <ul class="recent-list" id="recentList"></ul>
+                </div>
+              </aside>
+            </div>
+          </section>
 
-.sidebar-section {
-  border-top: 1px solid rgba(148, 163, 184, 0.3);
-  padding-top: 10px;
-}
+          <!-- KAPAK ÜRET -->
+          <section class="page" data-page="cover">
+            <div class="columns">
+              <div class="col col-main">
+                <header class="page-header wide">
+                  <h1>Kapak Üret</h1>
+                  <p>
+                    Spotify, Apple Music ve YouTube için AI destekli kapak
+                    görselleri üret.
+                  </p>
+                </header>
 
-.preset-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
+                <form class="card form-card" id="coverForm">
+                  <div class="form-section">
+                    <div class="field">
+                      <label>Kapak Başlığı</label>
+                      <input
+                        type="text"
+                        name="coverTitle"
+                        placeholder="Örn: Kül Bahçesi – Single Kapak"
+                      />
+                    </div>
 
-.preset-chip {
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.4);
-  background: rgba(15, 23, 42, 0.88);
-  font-size: 11px;
-  padding: 4px 8px;
-  color: var(--text-soft);
-  cursor: pointer;
-  transition: background 140ms ease, border 140ms ease, transform 100ms ease;
-}
+                    <div class="inline-2">
+                      <div class="field">
+                        <label>Platform Preset</label>
+                        <select name="coverPlatform">
+                          <option value="spotify">Spotify (1:1)</option>
+                          <option value="apple">Apple Music</option>
+                          <option value="youtube">YouTube Kapak (16:9)</option>
+                          <option value="shorts">YouTube Shorts (9:16)</option>
+                        </select>
+                      </div>
 
-.preset-chip:hover {
-  background: rgba(79, 70, 229, 0.45);
-  border-color: rgba(168, 85, 247, 0.85);
-  color: #f9fafb;
-  transform: translateY(-1px);
-}
+                      <div class="field">
+                        <label>Renk Teması</label>
+                        <select name="coverTheme">
+                          <option>Mor / Lila Neon</option>
+                          <option>Pastel Bahçe</option>
+                          <option>Gece Şehri</option>
+                          <option>Analog Film</option>
+                        </select>
+                      </div>
+                    </div>
 
-.sidebar-tip {
-  font-size: 11px;
-  color: var(--text-soft);
-  line-height: 1.5;
-}
-      <div class="sidebar-watermark">
-        <img src="aivo-logo.png" alt="AIVO Studio" />
+                    <div class="inline-2">
+                      <div class="field">
+                        <label>Stil</label>
+                        <select name="coverStyle">
+                          <option>Fotoğraf Gerçekçi</option>
+                          <option>İllüstrasyon</option>
+                          <option>Anime</option>
+                          <option>Vaporwave</option>
+                        </select>
+                      </div>
+
+                      <div class="field">
+                        <label>En Boy Oranı</label>
+                        <select name="coverRatio">
+                          <option value="1:1">Kare (1:1)</option>
+                          <option value="16:9">Geniş (16:9)</option>
+                          <option value="9:16">Dikey (9:16)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label>Kapak Açıklaması / Prompt</label>
+                      <textarea
+                        name="coverPrompt"
+                        rows="3"
+                        placeholder="Örn: mor ve mavi neon ışıklar, sisli gece, şehir manzarası, hafif grain efektli..."
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <div class="form-footer">
+                    <button class="primary-cta small" type="submit">
+                      <span class="cta-icon">🎨</span>
+                      <span>Kapak Üret</span>
+                    </button>
+                    <div class="form-footnote">
+                      Şu an MVP modunda: AI API bağlandığında burada gerçek
+                      görseller üretilecek.
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <aside class="col col-side">
+                <div class="card recent-card">
+                  <header class="recent-header">
+                    <h2>Kapak Galerin</h2>
+                    <span class="recent-meta" id="coverMeta">Toplam 0 kapak</span>
+                  </header>
+
+                  <div class="recent-empty" id="coverEmpty">
+                    <div class="empty-icon">🖼️</div>
+                    <p>Kapak stüdyosu geliştirme aşamasında.</p>
+                    <p class="empty-sub">
+                      Ürettiğin müzikler için otomatik kapak önerileri burada
+                      görünecek.
+                    </p>
+                  </div>
+
+                  <ul class="cover-gallery" id="coverList"></ul>
+                </div>
+              </aside>
+            </div>
+          </section>
+
+          <!-- ÜRETTİKLERİM -->
+          <section class="page" data-page="library">
+            <div class="card studio-banner">
+              <h2>Ürettiklerim</h2>
+              <p>
+                Yakında tüm müzik ve kapak arşivin burada listelenecek. Şimdilik
+                Müzik Üret ve Kapak Üret sekmelerinden denemelere devam edebilirsin.
+              </p>
+            </div>
+          </section>
+        </div>
       </div>
-    </aside>
-.sidebar {
-  position: relative; /* watermark için önemli */
-}
-
-/* ALTTA SAYDAM LOGO */
-
-.sidebar-watermark {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 18px;
-  display: flex;
-  justify-content: center;
-  pointer-events: none; /* tıklamayı engellemesin */
-  opacity: 0.12;
-}
-
-.sidebar-watermark img {
-  max-width: 160px;
-  width: 70%;
-  filter: blur(0.3px);
-}
-
-
-/* MAIN AREA */
-
-.main-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-/* TOPBAR */
-
-.topbar {
-  height: 54px;
-  border-radius: 999px;
-  background: radial-gradient(circle at top left, #4c1d95 0%, #020617 52%, #000 100%);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 18px;
-  box-shadow: var(--shadow-soft);
-}
-
-.top-tabs {
-  display: flex;
-  gap: 4px;
-}
-
-.top-tab {
-  border: none;
-  background: transparent;
-  color: var(--text-soft);
-  font-size: 13px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: background 140ms ease, color 140ms ease;
-}
-
-.top-tab:hover {
-  background: rgba(15, 23, 42, 0.92);
-  color: var(--text);
-}
-
-.top-tab.is-active {
-  background: rgba(15, 23, 42, 1);
-  color: #f9fafb;
-}
-
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* KREDİ PİLL */
-
-.credit-pill {
-  position: relative;
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.4);
-  padding: 8px 14px;
-  background: radial-gradient(circle at 0 0, rgba(236,72,153,0.18), rgba(15,23,42,0.96));
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: #e5e7eb;
-  cursor: pointer;
-  transition: background 140ms ease, transform 100ms ease, border 140ms ease, box-shadow 140ms ease;
-  box-shadow: 0 0 0 rgba(168,85,247,0);
-}
-
-.credit-pill:hover {
-  background: radial-gradient(circle at 0 0, rgba(236,72,153,0.35), rgba(15,23,42,1));
-  border-color: rgba(168, 85, 247, 0.9);
-  box-shadow: 0 0 25px rgba(129, 140, 248, 0.7);
-  transform: translateY(-1px);
-}
-
-.credit-count {
-  background: rgba(74, 222, 128, 0.25);
-  color: #bbf7d0;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-weight: 600;
-  font-size: 12px;
-}
-
-}
-
-.credit-count {
-  background: rgba(74, 222, 128, 0.23);
-  color: #bbf7d0;
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-weight: 600;
-}
-
-/* BUTTONLAR */
-
-.top-btn {
-  border-radius: 999px;
-  padding: 7px 14px;
-  font-size: 13px;
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: background 140ms ease, color 140ms ease, border 140ms ease,
-    transform 100ms ease;
-}
-
-.top-btn.ghost {
-  background: transparent;
-  color: var(--text-soft);
-  border-color: rgba(148, 163, 184, 0.5);
-}
-
-.top-btn.ghost:hover {
-  background: rgba(15, 23, 42, 0.96);
-  color: var(--text);
-}
-
-.top-btn.primary {
-  background: linear-gradient(135deg, #a855ff, #22d3ee);
-  color: #f9fafb;
-  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.7);
-}
-
-.top-btn.primary:hover {
-  transform: translateY(-1px);
-}
-
-/* MODE TOGGLE */
-
-.mode-toggle {
-  position: relative;
-  display: flex;
-  align-items: center;
-  background: rgba(15, 23, 42, 0.98);
-  border-radius: 999px;
-  padding: 3px;
-  gap: 2px;
-  width: 176px;
-  overflow: hidden;
-}
-
-.mode-btn {
-  flex: 1;
-  z-index: 1;
-  border: none;
-  background: transparent;
-  font-size: 12px;
-  padding: 6px 0;
-  color: var(--text-soft);
-  cursor: pointer;
-  transition: color 140ms ease;
-}
-
-.mode-btn.is-active {
-  color: #f9fafb;
-  font-weight: 500;
-}
-
-.mode-highlight {
-  position: absolute;
-  top: 3px;
-  bottom: 3px;
-  width: calc(50% - 3px);
-  border-radius: 999px;
-  background: linear-gradient(135deg, #a855ff, #22d3ee);
-  transition: transform 200ms ease;
-  transform: translateX(0%);
-}
-
-/* PAGES */
-
-.pages {
-  flex: 1;
-  border-radius: var(--radius-xl);
-  background: radial-gradient(circle at top right, #3b0764 0, #020617 40%, #000 100%);
-  padding: 18px;
-  box-shadow: var(--shadow-soft);
-}
-
-.page {
-  display: none;
-}
-
-.page.is-active {
-  display: block;
-}
-
-/* COLUMNS */
-
-.columns {
-  display: grid;
-  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.1fr);
-  gap: 16px;
-}
-
-.columns.single {
-  grid-template-columns: minmax(0, 1fr);
-}
-
-.col {
-  min-width: 0;
-}
-
-.col-side {
-  display: flex;
-  flex-direction: column;
-}
-
-/* CARDS & HEADERS */
-
-.card {
-  background: var(--card);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-subtle);
-  padding: 16px 16px 18px;
-  box-shadow: var(--shadow-soft);
-}
-
-.page-header {
-  margin-bottom: 12px;
-}
-
-.page-header.wide {
-  margin-bottom: 18px;
-}
-
-.page-header h1 {
-  margin: 0 0 4px;
-  font-size: 22px;
-}
-
-.page-header p {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.beta-pill {
-  display: inline-flex;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 11px;
-  margin-top: 8px;
-  background: rgba(129, 140, 248, 0.25);
-  color: #c7d2fe;
-}
-
-/* FORM */
-
-.form-card {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.form-section {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.field label {
-  font-size: 12px;
-  color: rgba(209, 213, 219, 0.9);
-}
-
-.field input,
-.field select,
-.field textarea {
-  background: rgba(15, 23, 42, 0.96);
-  border-radius: 10px;
-  border: 1px solid rgba(51, 65, 85, 0.95);
-  padding: 8px 10px;
-  font-size: 13px;
-  color: var(--text);
-  outline: none;
-  resize: vertical;
-  min-height: 34px;
-  transition: border 120ms ease, box-shadow 120ms ease, background 120ms ease;
-}
-
-.field textarea {
-  min-height: 70px;
-}
-
-.field input::placeholder,
-.field textarea::placeholder {
-  color: rgba(148, 163, 184, 0.8);
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus {
-  border-color: #a855ff;
-  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.55);
-  background: rgba(15, 23, 42, 1);
-}
-
-.field-hint {
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.inline-3 {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.inline-2 {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-
-/* CHECKBOX GRID */
-
-.checkbox-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 4px 12px;
-  font-size: 12px;
-}
-
-.checkbox-grid label {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-  color: var(--text-soft);
-}
-
-/* UPLOAD */
-
-.upload-dropzone {
-  position: relative;
-  border-radius: 16px;
-  border: 1px dashed rgba(148, 163, 184, 0.7);
-  padding: 14px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: radial-gradient(circle at top left, rgba(168, 85, 247, 0.22), rgba(15, 23, 42, 0.96));
-  cursor: pointer;
-  transition: border 140ms ease, background 140ms ease, transform 100ms ease;
-}
-
-.upload-dropzone:hover {
-  border-color: #a855ff;
-  background: radial-gradient(circle at top left, rgba(168, 85, 247, 0.3), rgba(15, 23, 42, 1));
-  transform: translateY(-1px);
-}
-
-.upload-dropzone input[type="file"] {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.upload-icon {
-  font-size: 24px;
-}
-
-.upload-text {
-  display: flex;
-  flex-direction: column;
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-.upload-text strong {
-  color: var(--text);
-  margin-bottom: 2px;
-}
-
-.upload-file-name {
-  margin-top: 4px;
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-/* FORM FOOTER */
-
-.form-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin-top: 4px;
-}
-
-.primary-cta {
-  border: none;
-  border-radius: 999px;
-  padding: 8px 18px;
-  font-size: 14px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  background: radial-gradient(circle at 18% 0, #f9a8ff 0, #a855f7 35%, #22d3ee 85%);
-  color: #fdf2ff;
-  box-shadow: 0 14px 45px rgba(88, 28, 135, 0.9);
-  transition: transform 100ms ease, box-shadow 100ms ease;
-}
-
-.primary-cta:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 18px 60px rgba(129, 140, 248, 0.9);
-}
-
-.primary-cta.small {
-  padding: 6px 16px;
-  font-size: 13px;
-}
-
-.cta-icon {
-  font-size: 16px;
-}
-
-.form-footnote {
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.char-counter {
-  align-self: flex-end;
-  font-size: 10px;
-  color: rgba(148, 163, 184, 0.95);
-}
-
-/* INFO & MINI TOOLS */
-
-.info-card h3 {
-  margin: 0 0 6px;
-  font-size: 14px;
-}
-
-.info-card ul {
-  margin: 0;
-  padding-left: 18px;
-  font-size: 12px;
-  color: var(--text-soft);
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.bottom-tools {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.mini-tool h3 {
-  margin: 0 0 4px;
-  font-size: 14px;
-}
-
-.mini-tool p {
-  margin: 0 0 8px;
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-.secondary-cta {
-  border-radius: 999px;
-  padding: 6px 14px;
-  font-size: 12px;
-  border: 1px solid rgba(148, 163, 184, 0.7);
-  background: rgba(15, 23, 42, 0.96);
-  color: var(--text-soft);
-  cursor: pointer;
-  transition: background 140ms ease, color 140ms ease, border 140ms ease,
-    transform 100ms ease;
-}
-
-.secondary-cta:hover {
-  background: rgba(79, 70, 229, 0.45);
-  border-color: rgba(167, 139, 250, 0.96);
-  color: #fef9ff;
-  transform: translateY(-1px);
-}
-
-/* RECENT */
-
-.recent-card {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 260px;
-}
-
-.recent-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.recent-header h2 {
-  margin: 0;
-  font-size: 16px;
-}
-
-.recent-meta {
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.recent-empty {
-  flex: 1;
-  border-radius: 14px;
-  border: 1px dashed rgba(148, 163, 184, 0.6);
-  background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(17, 24, 39, 0.98));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 4px;
-  padding: 16px;
-}
-
-.empty-icon {
-  font-size: 32px;
-  margin-bottom: 4px;
-}
-
-.empty-sub {
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.recent-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: none;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.recent-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 10px;
-  border-radius: 10px;
-  background: rgba(15, 23, 42, 0.97);
-  border: 1px solid rgba(31, 41, 55, 0.96);
-  font-size: 12px;
-}
-
-.recent-main {
-  display: flex;
-  flex-direction: column;
-}
-
-.recent-title {
-  font-weight: 500;
-}
-
-.recent-sub {
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.recent-actions {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.play-btn {
-  border-radius: 999px;
-  border: none;
-  width: 28px;
-  height: 28px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(79, 70, 229, 0.9);
-  color: white;
-  cursor: pointer;
-  font-size: 13px;
-}
-
-.play-btn:hover {
-  background: rgba(129, 140, 248, 0.96);
-}
-
-/* STUDIO / PRICING */
-
-.studio-banner h2 {
-  margin: 0 0 6px;
-  font-size: 18px;
-}
-
-.studio-banner p {
-  margin: 0 0 10px;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.studio-banner ul {
-  margin: 0;
-  padding-left: 18px;
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-.pricing-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 12px;
-}
-
-.pricing-card {
-  background: radial-gradient(circle at top, rgba(30, 64, 175, 0.8), rgba(15, 23, 42, 1));
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(148, 163, 184, 0.5);
-  padding: 14px 14px 16px;
-  position: relative;
-}
-
-.pricing-card-featured {
-  border-color: rgba(249, 115, 22, 0.85);
-  box-shadow: 0 0 35px rgba(234, 179, 8, 0.4);
-}
-
-.pricing-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 10px;
-  padding: 3px 7px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #f97316, #facc15);
-  color: #111827;
-}
-
-.pricing-label {
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.pricing-price {
-  font-size: 22px;
-  font-weight: 700;
-}
-
-.pricing-sub {
-  font-size: 11px;
-  color: var(--text-soft);
-  margin-bottom: 8px;
-}
-
-.pricing-card ul {
-  margin: 0 0 10px;
-  padding-left: 16px;
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-/* KAPAK GALERİ */
-
-.cover-gallery {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: none;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 10px;
-}
-
-.cover-card {
-  border-radius: 14px;
-  background: radial-gradient(circle at top, rgba(30, 64, 175, 0.8), rgba(15, 23, 42, 1));
-  border: 1px solid rgba(148, 163, 184, 0.6);
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 11px;
-}
-
-.cover-thumb {
-  border-radius: 10px;
-  background: radial-gradient(circle at 10% 0, #ec4899 0, #a855f7 40%, #22d3ee 80%);
-  height: 90px;
-  margin-bottom: 4px;
-}
-
-.cover-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.cover-title {
-  font-weight: 500;
-  font-size: 12px;
-}
-
-.cover-sub {
-  color: var(--text-soft);
-}
-
-.cover-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 4px;
-}
-
-.cover-tag {
-  padding: 2px 6px;
-  border-radius: 999px;
-  border: 1px solid rgba(148, 163, 184, 0.6);
-  font-size: 10px;
-  color: var(--text-soft);
-}
-
-
-/* MODAL */
-
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.78);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 50;
-}
-
-.modal-backdrop.is-open {
-  display: flex;
-}
-
-.modal {
-  width: min(800px, 100% - 32px);
-  background: radial-gradient(circle at top, #1e293b, #020617);
-  border-radius: 24px;
-  padding: 18px 18px 20px;
-  border: 1px solid rgba(148, 163, 184, 0.7);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.9);
-}
-
-.modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 4px;
-}
-
-.modal-header h2 {
-  margin: 0;
-  font-size: 18px;
-}
-
-.modal-close {
-  border: none;
-  background: transparent;
-  color: var(--text-soft);
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.modal-close:hover {
-  color: var(--text);
-}
-
-.modal-sub {
-  font-size: 12px;
-  color: var(--text-soft);
-  margin: 0 0 10px;
-}
-
-.modal-pricing {
-  margin-top: 4px;
-}
-
-/* RESPONSIVE (temel) */
-
-@media (max-width: 1024px) {
-  .app-shell {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width: 100%;
-    flex-direction: row;
-    align-items: center;
-    overflow-x: auto;
-  }
-
-  .sidebar-nav,
-  .sidebar-section {
-    display: none; /* MVP için mobilde sade görünüm */
-  }
-
-  .columns {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .col-side {
-    order: -1;
-  }
-}
-/* ----------------------------- */
-/*   LARGE MODE TOGGLE (AIVO)    */
-/* ----------------------------- */
-
-.mode-row {
-    margin-bottom: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.mode-label {
-    font-size: 15px;
-    font-weight: 600;
-    color: #fff;
-    opacity: 0.85;
-}
-
-.mode-label span {
-    display: block;
-    font-size: 13px;
-    opacity: 0.6;
-}
-
-.mode-toggle-large {
-    position: relative;
-    display: flex;
-    background: rgba(255,255,255,0.05);
-    padding: 6px;
-    border-radius: 14px;
-    width: 260px;
-    user-select: none;
-}
-
-.mode-toggle-large .mode-btn {
-    flex: 1;
-    border: none;
-    background: transparent;
-    padding: 10px 0;
-    font-size: 15px;
-    font-weight: 600;
-    color: #bbb;
-    border-radius: 12px;
-    z-index: 2;
-    cursor: pointer;
-}
-
-.mode-toggle-large .mode-btn.is-active {
-    color: white;
-}
-
-.mode-toggle-large .mode-highlight {
-  position: absolute;
-  top: 6px;
-  left: 6px;
-  width: calc(50% - 6px);
-  height: calc(100% - 12px);
-  background: linear-gradient(135deg, #a855f7, #3b82f6, #06b6d4);
-  border-radius: 12px;
-  box-shadow: 0 0 18px rgba(140, 63, 255, 0.7);
-  transition: all 0.33s cubic-bezier(.4, 0, .2, 1);
-  z-index: 1;
-}
+    </div>
+
+    <!-- KREDİ MODALİ -->
+    <div class="modal-backdrop">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Kredi Paketleri</h2>
+          <button class="modal-close" type="button">×</button>
+        </div>
+        <p class="modal-sub">
+          AIVO’da daha fazla müzik ve kapak üretmek için ihtiyacına uygun kredi
+          paketini seç.
+        </p>
+
+        <div class="modal-pricing">
+          <div class="pricing-row">
+            <div class="pricing-card">
+              <div class="pricing-label">Ekonomik Paket</div>
+              <div class="pricing-price">349₺</div>
+              <div class="pricing-sub">50 kredi • 100 şarkı</div>
+              <ul>
+                <li>Yüksek kalite üretim</li>
+                <li>Temel destek</li>
+                <li>Kişisel kullanım</li>
+              </ul>
+              <button class="primary-cta small" type="button">
+                Satın Al
+              </button>
+            </div>
+
+            <div class="pricing-card pricing-card-featured">
+              <div class="pricing-badge">En Popüler</div>
+              <div class="pricing-label">Temel Paket</div>
+              <div class="pricing-price">599₺</div>
+              <div class="pricing-sub">100 kredi • 200 şarkı</div>
+              <ul>
+                <li>Öncelikli destek</li>
+                <li>Gelişmiş özellikler</li>
+                <li>Ticari kullanım</li>
+              </ul>
+              <button class="primary-cta small" type="button">
+                Satın Al
+              </button>
+            </div>
+
+            <div class="pricing-card">
+              <div class="pricing-label">Studio Paket</div>
+              <div class="pricing-price">2899₺</div>
+              <div class="pricing-sub">500 kredi • 1000 şarkı</div>
+              <ul>
+                <li>Premium kalite</li>
+                <li>7/24 öncelikli destek</li>
+                <li>Ajans & stüdyo kullanımı</li>
+              </ul>
+              <button class="primary-cta small" type="button">
+                Satın Al
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="studio.js"></script>
+  </body>
+</html>
