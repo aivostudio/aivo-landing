@@ -12,7 +12,6 @@
     <header class="topbar">
       <div class="topbar-left">
         <div class="logo">
-          <!-- Buraya kendi logo dosya adını yazabilirsin -->
           <img src="aivo-logo1.png" alt="AIVO logo" class="logo-img" />
           <span class="logo-text">AIVO Studio</span>
         </div>
@@ -50,46 +49,47 @@
           <aside class="sidebar">
             <div class="sidebar-section">
               <div class="sidebar-title">Paneller</div>
-              
-              </button>
+
+              <!-- MÜZİK ÜRET GRUBU -->
               <div class="sidebar-group">
-  <!-- Ana buton: sadece aç/kapa yapacak -->
-  <button
-    type="button"
-    class="sidebar-link sidebar-link-main is-active is-open"
-    data-submenu-toggle="music"
-  >
-    <span>🎵 Müzik Üret</span>
-    <span class="sidebar-arrow">▾</span>
-  </button>
+                <!-- Ana satır: alt menüyü aç/kapa yapar -->
+                <button
+                  type="button"
+                  class="sidebar-link sidebar-link-main is-open"
+                  data-submenu-toggle="music"
+                >
+                  <span>🎵 Müzik Üret</span>
+                  <span class="sidebar-arrow">▾</span>
+                </button>
 
-  <!-- Alt seçenekler -->
-  <div class="sidebar-submenu is-open" data-submenu="music">
-    <button
-      type="button"
-      class="sidebar-sublink is-active"
-      data-page-link="music"
-    >
-      Geleneksel
-    </button>
-    <button
-      type="button"
-      class="sidebar-sublink"
-      data-page-link="music"
-    >
-      Ses Kaydı
-    </button>
-    <button
-      type="button"
-      class="sidebar-sublink"
-      data-page-link="music"
-    >
-      Vokale Göre
-    </button>
-  </div>
-</div>
+                <!-- Alt seçenekler -->
+                <div class="sidebar-submenu is-open" data-submenu="music">
+                  <!-- Şu an sadece Geleneksel gerçek sayfaya gidiyor -->
+                  <button
+                    type="button"
+                    class="sidebar-sublink is-active"
+                    data-page-link="music"
+                  >
+                    Geleneksel
+                  </button>
 
-              </button>
+                  <!-- Bunlar şimdilik sadece görsel; ileride ayrı sayfa yapılacak -->
+                  <button
+                    type="button"
+                    class="sidebar-sublink"
+                  >
+                    Ses Kaydı
+                  </button>
+                  <button
+                    type="button"
+                    class="sidebar-sublink"
+                  >
+                    Vokale Göre
+                  </button>
+                </div>
+              </div>
+
+              <!-- Diğer menü elemanları -->
               <button class="sidebar-link" data-page-link="music">
                 <span>Ürettiklerim</span>
               </button>
@@ -137,6 +137,7 @@
               </p>
             </div>
 
+            <!-- ÇALIŞMA MODU -->
             <div class="card">
               <div class="card-header">
                 <div>
@@ -147,16 +148,15 @@
                 </div>
                 <div class="mode-toggle">
                   <button class="mode-btn" data-mode-button="basic">Basit Mod</button>
-                  <button class="mode-btn" data-mode-button="advanced">
-  Gelişmiş Mod
-  <span class="mode-star" aria-hidden="true">✦</span>
-</button>
-
+                  <button class="mode-btn is-active" data-mode-button="advanced">
+                    Gelişmiş Mod
+                    <span class="mode-star" aria-hidden="true">✦</span>
                   </button>
                 </div>
               </div>
             </div>
 
+            <!-- ŞARKI DETAYLARI -->
             <div class="card">
               <div class="form-grid">
                 <div class="form-field full">
@@ -210,6 +210,7 @@
               </div>
             </div>
 
+            <!-- REFERANS SES (GELİŞMİŞ) -->
             <div class="card advanced-section" data-visible-in="advanced">
               <div class="card-title small">Referans Ses Yükle (opsiyonel)</div>
               <div class="reference-upload">
@@ -224,6 +225,7 @@
               </div>
             </div>
 
+            <!-- TEMPO / TÜR / KEY -->
             <div class="card">
               <div class="form-grid">
                 <div class="form-field third">
@@ -266,6 +268,7 @@
               </div>
             </div>
 
+            <!-- ENSTRÜMANLAR (GELİŞMİŞ) -->
             <div class="card advanced-section" data-visible-in="advanced">
               <div class="form-grid">
                 <div class="form-field half">
@@ -324,6 +327,7 @@
               </div>
             </div>
 
+            <!-- MIX / VOKAL / BUTON -->
             <div class="card">
               <div class="form-grid">
                 <div class="form-field third">
@@ -538,7 +542,6 @@
                   </div>
 
                   <div class="gallery-grid">
-                    <!-- Şimdilik placeholder kartlar -->
                     <div class="gallery-card">
                       <div class="gallery-thumb fake-thumb thumb-1"></div>
                       <div class="gallery-info">
