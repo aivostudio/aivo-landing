@@ -405,10 +405,11 @@ body {
     radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.15), transparent 60%),
     var(--bg-card);
   border-radius: var(--radius-xl);
-  padding: 14px 16px;
+  padding: 10px 14px;   /* Daha az iç boşluk */
   border: 1px solid var(--border-subtle);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
 }
+
 
 .card:not(:last-child) {
   margin-bottom: 2px;
