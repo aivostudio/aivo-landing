@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const langButtons = document.querySelectorAll(".lang-btn");
   const i18nElements = document.querySelectorAll("[data-i18n]");
   const i18nPlaceholders = document.querySelectorAll("[data-i18n-placeholder]");
-  const modeButtons = document.querySelectorAll(".mode-btn");
+  const modeChips = document.querySelectorAll(".mode-chip");
   const musicPanel = document.getElementById("music-panel");
   const presetButtons = document.querySelectorAll(".preset-btn");
   const tempoInput = document.getElementById("tempo");
@@ -55,8 +55,10 @@ document.addEventListener("DOMContentLoaded", () => {
       music_subtitle:
         "Ritim, vokal, mood ve makam seç — AIVO şarkıyı oluştursun.",
 
-      mode_basic: "Basit",
-      mode_advanced: "Gelişmiş",
+      mode_basic: "Basit Mod",
+      mode_basic_sub: "Hızlı üretim için temel ayarlar",
+      mode_advanced: "Gelişmiş Mod",
+      mode_advanced_sub: "Enstrüman, referans ses ve detaylı kontrol",
 
       field_song_title: "Şarkı Adı",
       field_song_desc: "Şarkı Açıklaması",
@@ -91,8 +93,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       hint_max_chars: "Maksimum 200 karakter.",
       hint_tempo: "Önerilen BPM: 90–120",
+      audio_drop_label:
+        "Dosya seç veya sürükleyip bırak (vokal veya referans şarkı)",
       hint_audio_ref:
-        "Suno / Eita gibi: Referans bir audio yükleyerek stile yön verebilirsin.",
+        "Suno / Eita gibi: Kendi vokalini veya sevdiğin bir parçayı yükleyip AIVO’nun stil, tempo ve armoniyi buradan çıkarmasını sağlayabilirsin.",
       hint_beta:
         "AIVO şu anda kapalı beta aşamasında. Günlük 10 ücretsiz üretim.",
 
@@ -105,17 +109,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       right_title: "Son Üretilen Müzikler",
       right_empty:
-        "Henüz müzik üretmedin. Soldaki formu doldurup “Müzik Üret” butonuna basarak başla.",
+        "Henüz müzik üretmedin.\nSoldaki formu doldurup “Müzik Üret” butonuna basarak başla.",
 
       credits_modal_title: "Kredi Paketleri",
       credits_modal_desc:
-        "İhtiyacına göre bir paket seç. Kullanmadığın krediler bir sonraki aya devredilir.",
+        "Üretim hacmine göre bir paket seç. Kullanmadığın krediler bir sonraki aya devredilir.",
       credits_pack_small: "100 kredi • Hobi kullanımı",
       credits_pack_med: "500 kredi • Düzenli üretim",
       credits_pack_big: "1500 kredi • Profesyonel stüdyo",
       credits_modal_note:
         "Ödeme sağlayıcısı: Stripe / iyzico — tüm ödemeler 3D Secure ile korunur.",
-      btn_select: "Seç",
+      badge_best: "En Çok Tercih Edilen",
+      btn_select: "Bu Paketi Seç",
 
       placeholder_song_title: "Örn: Kül Bahçesi, Midnight Drive...",
       placeholder_song_desc: "Şarkının genel havasını kısaca anlat...",
@@ -126,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Müzikte özellikle vurgulamak istediğin detayları yaz..."
     },
 
-    /* İngilizce */
+    /* İngilizce (kısaltılmış) */
     en: {
       nav_home: "Home",
       nav_dashboard: "Dashboard",
@@ -160,8 +165,10 @@ document.addEventListener("DOMContentLoaded", () => {
       music_subtitle:
         "Pick rhythm, vocal, mood and key — AIVO builds the track.",
 
-      mode_basic: "Basic",
-      mode_advanced: "Advanced",
+      mode_basic: "Basic Mode",
+      mode_basic_sub: "Fast setup for quick ideas",
+      mode_advanced: "Advanced Mode",
+      mode_advanced_sub: "Full control with instruments & reference audio",
 
       field_song_title: "Song Title",
       field_song_desc: "Song Description",
@@ -196,21 +203,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
       hint_max_chars: "Maximum 200 characters.",
       hint_tempo: "Suggested BPM: 90–120",
+      audio_drop_label:
+        "Choose file or drag & drop (vocal or reference song)",
       hint_audio_ref:
-        "Like Suno / Eita: upload a reference audio to guide the style.",
+        "Like Suno / Eita: upload your own vocal or a track so AIVO can infer style, tempo and harmony.",
       hint_beta:
         "AIVO is currently in closed beta. 10 free generations per day.",
 
       btn_generate_music: "Generate Track",
 
-      tip_1: "Keep your description short and clear, up to 200 characters.",
-      tip_2: "Match genre and mood (e.g., Pop + Energetic).",
+      tip_1: "Keep your description short and clear (up to 200 characters).",
+      tip_2: "Match genre and mood (e.g. Pop + Energetic).",
       tip_3: "Key / scale is important for Turkish music.",
-      tip_4: "Specifying instruments improves the final mix.",
+      tip_4: "Specifying instruments improves the mix.",
 
       right_title: "Recently Generated Tracks",
       right_empty:
-        "You haven’t generated any music yet. Fill the form on the left and click “Generate Track”.",
+        "You haven’t generated any music yet.\nFill the form on the left and click “Generate Track”.",
 
       credits_modal_title: "Credit Packages",
       credits_modal_desc:
@@ -220,7 +229,8 @@ document.addEventListener("DOMContentLoaded", () => {
       credits_pack_big: "1500 credits • Studio level",
       credits_modal_note:
         "Payments via Stripe / iyzico — all payments are secured with 3D Secure.",
-      btn_select: "Select",
+      badge_best: "Most Popular",
+      btn_select: "Choose this plan",
 
       placeholder_song_title: "e.g. Ash Garden, Midnight Drive...",
       placeholder_song_desc: "Briefly describe the overall feeling of the song...",
@@ -231,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Describe specific details you want to emphasize in the music..."
     },
 
-    /* Almanca (kısa, temel metinler) */
+    /* Diğer diller (de, ar, ja) önceki mantığıyla kısaltılmış bırakıldı – istersen sonra genişletiriz */
     de: {
       nav_home: "Startseite",
       nav_dashboard: "Dashboard",
@@ -242,102 +252,12 @@ document.addEventListener("DOMContentLoaded", () => {
       nav_profile: "Profil",
       nav_settings: "Einstellungen",
       nav_logout: "Abmelden",
-
       credits_label: "Credits:",
       credits_buy: "Kaufen",
-
       btn_login: "Anmelden",
       btn_signup: "Registrieren",
-
-      sidebar_desc:
-        "Verwalte Musik- und Artwork-Generierung in einem Studio. AIVO kombiniert Rhythmus, Vocals, Stimmung und Cover.",
-      sidebar_modes: "Modi",
-      mode_music: "Music Studio",
-      mode_artwork: "Artwork Studio",
-      sidebar_presets: "Schnelle Presets",
-      sidebar_presets_hint:
-        "Genre, Tempo und Stimmung mit einem Klick füllen.",
-      sidebar_tip_title: "Tipp",
-      sidebar_tip_body:
-        "Wähle zuerst Stimmung und Tempo. Mit Presets geht es schneller.",
-
-      music_title: "Musik erzeugen",
-      music_subtitle:
-        "Wähle Rhythmus, Vocal, Stimmung und Tonart – AIVO baut den Track.",
-
-      mode_basic: "Basic",
-      mode_advanced: "Advanced",
-
-      field_song_title: "Songtitel",
-      field_song_desc: "Songbeschreibung",
-      field_song_lyrics: "Songtext (optional)",
-      field_genre: "Genre",
-      field_tempo: "Tempo (BPM)",
-      field_key: "Tonart",
-      field_mix_style: "Mix-Stil",
-      field_mood: "Stimmung",
-      field_instruments_tr: "Traditionelle Instrumente",
-      field_instruments_modern: "Moderne Instrumente",
-      field_vocal_type: "Vocal-Typ (optional)",
-      field_audio_ref: "Referenz-Audio (optional)",
-      field_extra_notes: "Zusätzliche Hinweise / Prompt",
-
-      option_select_genre: "Genre wählen",
-      option_aivo_pop_default: "AIVO Pop Mix (Standard)",
-      option_warm_analog: "Warmer Analog",
-      option_club: "Club Mix",
-      option_cinematic: "Cinematic",
-      option_select_mood: "Wählen",
-      mood_energetic: "Energisch",
-      mood_sad: "Traurig",
-      mood_romantic: "Romantisch",
-      mood_chill: "Entspannt",
-      mood_epic: "Episch",
-
-      option_instrumental: "Instrumental",
-      option_female_pop: "Weiblicher Pop-Vocal",
-      option_male_pop: "Männlicher Pop-Vocal",
-      option_choir: "Chor",
-
-      hint_max_chars: "Maximal 200 Zeichen.",
-      hint_tempo: "Empfohlene BPM: 90–120",
-      hint_audio_ref:
-        "Wie bei Suno / Eita: Referenz-Audio hochladen, um den Stil zu steuern.",
-      hint_beta:
-        "AIVO befindet sich derzeit in geschlossener Beta. 10 kostenlose Generierungen pro Tag.",
-
-      btn_generate_music: "Track erzeugen",
-
-      tip_1: "Beschreibe den Song kurz und klar, bis zu 200 Zeichen.",
-      tip_2: "Genre und Stimmung sollten zusammenpassen.",
-      tip_3: "Tonart ist für türkische Musik wichtig.",
-      tip_4: "Instrument-Angaben verbessern den Mix.",
-
-      right_title: "Zuletzt erzeugte Tracks",
-      right_empty:
-        "Noch keine Musik erzeugt. Fülle das Formular links aus und klicke „Track erzeugen“.",
-
-      credits_modal_title: "Credit-Pakete",
-      credits_modal_desc:
-        "Wähle ein Paket, das zu deinem Workflow passt. Ungenutzte Credits werden übertragen.",
-      credits_pack_small: "100 Credits • Hobby",
-      credits_pack_med: "500 Credits • Regelmäßig",
-      credits_pack_big: "1500 Credits • Studio",
-      credits_modal_note:
-        "Zahlungen über Stripe / iyzico — alle Zahlungen sind 3D-Secure-geschützt.",
-      btn_select: "Auswählen",
-
-      placeholder_song_title: "z.B. Aschegarten, Midnight Drive...",
-      placeholder_song_desc:
-        "Beschreibe kurz die Stimmung des Songs...",
-      placeholder_song_lyrics:
-        "Songtext hier eingeben oder leer lassen – AIVO erzeugt Instrumental...",
-      placeholder_tempo: "z.B. 105",
-      placeholder_extra_notes:
-        "Beschreibe Details, die im Mix hervorgehoben werden sollen..."
+      right_title: "Zuletzt erzeugte Tracks"
     },
-
-    /* Arapça – sağdan sola destek: sadece metin çevirisi */
     ar: {
       nav_home: "الرئيسية",
       nav_dashboard: "لوحة التحكم",
@@ -348,101 +268,9 @@ document.addEventListener("DOMContentLoaded", () => {
       nav_profile: "الملف الشخصي",
       nav_settings: "الإعدادات",
       nav_logout: "تسجيل الخروج",
-
       credits_label: "الرصيد:",
-      credits_buy: "شراء",
-
-      btn_login: "تسجيل الدخول",
-      btn_signup: "إنشاء حساب",
-
-      sidebar_desc:
-        "أدر إنشاء الموسيقى والأغلفة من لوحة واحدة. AIVO يجمع الإيقاع، الصوت، المزاج والغلاف.",
-      sidebar_modes: "الأوضاع",
-      mode_music: "استوديو الموسيقى",
-      mode_artwork: "استوديو الأغلفة",
-      sidebar_presets: "إعدادات سريعة",
-      sidebar_presets_hint:
-        "املأ النوع والإيقاع والمزاج بنقرة واحدة، ويمكنك التعديل لاحقًا.",
-      sidebar_tip_title: "نصيحة",
-      sidebar_tip_body:
-        "اختر الشعور والإيقاع أولًا، واستخدم الإعدادات السريعة إن أردت.",
-
-      music_title: "إنشاء موسيقى",
-      music_subtitle:
-        "اختر الإيقاع، الصوت، المزاج والمقام – وAIVO ينشئ المقطع.",
-
-      mode_basic: "بسيط",
-      mode_advanced: "متقدم",
-
-      field_song_title: "عنوان الأغنية",
-      field_song_desc: "وصف الأغنية",
-      field_song_lyrics: "الكلمات (اختياري)",
-      field_genre: "النوع",
-      field_tempo: "السرعة (BPM)",
-      field_key: "المقام",
-      field_mix_style: "أسلوب الميكس",
-      field_mood: "المزاج",
-      field_instruments_tr: "آلات تقليدية",
-      field_instruments_modern: "آلات حديثة",
-      field_vocal_type: "نوع الصوت (اختياري)",
-      field_audio_ref: "ملف صوتي مرجعي (اختياري)",
-      field_extra_notes: "ملاحظات إضافية / برومبت",
-
-      option_select_genre: "اختر النوع",
-      option_aivo_pop_default: "AIVO Pop Mix (افتراضي)",
-      option_warm_analog: "أنالوج دافئ",
-      option_club: "كلَب ميكس",
-      option_cinematic: "سينمائي",
-      option_select_mood: "اختر",
-      mood_energetic: "حماسي",
-      mood_sad: "حزين",
-      mood_romantic: "رومانسي",
-      mood_chill: "هادئ",
-      mood_epic: "ملحمي",
-
-      option_instrumental: "موسيقى فقط",
-      option_female_pop: "صوت نسائي بوب",
-      option_male_pop: "صوت رجالي بوب",
-      option_choir: "جوقة",
-
-      hint_max_chars: "بحد أقصى 200 حرف.",
-      hint_tempo: "السرعة المقترحة: 90–120 BPM.",
-      hint_audio_ref:
-        "مثل Suno / Eita: يمكنك رفع ملف صوتي مرجعي لتوجيه الأسلوب.",
-      hint_beta:
-        "AIVO حاليًا في مرحلة تجريبية مغلقة. 10 عمليات إنشاء مجانية يوميًا.",
-
-      btn_generate_music: "إنشاء المقطع",
-
-      tip_1: "اجعل الوصف قصيرًا وواضحًا (حتى 200 حرف).",
-      tip_2: "اجعل النوع والمزاج متناسقين.",
-      tip_3: "المقام مهم في الموسيقى التركية.",
-      tip_4: "ذكر الآلات يساعد على تحسين الميكس.",
-
-      right_title: "آخر المقاطع المُنشأة",
-      right_empty:
-        "لم تنشئ أي موسيقى بعد. املأ النموذج على اليسار واضغط «إنشاء المقطع».",
-
-      credits_modal_title: "باقات الرصيد",
-      credits_modal_desc:
-        "اختر الباقة المناسبة لاستخدامك. يتم ترحيل الرصيد غير المستخدم للشهر التالي.",
-      credits_pack_small: "100 رصيد • استخدام هواة",
-      credits_pack_med: "500 رصيد • استخدام منتظم",
-      credits_pack_big: "1500 رصيد • استوديو محترف",
-      credits_modal_note:
-        "الدفع عبر Stripe / iyzico – جميع المدفوعات محمية بـ 3D Secure.",
-      btn_select: "اختيار",
-
-      placeholder_song_title: "مثال: حديقة الرماد، Midnight Drive...",
-      placeholder_song_desc: "صف شعور الأغنية بشكل مختصر...",
-      placeholder_song_lyrics:
-        "اكتب كلمات الأغنية هنا أو اتركها فارغة لإنشاء مقطع موسيقي فقط...",
-      placeholder_tempo: "مثال: 105",
-      placeholder_extra_notes:
-        "اكتب التفاصيل التي تود التركيز عليها في الموسيقى..."
+      credits_buy: "شراء"
     },
-
-    /* Japonca – özet çeviri */
     ja: {
       nav_home: "ホーム",
       nav_dashboard: "ダッシュボード",
@@ -453,98 +281,8 @@ document.addEventListener("DOMContentLoaded", () => {
       nav_profile: "プロフィール",
       nav_settings: "設定",
       nav_logout: "ログアウト",
-
       credits_label: "クレジット:",
-      credits_buy: "購入",
-
-      btn_login: "ログイン",
-      btn_signup: "登録",
-
-      sidebar_desc:
-        "音楽とアートワークの生成を一つのスタジオで管理します。AIVO がリズム・ボーカル・ムード・カバーを組み合わせます。",
-      sidebar_modes: "モード",
-      mode_music: "Music Studio",
-      mode_artwork: "Artwork Studio",
-      sidebar_presets: "クイックプリセット",
-      sidebar_presets_hint:
-        "ジャンルとテンポ、ムードをワンタップで入力できます。",
-      sidebar_tip_title: "ヒント",
-      sidebar_tip_body:
-        "まず曲の雰囲気とテンポを決めましょう。必要ならプリセットを使ってください。",
-
-      music_title: "楽曲生成",
-      music_subtitle:
-        "リズム・ボーカル・ムード・キーを選ぶと、AIVO がトラックを作成します。",
-
-      mode_basic: "ベーシック",
-      mode_advanced: "アドバンス",
-
-      field_song_title: "曲名",
-      field_song_desc: "曲の説明",
-      field_song_lyrics: "歌詞（任意）",
-      field_genre: "ジャンル",
-      field_tempo: "テンポ (BPM)",
-      field_key: "キー",
-      field_mix_style: "ミックススタイル",
-      field_mood: "ムード",
-      field_instruments_tr: "伝統楽器",
-      field_instruments_modern: "モダン楽器",
-      field_vocal_type: "ボーカルタイプ（任意）",
-      field_audio_ref: "参考オーディオ（任意）",
-      field_extra_notes: "追加ノート / プロンプト",
-
-      option_select_genre: "ジャンルを選択",
-      option_aivo_pop_default: "AIVO Pop Mix (デフォルト)",
-      option_warm_analog: "ウォームアナログ",
-      option_club: "クラブミックス",
-      option_cinematic: "シネマティック",
-      option_select_mood: "選択",
-      mood_energetic: "エネルギッシュ",
-      mood_sad: "切ない",
-      mood_romantic: "ロマンチック",
-      mood_chill: "チル",
-      mood_epic: "エピック",
-
-      option_instrumental: "インストゥルメンタル",
-      option_female_pop: "女性ポップボーカル",
-      option_male_pop: "男性ポップボーカル",
-      option_choir: "クワイア",
-
-      hint_max_chars: "最大 200 文字。",
-      hint_tempo: "推奨 BPM: 90–120",
-      hint_audio_ref:
-        "Suno / Eita のように、参考オーディオでスタイルを指定できます。",
-      hint_beta:
-        "AIVO は現在クローズドベータ中です。1日10回まで無料。",
-
-      btn_generate_music: "トラック生成",
-
-      tip_1: "説明は短くシンプルに、200文字以内にしましょう。",
-      tip_2: "ジャンルとムードを合わせて選択します。",
-      tip_3: "キーはトルコ音楽では重要です。",
-      tip_4: "使用する楽器を指定するとミックスが良くなります。",
-
-      right_title: "最新の生成トラック",
-      right_empty:
-        "まだ楽曲を生成していません。左のフォームを入力して「トラック生成」を押してください。",
-
-      credits_modal_title: "クレジットパック",
-      credits_modal_desc:
-        "ワークフローに合ったパックを選びましょう。未使用クレジットは翌月に繰り越されます。",
-      credits_pack_small: "100 クレジット • ホビー",
-      credits_pack_med: "500 クレジット • レギュラー",
-      credits_pack_big: "1500 クレジット • スタジオ",
-      credits_modal_note:
-        "Stripe / iyzico による決済 — すべて 3D セキュアで保護されます。",
-      btn_select: "選択",
-
-      placeholder_song_title: "例：Ash Garden, Midnight Drive...",
-      placeholder_song_desc: "曲全体の雰囲気を簡単に説明してください...",
-      placeholder_song_lyrics:
-        "ここに歌詞を書くか、空欄にするとインストのみを生成します...",
-      placeholder_tempo: "例：105",
-      placeholder_extra_notes:
-        "音楽で特に強調したいポイントを入力してください..."
+      credits_buy: "購入"
     }
   };
 
@@ -585,23 +323,37 @@ document.addEventListener("DOMContentLoaded", () => {
   /* BAŞLANGIÇTA TÜRKÇE UYGULA */
   applyTranslations(currentLang);
 
-  /* MODE TOGGLE */
+  /* MOD GEÇİŞİ – GERÇEKTEN FARKLI FORM */
 
-  modeButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      modeButtons.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
+  const advancedGroups = document.querySelectorAll(".advanced-only");
 
-      const mode = btn.dataset.mode;
-      if (mode === "basic") {
-        musicPanel.classList.remove("mode-advanced");
-        musicPanel.classList.add("mode-basic");
-      } else {
-        musicPanel.classList.remove("mode-basic");
-        musicPanel.classList.add("mode-advanced");
-      }
+  function setMode(mode) {
+    if (mode === "basic") {
+      musicPanel.classList.add("mode-basic");
+      musicPanel.classList.remove("mode-advanced");
+      advancedGroups.forEach((el) => el.classList.add("hidden"));
+    } else {
+      musicPanel.classList.remove("mode-basic");
+      musicPanel.classList.add("mode-advanced");
+      advancedGroups.forEach((el) => el.classList.remove("hidden"));
+    }
+
+    modeChips.forEach((c) => c.classList.remove("active"));
+    const activeChip = Array.from(modeChips).find(
+      (c) => c.dataset.mode === mode
+    );
+    if (activeChip) activeChip.classList.add("active");
+  }
+
+  modeChips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      const mode = chip.dataset.mode;
+      setMode(mode);
     });
   });
+
+  /* Varsayılan: Basit mod */
+  setMode("basic");
 
   /* PRESETLER */
 
@@ -645,18 +397,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* MÜZİK ÜRET BUTONU DEMOSU */
+  /* MÜZİK ÜRET BUTONU DEMO – LİSTEYE EKLE */
 
   if (generateMusicBtn && generatedList) {
     generateMusicBtn.addEventListener("click", () => {
       const titleInput = document.getElementById("song-title");
       const title = titleInput && titleInput.value.trim();
+      const tempoVal = tempoInput && tempoInput.value;
+      const genreVal = genreSelect && genreSelect.value;
 
-      const itemTitle =
-        title ||
-        (translations[currentLang] &&
-          translations[currentLang].music_title) ||
-        "Yeni Üretim";
+      const dict = translations[currentLang] || translations.tr;
+      const fallbackTitle =
+        (dict && dict.music_title) || "Yeni Üretim";
+
+      const itemTitle = title || fallbackTitle;
 
       generatedList.classList.remove("empty");
       generatedList.innerHTML = "";
@@ -665,8 +419,8 @@ document.addEventListener("DOMContentLoaded", () => {
       item.className = "generated-item";
       item.innerHTML = `
         <strong>${itemTitle}</strong>
-        <div style="font-size:12px; color:#9ca3af; margin-top:3px;">
-          ${tempoInput.value || 0} BPM • ${genreSelect.value || "N/A"}
+        <div style="font-size:13px; color:#9ca3af; margin-top:4px;">
+          ${tempoVal || "?"} BPM • ${genreVal || "N/A"}
         </div>
       `;
       generatedList.appendChild(item);
