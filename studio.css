@@ -1097,3 +1097,64 @@ body {
   transition: all 0.33s cubic-bezier(.4, 0, .2, 1);
   z-index: 1;
 }
+/* KREDİ / FATURALAR SAYFASI */
+
+.billing-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.billing-header {
+  margin-bottom: 12px;
+}
+
+.billing-header h3 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+
+.billing-header p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.billing-info-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.billing-info-card h4 {
+  margin: 0 0 4px;
+  font-size: 14px;
+}
+
+.billing-info-card p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.billing-faq h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+.billing-faq-item + .billing-faq-item {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.billing-faq-item h4 {
+  margin: 0 0 4px;
+  font-size: 14px;
+}
+
+.billing-faq-item p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-soft);
+}
