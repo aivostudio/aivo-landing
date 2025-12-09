@@ -1,295 +1,225 @@
-// ---------- SAYFA GEÇİŞİ ----------
-const pageLinks = document.querySelectorAll(".js-page-link");
-const pages = document.querySelectorAll(".page");
-const sidebarItems = document.querySelectorAll(".sidebar .nav-item");
-const topTabs = document.querySelectorAll(".top-tab");
+// studio.js
+// AIVO Studio - Basit JS MVP
 
-function activatePage(pageName) {
-  pages.forEach((p) => {
-    p.classList.toggle("is-active", p.dataset.page === pageName);
-  });
-
-  sidebarItems.forEach((item) => {
-    const target = item.dataset.target;
-    item.classList.toggle("is-active", target === pageName);
-  });
-
-  topTabs.forEach((tab) => {
-    const target = tab.dataset.target;
-    tab.classList.toggle("is-active", target === pageName);
-  });
-}
-
-pageLinks.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const target = btn.dataset.target;
-    if (!target) return;
-    activatePage(target);
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  setupPages();
+  setupModeToggle();
+  setupMusicForm();
+  setupCoverGallery();
+  setupCreditModal();
 });
 
-const logoutBtn = document.getElementById("logoutBtn");
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", () => {
-    alert("Çıkış akışı backend geldiğinde bağlanacak.");
+/* ------------------- */
+/*  SAYFA SEKME GEÇİŞİ */
+/* ------------------- */
+
+function setupPages() {
+  const pageButtons = document.querySelectorAll(".js-page-link");
+  const pages = document.querySelectorAll(".page");
+
+  if (!pageButtons.length || !pages.length) return;
+
+  pageButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = btn.getAttribute("data-target");
+      if (!target) return;
+
+      // tab active
+      pageButtons.forEach((b) => b.classList.remove("is-active"));
+      btn.classList.add("is-active");
+
+      // page active
+      pages.forEach((p) => {
+        const pageName = p.getAttribute("data-page");
+        p.classList.toggle("is-active", pageName === target);
+      });
+    });
   });
 }
 
-// ---------- BASİT / GELİŞMİŞ MOD ----------
-const modeToggle = document.getElementById("modeToggle");
-const modeButtons = modeToggle ? modeToggle.querySelectorAll(".mode-btn") : [];
-const modeHighlight = modeToggle ? modeToggle.querySelector(".mode-highlight") : null;
-const basicSections = document.querySelectorAll(".js-basic-section");
-const advancedSections = document.querySelectorAll(".js-advanced-section");
+/* ------------------- */
+/*  MOD GEÇİŞİ (B/G)   */
+/* ------------------- */
 
-let currentMode = "basic";
+function setupModeToggle() {
+  const modeToggle = document.getElementById("modeToggle");
+  const basicSections = document.querySelectorAll(".js-basic-section");
+  const advancedSections = document.querySelectorAll(".js-advanced-section");
 
-function updateModeUI() {
-  basicSections.forEach((el) => {
-    el.style.display = currentMode === "basic" ? "flex" : "none";
-  });
-  advancedSections.forEach((el) => {
-    el.style.display = currentMode === "advanced" ? "flex" : "none";
-  });
+  if (!modeToggle) return;
 
-  if (modeHighlight) {
-    modeHighlight.style.transform =
-      currentMode === "basic" ? "translateX(0%)" : "translateX(100%)";
-  }
-}
+  let currentMode = "basic";
 
-modeButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const mode = btn.dataset.mode;
-    if (!mode || mode === currentMode) return;
-    currentMode = mode;
+  const buttons = modeToggle.querySelectorAll(".mode-btn");
+  const highlight = modeToggle.querySelector(".mode-highlight");
 
-    modeButtons.forEach((b) => b.classList.remove("is-active"));
-    btn.classList.add("is-active");
+  function updateModeUI() {
+    // form bloklarını göster / gizle
+    basicSections.forEach((el) => {
+      el.style.display = currentMode === "basic" ? "flex" : "none";
+    });
+    advancedSections.forEach((el) => {
+      el.style.display = currentMode === "advanced" ? "flex" : "none";
+    });
 
-    updateModeUI();
-  });
-});
+    // buton aktifliği
+    buttons.forEach((btn) => {
+      const isActive = btn.dataset.mode === currentMode;
+      btn.classList.toggle("is-active", isActive);
+    });
 
-// ilk yükleme
-updateModeUI();
-
-// ---------- AÇIKLAMA KARAKTER SAYACI ----------
-const descInput = document.querySelector('textarea[name="description"]');
-const descCounter = document.getElementById("descCounter");
-
-if (descInput && descCounter) {
-  const updateCounter = () => {
-    descCounter.textContent = descInput.value.length;
-  };
-  descInput.addEventListener("input", updateCounter);
-  updateCounter();
-}
-
-// ---------- AUDIO UPLOAD ----------
-const audioInput = document.getElementById("audioInput");
-const audioDrop = document.getElementById("audioDrop");
-const audioFileName = document.getElementById("audioFileName");
-
-if (audioDrop && audioInput) {
-  const setFileName = () => {
-    if (audioInput.files && audioInput.files[0]) {
-      audioFileName.textContent = `Seçilen dosya: ${audioInput.files[0].name}`;
-    } else {
-      audioFileName.textContent = "";
+    // highlight sağa / sola
+    if (highlight) {
+      highlight.style.transform =
+        currentMode === "basic" ? "translateX(0%)" : "translateX(100%)";
     }
-  };
-
-  audioDrop.addEventListener("click", () => audioInput.click());
-  audioInput.addEventListener("change", setFileName);
-}
-
-// ---------- PRESET BUTONLARI ----------
-const presetButtons = document.querySelectorAll(".preset-chip");
-
-presetButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const preset = btn.dataset.preset;
-    const genreSelect = document.querySelector('select[name="genre"]');
-    const moodSelect = document.querySelector('select[name="mood"]');
-    const bpmInput = document.querySelector('input[name="bpm"]');
-
-    if (!genreSelect || !moodSelect || !bpmInput) return;
-
-    switch (preset) {
-      case "tr-pop":
-        genreSelect.value = "tr-pop";
-        moodSelect.value = "enerjik";
-        bpmInput.value = 110;
-        break;
-      case "enerjik":
-        genreSelect.value = "trap";
-        moodSelect.value = "enerjik";
-        bpmInput.value = 130;
-        break;
-      case "deep":
-        genreSelect.value = "deep-house";
-        moodSelect.value = "sakin";
-        bpmInput.value = 122;
-        break;
-      case "anadolu":
-        genreSelect.value = "anadolu-pop";
-        moodSelect.value = "huzunlu";
-        bpmInput.value = 100;
-        break;
-      case "lofi":
-        genreSelect.value = "lofi";
-        moodSelect.value = "lofi";
-        bpmInput.value = 80;
-        break;
-      case "reverb":
-        moodSelect.value = "epik";
-        bpmInput.value = 90;
-        break;
-    }
-
-    // otomatik gelişmiş moda al
-    currentMode = "advanced";
-    modeButtons.forEach((b) =>
-      b.classList.toggle("is-active", b.dataset.mode === "advanced")
-    );
-    updateModeUI();
-  });
-});
-
-// ---------- SON ÜRETİLENLER (FAKE) ----------
-const musicForm = document.getElementById("musicForm");
-const recentList = document.getElementById("recentList");
-const recentEmpty = document.getElementById("recentEmpty");
-const recentMeta = document.getElementById("recentMeta");
-
-let recentTracks = [];
-
-function renderRecent() {
-  if (!recentList || !recentEmpty || !recentMeta) return;
-
-  if (recentTracks.length === 0) {
-    recentEmpty.style.display = "flex";
-    recentList.style.display = "none";
-    recentMeta.textContent = "Toplam 0 müzik";
-    return;
   }
 
-  recentEmpty.style.display = "none";
-  recentList.style.display = "flex";
-  recentList.innerHTML = "";
-
-  recentTracks.slice(0, 5).forEach((t) => {
-    const li = document.createElement("li");
-    li.className = "recent-item";
-
-    li.innerHTML = `
-      <div class="recent-main">
-        <span class="recent-title">${t.title}</span>
-        <span class="recent-sub">${t.genre} • ${t.mood} • ${t.time}</span>
-      </div>
-      <div class="recent-actions">
-        <button class="play-btn" type="button">▶</button>
-        <span class="recent-sub">${t.length}</span>
-      </div>
-    `;
-    recentList.appendChild(li);
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const mode = btn.dataset.mode === "advanced" ? "advanced" : "basic";
+      currentMode = mode;
+      updateModeUI();
+    });
   });
 
-  recentMeta.textContent = `Toplam ${recentTracks.length} müzik`;
+  // ilk yüklemede
+  updateModeUI();
 }
 
-if (musicForm) {
-  musicForm.addEventListener("submit", (e) => {
+/* ------------------- */
+/*  MÜZİK FORMU (FAKE) */
+/* ------------------- */
+
+function setupMusicForm() {
+  const form = document.getElementById("musicForm");
+  const recentList = document.getElementById("recentList");
+  const recentEmpty = document.getElementById("recentEmpty");
+  const recentMeta = document.getElementById("recentMeta");
+
+  if (!form) return;
+
+  let recentItems = [];
+
+  function renderRecent() {
+    if (!recentList || !recentEmpty || !recentMeta) return;
+
+    if (recentItems.length === 0) {
+      recentEmpty.style.display = "flex";
+      recentList.style.display = "none";
+      recentMeta.textContent = "Toplam 0 müzik";
+      return;
+    }
+
+    recentEmpty.style.display = "none";
+    recentList.style.display = "flex";
+    recentList.innerHTML = "";
+
+    recentItems.forEach((item) => {
+      const li = document.createElement("li");
+      li.className = "recent-item";
+      li.innerHTML = `
+        <div class="recent-main">
+          <div class="recent-title">${item.title}</div>
+          <div class="recent-sub">${item.meta}</div>
+        </div>
+        <div class="recent-actions">
+          <button class="play-btn">▶</button>
+        </div>
+      `;
+      recentList.appendChild(li);
+    });
+
+    recentMeta.textContent = `Toplam ${recentItems.length} müzik`;
+  }
+
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const formData = new FormData(musicForm);
-    const title = (formData.get("title") || "Yeni AIVO Track").toString();
-    const genre = (formData.get("genre") || "Türkçe Pop").toString();
-    const mood = (formData.get("mood") || "Mood").toString();
+    const titleInput = form.querySelector('input[name="songTitle"]');
+    const moodSelect = form.querySelector('select[name="mood"]');
+    const genreSelect = form.querySelector('select[name="genre"]');
 
-    const now = new Date();
-    const track = {
+    const title = titleInput?.value?.trim() || "Yeni AIVO Track";
+    const mood = moodSelect?.value || "Mood";
+    const genre = genreSelect?.value || "Tür";
+
+    recentItems.unshift({
       title,
-      genre,
-      mood,
-      time: now.toLocaleTimeString("tr-TR", {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      length: "02:48",
-    };
+      meta: `${genre} • ${mood}`,
+    });
 
-    recentTracks.unshift(track);
     renderRecent();
 
     alert(
-      "MVP modunda: Form submit edildi. Backend bağlandığında burada AI müzik üretim API çağrısı yapılacak."
+      "MVP modunda: Müzik formu submit edildi. Backend bağlanınca burada gerçek AI müzik üretilecek."
     );
   });
+
+  renderRecent();
 }
 
-renderRecent();
+/* ------------------- */
+/*  KAPAK GALERİSİ     */
+/* ------------------- */
 
-// ---------- KAPAK GALERİ (MVP) ----------
-const coverForm = document.getElementById("coverForm");
-const coverList = document.getElementById("coverList");
-const coverEmpty = document.getElementById("coverEmpty");
-const coverMeta = document.getElementById("coverMeta");
+function setupCoverGallery() {
+  const coverForm = document.getElementById("coverForm");
+  const coverList = document.getElementById("coverList");
+  const coverEmpty = document.getElementById("coverEmpty");
+  const coverMeta = document.getElementById("coverMeta");
 
-// Başlangıç için birkaç örnek (senin eski DALZAL kapaklarını hatırlatan isimler koydum)
-let coverItems = [
-  {
-    title: "DALZAL – Ahlat Oyun Havası",
-    platform: "Spotify • 1:1",
-    theme: "Pastel Bahçe",
-    style: "Illustrasyon",
-  },
-  {
-    title: "Harun Erkezen – Kül Bahçesi",
-    platform: "YouTube • 16:9",
-    theme: "Mor / Lila Neon",
-    style: "Vaporwave",
-  },
-];
+  if (!coverForm) return;
 
-function renderCovers() {
-  if (!coverList || !coverEmpty || !coverMeta) return;
+  let coverItems = [
+    {
+      title: "DALZAL – Ahlat Oyun Havası",
+      platform: "Spotify • 1:1",
+      theme: "Pastel Bahçe",
+      style: "Illustrasyon",
+    },
+    {
+      title: "Harun Erkezen – Kül Bahçesi",
+      platform: "YouTube • 16:9",
+      theme: "Mor / Lila Neon",
+      style: "Vaporwave",
+    },
+  ];
 
-  if (coverItems.length === 0) {
-    coverEmpty.style.display = "flex";
-    coverList.style.display = "none";
-    coverMeta.textContent = "Toplam 0 kapak";
-    return;
+  function renderCovers() {
+    if (!coverList || !coverEmpty || !coverMeta) return;
+
+    if (coverItems.length === 0) {
+      coverEmpty.style.display = "flex";
+      coverList.style.display = "none";
+      coverMeta.textContent = "Toplam 0 kapak";
+      return;
+    }
+
+    coverEmpty.style.display = "none";
+    coverList.style.display = "grid";
+    coverList.innerHTML = "";
+
+    coverItems.forEach((c) => {
+      const li = document.createElement("li");
+      li.className = "cover-card";
+      li.innerHTML = `
+        <div class="cover-thumb"></div>
+        <div class="cover-meta">
+          <div class="cover-title">${c.title}</div>
+          <div class="cover-sub">${c.platform}</div>
+          <div class="cover-tags">
+            <span class="cover-tag">${c.theme}</span>
+            <span class="cover-tag">${c.style}</span>
+          </div>
+        </div>
+      `;
+      coverList.appendChild(li);
+    });
+
+    coverMeta.textContent = `Toplam ${coverItems.length} kapak`;
   }
 
-  coverEmpty.style.display = "none";
-  coverList.style.display = "grid";
-  coverList.innerHTML = "";
-
-  coverItems.forEach((c) => {
-    const li = document.createElement("li");
-    li.className = "cover-card";
-
-    li.innerHTML = `
-      <div class="cover-thumb"></div>
-      <div class="cover-meta">
-        <div class="cover-title">${c.title}</div>
-        <div class="cover-sub">${c.platform}</div>
-        <div class="cover-tags">
-          <span class="cover-tag">${c.theme}</span>
-          <span class="cover-tag">${c.style}</span>
-        </div>
-      </div>
-    `;
-    coverList.appendChild(li);
-  });
-
-  coverMeta.textContent = `Toplam ${coverItems.length} kapak`;
-}
-
-// Form submit → yeni kapak ekle (şimdilik fake)
-if (coverForm) {
   coverForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -318,96 +248,40 @@ if (coverForm) {
       "MVP modunda: Kapak formu submit edildi. Görsel AI API bağlandığında burada gerçek kapaklar üretilecek."
     );
   });
+
+  renderCovers();
 }
 
-// sayfa yüklenince örnek kapakları çiz
-renderCovers();
+/* ------------------- */
+/*  KREDİ MODALİ       */
+/* ------------------- */
 
+function setupCreditModal() {
+  const openBtn = document.getElementById("openCreditModal");
+  const backdrop = document.querySelector(".modal-backdrop");
+  const closeBtn = backdrop ? backdrop.querySelector(".modal-close") : null;
 
-// ---------- KREDİ MODAL ----------
-const creditModal = document.getElementById("creditModal");
-const openCreditModalBtn = document.getElementById("openCreditModal");
-const closeCreditModalBtn = document.getElementById("closeCreditModal");
+  if (!openBtn || !backdrop) return;
 
-function openModal() {
-  if (creditModal) creditModal.classList.add("is-open");
-}
-function closeModal() {
-  if (creditModal) creditModal.classList.remove("is-open");
-}
-
-if (openCreditModalBtn) {
-  openCreditModalBtn.addEventListener("click", openModal);
-}
-if (closeCreditModalBtn) {
-  closeCreditModalBtn.addEventListener("click", closeModal);
-}
-if (creditModal) {
-  creditModal.addEventListener("click", (e) => {
-    if (e.target === creditModal) closeModal();
-  });
-}
-/* ----------------------------- */
-/*   AIVO MODE TOGGLE (Basit/Gelişmiş)  */
-/* ----------------------------- */
-
-const modeToggle = document.getElementById("modeToggle");
-const basicSections = document.querySelectorAll(".js-basic-section");
-const advancedSections = document.querySelectorAll(".js-advanced-section");
-
-let currentMode = "basic";
-
-function updateModeUI() {
-  // Form alanlarını göster / gizle
-  basicSections.forEach((el) => {
-    el.style.display = currentMode === "basic" ? "flex" : "none";
-  });
-  advancedSections.forEach((el) => {
-    el.style.display = currentMode === "advanced" ? "flex" : "none";
-  });
-
-  if (!modeToggle) return;
-
-  const buttons = modeToggle.querySelectorAll(".mode-btn");
-  const highlight = modeToggle.querySelector(".mode-highlight");
-
-  // Butonlarda aktif sınıfı
-  buttons.forEach((btn) => {
-    const isActive = btn.dataset.mode === currentMode;
-    btn.classList.toggle("is-active", isActive);
-  });
-
-  // Highlight sağa / sola kaydır
-  if (highlight) {
-    highlight.style.transform =
-      currentMode === "basic" ? "translateX(0%)" : "translateX(100%)";
+  function openModal() {
+    backdrop.classList.add("is-open");
   }
 
-  // Neon sınıfları
-  modeToggle.classList.remove("mode-basic", "mode-advanced");
-  modeToggle.classList.add(
-    currentMode === "basic" ? "mode-basic" : "mode-advanced"
-  );
+  function closeModal() {
+    backdrop.classList.remove("is-open");
+  }
 
-  // Küçük pulse efekti
-  modeToggle.classList.remove("mode-pulse");
-  void modeToggle.offsetWidth; // animasyonu resetlemek için
-  modeToggle.classList.add("mode-pulse");
-  setTimeout(() => modeToggle.classList.remove("mode-pulse"), 260);
-}
+  openBtn.addEventListener("click", openModal);
 
-if (modeToggle) {
-  const buttons = modeToggle.querySelectorAll(".mode-btn");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeModal);
+  }
 
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const mode = btn.dataset.mode === "advanced" ? "advanced" : "basic";
-      currentMode = mode;
-      updateModeUI();
-    });
+  backdrop.addEventListener("click", (e) => {
+    if (e.target === backdrop) closeModal();
   });
 
-  // Sayfa yüklenince varsayılan modu uygula
-  updateModeUI();
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
+  });
 }
-
