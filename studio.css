@@ -1074,3 +1074,22 @@ textarea:focus {
   100% { transform: rotate(360deg) scale(1); opacity: .7; }
 }
 
+/* Gelişmiş Mod üzerindeki yıldız */
+.mode-star {
+  position: absolute;
+  top: -8px;
+  right: 10px;
+  font-size: 16px;
+  color: #ffeaa7;
+  text-shadow: 0 0 8px rgba(255, 234, 167, 0.9),
+               0 0 16px rgba(255, 184, 108, 0.8);
+  animation: spin-glow 2.2s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes spin-glow {
+  0% { transform: rotate(0deg) scale(1); opacity: .7; }
+  50% { transform: rotate(180deg) scale(1.2); opacity: 1; }
+  100% { transform: rotate(360deg) scale(1); opacity: .7; }
+}
+
