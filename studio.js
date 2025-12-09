@@ -1,234 +1,179 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const basicBtn = document.getElementById("mode-basic-btn");
-  const advBtn = document.getElementById("mode-advanced-btn");
-  const basicForm = document.getElementById("basic-form");
-  const advForm = document.getElementById("advanced-form");
-  const generateBtn = document.getElementById("generate-btn");
+// Basit / Gelişmiş mod geçişi
+const modeToggle = document.getElementById("modeToggle");
+const modeButtons = modeToggle.querySelectorAll(".mode-btn");
+const modeHighlight = modeToggle.querySelector(".mode-highlight");
 
-  const musicPanel = document.getElementById("music-panel");
-  const coverPanel = document.getElementById("cover-panel");
-  const pricingSection = document.getElementById("pricing-section");
+let currentMode = "basic";
 
-  /* ==== 0. ÜST NAV – Müzik / Kapak ==== */
+modeButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const mode = btn.dataset.mode;
+    if (mode === currentMode) return;
 
-  const navPills = document.querySelectorAll(".nav-pill");
+    currentMode = mode;
+    modeButtons.forEach((b) => b.classList.remove("is-active"));
+    btn.classList.add("is-active");
 
-  function showSection(target) {
-    if (target === "music") {
-      musicPanel.classList.remove("hidden-card");
-      coverPanel.classList.add("hidden-card");
-    } else if (target === "cover") {
-      musicPanel.classList.add("hidden-card");
-      coverPanel.classList.remove("hidden-card");
-    } else if (target === "projects") {
-      alert("Üretimlerim sayfası yakında eklenecek.");
-    }
-  }
-
-  navPills.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const target = btn.dataset.target;
-      navPills.forEach((b) => b.classList.remove("nav-pill-active"));
-      btn.classList.add("nav-pill-active");
-      showSection(target);
-    });
-  });
-
-  // Sol menüden Müzik Üret bağlantısı
-  document
-    .querySelectorAll('.side-menu-item[data-target="music"]')
-    .forEach((btn) => {
-      btn.addEventListener("click", () => {
-        navPills.forEach((b) => {
-          if (b.dataset.target === "music") b.click();
-        });
-      });
-    });
-
-  // Kredi Al → fiyat tablosuna scroll
-  document
-    .querySelectorAll('[data-open="pricing"]')
-    .forEach((btn) => {
-      btn.addEventListener("click", () => {
-        pricingSection?.scrollIntoView({ behavior: "smooth" });
-      });
-    });
-
-  /* ==== 1. KEY LISTESİ (24 nota) ==== */
-  const KEY_OPTIONS = {
-    major: [
-      "C",
-      "C# / Db",
-      "D",
-      "D# / Eb",
-      "E",
-      "F",
-      "F# / Gb",
-      "G",
-      "G# / Ab",
-      "A",
-      "A# / Bb",
-      "B"
-    ],
-    minor: [
-      "Cm",
-      "C#m / Dbm",
-      "Dm",
-      "D#m / Ebm",
-      "Em",
-      "Fm",
-      "F#m / Gbm",
-      "Gm",
-      "G#m / Abm",
-      "Am",
-      "A#m / Bbm",
-      "Bm"
-    ]
-  };
-
-  function fillKeySelect(selectEl) {
-    if (!selectEl) return;
-    selectEl.innerHTML = "";
-    const groupMaj = document.createElement("optgroup");
-    groupMaj.label = "Majör (Maj)";
-    KEY_OPTIONS.major.forEach((k) => {
-      const opt = document.createElement("option");
-      opt.value = k;
-      opt.textContent = k;
-      groupMaj.appendChild(opt);
-    });
-    const groupMin = document.createElement("optgroup");
-    groupMin.label = "Minör (Min)";
-    KEY_OPTIONS.minor.forEach((k) => {
-      const opt = document.createElement("option");
-      opt.value = k;
-      opt.textContent = k;
-      groupMin.appendChild(opt);
-    });
-    selectEl.appendChild(groupMaj);
-    selectEl.appendChild(groupMin);
-    selectEl.value = "C";
-  }
-
-  fillKeySelect(document.getElementById("basic-key"));
-  fillKeySelect(document.getElementById("adv-key"));
-
-  /* ==== 2. BPM ÖNERİSİ ==== */
-  const genreBpm = {
-    pop: "90–120",
-    trap: "130–150",
-    deep: "118–124",
-    rock: "100–140",
-    anadolu: "90–110",
-    slow: "60–80"
-  };
-
-  function updateBpmHint(selectId, hintId) {
-    const select = document.getElementById(selectId);
-    const hint = document.getElementById(hintId);
-    if (!select || !hint) return;
-
-    const value = select.value;
-    const range = genreBpm[value];
-    hint.textContent = range
-      ? `Önerilen BPM: ${range}`
-      : "Önerilen BPM: 90–120";
-  }
-
-  const basicGenre = document.getElementById("basic-genre");
-  const advGenre = document.getElementById("adv-genre");
-
-  basicGenre?.addEventListener("change", () =>
-    updateBpmHint("basic-genre", "basic-bpm-hint")
-  );
-  advGenre?.addEventListener("change", () =>
-    updateBpmHint("adv-genre", "adv-bpm-hint")
-  );
-
-  /* ==== 3. Hızlı presetler ==== */
-
-  function applyPreset(genre, mood) {
-    if (basicGenre && genre) {
-      basicGenre.value = genre;
-      updateBpmHint("basic-genre", "basic-bpm-hint");
-    }
-    const moodSelect = document.getElementById("basic-mood");
-    if (moodSelect && mood) {
-      moodSelect.value = mood;
-    }
-  }
-
-  document.querySelectorAll(".preset-chip").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const genre = btn.getAttribute("data-genre");
-      const mood = btn.getAttribute("data-mood");
-      applyPreset(genre, mood);
-    });
-  });
-
-  document.querySelectorAll(".chip[data-genre]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const genre = btn.getAttribute("data-genre");
-      applyPreset(genre, null);
-    });
-  });
-
-  /* ==== 4. Basit / Gelişmiş modu ==== */
-
-  function setMode(mode) {
-    if (!basicBtn || !advBtn || !basicForm || !advForm) return;
+    // Highlight konumu
     if (mode === "basic") {
-      basicBtn.classList.add("active");
-      advBtn.classList.remove("active");
-      basicForm.classList.remove("hidden");
-      advForm.classList.add("hidden");
+      modeHighlight.style.transform = "translateX(0%)";
     } else {
-      advBtn.classList.add("active");
-      basicBtn.classList.remove("active");
-      advForm.classList.remove("hidden");
-      basicForm.classList.add("hidden");
+      modeHighlight.style.transform = "translateX(100%)";
     }
-  }
 
-  basicBtn?.addEventListener("click", () => setMode("basic"));
-  advBtn?.addEventListener("click", () => setMode("advanced"));
-
-  // Varsayılan: Gelişmiş açık olsun
-  setMode("advanced");
-
-  /* ==== 5. Demo – payload log ==== */
-
-  generateBtn?.addEventListener("click", (e) => {
-    e.preventDefault();
-    const isBasicVisible = !basicForm.classList.contains("hidden");
-
-    if (isBasicVisible) {
-      const payload = {
-        mode: "basic",
-        title: document.getElementById("basic-title")?.value || "",
-        mood: document.getElementById("basic-mood")?.value || "",
-        desc: document.getElementById("basic-desc")?.value || "",
-        genre: document.getElementById("basic-genre")?.value || "",
-        bpm: document.getElementById("basic-bpm")?.value || "",
-        key: document.getElementById("basic-key")?.value || "C"
-      };
-      console.log("BASIT MOD PAYLOAD", payload);
-      alert("Basit mod verileri konsola yazıldı (demo). Gerçek üretim için backend'e bağlanacak.");
-    } else {
-      const payload = {
-        mode: "advanced",
-        title: document.getElementById("adv-title")?.value || "",
-        mood: document.getElementById("adv-mood")?.value || "",
-        desc: document.getElementById("adv-desc")?.value || "",
-        lyrics: document.getElementById("adv-lyrics")?.value || "",
-        genre: document.getElementById("adv-genre")?.value || "",
-        bpm: document.getElementById("adv-bpm")?.value || "",
-        key: document.getElementById("adv-key")?.value || "C",
-        mixStyle: document.getElementById("adv-mix-style")?.value || "",
-        vocal: document.getElementById("adv-vocal")?.value || ""
-      };
-      console.log("GELISMIS MOD PAYLOAD", payload);
-      alert("Gelişmiş mod verileri konsola yazıldı (demo). Gerçek üretim için backend'e bağlanacak.");
-    }
+    // Form alanlarını göster/gizle
+    document.querySelectorAll(".basic-only").forEach((el) => {
+      el.style.display = mode === "basic" ? "flex" : "none";
+    });
+    document.querySelectorAll(".advanced-only").forEach((el) => {
+      el.style.display = mode === "advanced" ? "flex" : "none";
+    });
   });
 });
+
+// İlk yüklemede basic görünür, advanced alanlar açık kalsın istersen burayı değiştir
+document.querySelectorAll(".advanced-only").forEach((el) => {
+  el.style.display = "none";
+});
+
+// Top sekmeler + sidebar itemleri ile sayfa geçişi
+const pages = document.querySelectorAll(".page");
+const topTabs = document.querySelectorAll(".top-tab");
+const navItems = document.querySelectorAll(".nav-item");
+
+function activatePage(pageName) {
+  pages.forEach((p) => {
+    p.classList.toggle("is-active", p.dataset.page === pageName);
+  });
+
+  topTabs.forEach((t) => {
+    t.classList.toggle("is-active", t.dataset.page === pageName);
+  });
+
+  navItems.forEach((n) => {
+    n.classList.toggle("is-active", n.dataset.page === pageName);
+  });
+}
+
+topTabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    activatePage(tab.dataset.page);
+  });
+});
+
+navItems.forEach((item) => {
+  item.addEventListener("click", () => {
+    const page = item.dataset.page;
+    if (page === "logout") {
+      // MVP: sadece alert
+      alert("Çıkış akışı backend geldiğinde bağlanacak.");
+      return;
+    }
+    activatePage(page);
+  });
+});
+
+// Açıklama karakter sayacı
+const descInput = document.querySelector('textarea[name="description"]');
+const descCounter = document.getElementById("descCounter");
+
+if (descInput && descCounter) {
+  const updateCounter = () => {
+    descCounter.textContent = descInput.value.length;
+  };
+  descInput.addEventListener("input", updateCounter);
+  updateCounter();
+}
+
+// Audio upload alanı
+const audioInput = document.getElementById("audioInput");
+const audioDrop = document.getElementById("audioDrop");
+const audioFileName = document.getElementById("audioFileName");
+
+if (audioDrop && audioInput) {
+  audioDrop.addEventListener("click", () => audioInput.click());
+  audioInput.addEventListener("change", () => {
+    if (audioInput.files && audioInput.files[0]) {
+      audioFileName.textContent = `Seçilen dosya: ${audioInput.files[0].name}`;
+    } else {
+      audioFileName.textContent = "";
+    }
+  });
+}
+
+// Dummy "Son Üretilen Müzikler" — form submit olunca listeye ekliyoruz
+const musicForm = document.getElementById("musicForm");
+const recentList = document.getElementById("recentList");
+const recentEmpty = document.getElementById("recentEmpty");
+const recentMeta = document.getElementById("recentMeta");
+
+let recentTracks = [];
+
+function renderRecent() {
+  if (!recentList || !recentEmpty) return;
+
+  if (recentTracks.length === 0) {
+    recentEmpty.style.display = "flex";
+    recentList.style.display = "none";
+    recentMeta.textContent = "Toplam 0 müzik";
+    return;
+  }
+
+  recentEmpty.style.display = "none";
+  recentList.style.display = "flex";
+
+  recentList.innerHTML = "";
+  recentTracks.slice(0, 5).forEach((track) => {
+    const li = document.createElement("li");
+    li.className = "recent-item";
+
+    li.innerHTML = `
+      <div class="recent-main">
+        <span class="recent-title">${track.title || "İsimsiz Parça"}</span>
+        <span class="recent-sub">${track.genre || "Tür belirtilmedi"} • ${
+      track.mood || "Mood"
+    } • ${track.time}</span>
+      </div>
+      <div class="recent-actions">
+        <button class="play-btn">▶</button>
+        <span class="recent-sub">${track.length}</span>
+      </div>
+    `;
+    recentList.appendChild(li);
+  });
+
+  recentMeta.textContent = `Toplam ${recentTracks.length} müzik`;
+}
+
+if (musicForm) {
+  musicForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(musicForm);
+    const title = formData.get("title");
+    const genre = formData.get("genre");
+    const mood = formData.get("mood");
+
+    // Gerçek backend geldiğinde burada API çağrısı yapacaksın
+    // Şimdilik sadece dummy track ekleyelim
+    const now = new Date();
+    const track = {
+      title: title || "Yeni AIVO Track",
+      genre: genre || "Türkçe Pop",
+      mood: mood || "Enerjik",
+      time: now.toLocaleTimeString("tr-TR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      length: "02:48",
+    };
+
+    recentTracks.unshift(track);
+    renderRecent();
+
+    alert("MVP modunda: Form submit edildi. Backend geldiğinde AI müzik üretimine bağlanacak.");
+  });
+}
+
+// Başlangıçta çiz
+renderRecent();
