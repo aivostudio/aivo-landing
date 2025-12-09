@@ -74,7 +74,6 @@ body {
 .logo-img {
   height: 26px;
   width: auto;
-  display: block;
 }
 
 .logo-text {
@@ -184,6 +183,20 @@ body {
 .top-btn.primary:hover {
   box-shadow: 0 10px 30px rgba(253, 121, 168, 0.5);
   transform: translateY(-1px);
+}
+
+/* ==== PAGES ==== */
+
+.main-pages {
+  position: relative;
+}
+
+.page {
+  display: none;
+}
+
+.page.is-active {
+  display: block;
 }
 
 /* ==== LAYOUT ==== */
@@ -296,7 +309,8 @@ body {
 
 /* ==== MAIN PANEL ==== */
 
-.main-panel {
+.main-panel,
+.cover-main {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -599,30 +613,6 @@ textarea:focus {
   margin-bottom: 0 !important;
 }
 
-/* ==== KAPAK / ARTWORK ==== */
-
-.artwork-card {
-  margin-top: 4px;
-}
-
-.artwork-header {
-  margin-bottom: 10px;
-}
-
-.artwork-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.badge-beta {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  padding: 3px 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-  color: var(--text-soft);
-}
-
 /* ==== RIGHT PANEL ==== */
 
 .right-panel {
@@ -658,6 +648,198 @@ textarea:focus {
 .empty-text {
   font-size: 12px;
   color: var(--text-soft);
+}
+
+/* ==== KAPAK / GÖRSEL SAYFASI ==== */
+
+.cover-main {
+  gap: 16px;
+}
+
+.cover-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.4fr);
+  gap: 16px;
+}
+
+.cover-form-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.style-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.style-pill {
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 11px;
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast),
+    color var(--transition-fast), transform var(--transition-fast);
+}
+
+.style-pill.is-active,
+.style-pill:hover {
+  background: rgba(108, 92, 231, 0.45);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.badge-beta {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-soft);
+}
+
+.advanced-box {
+  background: rgba(5, 7, 30, 0.96);
+  border-radius: 14px;
+  padding: 10px 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+}
+
+.advanced-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-soft);
+  margin-bottom: 4px;
+}
+
+.advanced-credit strong {
+  color: #ffeaa7;
+}
+
+.advanced-desc {
+  margin: 0;
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+.cover-text-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.cover-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.cover-gallery-card {
+  height: 100%;
+}
+
+.gallery-filter {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(5, 6, 26, 0.96);
+  color: var(--text-soft);
+  font-size: 12px;
+  padding: 4px 10px;
+}
+
+.gallery-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.gallery-card {
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(7, 9, 30, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.22s ease-out, box-shadow 0.22s ease-out,
+    border-color 0.22s ease-out;
+}
+
+.gallery-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.gallery-thumb {
+  height: 120px;
+  background-size: cover;
+  background-position: center;
+}
+
+.fake-thumb.thumb-1 {
+  background-image: linear-gradient(135deg, #fd79a8, #ffeaa7);
+}
+
+.fake-thumb.thumb-2 {
+  background-image: linear-gradient(135deg, #0984e3, #00cec9);
+}
+
+.fake-thumb.thumb-3 {
+  background-image: linear-gradient(135deg, #6c5ce7, #00cec9);
+}
+
+.fake-thumb.thumb-4 {
+  background-image: linear-gradient(135deg, #fab1a0, #e17055);
+}
+
+.gallery-info {
+  padding: 8px 10px 9px;
+}
+
+.gallery-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.gallery-meta {
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+.gallery-footer {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+.gallery-pagination {
+  display: flex;
+  gap: 6px;
+}
+
+.page-btn {
+  padding: 4px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(5, 6, 26, 0.95);
+  color: var(--text-soft);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.page-btn.is-active {
+  background: linear-gradient(135deg, #6c5ce7, #a55eea);
+  color: #fff;
 }
 
 /* ==== PRICING FULLSCREEN ==== */
@@ -861,7 +1043,10 @@ textarea:focus {
   .pricing-grid {
     grid-template-columns: minmax(0, 1fr);
   }
-  .artwork-grid {
+  .cover-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .gallery-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 }
