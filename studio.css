@@ -1397,3 +1397,8 @@ textarea:focus {
     height: 240px;
   }
 }
+/* === SES KAYDI BLOĞUNU AŞAĞI ÇEK === */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  margin-top: 130px;   /* kartın komple aşağı inişi – istersen 110 / 150 ile oynayabilirsin */
+}
+
