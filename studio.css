@@ -216,11 +216,19 @@ body {
 
 /* ==== SIDEBAR LEFT ==== */
 
+/* Sol kolon: Panellerin alta kadar inmesi için yükseklik ekledik */
 .sidebar {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  height: 100%;
 }
+
+/* İlk sidebar kartı (PANELLER) kalan yüksekliği doldursun */
+.sidebar-section:first-child {
+  flex: 1;
+}
+
 
 .sidebar-section {
   background: rgba(5, 7, 30, 0.92);
