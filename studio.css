@@ -1045,6 +1045,14 @@ body {
 }
 
 .mode-toggle-large .mode-highlight {
-    position: absolute;
-    top:
-
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: calc(50% - 6px);
+  height: calc(100% - 12px);
+  background: linear-gradient(135deg, #a855f7, #3b82f6, #06b6d4);
+  border-radius: 12px;
+  box-shadow: 0 0 18px rgba(140, 63, 255, 0.7);
+  transition: all 0.33s cubic-bezier(.4, 0, .2, 1);
+  z-index: 1;
+}
