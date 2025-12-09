@@ -1616,4 +1616,26 @@ textarea:focus {
     transform: rotate(360deg) scale(1);
   }
 }
+/* ===== SES KAYDI ORTA KART HİZALAMA ===== */
+
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+  gap: 32px;
+  align-items: stretch;
+  min-height: 280px;       /* kartı biraz daha uzun yapar */
+  margin-bottom: 72px;     /* sağdaki panelle alta yakın hizalanır */
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* iki tarafı da kartın ortasına çeker */
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-left {
+  align-items: flex-start;
+}
+
 
