@@ -695,8 +695,11 @@ textarea:focus {
 
 
 .right-card {
-  height: 100%;
+  flex: 1;            /* Sol panelle aynı hizaya iner */
+  display: flex;
+  flex-direction: column;
 }
+
 
 .empty-state {
   border-radius: 18px;
