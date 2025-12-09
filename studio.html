@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title>AIVO Studio</title>
+  <title>AIVO Studio - Müzik Üret</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="studio.css" />
 </head>
@@ -11,7 +11,8 @@
     <!-- ÜST NAVBAR -->
     <header class="top-bar">
       <div class="logo-area">
-        <div class="logo-box">A</div>
+        <!-- LOGO GÖRSELİ (DOSYA ADINI KENDİ SUNUCUNA GÖRE DÜZENLE) -->
+        <img src="aivo-logo.png" alt="AIVO Logo" class="logo-img" />
         <div class="logo-text">
           <span class="logo-title">AIVO</span>
           <span class="logo-sub">AI Music & Artwork Studio</span>
@@ -54,7 +55,7 @@
 
     <!-- ANA LAYOUT -->
     <main class="layout">
-      <!-- SOL PANEL / PANELLER -->
+      <!-- SOL PANEL -->
       <section class="sidebar card">
         <h2 class="sidebar-title">AIVO Studio</h2>
         <p class="sidebar-desc" data-i18n="sidebar_desc">
@@ -92,7 +93,7 @@
       </section>
 
       <!-- ORTA PANEL / MÜZİK ÜRET -->
-      <section class="main-panel card mode-advanced" id="music-panel">
+      <section class="main-panel card mode-basic" id="music-panel">
         <div class="panel-header">
           <div>
             <h1 data-i18n="music_title">Müzik Üret</h1>
@@ -100,14 +101,26 @@
               Ritim, vokal, mood ve makam seç — AIVO şarkıyı oluştursun.
             </p>
           </div>
+        </div>
 
-          <div class="mode-toggle">
-            <button class="mode-btn active" data-mode="basic" data-i18n="mode_basic">Basit</button>
-            <button class="mode-btn" data-mode="advanced" data-i18n="mode_advanced">Gelişmiş</button>
-          </div>
+        <!-- BÜYÜK BASİT/GELİŞMİŞ MOD BAR -->
+        <div class="mode-bar">
+          <button class="mode-chip active" data-mode="basic">
+            <span class="mode-chip-title" data-i18n="mode_basic">Basit Mod</span>
+            <span class="mode-chip-sub" data-i18n="mode_basic_sub">
+              Hızlı üretim için temel ayarlar
+            </span>
+          </button>
+          <button class="mode-chip" data-mode="advanced">
+            <span class="mode-chip-title" data-i18n="mode_advanced">Gelişmiş Mod</span>
+            <span class="mode-chip-sub" data-i18n="mode_advanced_sub">
+              Enstrüman, referans ses ve detaylı kontrol
+            </span>
+          </button>
         </div>
 
         <form class="music-form">
+          <!-- TEMEL ALANLAR (HER İKİ MODDA DA GÖRÜNÜR) -->
           <div class="form-row">
             <div class="form-group">
               <label for="song-title" data-i18n="field_song_title">Şarkı Adı</label>
@@ -131,7 +144,8 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <!-- GELİŞMİŞ ALAN: SÖZLER -->
+          <div class="form-group advanced-only">
             <label for="song-lyrics" data-i18n="field_song_lyrics">Şarkı Sözleri (isteğe bağlı)</label>
             <textarea
               id="song-lyrics"
@@ -168,7 +182,7 @@
               <div class="small-text" data-i18n="hint_tempo">Önerilen BPM: 90–120</div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group advanced-only">
               <label for="key" data-i18n="field_key">Karar Sesi (Key)</label>
               <select id="key">
                 <option value="C">C</option>
@@ -183,7 +197,7 @@
           </div>
 
           <div class="form-row">
-            <div class="form-group">
+            <div class="form-group advanced-only">
               <label for="mix-style" data-i18n="field_mix_style">Mix Stili</label>
               <select id="mix-style">
                 <option value="aivo_pop" data-i18n="option_aivo_pop_default">AIVO Pop Mix (varsayılan)</option>
@@ -206,8 +220,8 @@
             </div>
           </div>
 
-          <!-- Enstrüman ve Vokal -->
-          <div class="form-row">
+          <!-- ENSTRÜMAN SEÇİMİ (SADECE GELİŞMİŞ) -->
+          <div class="form-row advanced-only">
             <div class="form-group">
               <label data-i18n="field_instruments_tr">Türk Enstrümanları</label>
               <div class="checkbox-grid">
@@ -235,7 +249,8 @@
             </div>
           </div>
 
-          <div class="form-row">
+          <!-- VOKAL + REFERANS SES (REFERANS SES SUNO/EITA MANTIĞI) -->
+          <div class="form-row advanced-only">
             <div class="form-group">
               <label for="vocal-type" data-i18n="field_vocal_type">Vokal Türü (isteğe bağlı)</label>
               <select id="vocal-type">
@@ -248,9 +263,14 @@
 
             <div class="form-group">
               <label for="audio-ref" data-i18n="field_audio_ref">Referans Ses (opsiyonel)</label>
-              <input type="file" id="audio-ref" accept="audio/*" />
+              <div class="audio-dropzone">
+                <input type="file" id="audio-ref" accept="audio/*" />
+                <span class="audio-dropzone-label" data-i18n="audio_drop_label">
+                  Dosya seç veya sürükleyip bırak (vokal veya referans şarkı)
+                </span>
+              </div>
               <p class="small-text" data-i18n="hint_audio_ref">
-                Suno / Eita gibi: Referans bir audio yükleyerek stile yön verebilirsin.
+                Suno / Eita gibi: Kendi vokalini veya sevdiğin bir parçayı yükleyip AIVO’nun stil, tempo ve armoniyi buradan çıkarmasını sağlayabilirsin.
               </p>
               <div id="audio-preview" class="audio-preview hidden">
                 <span id="audio-file-name"></span>
@@ -259,7 +279,8 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <!-- EK AÇIKLAMA -->
+          <div class="form-group advanced-only">
             <label for="extra-notes" data-i18n="field_extra_notes">Ek Açıklama / Prompt</label>
             <textarea
               id="extra-notes"
@@ -279,7 +300,7 @@
             </p>
           </div>
 
-          <ul class="tips-list">
+          <ul class="tips-list advanced-only">
             <li data-i18n="tip_1">Açıklaman sade tut, net maksimum 200 karakter bırak.</li>
             <li data-i18n="tip_2">Tür ve ruh halini uyumlu seç (örneğin: Pop + Enerjik).</li>
             <li data-i18n="tip_3">Makam seçimi Türk müziği için önemli.</li>
@@ -288,49 +309,57 @@
         </form>
       </section>
 
-      <!-- SAĞ PANEL / SON ÜRETİLENLER -->
+      <!-- SAĞ PANEL -->
       <section class="side-panel card">
         <h2 data-i18n="right_title">Son Üretilen Müzikler</h2>
         <div id="generated-list" class="generated-list empty">
-          <p data-i18n="right_empty">
-            Henüz müzik üretmedin. Soldaki formu doldurup “Müzik Üret” butonuna basarak başla.
-          </p>
+          <div class="generated-placeholder">
+            <span class="placeholder-icon">🎧</span>
+            <p data-i18n="right_empty">
+              Henüz müzik üretmedin.<br />Soldaki formu doldurup “Müzik Üret” butonuna basarak başla.
+            </p>
+          </div>
         </div>
       </section>
     </main>
   </div>
 
-  <!-- KREDİ MODALI -->
+  <!-- KREDİ MODALI (BÜYÜK) -->
   <div id="credits-modal" class="modal hidden">
     <div class="modal-backdrop"></div>
     <div class="modal-content card">
       <div class="modal-header">
-        <h2 data-i18n="credits_modal_title">Kredi Paketleri</h2>
+        <div>
+          <h2 data-i18n="credits_modal_title">Kredi Paketleri</h2>
+          <p class="modal-text" data-i18n="credits_modal_desc">
+            Üretim hacmine göre bir paket seç. Kullanmadığın krediler bir sonraki aya devredilir.
+          </p>
+        </div>
         <button id="close-credits-modal" class="icon-button">✕</button>
       </div>
-      <p class="modal-text" data-i18n="credits_modal_desc">
-        İhtiyacına göre bir paket seç. Kullanmadığın krediler bir sonraki aya devredilir.
-      </p>
+
       <div class="pricing-grid">
         <div class="pricing-card">
           <h3>Starter</h3>
           <p class="price">₺49</p>
           <p class="price-detail" data-i18n="credits_pack_small">100 kredi • Hobi kullanımı</p>
-          <button class="primary-button" data-i18n="btn_select">Seç</button>
+          <button class="primary-button wide" data-i18n="btn_select">Bu Paketi Seç</button>
         </div>
         <div class="pricing-card recommended">
+          <div class="badge" data-i18n="badge_best">En Çok Tercih Edilen</div>
           <h3>Pro</h3>
           <p class="price">₺149</p>
           <p class="price-detail" data-i18n="credits_pack_med">500 kredi • Düzenli üretim</p>
-          <button class="primary-button" data-i18n="btn_select">Seç</button>
+          <button class="primary-button wide" data-i18n="btn_select">Bu Paketi Seç</button>
         </div>
         <div class="pricing-card">
           <h3>Studio</h3>
           <p class="price">₺299</p>
           <p class="price-detail" data-i18n="credits_pack_big">1500 kredi • Profesyonel stüdyo</p>
-          <button class="primary-button" data-i18n="btn_select">Seç</button>
+          <button class="primary-button wide" data-i18n="btn_select">Bu Paketi Seç</button>
         </div>
       </div>
+
       <p class="modal-footnote" data-i18n="credits_modal_note">
         Ödeme sağlayıcısı: Stripe / iyzico — tüm ödemeler 3D Secure ile korunur.
       </p>
