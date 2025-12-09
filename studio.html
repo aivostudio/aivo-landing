@@ -12,7 +12,8 @@
     <header class="topbar">
       <div class="topbar-left">
         <div class="logo">
-          <span class="logo-mark">A</span>
+          <!-- BURAYA KENDİ LOGO DOSYA ADINI YAZABİLİRSİN -->
+          <img src="aivo-logo1.png" alt="AIVO logo" class="logo-img" />
           <span class="logo-text">AIVO Studio</span>
         </div>
       </div>
@@ -48,7 +49,7 @@
           <button class="sidebar-link is-active">
             <span>Müzik Üret</span>
           </button>
-          <button class="sidebar-link">
+          <button class="sidebar-link" data-goto-cover>
             <span>Kapak Üret</span>
           </button>
           <button class="sidebar-link">
@@ -304,8 +305,86 @@
             </div>
 
             <div class="form-field third align-end">
-              <button class="primary-btn full-width">
+              <button class="primary-btn full-width" id="musicGenerateBtn">
                 🎵 Müzik Üret
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- KAPAK / ARTWORK ÜRETİMİ -->
+        <div class="card artwork-card" id="artworkSection">
+          <div class="card-header artwork-header">
+            <div>
+              <div class="card-title">Kapak / Artwork Üretimi</div>
+              <div class="card-subtitle">
+                Spotify, Apple Music ve YouTube için otomatik kapak tasarımını burada oluştur.
+              </div>
+            </div>
+            <span class="badge-beta">BETA</span>
+          </div>
+
+          <div class="form-grid artwork-grid">
+            <div class="form-field third">
+              <label for="coverPreset">Platform Preseti</label>
+              <select id="coverPreset">
+                <option>Spotify Single</option>
+                <option>Apple Music</option>
+                <option>YouTube Cover</option>
+                <option>Instagram Post</option>
+              </select>
+            </div>
+
+            <div class="form-field third">
+              <label for="coverStyle">Stil</label>
+              <select id="coverStyle">
+                <option>Neon & Gece</option>
+                <option>Pastel & Dreamy</option>
+                <option>Karanlık & Sinematik</option>
+                <option>Minimal & Temiz</option>
+              </select>
+            </div>
+
+            <div class="form-field third">
+              <label for="coverColors">Renk Teması</label>
+              <select id="coverColors">
+                <option>Pembe / Mor / Mavi</option>
+                <option>Turkuaz / Siyah</option>
+                <option>Altın / Mor</option>
+                <option>Monokrom</option>
+              </select>
+            </div>
+
+            <div class="form-field full">
+              <label for="coverPrompt">Kapak Promptu</label>
+              <textarea
+                id="coverPrompt"
+                rows="2"
+                placeholder="Örn: Gece vakti neon ışıklar altında mor ve mavi tonlarda, enerjik Türkçe pop hissi veren bir kapak..."
+              ></textarea>
+            </div>
+
+            <div class="form-field third">
+              <label for="coverTextTop">Üst Yazı</label>
+              <input
+                type="text"
+                id="coverTextTop"
+                placeholder="Örn: Harun Erkezen"
+              />
+            </div>
+
+            <div class="form-field third">
+              <label for="coverTextBottom">Alt Yazı</label>
+              <input
+                type="text"
+                id="coverTextBottom"
+                placeholder="Örn: Kül Bahçesi"
+              />
+            </div>
+
+            <div class="form-field third align-end">
+              <button class="primary-btn full-width" id="coverGenerateBtn">
+                🖼️ Kapak Üret
               </button>
             </div>
           </div>
@@ -333,7 +412,7 @@
     </main>
   </div>
 
-  <!-- PRICING MODAL -->
+  <!-- PRICING FULLSCREEN OVERLAY -->
   <div class="pricing-modal" id="pricingModal">
     <div class="pricing-backdrop"></div>
     <div class="pricing-dialog">
@@ -389,7 +468,7 @@
             <li>500 kredi • 1000 şarkı</li>
             <li>Premium kalite</li>
             <li>7/24 öncelikli destek</li>
-            <li>AIVA Studio sınırsız kullanım</li>
+            <li>AIVO Studio sınırsız kullanım</li>
             <li>Takım / ajans lisansı</li>
           </ul>
           <button class="primary-btn full-width">Satın Al</button>
