@@ -1,141 +1,149 @@
-document.addEventListener("DOMContentLoaded", () => {
-  /* ==== SAYFA (Müzik / Kapak) GEÇİŞLERİ ==== */
-  const pages = document.querySelectorAll(".page");
-  const pageLinks = document.querySelectorAll("[data-page-link]");
+/* ==== SAYFA (Müzik / Kapak) GEÇİŞLERİ ==== */
+const pages = document.querySelectorAll(".page");
+const pageLinks = document.querySelectorAll("[data-page-link]");
 
-  function switchPage(target) {
-    pages.forEach((p) => {
-      p.classList.toggle("is-active", p.dataset.page === target);
-    });
-
-    // Artık burada link boyama yok, sadece sayfa değişiyor
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+function switchPage(target) {
+  pages.forEach((p) => {
+    p.classList.toggle("is-active", p.dataset.page === target);
+  });
 
   pageLinks.forEach((link) => {
-    link.addEventListener("click", (e) => {
-      const target = link.getAttribute("data-page-link");
-      if (!target) return;
-      e.preventDefault();
-
-      // 1) Tüm linklerden is-active'i kaldır (Kredi linkleri hariç)
-      pageLinks.forEach((l) => {
-        if (!l.hasAttribute("data-open-pricing")) {
-          l.classList.remove("is-active");
-        }
-      });
-
-      // 2) Sadece tıklanan linki aktif yap (Kredi linki değilse)
-      if (!link.hasAttribute("data-open-pricing")) {
-        link.classList.add("is-active");
-      }
-
-      // 3) Sayfayı değiştir
-      switchPage(target);
-    });
+    const linkTarget = link.getAttribute("data-page-link");
+    if (linkTarget === target && !link.hasAttribute("data-open-pricing")) {
+      link.classList.add("is-active");
+    } else if (!link.hasAttribute("data-open-pricing")) {
+      link.classList.remove("is-active");
+    }
   });
 
-  /* ==== MOD SWITCH (BASİT / GELİŞMİŞ) ==== */
-  const body = document.body;
-  const modeButtons = document.querySelectorAll("[data-mode-button]");
-  const advancedSections = document.querySelectorAll("[data-visible-in='advanced']");
-  const basicSections = document.querySelectorAll("[data-visible-in='basic']");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 
-  function updateMode(mode) {
-    body.setAttribute("data-mode", mode);
+pageLinks.forEach((link) => {
+  link.addEventListener("click", (e) => {
+    const target = link.getAttribute("data-page-link");
+    if (!target) return;
+    e.preventDefault();
+    switchPage(target);
+  });
+});
 
-    modeButtons.forEach((btn) => {
-      const btnMode = btn.getAttribute("data-mode-button");
-      btn.classList.toggle("is-active", btnMode === mode);
-    });
 
-    advancedSections.forEach((el) => {
-      if (mode === "basic") el.classList.add("hidden");
-      else el.classList.remove("hidden");
-    });
+/* ========================================================= */
+/* ==== SOL MENÜ: MÜZİK ÜRET ALT MENÜ AÇ / KAPA ==== */
+/* ========================================================= */
 
-    basicSections.forEach((el) => {
-      if (mode === "basic") el.classList.remove("hidden");
-      else el.classList.add("hidden");
-    });
-  }
+const submenuToggles = document.querySelectorAll("[data-submenu-toggle]");
+
+submenuToggles.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const key = btn.getAttribute("data-submenu-toggle");
+    const submenu = document.querySelector(`[data-submenu="${key}"]`);
+    if (!submenu) return;
+
+    submenu.classList.toggle("is-open");
+    btn.classList.toggle("is-open");
+  });
+});
+
+
+/* ==== MOD SWITCH (BASİT / GELİŞMİŞ) ==== */
+const body = document.body;
+const modeButtons = document.querySelectorAll("[data-mode-button]");
+const advancedSections = document.querySelectorAll("[data-visible-in='advanced']");
+const basicSections = document.querySelectorAll("[data-visible-in='basic']");
+
+function updateMode(mode) {
+  body.setAttribute("data-mode", mode);
 
   modeButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const mode = btn.getAttribute("data-mode-button");
-      updateMode(mode);
-    });
+    const btnMode = btn.getAttribute("data-mode-button");
+    btn.classList.toggle("is-active", btnMode === mode);
   });
 
-  updateMode("advanced");
-
-  /* ==== PRICING MODAL / KREDİ AL ==== */
-  const pricingModal = document.getElementById("pricingModal");
-  const creditsButton = document.getElementById("creditsButton");
-  const closePricing = document.getElementById("closePricing");
-  const openPricingLinks = document.querySelectorAll("[data-open-pricing]");
-
-  function openPricing() {
-    if (!pricingModal) return;
-    pricingModal.classList.add("is-open");
-  }
-
-  function closePricingModal() {
-    if (!pricingModal) return;
-    pricingModal.classList.remove("is-open");
-  }
-
-  if (creditsButton) {
-    creditsButton.addEventListener("click", openPricing);
-  }
-
-  openPricingLinks.forEach((el) => {
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      openPricing();
-    });
+  advancedSections.forEach((el) => {
+    if (mode === "basic") el.classList.add("hidden");
+    else el.classList.remove("hidden");
   });
 
-  if (closePricing) {
-    closePricing.addEventListener("click", closePricingModal);
-  }
+  basicSections.forEach((el) => {
+    if (mode === "basic") el.classList.remove("hidden");
+    else el.classList.add("hidden");
+  });
+}
 
-  if (pricingModal) {
-    const backdrop = pricingModal.querySelector(".pricing-backdrop");
-    if (backdrop) backdrop.addEventListener("click", closePricingModal);
-  }
-
-  /* ==== MÜZİK ÜRET BUTONU (UI FEEDBACK) ==== */
-  const musicGenerateBtn = document.getElementById("musicGenerateBtn");
-  if (musicGenerateBtn) {
-    musicGenerateBtn.addEventListener("click", () => {
-      if (musicGenerateBtn.classList.contains("is-loading")) return;
-      const originalText = musicGenerateBtn.textContent;
-      musicGenerateBtn.classList.add("is-loading");
-      musicGenerateBtn.textContent = "Üretiliyor...";
-
-      setTimeout(() => {
-        musicGenerateBtn.classList.remove("is-loading");
-        musicGenerateBtn.textContent = originalText;
-        console.log("Müzik üretim isteği burada API'ye gidecek.");
-      }, 1200);
-    });
-  }
-
-  /* ==== KAPAK ÜRET BUTONU (UI FEEDBACK) ==== */
-  const coverGenerateBtn = document.getElementById("coverGenerateBtn");
-  if (coverGenerateBtn) {
-    coverGenerateBtn.addEventListener("click", () => {
-      if (coverGenerateBtn.classList.contains("is-loading")) return;
-      const originalText = coverGenerateBtn.textContent;
-      coverGenerateBtn.classList.add("is-loading");
-      coverGenerateBtn.textContent = "Kapak üretiliyor...";
-
-      setTimeout(() => {
-        coverGenerateBtn.classList.remove("is-loading");
-        coverGenerateBtn.textContent = originalText;
-        console.log("Kapak üretim isteği burada görsel AI API'ye gidecek.");
-      }, 1400);
-    });
-  }
+modeButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const mode = btn.getAttribute("data-mode-button");
+    updateMode(mode);
+  });
 });
+
+updateMode("advanced");
+
+
+/* ==== PRICING MODAL / KREDİ AL ==== */
+const pricingModal = document.getElementById("pricingModal");
+const creditsButton = document.getElementById("creditsButton");
+const closePricing = document.getElementById("closePricing");
+const openPricingLinks = document.querySelectorAll("[data-open-pricing]");
+
+function openPricing() {
+  if (!pricingModal) return;
+  pricingModal.classList.add("is-open");
+}
+
+function closePricingModal() {
+  if (!pricingModal) return;
+  pricingModal.classList.remove("is-open");
+}
+
+if (creditsButton) creditsButton.addEventListener("click", openPricing);
+openPricingLinks.forEach((el) =>
+  el.addEventListener("click", (e) => {
+    e.preventDefault();
+    openPricing();
+  })
+);
+if (closePricing) closePricing.addEventListener("click", closePricingModal);
+
+if (pricingModal) {
+  const backdrop = pricingModal.querySelector(".pricing-backdrop");
+  if (backdrop) backdrop.addEventListener("click", closePricingModal);
+}
+
+
+/* ==== MÜZİK ÜRET BUTONU (UI FEEDBACK) ==== */
+const musicGenerateBtn = document.getElementById("musicGenerateBtn");
+if (musicGenerateBtn) {
+  musicGenerateBtn.addEventListener("click", () => {
+    if (musicGenerateBtn.classList.contains("is-loading")) return;
+    const originalText = musicGenerateBtn.textContent;
+    musicGenerateBtn.classList.add("is-loading");
+    musicGenerateBtn.textContent = "Üretiliyor...";
+
+    setTimeout(() => {
+      musicGenerateBtn.classList.remove("is-loading");
+      musicGenerateBtn.textContent = originalText;
+      console.log("Müzik üretim isteği burada API'ye gidecek.");
+    }, 1200);
+  });
+}
+
+
+/* ==== KAPAK ÜRET BUTONU (UI FEEDBACK) ==== */
+const coverGenerateBtn = document.getElementById("coverGenerateBtn");
+if (coverGenerateBtn) {
+  coverGenerateBtn.addEventListener("click", () => {
+    if (coverGenerateBtn.classList.contains("is-loading")) return;
+    const originalText = coverGenerateBtn.textContent;
+    coverGenerateBtn.classList.add("is-loading");
+    coverGenerateBtn.textContent = "Kapak üretiliyor...";
+
+    setTimeout(() => {
+      coverGenerateBtn.classList.remove("is-loading");
+      coverGenerateBtn.textContent = originalText;
+      console.log("Kapak üretim isteği burada görsel AI API'ye gidecek.");
+    }, 1400);
+  });
+}
