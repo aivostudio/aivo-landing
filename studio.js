@@ -8,16 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
       p.classList.toggle("is-active", p.dataset.page === target);
     });
 
-    pageLinks.forEach((link) => {
-      const linkTarget = link.getAttribute("data-page-link");
-      // Hem topnav hem sidebar: aktif olanı boyuyoruz
-      if (linkTarget === target && !link.hasAttribute("data-open-pricing")) {
-        link.classList.add("is-active");
-      } else if (!link.hasAttribute("data-open-pricing")) {
-        link.classList.remove("is-active");
-      }
-    });
-
+    // Artık burada link boyama yok, sadece sayfa değişiyor
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -26,6 +17,20 @@ document.addEventListener("DOMContentLoaded", () => {
       const target = link.getAttribute("data-page-link");
       if (!target) return;
       e.preventDefault();
+
+      // 1) Tüm linklerden is-active'i kaldır (Kredi linkleri hariç)
+      pageLinks.forEach((l) => {
+        if (!l.hasAttribute("data-open-pricing")) {
+          l.classList.remove("is-active");
+        }
+      });
+
+      // 2) Sadece tıklanan linki aktif yap (Kredi linki değilse)
+      if (!link.hasAttribute("data-open-pricing")) {
+        link.classList.add("is-active");
+      }
+
+      // 3) Sayfayı değiştir
       switchPage(target);
     });
   });
