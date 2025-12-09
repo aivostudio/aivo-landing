@@ -1717,3 +1717,33 @@ textarea:focus {
   0%   { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+/* === SES KAYDI – ALT HİZALAMA + ORTA MİKROFON === */
+
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  position: relative;
+  display: flex;
+  align-items: stretch;        /* tüm bloklar aynı yükseklik */
+  justify-content: space-between;
+  gap: 48px;
+  padding: 56px 42px;
+  min-height: 280px;           /* kart biraz daha uzun */
+}
+
+/* Sol ve sağ bloklar alt hizalı */
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;   /* metin + buton kartın altına yaslanır */
+}
+
+/* Başlık / metin boşluklarını toparla */
+.music-view[data-music-view="ses-kaydi"] .record-main-title,
+.music-view[data-music-view="ses-kaydi"] .record-main-text,
+.music-view[data-music-view="ses-kaydi"] .record-upload-title,
+.music-view[data-music-view="ses-kaydi"] .record-upload-text {
+  margin: 0 0 10px;
+  text-align: left;
+}
+
