@@ -1266,58 +1266,146 @@ textarea:focus {
 
 /* SES KAYDI ANA KARTI */
 
+/* === SES KAYDI – ANA KART HİZALAMA === */
+
 .record-main-card {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
-  gap: 24px;
-  align-items: center;
-}
-
-.record-main-left {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 10px;
+  gap: 32px;
+  margin-top: 120px;          /* kartı daha aşağı çekiyoruz */
+  padding: 120px 40px 40px;   /* üstte daire için boşluk */
+  border-radius: var(--radius-xl);
+  background: radial-gradient(circle at top left,
+              rgba(108, 92, 231, 0.18),
+              transparent 55%),
+              radial-gradient(circle at bottom right,
+              rgba(9, 132, 227, 0.15),
+              transparent 60%),
+              var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
 }
 
-.record-circle {
-  width: 96px;
-  height: 96px;
-  border-radius: 999px;
-  background: radial-gradient(circle at 30% 0, #fd79a8, transparent 60%),
-              radial-gradient(circle at 70% 100%, #6c5ce7, transparent 60%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
-}
-
-.record-icon {
-  font-size: 34px;
+.record-main-left,
+.record-main-right {
+  flex: 1 1 0;
+  z-index: 2; /* dairenin altında kaybolmasın diye */
 }
 
 .record-main-title {
-  margin: 4px 0 0;
-  font-size: 18px;
-  font-weight: 600;
+  margin: 0 0 6px;
+  font-size: 20px;
 }
 
 .record-main-text {
-  margin: 0;
+  margin: 0 0 14px;
   font-size: 13px;
   color: var(--text-soft);
 }
 
-.record-btn {
-  margin-top: 6px;
-}
-
-.record-hint {
-  margin: 4px 0 0;
-  font-size: 11px;
+.record-hint,
+.record-upload-text,
+.record-upload-hint {
+  font-size: 12px;
   color: var(--text-soft);
 }
+
+/* === NEON KAYIT DAİRESİ === */
+
+.record-circle {
+  position: absolute;
+  left: 50%;
+  top: 0;                      /* iki kartın tam ortasına gelsin diye */
+  transform: translate(-50%, -40%);
+  width: 260px;               /* biraz küçültüldü */
+  height: 260px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;       /* tıklama kaydı bozmasın */
+  z-index: 1;
+}
+
+/* İçteki koyu daire */
+.record-circle::before {
+  content: "";
+  position: absolute;
+  inset: 22px;                 /* halka kalınlığı */
+  border-radius: 50%;
+  background: radial-gradient(circle at center,
+              rgba(5, 6, 26, 0.98),
+              rgba(5, 6, 26, 0.95));
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+}
+
+/* Dıştaki dönen neon halka – sadece kenar */
+.record-circle {
+  background:
+    conic-gradient(
+      from var(--record-angle, 0deg),
+      #6c5ce7,
+      #00cec9,
+      #ffeaa7,
+      #fd79a8,
+      #6c5ce7
+    );
+  box-shadow:
+    0 0 32px rgba(108, 92, 231, 0.65),
+    0 0 80px rgba(45, 52, 54, 0.8);
+  animation: record-ring-spin 8s linear infinite;
+}
+
+/* Kayıt modunda pembe neon’a geç */
+.record-circle.is-recording {
+  background:
+    conic-gradient(
+      from var(--record-angle, 0deg),
+      #ff6bcb,
+      #ffeaa7,
+      #ff9ff3,
+      #ff6bcb
+    );
+  box-shadow:
+    0 0 40px rgba(253, 121, 168, 0.85),
+    0 0 110px rgba(255, 118, 203, 0.8);
+  animation-duration: 3.5s; /* kayıt sırasında daha hızlı dönsün */
+}
+
+/* Mikrofon emoji */
+.record-icon {
+  position: relative;
+  z-index: 2;
+  font-size: 64px;
+  filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.8));
+}
+
+/* Dönme animasyonu */
+@keyframes record-ring-spin {
+  from {
+    --record-angle: 0deg;
+  }
+  to {
+    --record-angle: 360deg;
+  }
+}
+
+/* Tablet / mobilde daireyi biraz küçült */
+@media (max-width: 992px) {
+  .record-main-card {
+    flex-direction: column;
+    padding: 100px 20px 32px;
+    margin-top: 80px;
+  }
+
+  .record-circle {
+    width: 220px;
+    height: 220px;
+    transform: translate(-50%, -40%);
+  }
+}
+
 
 /* SAĞ TARAF: DOSYA YÜKLEME */
 
