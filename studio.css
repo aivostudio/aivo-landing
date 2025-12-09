@@ -33,20 +33,17 @@ body {
   color: #f5f5ff;
 }
 
-
 body {
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
+  display: block;          /* Ortalamayı iptal et, normal akış */
 }
 
 /* ==== APP SHELL ==== */
 
 .app-shell {
   width: 100%;
-  max-width: 1440px;
-  margin: 12px auto;
-  border-radius: 26px;
+  min-height: 100vh;        /* Tüm ekran yüksekliğini kapla */
+  margin: 0;                /* DIŞ BOŞLUK YOK */
+  border-radius: 0;         /* Köşeler ekrana yapışsın */
   background: radial-gradient(circle at top right, rgba(108, 92, 231, 0.18), transparent 45%),
     radial-gradient(circle at bottom left, rgba(9, 132, 227, 0.16), transparent 50%),
     rgba(3, 6, 24, 0.96);
@@ -205,16 +202,16 @@ body {
 .layout {
   display: grid;
   grid-template-columns: 250px minmax(0, 1.7fr) 320px;
-  padding: 18px 20px 22px;
+  padding: 0;               /* İÇ KENAR BOŞLUĞU DA SIFIR */
   gap: 16px;
   min-height: 640px;
 }
-/* Kapak / Görsel Üret sayfasında sağ kolon boş kalmasın, 
+
+/* Kapak / Görsel Üret sayfasında sağ kolon boş kalmasın,
    sadece sidebar + ana içerik olsun */
 .page-cover .layout {
   grid-template-columns: 250px minmax(0, 1fr);
 }
-
 
 /* ==== SIDEBAR LEFT ==== */
 
@@ -313,7 +310,9 @@ body {
   font-size: 12px;
   color: var(--text-soft);
 }
+
 /* Müzik Üret için açılır grup */
+
 .sidebar-group {
   margin-bottom: 6px;
 }
@@ -335,6 +334,7 @@ body {
 }
 
 /* Alt menü */
+
 .sidebar-submenu {
   margin-top: 6px;
   padding-left: 8px;
@@ -348,6 +348,7 @@ body {
 }
 
 /* Alt linkler */
+
 .sidebar-sublink {
   width: 100%;
   border: none;
@@ -461,16 +462,8 @@ body {
   transform: translateY(-1px);
 }
 
-}
-
-.mode-btn.is-active {
-  background: linear-gradient(135deg, #6c5ce7, #a55eea);
-  color: #fff;
-  box-shadow: 0 10px 28px rgba(108, 92, 231, 0.6);
-  transform: translateY(-1px);
-}
-
 /* MODE BACKGROUND EFFECT */
+
 body[data-mode="basic"] .card {
   background: radial-gradient(circle at top left, rgba(99, 205, 218, 0.18), transparent 55%),
     radial-gradient(circle at bottom right, rgba(72, 219, 251, 0.12), transparent 60%),
@@ -1126,25 +1119,9 @@ textarea:focus {
     grid-template-columns: minmax(0, 1fr);
   }
 }
-.mode-star {
-  position: absolute;
-  top: -8px;
-  right: 10px;
-  font-size: 16px;
-  color: #ffeaa7;
-  text-shadow: 0 0 8px rgba(255, 234, 167, 0.9),
-               0 0 16px rgba(255, 184, 108, 0.8);
-  animation: spin-glow 2.2s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes spin-glow {
-  0% { transform: rotate(0deg) scale(1); opacity: .7; }
-  50% { transform: rotate(180deg) scale(1.2); opacity: 1; }
-  100% { transform: rotate(360deg) scale(1); opacity: .7; }
-}
 
 /* Gelişmiş Mod üzerindeki yıldız */
+
 .mode-star {
   position: absolute;
   top: -8px;
@@ -1158,8 +1135,7 @@ textarea:focus {
 }
 
 @keyframes spin-glow {
-  0% { transform: rotate(0deg) scale(1); opacity: .7; }
-  50% { transform: rotate(180deg) scale(1.2); opacity: 1; }
-  100% { transform: rotate(360deg) scale(1); opacity: .7; }
+  0%   { transform: rotate(0deg) scale(1);   opacity: .7; }
+  50%  { transform: rotate(180deg) scale(1.2); opacity: 1; }
+  100% { transform: rotate(360deg) scale(1);  opacity: .7; }
 }
-
