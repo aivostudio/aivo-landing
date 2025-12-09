@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title>AIVO Studio - Müzik Üret</title>
+  <title>AIVO Studio - Müzik & Kapak Üret</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="studio.css" />
 </head>
@@ -11,7 +11,7 @@
     <!-- ÜST NAVBAR -->
     <header class="top-bar">
       <div class="logo-area">
-        <!-- LOGO GÖRSELİ (DOSYA ADINI KENDİ SUNUCUNA GÖRE DÜZENLE) -->
+        <!-- LOGO DOSYA ADINI GEREKİRSE GÜNCELLE -->
         <img src="aivo-logo.png" alt="AIVO Logo" class="logo-img" />
         <div class="logo-text">
           <span class="logo-title">AIVO</span>
@@ -65,8 +65,17 @@
         <div class="sidebar-block">
           <h3 data-i18n="sidebar_modes">Modlar</h3>
           <div class="pill-list">
-            <button class="pill active" data-i18n="mode_music">Music Studio</button>
-            <button class="pill" data-i18n="mode_artwork">Artwork Studio</button>
+            <button class="pill active" data-mode="music" data-i18n="mode_music">Music Studio</button>
+            <button class="pill" data-mode="artwork" data-i18n="mode_artwork">Artwork Studio</button>
+          </div>
+          <div class="sidebar-mini-nav">
+            <span class="mini-nav-title" data-i18n="music_sections_title">Müzik Bölümleri</span>
+            <ul>
+              <li>🎵 <span data-i18n="music_section_traditional">Geleneksel Müzik Üret</span></li>
+              <li>🎙️ <span data-i18n="music_section_record">Ses Kaydı Stüdyosu (yakında)</span></li>
+              <li>🧬 <span data-i18n="music_section_vocal">Vokale Göre Müzik (yakında)</span></li>
+              <li>🧪 <span data-i18n="music_section_studio">AIVO Studio Mix (beta)</span></li>
+            </ul>
           </div>
         </div>
 
@@ -92,7 +101,7 @@
         </div>
       </section>
 
-      <!-- ORTA PANEL / MÜZİK ÜRET -->
+      <!-- ORTA PANEL 1: MÜZİK -->
       <section class="main-panel card mode-basic" id="music-panel">
         <div class="panel-header">
           <div>
@@ -120,7 +129,7 @@
         </div>
 
         <form class="music-form">
-          <!-- TEMEL ALANLAR (HER İKİ MODDA DA GÖRÜNÜR) -->
+          <!-- TEMEL ALANLAR -->
           <div class="form-row">
             <div class="form-group">
               <label for="song-title" data-i18n="field_song_title">Şarkı Adı</label>
@@ -144,7 +153,7 @@
             </div>
           </div>
 
-          <!-- GELİŞMİŞ ALAN: SÖZLER -->
+          <!-- GELİŞMİŞ: SÖZLER -->
           <div class="form-group advanced-only">
             <label for="song-lyrics" data-i18n="field_song_lyrics">Şarkı Sözleri (isteğe bağlı)</label>
             <textarea
@@ -220,7 +229,7 @@
             </div>
           </div>
 
-          <!-- ENSTRÜMAN SEÇİMİ (SADECE GELİŞMİŞ) -->
+          <!-- ENSTRÜMANLAR -->
           <div class="form-row advanced-only">
             <div class="form-group">
               <label data-i18n="field_instruments_tr">Türk Enstrümanları</label>
@@ -249,7 +258,7 @@
             </div>
           </div>
 
-          <!-- VOKAL + REFERANS SES (REFERANS SES SUNO/EITA MANTIĞI) -->
+          <!-- VOKAL + REFERANS SES -->
           <div class="form-row advanced-only">
             <div class="form-group">
               <label for="vocal-type" data-i18n="field_vocal_type">Vokal Türü (isteğe bağlı)</label>
@@ -307,16 +316,147 @@
             <li data-i18n="tip_4">Enstrüman belirtmek, miks sonucunu iyileştirir.</li>
           </ul>
         </form>
+
+        <!-- EITA STÜDYO HAVASI: GELECEK ÖZELLİKLER ŞERİDİ -->
+        <div class="studio-feature-strip advanced-only">
+          <h3 data-i18n="studio_strip_title">AIVO Studio • Yakında</h3>
+          <div class="studio-feature-grid">
+            <div class="studio-feature-card">
+              <h4>🎚 Stem Separation</h4>
+              <p data-i18n="studio_strip_1">Vokali, davulu, bası ayrı kanallara ayır.</p>
+            </div>
+            <div class="studio-feature-card">
+              <h4>📈 Waveform</h4>
+              <p data-i18n="studio_strip_2">Dalga formu üzerinden düzenleme ve görselleştirme.</p>
+            </div>
+            <div class="studio-feature-card">
+              <h4>🕹 Volume & Pan</h4>
+              <p data-i18n="studio_strip_3">Her kanal için seviye ve stereo pozisyon.</p>
+            </div>
+            <div class="studio-feature-card">
+              <h4>📤 Export & Mix</h4>
+              <p data-i18n="studio_strip_4">Hazır mix’i tek dosya olarak dışa aktar.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <!-- SAĞ PANEL -->
+      <!-- ORTA PANEL 2: KAPAK / GÖRSEL -->
+      <section class="main-panel card hidden" id="artwork-panel">
+        <div class="panel-header">
+          <div>
+            <h1 data-i18n="art_title">Kapak / Görsel Üret</h1>
+            <p class="panel-subtitle" data-i18n="art_subtitle">
+              Şarkına uygun, platformlara hazır kapaklar üret. Spotify, YouTube, TikTok oranları tek tıkla.
+            </p>
+          </div>
+        </div>
+
+        <form class="artwork-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cover-title" data-i18n="art_field_title">Proje / Şarkı Adı</label>
+              <input
+                type="text"
+                id="cover-title"
+                placeholder="Örn: Kül Bahçesi"
+                data-i18n-placeholder="art_placeholder_title"
+              />
+            </div>
+            <div class="form-group">
+              <label for="cover-desc" data-i18n="art_field_desc">Kapak Açıklaması / Prompt</label>
+              <textarea
+                id="cover-desc"
+                rows="3"
+                maxlength="300"
+                placeholder="Kapakta görmek istediğin atmosferi, renkleri ve stili yaz..."
+                data-i18n-placeholder="art_placeholder_desc"
+              ></textarea>
+              <div class="char-hint" data-i18n="art_hint_chars">Maksimum 300 karakter.</div>
+            </div>
+          </div>
+
+          <div class="form-row form-row-two">
+            <div class="form-group">
+              <label for="cover-format" data-i18n="art_field_format">Format</label>
+              <select id="cover-format">
+                <option value="spotify">Spotify Kapak • 3000×3000</option>
+                <option value="apple">Apple Music Kapak • 3000×3000</option>
+                <option value="yt_cover">YouTube Kapak • 2560×1440</option>
+                <option value="yt_thumb">YouTube Thumbnail • 1280×720</option>
+                <option value="tiktok">TikTok / Reels • 1080×1920</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cover-style" data-i18n="art_field_style">Stil</label>
+              <select id="cover-style">
+                <option value="pastel">Pastel, yumuşak</option>
+                <option value="neon">Neon, parlak</option>
+                <option value="cinematic">Sinematik</option>
+                <option value="minimal">Minimal</option>
+                <option value="3d">3D / Render</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cover-color" data-i18n="art_field_color">Renk Paleti</label>
+              <select id="cover-color">
+                <option value="logo">AIVO Logo Paleti (pembe–mor–cyan)</option>
+                <option value="warm">Sıcak (turuncu–kırmızı)</option>
+                <option value="cold">Soğuk (mavi–mor)</option>
+                <option value="bw">Siyah–Beyaz</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row form-row-two">
+            <div class="form-group">
+              <label for="cover-ref" data-i18n="art_field_ref">Referans Görsel (opsiyonel)</label>
+              <div class="image-dropzone">
+                <input type="file" id="cover-ref" accept="image/*" />
+                <span class="image-dropzone-label" data-i18n="art_drop_label">
+                  Görsel seç veya sürükleyip bırak (kapak taslağı veya ilham görseli)
+                </span>
+              </div>
+              <p class="small-text" data-i18n="art_hint_ref">
+                İstersen daha önce kullandığın bir kapak taslağını yükleyip AI’ın onu geliştirmesini sağlayabilirsin.
+              </p>
+              <div id="cover-preview" class="image-preview hidden">
+                <span id="cover-file-name"></span>
+                <img id="cover-img" alt="Önizleme" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label data-i18n="art_field_usage">Kullanım Notu</label>
+              <textarea
+                id="cover-usage"
+                rows="4"
+                placeholder="Örn: Spotify ve YouTube’da single olarak yayınlanacak, şarkı hızlı ve enerjik..."
+                data-i18n-placeholder="art_placeholder_usage"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <button type="button" id="generate-cover-btn" class="primary-button large">
+              <span class="btn-emoji">🎨</span>
+              <span data-i18n="btn_generate_cover">Kapak Üret</span>
+            </button>
+            <p class="small-text" data-i18n="art_hint_beta">
+              Kapak üretimi, müzikle aynı projede saklanır. Tek tıkla hem şarkı hem kapak indir.
+            </p>
+          </div>
+        </form>
+      </section>
+
+      <!-- SAĞ PANEL: SON ÜRETİLENLER -->
       <section class="side-panel card">
-        <h2 data-i18n="right_title">Son Üretilen Müzikler</h2>
+        <h2 data-i18n="right_title">Son Üretilen Çalışmalar</h2>
         <div id="generated-list" class="generated-list empty">
           <div class="generated-placeholder">
-            <span class="placeholder-icon">🎧</span>
+            <span class="placeholder-icon">✨</span>
             <p data-i18n="right_empty">
-              Henüz müzik üretmedin.<br />Soldaki formu doldurup “Müzik Üret” butonuna basarak başla.
+              Henüz müzik veya kapak üretmedin.<br />Soldaki panellerden başla.
             </p>
           </div>
         </div>
