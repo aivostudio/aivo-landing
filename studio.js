@@ -1,79 +1,80 @@
-// Basit / Gelişmiş mod geçişi
-const modeToggle = document.getElementById("modeToggle");
-const modeButtons = modeToggle.querySelectorAll(".mode-btn");
-const modeHighlight = modeToggle.querySelector(".mode-highlight");
-
-let currentMode = "basic";
-
-modeButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const mode = btn.dataset.mode;
-    if (mode === currentMode) return;
-
-    currentMode = mode;
-    modeButtons.forEach((b) => b.classList.remove("is-active"));
-    btn.classList.add("is-active");
-
-    // Highlight konumu
-    if (mode === "basic") {
-      modeHighlight.style.transform = "translateX(0%)";
-    } else {
-      modeHighlight.style.transform = "translateX(100%)";
-    }
-
-    // Form alanlarını göster/gizle
-    document.querySelectorAll(".basic-only").forEach((el) => {
-      el.style.display = mode === "basic" ? "flex" : "none";
-    });
-    document.querySelectorAll(".advanced-only").forEach((el) => {
-      el.style.display = mode === "advanced" ? "flex" : "none";
-    });
-  });
-});
-
-// İlk yüklemede basic görünür, advanced alanlar açık kalsın istersen burayı değiştir
-document.querySelectorAll(".advanced-only").forEach((el) => {
-  el.style.display = "none";
-});
-
-// Top sekmeler + sidebar itemleri ile sayfa geçişi
+// ---------- SAYFA GEÇİŞİ ----------
+const pageLinks = document.querySelectorAll(".js-page-link");
 const pages = document.querySelectorAll(".page");
+const sidebarItems = document.querySelectorAll(".sidebar .nav-item");
 const topTabs = document.querySelectorAll(".top-tab");
-const navItems = document.querySelectorAll(".nav-item");
 
 function activatePage(pageName) {
   pages.forEach((p) => {
     p.classList.toggle("is-active", p.dataset.page === pageName);
   });
 
-  topTabs.forEach((t) => {
-    t.classList.toggle("is-active", t.dataset.page === pageName);
+  sidebarItems.forEach((item) => {
+    const target = item.dataset.target;
+    item.classList.toggle("is-active", target === pageName);
   });
 
-  navItems.forEach((n) => {
-    n.classList.toggle("is-active", n.dataset.page === pageName);
+  topTabs.forEach((tab) => {
+    const target = tab.dataset.target;
+    tab.classList.toggle("is-active", target === pageName);
   });
 }
 
-topTabs.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    activatePage(tab.dataset.page);
+pageLinks.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const target = btn.dataset.target;
+    if (!target) return;
+    activatePage(target);
   });
 });
 
-navItems.forEach((item) => {
-  item.addEventListener("click", () => {
-    const page = item.dataset.page;
-    if (page === "logout") {
-      // MVP: sadece alert
-      alert("Çıkış akışı backend geldiğinde bağlanacak.");
-      return;
-    }
-    activatePage(page);
+const logoutBtn = document.getElementById("logoutBtn");
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    alert("Çıkış akışı backend geldiğinde bağlanacak.");
+  });
+}
+
+// ---------- BASİT / GELİŞMİŞ MOD ----------
+const modeToggle = document.getElementById("modeToggle");
+const modeButtons = modeToggle ? modeToggle.querySelectorAll(".mode-btn") : [];
+const modeHighlight = modeToggle ? modeToggle.querySelector(".mode-highlight") : null;
+const basicSections = document.querySelectorAll(".js-basic-section");
+const advancedSections = document.querySelectorAll(".js-advanced-section");
+
+let currentMode = "basic";
+
+function updateModeUI() {
+  basicSections.forEach((el) => {
+    el.style.display = currentMode === "basic" ? "flex" : "none";
+  });
+  advancedSections.forEach((el) => {
+    el.style.display = currentMode === "advanced" ? "flex" : "none";
+  });
+
+  if (modeHighlight) {
+    modeHighlight.style.transform =
+      currentMode === "basic" ? "translateX(0%)" : "translateX(100%)";
+  }
+}
+
+modeButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const mode = btn.dataset.mode;
+    if (!mode || mode === currentMode) return;
+    currentMode = mode;
+
+    modeButtons.forEach((b) => b.classList.remove("is-active"));
+    btn.classList.add("is-active");
+
+    updateModeUI();
   });
 });
 
-// Açıklama karakter sayacı
+// ilk yükleme
+updateModeUI();
+
+// ---------- AÇIKLAMA KARAKTER SAYACI ----------
 const descInput = document.querySelector('textarea[name="description"]');
 const descCounter = document.getElementById("descCounter");
 
@@ -85,23 +86,78 @@ if (descInput && descCounter) {
   updateCounter();
 }
 
-// Audio upload alanı
+// ---------- AUDIO UPLOAD ----------
 const audioInput = document.getElementById("audioInput");
 const audioDrop = document.getElementById("audioDrop");
 const audioFileName = document.getElementById("audioFileName");
 
 if (audioDrop && audioInput) {
-  audioDrop.addEventListener("click", () => audioInput.click());
-  audioInput.addEventListener("change", () => {
+  const setFileName = () => {
     if (audioInput.files && audioInput.files[0]) {
       audioFileName.textContent = `Seçilen dosya: ${audioInput.files[0].name}`;
     } else {
       audioFileName.textContent = "";
     }
-  });
+  };
+
+  audioDrop.addEventListener("click", () => audioInput.click());
+  audioInput.addEventListener("change", setFileName);
 }
 
-// Dummy "Son Üretilen Müzikler" — form submit olunca listeye ekliyoruz
+// ---------- PRESET BUTONLARI ----------
+const presetButtons = document.querySelectorAll(".preset-chip");
+
+presetButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const preset = btn.dataset.preset;
+    const genreSelect = document.querySelector('select[name="genre"]');
+    const moodSelect = document.querySelector('select[name="mood"]');
+    const bpmInput = document.querySelector('input[name="bpm"]');
+
+    if (!genreSelect || !moodSelect || !bpmInput) return;
+
+    switch (preset) {
+      case "tr-pop":
+        genreSelect.value = "tr-pop";
+        moodSelect.value = "enerjik";
+        bpmInput.value = 110;
+        break;
+      case "enerjik":
+        genreSelect.value = "trap";
+        moodSelect.value = "enerjik";
+        bpmInput.value = 130;
+        break;
+      case "deep":
+        genreSelect.value = "deep-house";
+        moodSelect.value = "sakin";
+        bpmInput.value = 122;
+        break;
+      case "anadolu":
+        genreSelect.value = "anadolu-pop";
+        moodSelect.value = "huzunlu";
+        bpmInput.value = 100;
+        break;
+      case "lofi":
+        genreSelect.value = "lofi";
+        moodSelect.value = "lofi";
+        bpmInput.value = 80;
+        break;
+      case "reverb":
+        moodSelect.value = "epik";
+        bpmInput.value = 90;
+        break;
+    }
+
+    // otomatik gelişmiş moda al
+    currentMode = "advanced";
+    modeButtons.forEach((b) =>
+      b.classList.toggle("is-active", b.dataset.mode === "advanced")
+    );
+    updateModeUI();
+  });
+});
+
+// ---------- SON ÜRETİLENLER (FAKE) ----------
 const musicForm = document.getElementById("musicForm");
 const recentList = document.getElementById("recentList");
 const recentEmpty = document.getElementById("recentEmpty");
@@ -110,7 +166,7 @@ const recentMeta = document.getElementById("recentMeta");
 let recentTracks = [];
 
 function renderRecent() {
-  if (!recentList || !recentEmpty) return;
+  if (!recentList || !recentEmpty || !recentMeta) return;
 
   if (recentTracks.length === 0) {
     recentEmpty.style.display = "flex";
@@ -121,22 +177,20 @@ function renderRecent() {
 
   recentEmpty.style.display = "none";
   recentList.style.display = "flex";
-
   recentList.innerHTML = "";
-  recentTracks.slice(0, 5).forEach((track) => {
+
+  recentTracks.slice(0, 5).forEach((t) => {
     const li = document.createElement("li");
     li.className = "recent-item";
 
     li.innerHTML = `
       <div class="recent-main">
-        <span class="recent-title">${track.title || "İsimsiz Parça"}</span>
-        <span class="recent-sub">${track.genre || "Tür belirtilmedi"} • ${
-      track.mood || "Mood"
-    } • ${track.time}</span>
+        <span class="recent-title">${t.title}</span>
+        <span class="recent-sub">${t.genre} • ${t.mood} • ${t.time}</span>
       </div>
       <div class="recent-actions">
-        <button class="play-btn">▶</button>
-        <span class="recent-sub">${track.length}</span>
+        <button class="play-btn" type="button">▶</button>
+        <span class="recent-sub">${t.length}</span>
       </div>
     `;
     recentList.appendChild(li);
@@ -150,17 +204,15 @@ if (musicForm) {
     e.preventDefault();
 
     const formData = new FormData(musicForm);
-    const title = formData.get("title");
-    const genre = formData.get("genre");
-    const mood = formData.get("mood");
+    const title = (formData.get("title") || "Yeni AIVO Track").toString();
+    const genre = (formData.get("genre") || "Türkçe Pop").toString();
+    const mood = (formData.get("mood") || "Mood").toString();
 
-    // Gerçek backend geldiğinde burada API çağrısı yapacaksın
-    // Şimdilik sadece dummy track ekleyelim
     const now = new Date();
     const track = {
-      title: title || "Yeni AIVO Track",
-      genre: genre || "Türkçe Pop",
-      mood: mood || "Enerjik",
+      title,
+      genre,
+      mood,
       time: now.toLocaleTimeString("tr-TR", {
         hour: "2-digit",
         minute: "2-digit",
@@ -171,9 +223,34 @@ if (musicForm) {
     recentTracks.unshift(track);
     renderRecent();
 
-    alert("MVP modunda: Form submit edildi. Backend geldiğinde AI müzik üretimine bağlanacak.");
+    alert(
+      "MVP modunda: Form submit edildi. Backend bağlandığında burada AI müzik üretim API çağrısı yapılacak."
+    );
   });
 }
 
-// Başlangıçta çiz
 renderRecent();
+
+// ---------- KREDİ MODAL ----------
+const creditModal = document.getElementById("creditModal");
+const openCreditModalBtn = document.getElementById("openCreditModal");
+const closeCreditModalBtn = document.getElementById("closeCreditModal");
+
+function openModal() {
+  if (creditModal) creditModal.classList.add("is-open");
+}
+function closeModal() {
+  if (creditModal) creditModal.classList.remove("is-open");
+}
+
+if (openCreditModalBtn) {
+  openCreditModalBtn.addEventListener("click", openModal);
+}
+if (closeCreditModalBtn) {
+  closeCreditModalBtn.addEventListener("click", closeModal);
+}
+if (creditModal) {
+  creditModal.addEventListener("click", (e) => {
+    if (e.target === creditModal) closeModal();
+  });
+}
