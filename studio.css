@@ -186,6 +186,29 @@ body {
         <img src="aivo-logo.png" alt="AIVO Studio" />
       </div>
     </aside>
+.sidebar {
+  position: relative; /* watermark için önemli */
+}
+
+/* ALTTA SAYDAM LOGO */
+
+.sidebar-watermark {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+  display: flex;
+  justify-content: center;
+  pointer-events: none; /* tıklamayı engellemesin */
+  opacity: 0.12;
+}
+
+.sidebar-watermark img {
+  max-width: 160px;
+  width: 70%;
+  filter: blur(0.3px);
+}
+
 
 /* MAIN AREA */
 
