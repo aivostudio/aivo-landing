@@ -231,6 +231,99 @@ if (musicForm) {
 
 renderRecent();
 
+// ---------- KAPAK GALERİ (MVP) ----------
+const coverForm = document.getElementById("coverForm");
+const coverList = document.getElementById("coverList");
+const coverEmpty = document.getElementById("coverEmpty");
+const coverMeta = document.getElementById("coverMeta");
+
+// Başlangıç için birkaç örnek (senin eski DALZAL kapaklarını hatırlatan isimler koydum)
+let coverItems = [
+  {
+    title: "DALZAL – Ahlat Oyun Havası",
+    platform: "Spotify • 1:1",
+    theme: "Pastel Bahçe",
+    style: "Illustrasyon",
+  },
+  {
+    title: "Harun Erkezen – Kül Bahçesi",
+    platform: "YouTube • 16:9",
+    theme: "Mor / Lila Neon",
+    style: "Vaporwave",
+  },
+];
+
+function renderCovers() {
+  if (!coverList || !coverEmpty || !coverMeta) return;
+
+  if (coverItems.length === 0) {
+    coverEmpty.style.display = "flex";
+    coverList.style.display = "none";
+    coverMeta.textContent = "Toplam 0 kapak";
+    return;
+  }
+
+  coverEmpty.style.display = "none";
+  coverList.style.display = "grid";
+  coverList.innerHTML = "";
+
+  coverItems.forEach((c) => {
+    const li = document.createElement("li");
+    li.className = "cover-card";
+
+    li.innerHTML = `
+      <div class="cover-thumb"></div>
+      <div class="cover-meta">
+        <div class="cover-title">${c.title}</div>
+        <div class="cover-sub">${c.platform}</div>
+        <div class="cover-tags">
+          <span class="cover-tag">${c.theme}</span>
+          <span class="cover-tag">${c.style}</span>
+        </div>
+      </div>
+    `;
+    coverList.appendChild(li);
+  });
+
+  coverMeta.textContent = `Toplam ${coverItems.length} kapak`;
+}
+
+// Form submit → yeni kapak ekle (şimdilik fake)
+if (coverForm) {
+  coverForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(coverForm);
+    const title = (formData.get("coverTitle") || "Yeni AIVO Kapak").toString();
+    const platformValue = (formData.get("coverPlatform") || "spotify").toString();
+    const ratio = (formData.get("coverRatio") || "1:1").toString();
+    const theme = (formData.get("coverTheme") || "Neon").toString();
+    const style = (formData.get("coverStyle") || "Illustrasyon").toString();
+
+    let platformLabel = "Spotify";
+    if (platformValue === "youtube") platformLabel = "YouTube";
+    if (platformValue === "shorts") platformLabel = "YouTube Shorts";
+    if (platformValue === "apple") platformLabel = "Apple Music";
+
+    coverItems.unshift({
+      title,
+      platform: `${platformLabel} • ${ratio}`,
+      theme,
+      style,
+    });
+
+    renderCovers();
+
+    alert(
+      "MVP modunda: Kapak formu submit edildi. Görsel AI API bağlandığında burada gerçek kapaklar üretilecek."
+    );
+  });
+}
+
+// sayfa yüklenince örnek kapakları çiz
+renderCovers();
+
+
 // ---------- KREDİ MODAL ----------
 const creditModal = document.getElementById("creditModal");
 const openCreditModalBtn = document.getElementById("openCreditModal");
