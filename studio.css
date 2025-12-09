@@ -312,6 +312,65 @@ body {
   font-size: 12px;
   color: var(--text-soft);
 }
+/* Müzik Üret için açılır grup */
+.sidebar-group {
+  margin-bottom: 6px;
+}
+
+.sidebar-link-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-arrow {
+  font-size: 10px;
+  opacity: 0.8;
+  transition: transform 0.2s ease-out;
+}
+
+.sidebar-link-main.is-open .sidebar-arrow {
+  transform: rotate(180deg);
+}
+
+/* Alt menü */
+.sidebar-submenu {
+  margin-top: 6px;
+  padding-left: 8px;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-submenu.is-open {
+  display: flex;
+}
+
+/* Alt linkler */
+.sidebar-sublink {
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  padding: 7px 10px;
+  font-size: 12px;
+  background: transparent;
+  color: var(--text-soft);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease-out, color 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.sidebar-sublink:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.sidebar-sublink.is-active {
+  background: rgba(108, 92, 231, 0.3);
+  color: #fff;
+}
 
 /* ==== MAIN PANEL ==== */
 
