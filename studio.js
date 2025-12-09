@@ -347,44 +347,67 @@ if (creditModal) {
     if (e.target === creditModal) closeModal();
   });
 }
-/* -------------------------------------------------- */
-/*  AIVO LARGE MODE TOGGLE (Basit / Gelişmiş) Switch  */
-/* -------------------------------------------------- */
+/* ----------------------------- */
+/*   AIVO MODE TOGGLE (Basit/Gelişmiş)  */
+/* ----------------------------- */
 
 const modeToggle = document.getElementById("modeToggle");
+const basicSections = document.querySelectorAll(".js-basic-section");
+const advancedSections = document.querySelectorAll(".js-advanced-section");
+
+let currentMode = "basic";
+
+function updateModeUI() {
+  // Form alanlarını göster / gizle
+  basicSections.forEach((el) => {
+    el.style.display = currentMode === "basic" ? "flex" : "none";
+  });
+  advancedSections.forEach((el) => {
+    el.style.display = currentMode === "advanced" ? "flex" : "none";
+  });
+
+  if (!modeToggle) return;
+
+  const buttons = modeToggle.querySelectorAll(".mode-btn");
+  const highlight = modeToggle.querySelector(".mode-highlight");
+
+  // Butonlarda aktif sınıfı
+  buttons.forEach((btn) => {
+    const isActive = btn.dataset.mode === currentMode;
+    btn.classList.toggle("is-active", isActive);
+  });
+
+  // Highlight sağa / sola kaydır
+  if (highlight) {
+    highlight.style.transform =
+      currentMode === "basic" ? "translateX(0%)" : "translateX(100%)";
+  }
+
+  // Neon sınıfları
+  modeToggle.classList.remove("mode-basic", "mode-advanced");
+  modeToggle.classList.add(
+    currentMode === "basic" ? "mode-basic" : "mode-advanced"
+  );
+
+  // Küçük pulse efekti
+  modeToggle.classList.remove("mode-pulse");
+  void modeToggle.offsetWidth; // animasyonu resetlemek için
+  modeToggle.classList.add("mode-pulse");
+  setTimeout(() => modeToggle.classList.remove("mode-pulse"), 260);
+}
+
 if (modeToggle) {
-    const buttons = modeToggle.querySelectorAll(".mode-btn");
-    const highlight = modeToggle.querySelector(".mode-highlight");
+  const buttons = modeToggle.querySelectorAll(".mode-btn");
 
-    buttons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            const selectedMode = btn.dataset.mode;
-
-            // Aktif butonu değiştir
-            buttons.forEach(b => b.classList.remove("is-active"));
-            btn.classList.add("is-active");
-
-            // Highlight pozisyonunu değiştir
-            if (selectedMode === "basic") {
-                modeToggle.setAttribute("data-active", "basic");
-            } else {
-                modeToggle.setAttribute("data-active", "advanced");
-            }
-
-            // FORM ALANLARINI DEĞİŞTİRME
-            const basicFields = document.querySelectorAll("[data-basic]");
-            const advancedFields = document.querySelectorAll("[data-advanced]");
-
-            if (selectedMode === "basic") {
-                basicFields.forEach(el => el.style.display = "block");
-                advancedFields.forEach(el => el.style.display = "none");
-            }
-
-            if (selectedMode === "advanced") {
-                basicFields.forEach(el => el.style.display = "none");
-                advancedFields.forEach(el => el.style.display = "block");
-            }
-        });
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const mode = btn.dataset.mode === "advanced" ? "advanced" : "basic";
+      currentMode = mode;
+      updateModeUI();
     });
+  });
+
+  // Sayfa yüklenince varsayılan modu uygula
+  updateModeUI();
 }
 
