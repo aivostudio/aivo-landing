@@ -1,4 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
+  /* ==== SAYFA (Müzik / Kapak) GEÇİŞLERİ ==== */
+  const pages = document.querySelectorAll(".page");
+  const pageLinks = document.querySelectorAll("[data-page-link]");
+
+  function switchPage(target) {
+    pages.forEach((p) => {
+      p.classList.toggle("is-active", p.dataset.page === target);
+    });
+
+    pageLinks.forEach((link) => {
+      const linkTarget = link.getAttribute("data-page-link");
+      // Hem topnav hem sidebar: aktif olanı boyuyoruz
+      if (linkTarget === target && !link.hasAttribute("data-open-pricing")) {
+        link.classList.add("is-active");
+      } else if (!link.hasAttribute("data-open-pricing")) {
+        link.classList.remove("is-active");
+      }
+    });
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  pageLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const target = link.getAttribute("data-page-link");
+      if (!target) return;
+      e.preventDefault();
+      switchPage(target);
+    });
+  });
+
   /* ==== MOD SWITCH (BASİT / GELİŞMİŞ) ==== */
   const body = document.body;
   const modeButtons = document.querySelectorAll("[data-mode-button]");
@@ -14,19 +45,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     advancedSections.forEach((el) => {
-      if (mode === "basic") {
-        el.classList.add("hidden");
-      } else {
-        el.classList.remove("hidden");
-      }
+      if (mode === "basic") el.classList.add("hidden");
+      else el.classList.remove("hidden");
     });
 
     basicSections.forEach((el) => {
-      if (mode === "basic") {
-        el.classList.remove("hidden");
-      } else {
-        el.classList.add("hidden");
-      }
+      if (mode === "basic") el.classList.remove("hidden");
+      else el.classList.add("hidden");
     });
   }
 
@@ -37,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // İlk yüklemede gelişmiş açık
   updateMode("advanced");
 
   /* ==== PRICING MODAL / KREDİ AL ==== */
@@ -73,12 +97,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (pricingModal) {
     const backdrop = pricingModal.querySelector(".pricing-backdrop");
-    if (backdrop) {
-      backdrop.addEventListener("click", closePricingModal);
-    }
+    if (backdrop) backdrop.addEventListener("click", closePricingModal);
   }
 
-  /* ==== MÜZİK ÜRET BUTONU (sadece UI feedback) ==== */
+  /* ==== MÜZİK ÜRET BUTONU (UI FEEDBACK) ==== */
   const musicGenerateBtn = document.getElementById("musicGenerateBtn");
   if (musicGenerateBtn) {
     musicGenerateBtn.addEventListener("click", () => {
@@ -95,23 +117,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ==== KAPAK ÜRET BÖLÜMÜ ==== */
-  const coverSection = document.getElementById("artworkSection");
+  /* ==== KAPAK ÜRET BUTONU (UI FEEDBACK) ==== */
   const coverGenerateBtn = document.getElementById("coverGenerateBtn");
-  const gotoCoverButtons = document.querySelectorAll("[data-goto-cover]");
-
-  // Sol menüde "Kapak Üret"e tıklayınca kapak bölümüne kaydır
-  gotoCoverButtons.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (!coverSection) return;
-      coverSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      coverSection.classList.add("highlight-cover");
-      setTimeout(() => coverSection.classList.remove("highlight-cover"), 1000);
-    });
-  });
-
-  // Kapak Üret butonu (şimdilik sadece görsel feedback + console)
   if (coverGenerateBtn) {
     coverGenerateBtn.addEventListener("click", () => {
       if (coverGenerateBtn.classList.contains("is-loading")) return;
