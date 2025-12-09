@@ -1863,5 +1863,26 @@ textarea:focus {
     transform: translate(-50%, 0);
   }
 }
+/* === SES KAYDI – ORTA KARTI YANDANLARLA EŞİTLE === */
+
+/* Ses kaydı kartını yan paneller kadar uzat */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  min-height: 520px;      /* gerekirse 500–560 arasında oynayabilirsin */
+}
+
+/* İçerik altlara otursun, mikrofon ortada kalsın */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;   /* başlık + yazılar kartın altına yaslanır */
+}
 
 
