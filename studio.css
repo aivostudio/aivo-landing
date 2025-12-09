@@ -1884,5 +1884,134 @@ textarea:focus {
   flex-direction: column;
   justify-content: flex-end;   /* başlık + yazılar kartın altına yaslanır */
 }
+/* ===== SES KAYDI – ORTA KART HİZALAMA ===== */
+
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  position: relative;
+  min-height: 540px; /* kartı biraz daha uzattık; 520–560 arasında oynatabilirsin */
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+/* Sol & sağ bloklar altta hizalansın */
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Başlık + metin kartın altına iner */
+}
+
+/* ===== MİKROFON DAİRESİ – BÜYÜK, ORTADA, SADECE HALKA RENKLENİYOR ===== */
+
+.music-view[data-music-view="ses-kaydi"] .record-circle {
+  position: absolute;
+  top: 56%;              /* biraz daha aşağı; tam ortayı istersen 50, daha çok istersen 58 yap */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;          /* daireyi büyüttük */
+  height: 320px;
+  border-radius: 50%;
+  background: #050816;   /* içi koyu – sadece halka renkli */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 40px rgba(255, 255, 255, 0.15),
+    0 0 90px rgba(132, 94, 247, 0.45);
+  z-index: 2;
+}
+
+/* Dıştaki rainbow halka */
+.music-view[data-music-view="ses-kaydi"] .record-circle::before {
+  content: "";
+  position: absolute;
+  inset: -16px; /* halkanın kalınlığı */
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    #ff7675,
+    #fd79a8,
+    #a29bfe,
+    #74b9ff,
+    #55efc4,
+    #ffeaa7,
+    #ff7675
+  );
+  filter: blur(1px);
+  z-index: -1;
+  animation: spinRing 5s linear infinite; /* biraz daha hızlı dönsün */
+}
+
+/* Mikrofon emoji boyutu */
+.music-view[data-music-view="ses-kaydi"] .record-icon {
+  font-size: 80px;
+  text-shadow:
+    0 0 18px rgba(255, 255, 255, 0.9),
+    0 0 40px rgba(253, 121, 168, 0.8);
+}
+
+/* ===== MÜZİK NOTALARI / SES DALGALARI ===== */
+
+.music-view[data-music-view="ses-kaydi"] .sound-wave {
+  position: absolute;
+  font-size: 30px;
+  color: #ffeaa7;
+  text-shadow:
+    0 0 8px rgba(255, 234, 167, 0.9),
+    0 0 18px rgba(255, 184, 108, 0.8);
+  opacity: 0;
+  animation: wavePulse 1.8s ease-out infinite;
+}
+
+/* Üç farklı pozisyon ve gecikme – tüm daireyi sarıyor */
+.music-view[data-music-view="ses-kaydi"] .wave-1 {
+  top: 8%;
+  right: 12%;
+  animation-delay: 0s;
+}
+
+.music-view[data-music-view="ses-kaydi"] .wave-2 {
+  bottom: 10%;
+  left: 14%;
+  animation-delay: 0.45s;
+}
+
+.music-view[data-music-view="ses-kaydi"] .wave-3 {
+  top: 50%;
+  left: -2%;
+  animation-delay: 0.9s;
+}
+
+/* ===== ANİMASYONLAR ===== */
+
+@keyframes spinRing {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes wavePulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1) translateY(-4px);
+  }
+  70% {
+    opacity: 0.7;
+    transform: scale(1.2) translateY(-10px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.4) translateY(-16px);
+  }
+}
 
 
