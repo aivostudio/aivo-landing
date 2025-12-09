@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const i18nPlaceholders = document.querySelectorAll("[data-i18n-placeholder]");
   const modeChips = document.querySelectorAll(".mode-chip");
   const musicPanel = document.getElementById("music-panel");
+  const artworkPanel = document.getElementById("artwork-panel");
+  const studioModePills = document.querySelectorAll(".pill[data-mode]");
   const presetButtons = document.querySelectorAll(".preset-btn");
   const tempoInput = document.getElementById("tempo");
   const genreSelect = document.getElementById("genre");
@@ -19,7 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeCreditsModalBtn = document.getElementById("close-credits-modal");
   const navItems = document.querySelectorAll(".nav-item");
 
-  /* BASİT I18N SİSTEMİ */
+  const artFileInput = document.getElementById("art-file");
+  const artPreview = document.getElementById("art-preview");
+  const artPreviewImg = document.getElementById("art-preview-img");
+  const artFileName = document.getElementById("art-file-name");
+  const artStylePills = document.querySelectorAll(".tag-pill");
+  const generateArtBtn = document.getElementById("generate-art-btn");
+  const creditCountEl = document.getElementById("credit-count");
+
+  /* BASİT I18N */
 
   const translations = {
     tr: {
@@ -128,10 +138,27 @@ document.addEventListener("DOMContentLoaded", () => {
         "Şarkı sözlerinizi buraya yazın veya boş bırakın; AIVO enstrümantal üretir...",
       placeholder_tempo: "Örn: 105",
       placeholder_extra_notes:
-        "Müzikte özellikle vurgulamak istediğin detayları yaz..."
+        "Müzikte özellikle vurgulamak istediğin detayları yaz...",
+
+      /* Artwork */
+      art_title: "Kapak / Artwork Üret",
+      art_subtitle:
+        "Şarkın için modern ve profesyonel bir kapak tasarla; Spotify, Apple Music veya YouTube formatında çıktılar al.",
+      art_upload_title: "Referans Görsel veya Fotoğraf (opsiyonel)",
+      art_upload_desc:
+        "İstersen mevcut bir fotoğraf veya kapak yükleyebilirsin; AIVO renk paleti ve kompozisyonu buradan çıkarsın.",
+      art_drop_main: "Görsel seç veya sürükleyip bırak",
+      art_drop_sub: "PNG, JPG, minimum 1024×1024",
+      art_field_title: "Proje / Şarkı Adı",
+      art_field_platform: "Platform",
+      art_field_style: "Stil & Renk Dünyası",
+      art_field_prompt: "Kapak Açıklaması / Prompt",
+      art_btn_generate: "Kapak Üret",
+      art_hint:
+        "Kapaklar yüksek çözünürlükte üretilir ve tüm platformlarda kullanılabilir."
     },
 
-    /* İngilizce (kısaltılmış) */
+    /* İngilizce kısaltılmış */
     en: {
       nav_home: "Home",
       nav_dashboard: "Dashboard",
@@ -149,141 +176,34 @@ document.addEventListener("DOMContentLoaded", () => {
       btn_login: "Log in",
       btn_signup: "Sign up",
 
-      sidebar_desc:
-        "Manage music and artwork generation in a single studio. AIVO blends rhythm, vocals, mood and artwork for you.",
-      sidebar_modes: "Modes",
-      mode_music: "Music Studio",
-      mode_artwork: "Artwork Studio",
-      sidebar_presets: "Quick Presets",
-      sidebar_presets_hint:
-        "Fill genre, tempo & mood with one tap. You can tweak afterwards.",
-      sidebar_tip_title: "Tip",
-      sidebar_tip_body:
-        "Choose the feeling and tempo first. Use presets if you like; AIVO fills the rest for you.",
-
       music_title: "Create Music",
       music_subtitle:
         "Pick rhythm, vocal, mood and key — AIVO builds the track.",
-
-      mode_basic: "Basic Mode",
-      mode_basic_sub: "Fast setup for quick ideas",
-      mode_advanced: "Advanced Mode",
-      mode_advanced_sub: "Full control with instruments & reference audio",
-
-      field_song_title: "Song Title",
-      field_song_desc: "Song Description",
-      field_song_lyrics: "Lyrics (optional)",
-      field_genre: "Genre",
-      field_tempo: "Tempo (BPM)",
-      field_key: "Key",
-      field_mix_style: "Mix Style",
-      field_mood: "Mood",
-      field_instruments_tr: "Traditional Instruments",
-      field_instruments_modern: "Modern Instruments",
-      field_vocal_type: "Vocal Type (optional)",
-      field_audio_ref: "Reference Audio (optional)",
-      field_extra_notes: "Extra Notes / Prompt",
-
-      option_select_genre: "Select a genre",
-      option_aivo_pop_default: "AIVO Pop Mix (default)",
-      option_warm_analog: "Warm Analog",
-      option_club: "Club Mix",
-      option_cinematic: "Cinematic",
-      option_select_mood: "Select",
-      mood_energetic: "Energetic",
-      mood_sad: "Sad",
-      mood_romantic: "Romantic",
-      mood_chill: "Chill",
-      mood_epic: "Epic",
-
-      option_instrumental: "Instrumental",
-      option_female_pop: "Female Pop Vocal",
-      option_male_pop: "Male Pop Vocal",
-      option_choir: "Choir",
-
-      hint_max_chars: "Maximum 200 characters.",
-      hint_tempo: "Suggested BPM: 90–120",
-      audio_drop_label:
-        "Choose file or drag & drop (vocal or reference song)",
-      hint_audio_ref:
-        "Like Suno / Eita: upload your own vocal or a track so AIVO can infer style, tempo and harmony.",
-      hint_beta:
-        "AIVO is currently in closed beta. 10 free generations per day.",
-
       btn_generate_music: "Generate Track",
-
-      tip_1: "Keep your description short and clear (up to 200 characters).",
-      tip_2: "Match genre and mood (e.g. Pop + Energetic).",
-      tip_3: "Key / scale is important for Turkish music.",
-      tip_4: "Specifying instruments improves the mix.",
-
       right_title: "Recently Generated Tracks",
       right_empty:
         "You haven’t generated any music yet.\nFill the form on the left and click “Generate Track”.",
 
-      credits_modal_title: "Credit Packages",
-      credits_modal_desc:
-        "Pick a package that fits your workflow. Unused credits roll over to next month.",
-      credits_pack_small: "100 credits • Hobby use",
-      credits_pack_med: "500 credits • Regular use",
-      credits_pack_big: "1500 credits • Studio level",
-      credits_modal_note:
-        "Payments via Stripe / iyzico — all payments are secured with 3D Secure.",
-      badge_best: "Most Popular",
-      btn_select: "Choose this plan",
-
-      placeholder_song_title: "e.g. Ash Garden, Midnight Drive...",
-      placeholder_song_desc: "Briefly describe the overall feeling of the song...",
-      placeholder_song_lyrics:
-        "Write your lyrics here or leave blank; AIVO will create an instrumental...",
-      placeholder_tempo: "e.g. 105",
-      placeholder_extra_notes:
-        "Describe specific details you want to emphasize in the music..."
+      art_title: "Generate Cover Artwork",
+      art_subtitle:
+        "Design a modern cover for your track in Spotify, Apple Music or YouTube formats.",
+      art_upload_title: "Reference image or photo (optional)",
+      art_upload_desc:
+        "Upload an existing cover or photo so AIVO can pick colors and composition.",
+      art_drop_main: "Choose image or drag & drop",
+      art_drop_sub: "PNG, JPG, at least 1024×1024",
+      art_field_title: "Project / Track Title",
+      art_field_platform: "Platform",
+      art_field_style: "Style & Color",
+      art_field_prompt: "Cover description / prompt",
+      art_btn_generate: "Generate Cover",
+      art_hint:
+        "Covers are rendered in high resolution for all major platforms."
     },
 
-    /* Diğer diller (de, ar, ja) önceki mantığıyla kısaltılmış bırakıldı – istersen sonra genişletiriz */
-    de: {
-      nav_home: "Startseite",
-      nav_dashboard: "Dashboard",
-      nav_generated: "Meine Werke",
-      nav_music: "Musik erzeugen",
-      nav_credits: "Credits kaufen",
-      nav_billing: "Abrechnung",
-      nav_profile: "Profil",
-      nav_settings: "Einstellungen",
-      nav_logout: "Abmelden",
-      credits_label: "Credits:",
-      credits_buy: "Kaufen",
-      btn_login: "Anmelden",
-      btn_signup: "Registrieren",
-      right_title: "Zuletzt erzeugte Tracks"
-    },
-    ar: {
-      nav_home: "الرئيسية",
-      nav_dashboard: "لوحة التحكم",
-      nav_generated: "إنتاجاتي",
-      nav_music: "إنشاء موسيقى",
-      nav_credits: "شراء رصيد",
-      nav_billing: "الفواتير",
-      nav_profile: "الملف الشخصي",
-      nav_settings: "الإعدادات",
-      nav_logout: "تسجيل الخروج",
-      credits_label: "الرصيد:",
-      credits_buy: "شراء"
-    },
-    ja: {
-      nav_home: "ホーム",
-      nav_dashboard: "ダッシュボード",
-      nav_generated: "作成物",
-      nav_music: "楽曲生成",
-      nav_credits: "クレジット購入",
-      nav_billing: "請求",
-      nav_profile: "プロフィール",
-      nav_settings: "設定",
-      nav_logout: "ログアウト",
-      credits_label: "クレジット:",
-      credits_buy: "購入"
-    }
+    de: { credits_label: "Credits:", credits_buy: "Kaufen" },
+    ar: { credits_label: "الرصيد:", credits_buy: "شراء" },
+    ja: { credits_label: "クレジット:", credits_buy: "購入" }
   };
 
   let currentLang = "tr";
@@ -293,16 +213,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     i18nElements.forEach((el) => {
       const key = el.dataset.i18n;
-      if (dict[key]) {
-        el.textContent = dict[key];
-      }
+      if (dict[key]) el.textContent = dict[key];
     });
 
     i18nPlaceholders.forEach((el) => {
       const key = el.dataset.i18nPlaceholder;
-      if (dict[key]) {
-        el.placeholder = dict[key];
-      }
+      if (dict[key]) el.placeholder = dict[key];
     });
 
     document.documentElement.lang = lang;
@@ -312,18 +228,42 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => {
       const lang = btn.dataset.lang;
       currentLang = lang;
-
       langButtons.forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
-
       applyTranslations(lang);
     });
   });
 
-  /* BAŞLANGIÇTA TÜRKÇE UYGULA */
   applyTranslations(currentLang);
 
-  /* MOD GEÇİŞİ – GERÇEKTEN FARKLI FORM */
+  /* STUDIO MOD – MÜZİK / ARTWORK */
+
+  function setStudioMode(mode) {
+    studioModePills.forEach((p) => p.classList.remove("active"));
+    const activePill = Array.from(studioModePills).find(
+      (p) => p.dataset.mode === mode
+    );
+    if (activePill) activePill.classList.add("active");
+
+    if (mode === "music") {
+      musicPanel.classList.remove("hidden");
+      artworkPanel.classList.add("hidden");
+    } else {
+      artworkPanel.classList.remove("hidden");
+      musicPanel.classList.add("hidden");
+    }
+  }
+
+  studioModePills.forEach((pill) => {
+    pill.addEventListener("click", () => {
+      const mode = pill.dataset.mode;
+      setStudioMode(mode);
+    });
+  });
+
+  setStudioMode("music");
+
+  /* BASİT / GELİŞMİŞ MOD */
 
   const advancedGroups = document.querySelectorAll(".advanced-only");
 
@@ -352,7 +292,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* Varsayılan: Basit mod */
   setMode("basic");
 
   /* PRESETLER */
@@ -370,17 +309,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const key = btn.dataset.preset;
       const preset = presetConfig[key];
       if (!preset) return;
-
       if (genreSelect) genreSelect.value = preset.genre;
       if (tempoInput) tempoInput.value = preset.tempo;
       if (moodSelect) moodSelect.value = preset.mood;
-
       btn.classList.add("active");
       setTimeout(() => btn.classList.remove("active"), 250);
     });
   });
 
-  /* AUDIO UPLOAD */
+  /* AUDIO UPLOAD (MÜZİK) */
 
   if (audioInput) {
     audioInput.addEventListener("change", () => {
@@ -397,7 +334,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* MÜZİK ÜRET BUTONU DEMO – LİSTEYE EKLE */
+  /* MÜZİK ÜRET BUTONU DEMO */
 
   if (generateMusicBtn && generatedList) {
     generateMusicBtn.addEventListener("click", () => {
@@ -427,6 +364,47 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  /* ARTWORK – GÖRSEL YÜKLEME */
+
+  if (artFileInput) {
+    artFileInput.addEventListener("change", () => {
+      const file = artFileInput.files && artFileInput.files[0];
+      if (!file) {
+        artPreview.classList.add("hidden");
+        artPreviewImg.src = "";
+        return;
+      }
+      artFileName.textContent = file.name;
+      const url = URL.createObjectURL(file);
+      artPreviewImg.src = url;
+      artPreview.classList.remove("hidden");
+    });
+  }
+
+  /* ARTWORK – STİL PİLL’LERİ */
+
+  artStylePills.forEach((pill) => {
+    pill.addEventListener("click", () => {
+      artStylePills.forEach((p) => p.classList.remove("active"));
+      pill.classList.add("active");
+    });
+  });
+
+  /* ARTWORK ÜRET DEMO (SADECE KREDİ AZALT + ALERT) */
+
+  if (generateArtBtn) {
+    generateArtBtn.addEventListener("click", () => {
+      const currentCredits = parseInt(creditCountEl.textContent || "0", 10);
+      if (currentCredits <= 0) {
+        alert("Yeterli kredin yok. Lütfen kredi satın al.");
+        return;
+      }
+      const newCredits = Math.max(currentCredits - 2, 0);
+      creditCountEl.textContent = String(newCredits);
+      alert("Kapak üretim isteği gönderildi (demo). Gerçek API entegrasyonunda burada görselin linki dönecek.");
+    });
+  }
+
   /* KREDİ MODALI */
 
   function openCreditsModal() {
@@ -450,13 +428,12 @@ document.addEventListener("DOMContentLoaded", () => {
     backdrop.addEventListener("click", closeCreditsModal);
   }
 
-  /* NAV "KREDİ AL" TIKLAYINCA MODAL AÇILSIN */
+  /* NAV – KREDİ AL TIKLANINCA MODAL */
 
   navItems.forEach((item) => {
     item.addEventListener("click", () => {
       navItems.forEach((n) => n.classList.remove("active"));
       item.classList.add("active");
-
       const nav = item.dataset.nav;
       if (nav === "credits") {
         openCreditsModal();
