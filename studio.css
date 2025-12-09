@@ -25,25 +25,25 @@
 
 html,
 body {
-  margin: 0;               /* Tarayıcı varsayılan boşluklarını kaldır */
+  margin: 0;
   padding: 0;
-  min-height: 100vh;       /* Sayfa yüksekliği ekran kadar olsun */
+  min-height: 100vh;
   background: radial-gradient(circle at top left, #222b4b 0, #050816 45%, #02030a 100%);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
   color: #f5f5ff;
 }
 
 body {
-  display: block;          /* Ortalamayı iptal et, normal akış */
+  display: block;
 }
 
 /* ==== APP SHELL ==== */
 
 .app-shell {
   width: 100%;
-  min-height: 100vh;        /* Tüm ekran yüksekliğini kapla */
-  margin: 0;                /* DIŞ BOŞLUK YOK */
-  border-radius: 0;         /* Köşeler ekrana yapışsın */
+  min-height: 100vh;
+  margin: 0;
+  border-radius: 0;
   background: radial-gradient(circle at top right, rgba(108, 92, 231, 0.18), transparent 45%),
     radial-gradient(circle at bottom left, rgba(9, 132, 227, 0.16), transparent 50%),
     rgba(3, 6, 24, 0.96);
@@ -204,19 +204,16 @@ body {
   grid-template-columns: 250px minmax(0, 1.7fr) 320px;
   padding: 0;
   gap: 14px;
-  min-height: 560px;   /* 640’tan 560’a düşürdük */
+  min-height: 560px;
 }
 
-
-/* Kapak / Görsel Üret sayfasında sağ kolon boş kalmasın,
-   sadece sidebar + ana içerik olsun */
+/* Kapak / Görsel Üret sayfasında sağ kolon yok */
 .page-cover .layout {
   grid-template-columns: 250px minmax(0, 1fr);
 }
 
 /* ==== SIDEBAR LEFT ==== */
 
-/* Sol kolon: Panellerin alta kadar inmesi için yükseklik ekledik */
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -224,26 +221,25 @@ body {
   height: 100%;
 }
 
-/* İlk sidebar kartı (PANELLER) kalan yüksekliği doldursun */
 .sidebar-section:first-child {
   flex: 1;
 }
 
-
 .sidebar-section {
   background: rgba(5, 7, 30, 0.92);
   border-radius: var(--radius-lg);
-  padding: 14px 14px 12px;
+  padding: 24px 24px 22px; /* büyütülmüş tipografi ile uyumlu */
   border: 1px solid var(--border-subtle);
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6);
 }
 
 .sidebar-title {
-  font-size: 12px;
+  font-size: 15px;
   text-transform: uppercase;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.22em;
   color: var(--text-soft);
-  margin-bottom: 10px;
+  margin-bottom: 22px;
+  font-weight: 600;
 }
 
 .sidebar-link {
@@ -252,14 +248,15 @@ body {
   outline: none;
   margin-bottom: 6px;
   border-radius: 12px;
-  padding: 8px 10px;
-  font-size: 13px;
+  padding: 12px 14px;
+  font-size: 15px;
   background: transparent;
   color: var(--text-soft);
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  font-weight: 500;
   transition: background var(--transition-fast), color var(--transition-fast),
     transform var(--transition-fast);
 }
@@ -283,6 +280,74 @@ body {
 .sidebar-link-danger {
   color: #ff7675;
 }
+
+/* Müzik Üret grup başlığı */
+.sidebar-group {
+  margin-bottom: 6px;
+}
+
+.sidebar-link-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 17px;
+  font-weight: 700;
+  padding: 10px 4px;
+}
+
+.sidebar-arrow {
+  font-size: 10px;
+  opacity: 0.8;
+  transition: transform 0.2s ease-out;
+}
+
+.sidebar-link-main.is-open .sidebar-arrow {
+  transform: rotate(180deg);
+}
+
+/* Alt menü */
+
+.sidebar-submenu {
+  margin-top: 6px;
+  padding-left: 8px;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-submenu.is-open {
+  display: flex;
+}
+
+/* Alt linkler */
+
+.sidebar-sublink {
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 15px;
+  background: transparent;
+  color: var(--text-soft);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease-out, color 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.sidebar-sublink:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.sidebar-sublink.is-active {
+  background: rgba(108, 92, 231, 0.35);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Preset chip’ler */
 
 .preset-chip-row {
   display: flex;
@@ -320,78 +385,14 @@ body {
   color: var(--text-soft);
 }
 
-/* Müzik Üret için açılır grup */
-
-.sidebar-group {
-  margin-bottom: 6px;
-}
-
-.sidebar-link-main {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.sidebar-arrow {
-  font-size: 10px;
-  opacity: 0.8;
-  transition: transform 0.2s ease-out;
-}
-
-.sidebar-link-main.is-open .sidebar-arrow {
-  transform: rotate(180deg);
-}
-
-/* Alt menü */
-
-.sidebar-submenu {
-  margin-top: 6px;
-  padding-left: 8px;
-  display: none;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.sidebar-submenu.is-open {
-  display: flex;
-}
-
-/* Alt linkler */
-
-.sidebar-sublink {
-  width: 100%;
-  border: none;
-  outline: none;
-  border-radius: 10px;
-  padding: 7px 10px;
-  font-size: 12px;
-  background: transparent;
-  color: var(--text-soft);
-  text-align: left;
-  cursor: pointer;
-  transition: background 0.2s ease-out, color 0.2s ease-out, transform 0.2s ease-out;
-}
-
-.sidebar-sublink:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text);
-  transform: translateY(-1px);
-}
-
-.sidebar-sublink.is-active {
-  background: rgba(108, 92, 231, 0.3);
-  color: #fff;
-}
-
 /* ==== MAIN PANEL ==== */
 
 .main-panel,
 .cover-main {
   display: flex;
   flex-direction: column;
-  gap: 10px;   /* 14’ten 10’a düşürdük */
+  gap: 10px;
 }
-
 
 .panel-header {
   margin-bottom: 4px;
@@ -413,11 +414,10 @@ body {
     radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.15), transparent 60%),
     var(--bg-card);
   border-radius: var(--radius-xl);
-  padding: 10px 14px;   /* Daha az iç boşluk */
+  padding: 10px 14px;
   border: 1px solid var(--border-subtle);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
 }
-
 
 .card:not(:last-child) {
   margin-bottom: 2px;
@@ -447,18 +447,18 @@ body {
 
 .mode-toggle {
   display: inline-flex;
-  padding: 5px; /* biraz daha kalın çerçeve */
+  padding: 5px;
   border-radius: 999px;
   background: rgba(7, 9, 40, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .mode-btn {
-  position: relative; /* Yıldızı bu butonun içine sabitler */
+  position: relative;
   border: none;
-  padding: 9px 22px; /* daha büyük buton */
+  padding: 9px 22px;
   border-radius: 999px;
-  font-size: 13px;    /* yazı da biraz büyüdü */
+  font-size: 13px;
   color: var(--text-soft);
   background: transparent;
   cursor: pointer;
@@ -698,16 +698,14 @@ textarea:focus {
 .right-panel {
   display: flex;
   flex-direction: column;
-  height: 100%;        /* sağ taraf full yükseklik */
+  height: 100%;
 }
 
-
 .right-card {
-  flex: 1;            /* Sol panelle aynı hizaya iner */
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
-
 
 .empty-state {
   border-radius: 18px;
@@ -1155,51 +1153,12 @@ textarea:focus {
   50%  { transform: rotate(180deg) scale(1.2); opacity: 1; }
   100% { transform: rotate(360deg) scale(1);  opacity: .7; }
 }
-/* ==== PANELLER — BÜYÜTÜLMÜŞ PROFESYONEL TİPOGRAFİ ==== */
 
-/* Kart içi daha geniş nefesli alan */
-.sidebar-section {
-  padding: 24px 24px 22px;
-}
+/* =========================================================
+   ==== SES KAYDI GÖRÜNÜMÜ – HİZALANMIŞ ORTA KART ====
+   ========================================================= */
 
-/* PANELLER başlığı */
-.sidebar-title {
-  font-size: 15px;                /* 13 → 15 */
-  letter-spacing: 0.22em;         /* daha premium */
-  margin-bottom: 22px;
-  font-weight: 600;
-}
-
-/* Ana grup başlığı: Müzik Üret */
-.sidebar-group .sidebar-link-main {
-  font-size: 17px;                /* 15 → 17 */
-  font-weight: 700;               /* daha ağır başlık */
-  padding: 10px 4px;
-}
-
-/* Alt menüler: Geleneksel, Ses Kaydı… */
-.sidebar-sublink {
-  font-size: 15px;                /* 13 → 15 */
-  padding: 10px 14px;             /* yükseklik büyüdü */
-  border-radius: 12px;
-}
-
-/* Normal linkler: Ürettiklerim, Ayarlar, Kredi… */
-.sidebar-link {
-  font-size: 15px;                /* 14 → 15 */
-  padding: 12px 14px;
-  border-radius: 12px;
-  font-weight: 500;
-}
-
-/* Seçili alt menü görünümü daha belirgin */
-.sidebar-sublink.is-active {
-  background: rgba(108, 92, 231, 0.35);
-  color: #fff;
-  font-weight: 600;
-}
-/* ==== MÜZİK GÖRÜNÜMLERİ (GELENEKSEL / SES KAYDI) ==== */
-
+/* Genel müzik view görünürlüğü */
 .music-view {
   display: none;
 }
@@ -1208,16 +1167,17 @@ textarea:focus {
   display: block;
 }
 
-/* SES KAYDI ÜST KARTI */
+/* SES KAYDI – ÜST KART (Ses Kaydetme Stüdyosu) */
 
 .record-intro-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  background: radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
-              radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
-              var(--bg-card-soft);
+  background:
+    radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
+    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
+    var(--bg-card-soft);
 }
 
 .record-intro-left {
@@ -1264,758 +1224,82 @@ textarea:focus {
   color: var(--text-soft);
 }
 
-/* SES KAYDI ANA KARTI */
+/* ===== SES KAYDI – ANA KART (ORTADAKİ BÜYÜK KART) ===== */
 
-/* === SES KAYDI – ANA KART HİZALAMA === */
-
-.record-main-card {
-  position: relative;
-  display: flex;
-  gap: 32px;
-  margin-top: 120px;          /* kartı daha aşağı çekiyoruz */
-  padding: 120px 40px 40px;   /* üstte daire için boşluk */
-  border-radius: var(--radius-xl);
-  background: radial-gradient(circle at top left,
-              rgba(108, 92, 231, 0.18),
-              transparent 55%),
-              radial-gradient(circle at bottom right,
-              rgba(9, 132, 227, 0.15),
-              transparent 60%),
-              var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-soft);
-  overflow: hidden;
-}
-
-.record-main-left,
-.record-main-right {
-  flex: 1 1 0;
-  z-index: 2; /* dairenin altında kaybolmasın diye */
-}
-
-.record-main-title {
-  margin: 0 0 6px;
-  font-size: 20px;
-}
-
-.record-main-text {
-  margin: 0 0 14px;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.record-hint,
-.record-upload-text,
-.record-upload-hint {
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-/* === NEON KAYIT DAİRESİ === */
-
-.record-circle {
-  position: absolute;
-  left: 50%;
-  top: 0;                      /* iki kartın tam ortasına gelsin diye */
-  transform: translate(-50%, -40%);
-  width: 260px;               /* biraz küçültüldü */
-  height: 260px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;       /* tıklama kaydı bozmasın */
-  z-index: 1;
-}
-
-/* İçteki koyu daire */
-.record-circle::before {
-  content: "";
-  position: absolute;
-  inset: 22px;                 /* halka kalınlığı */
-  border-radius: 50%;
-  background: radial-gradient(circle at center,
-              rgba(5, 6, 26, 0.98),
-              rgba(5, 6, 26, 0.95));
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
-}
-
-/* Dıştaki dönen neon halka – sadece kenar */
-.record-circle {
-  background:
-    conic-gradient(
-      from var(--record-angle, 0deg),
-      #6c5ce7,
-      #00cec9,
-      #ffeaa7,
-      #fd79a8,
-      #6c5ce7
-    );
-  box-shadow:
-    0 0 32px rgba(108, 92, 231, 0.65),
-    0 0 80px rgba(45, 52, 54, 0.8);
-  animation: record-ring-spin 8s linear infinite;
-}
-
-/* Kayıt modunda pembe neon’a geç */
-.record-circle.is-recording {
-  background:
-    conic-gradient(
-      from var(--record-angle, 0deg),
-      #ff6bcb,
-      #ffeaa7,
-      #ff9ff3,
-      #ff6bcb
-    );
-  box-shadow:
-    0 0 40px rgba(253, 121, 168, 0.85),
-    0 0 110px rgba(255, 118, 203, 0.8);
-  animation-duration: 3.5s; /* kayıt sırasında daha hızlı dönsün */
-}
-
-/* Mikrofon emoji */
-.record-icon {
-  position: relative;
-  z-index: 2;
-  font-size: 64px;
-  filter: drop-shadow(0 0 12px rgba(0, 0, 0, 0.8));
-}
-
-/* Dönme animasyonu */
-@keyframes record-ring-spin {
-  from {
-    --record-angle: 0deg;
-  }
-  to {
-    --record-angle: 360deg;
-  }
-}
-
-/* Tablet / mobilde daireyi biraz küçült */
-@media (max-width: 992px) {
-  .record-main-card {
-    flex-direction: column;
-    padding: 100px 20px 32px;
-    margin-top: 80px;
-  }
-
-  .record-circle {
-    width: 220px;
-    height: 220px;
-    transform: translate(-50%, -40%);
-  }
-}
-
-
-/* SAĞ TARAF: DOSYA YÜKLEME */
-
-.record-main-right {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.record-upload-title {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.record-upload-text {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.record-upload-dropzone {
-  margin-top: 6px;
-}
-
-.record-upload-hint {
-  margin: 4px 0 0;
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-/* ==== MÜZİK GÖRÜNÜMLERİ (GELENEKSEL / SES KAYDI) ==== */
-
-.music-view {
-  display: none;
-}
-
-.music-view.is-active {
-  display: block;
-}
-
-/* SES KAYDI ÜST KARTI */
-
-.record-intro-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  background: radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
-              radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
-              var(--bg-card-soft);
-}
-
-.record-intro-left {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.record-intro-title {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.record-intro-text {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.record-badges {
-  list-style: none;
-  margin: 8px 0 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-.record-intro-right {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  flex: 0 0 auto;
-}
-
-.record-pill {
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-/* SES KAYDI ANA KARTI */
-
-.record-main-card {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
-  gap: 24px;
-  align-items: center;
-}
-
-.record-main-left {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 10px;
-}
-
-.record-circle {
-  width: 96px;
-  height: 96px;
-  border-radius: 999px;
-  background: radial-gradient(circle at 30% 0, #fd79a8, transparent 60%),
-              radial-gradient(circle at 70% 100%, #6c5ce7, transparent 60%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
-}
-
-.record-icon {
-  font-size: 34px;
-}
-
-.record-main-title {
-  margin: 4px 0 0;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.record-main-text {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.record-btn {
-  margin-top: 6px;
-}
-
-.record-hint {
-  margin: 4px 0 0;
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-/* SAĞ TARAF: DOSYA YÜKLEME */
-
-.record-main-right {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.record-upload-title {
-  margin: 0;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.record-upload-text {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.record-upload-dropzone {
-  margin-top: 6px;
-}
-
-.record-upload-hint {
-  margin: 4px 0 0;
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-/* Küçük ekranlarda Ses Kaydı kartlarını alt alta göster */
-@media (max-width: 992px) {
-  .record-main-card {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-/* Ses Kaydı görünümünde orta kolonun alta kadar uzaması için */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  margin-bottom: 80px; /* Çok gelirse 60, az gelirse 100 yapabilirsin */
-}
-/* ===== SES KAYDI STÜDYOSU – NEON MİKROFON HALKASI ===== */
-
-.record-intro-card,
-.record-main-card {
-  margin-top: 10px;
-}
-
-.record-main-card {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
-  gap: 24px;
-  align-items: center;
-}
-
-.record-main-left,
-.record-main-right {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.record-main-title {
-  font-size: 20px;
-  margin: 10px 0 4px;
-}
-
-.record-main-text,
-.record-upload-text,
-.record-upload-hint,
-.record-hint {
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.record-btn {
-  margin-top: 8px;
-}
-
-/* === NEON DÖNEN HALKA === */
-
-.record-circle {
-  position: relative;
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-/* Dıştaki dönen neon halka */
-.record-circle::before {
-  content: "";
-  position: absolute;
-  inset: -8px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from 0deg,
-    #fd79a8,
-    #ffeaa7,
-    #00cec9,
-    #74b9ff,
-    #a29bfe,
-    #fd79a8
-  );
-  animation: record-ring-rotate 6s linear infinite;
-}
-
-/* İç mask ve yumuşak parlama – ışıklar içerden geçiyormuş gibi */
-.record-circle::after {
-  content: "";
-  position: absolute;
-  inset: 10px;
-  border-radius: inherit;
-  background:
-    radial-gradient(circle at 30% 0, rgba(255, 255, 255, 0.28), transparent 55%),
-    radial-gradient(circle at 70% 100%, rgba(255, 118, 214, 0.35), transparent 60%),
-    #050816;
-  box-shadow:
-    0 0 25px rgba(253, 121, 168, 0.9),
-    0 0 45px rgba(9, 132, 227, 0.8);
-}
-
-/* Mikrofon ikonu önde dursun ve parlasın */
-.record-icon {
-  position: relative;
-  z-index: 1;
-  font-size: 40px;
-  text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.9),
-    0 0 24px rgba(253, 121, 168, 0.9);
-}
-
-/* Dönen ışık animasyonu */
-@keyframes record-ring-rotate {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  50% {
-    transform: rotate(180deg) scale(1.03);
-  }
-  100% {
-    transform: rotate(360deg) scale(1);
-  }
-}
-/* ===== SES KAYDI ANA KART HİZALAMA ===== */
-
-.record-main-card {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
-  gap: 32px;
-  align-items: flex-start;
-  padding-top: 140px;       /* üstte büyük mikrofon için boşluk */
-  min-height: 320px;        /* kartı uzat – sağ panelle daha dengeli */
-  margin-bottom: 80px;      /* alt boşluk: sağ panelin boyuna yaklaşsın */
-}
-
-.record-main-left,
-.record-main-right {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;  /* iki tarafı dikeyde ortalar */
-}
-
-.record-main-left {
-  align-items: flex-start;
-}
-
-.record-main-right {
-  align-items: flex-start;
-}
-/* ===== BÜYÜK NEON MİKROFON DAİRESİ ===== */
-
-.record-circle {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 170px;
-  height: 170px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  animation: record-pulse 2.4s ease-in-out infinite; /* kalp atışı */
-}
-
-/* Dönen neon halka */
-.record-circle::before {
-  content: "";
-  position: absolute;
-  inset: -12px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from 0deg,
-    #fd79a8,
-    #ffeaa7,
-    #00cec9,
-    #74b9ff,
-    #a29bfe,
-    #fd79a8
-  );
-  animation: record-ring-rotate 6s linear infinite;
-}
-
-/* İç dolgu + içerden geçen ışık */
-.record-circle::after {
-  content: "";
-  position: absolute;
-  inset: 18px;
-  border-radius: inherit;
-  background:
-    radial-gradient(circle at 25% 0, rgba(255, 255, 255, 0.3), transparent 55%),
-    radial-gradient(circle at 70% 100%, rgba(255, 118, 214, 0.4), transparent 60%),
-    #050816;
-  box-shadow:
-    0 0 32px rgba(253, 121, 168, 0.9),
-    0 0 56px rgba(9, 132, 227, 0.8);
-}
-
-/* Mikrofon ikonu – daha büyük ve parlak */
-.record-icon {
-  position: relative;
-  z-index: 1;
-  font-size: 50px;
-  text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.9),
-    0 0 24px rgba(253, 121, 168, 0.9),
-    0 0 32px rgba(116, 185, 255, 0.8);
-}
-
-/* Kalp atışı efekti */
-@keyframes record-pulse {
-  0%   { transform: translateX(-50%) scale(1); }
-  40%  { transform: translateX(-50%) scale(1.1); }
-  60%  { transform: translateX(-50%) scale(1.03); }
-  100% { transform: translateX(-50%) scale(1); }
-}
-
-/* Neon halkanın dönmesi */
-@keyframes record-ring-rotate {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-/* === SES KAYDI – ALT HİZALAMA + ORTA MİKROFON === */
-
+/* Bu kart “card” class’ını da taşıyor:
+   <div class="card record-main-card"> */
 .music-view[data-music-view="ses-kaydi"] .record-main-card {
   position: relative;
   display: flex;
-  align-items: stretch;        /* tüm bloklar aynı yükseklik */
+  align-items: stretch;
   justify-content: space-between;
   gap: 48px;
   padding: 56px 42px;
-  min-height: 280px;           /* kart biraz daha uzun */
+  margin-top: 14px;
+  min-height: 540px;      /* yüksekliği buradan ayarlayabilirsin */
 }
 
-/* Sol ve sağ bloklar alt hizalı */
+/* Sol ve sağ bloklar – içerik altta hizalı */
 .music-view[data-music-view="ses-kaydi"] .record-main-left,
 .music-view[data-music-view="ses-kaydi"] .record-main-right {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;   /* metin + buton kartın altına yaslanır */
+  justify-content: flex-end;   /* metin + butonlar kartın altına iner */
+  align-items: flex-start;
+  z-index: 2;                  /* mikrofon halkasının üstünde */
 }
 
-/* Başlık / metin boşluklarını toparla */
-.music-view[data-music-view="ses-kaydi"] .record-main-title,
-.music-view[data-music-view="ses-kaydi"] .record-main-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-title,
-.music-view[data-music-view="ses-kaydi"] .record-upload-text {
-  margin: 0 0 10px;
-  text-align: left;
+.music-view[data-music-view="ses-kaydi"] .record-main-title {
+  font-size: 20px;
+  margin: 0 0 8px;
 }
-/* Mikrofon dairesi – büyüt + ortaya sabitle */
+
+.music-view[data-music-view="ses-kaydi"] .record-main-text,
+.music-view[data-music-view="ses-kaydi"] .record-upload-text,
+.music-view[data-music-view="ses-kaydi"] .record-upload-hint,
+.music-view[data-music-view="ses-kaydi"] .record-hint {
+  font-size: 13px;
+  color: var(--text-soft);
+  margin: 0 0 10px;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-upload-title {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-btn {
+  margin-top: 6px;
+}
+
+/* ===== MİKROFON DAİRESİ – ORTADA, SABİT ===== */
+
 .music-view[data-music-view="ses-kaydi"] .record-circle {
   position: absolute;
+  top: 52%;                 /* 50–58 arasında oynayarak hizayı ince ayarlayabilirsin */
   left: 50%;
-  top: 50%;
   transform: translate(-50%, -50%);
-  width: 210px;                /* daha büyük daire */
-  height: 210px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
+  background: #050816;      /* içi koyu, halka renkli */
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 30% 30%, #1b1635, #050816 65%);
   box-shadow:
-    0 0 40px rgba(255, 121, 198, 0.45),
-    0 0 80px rgba(72, 219, 251, 0.35);
+    0 0 40px rgba(255, 255, 255, 0.12),
+    0 0 90px rgba(132, 94, 247, 0.45);
+  z-index: 1;               /* metnin arkasında, kartın önünde */
   overflow: visible;
 }
 
-/* Mikrofon ikonu biraz büyüsün */
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  font-size: 60px;
-  position: relative;
-  z-index: 3;
-}
-
-/* Neon halka – daha hızlı dönen ışık */
+/* Dıştaki dönen renkli halka */
 .music-view[data-music-view="ses-kaydi"] .record-circle::before {
   content: "";
   position: absolute;
-  inset: -12px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from 0deg,
-    #ff9ff3,
-    #feca57,
-    #1dd1a1,
-    #54a0ff,
-    #5f27cd,
-    #ff9ff3
-  );
-  filter: blur(1px);
-  z-index: 1;
-  animation: record-ring-spin 4s linear infinite; /* hızlandırılmış */
-}
-
-/* Ses dalgaları – 1. halka */
-.music-view[data-music-view="ses-kaydi"] .record-circle::after {
-  content: "";
-  position: absolute;
-  inset: -26px;
-  border-radius: inherit;
-  border: 2px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
-  opacity: 0;
-  z-index: 0;
-  animation: record-wave 1.8s ease-out infinite;
-}
-
-/* Ses dalgaları – 2. halka (gecikmeli) */
-.music-view[data-music-view="ses-kaydi"] .record-icon::before {
-  content: "";
-  position: absolute;
-  inset: -40px;
-  border-radius: 50%;
-  border: 2px dashed rgba(255, 255, 255, 0.18);
-  opacity: 0;
-  animation: record-wave 1.8s ease-out infinite;
-  animation-delay: 0.4s;
-}
-
-/* Ses dalgaları – 3. halka (daha geniş, dışta) */
-.music-view[data-music-view="ses-kaydi"] .record-icon::after {
-  content: "";
-  position: absolute;
-  inset: -56px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.12);
-  opacity: 0;
-  animation: record-wave 1.8s ease-out infinite;
-  animation-delay: 0.8s;
-}
-
-/* Neon halka dönüş animasyonu */
-@keyframes record-ring-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-/* Ses dalgası – kalp atışı gibi büyüyen halkalar */
-@keyframes record-wave {
-  0% {
-    transform: scale(0.9);
-    opacity: 0.9;
-  }
-  60% {
-    transform: scale(1.1);
-    opacity: 0.0;
-  }
-  100% {
-    transform: scale(1.15);
-    opacity: 0;
-  }
-}
-
-/* Küçük ekran ayarı */
-@media (max-width: 900px) {
-  .music-view[data-music-view="ses-kaydi"] .record-main-card {
-    flex-direction: column;
-    padding-top: 140px; /* büyük daire için yer */
-  }
-
-  .music-view[data-music-view="ses-kaydi"] .record-circle {
-    top: 60px;
-    transform: translate(-50%, 0);
-  }
-}
-/* === SES KAYDI – ORTA KARTI YANDANLARLA EŞİTLE === */
-
-/* Ses kaydı kartını yan paneller kadar uzat */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  min-height: 520px;      /* gerekirse 500–560 arasında oynayabilirsin */
-}
-
-/* İçerik altlara otursun, mikrofon ortada kalsın */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;   /* başlık + yazılar kartın altına yaslanır */
-}
-/* ===== SES KAYDI – ORTA KART HİZALAMA ===== */
-
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  position: relative;
-  min-height: 540px; /* kartı biraz daha uzattık; 520–560 arasında oynatabilirsin */
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-}
-
-/* Sol & sağ bloklar altta hizalansın */
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end; /* Başlık + metin kartın altına iner */
-}
-
-/* ===== MİKROFON DAİRESİ – BÜYÜK, ORTADA, SADECE HALKA RENKLENİYOR ===== */
-
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute;
-  top: 56%;              /* biraz daha aşağı; tam ortayı istersen 50, daha çok istersen 58 yap */
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 320px;          /* daireyi büyüttük */
-  height: 320px;
-  border-radius: 50%;
-  background: #050816;   /* içi koyu – sadece halka renkli */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.15),
-    0 0 90px rgba(132, 94, 247, 0.45);
-  z-index: 2;
-}
-
-/* Dıştaki rainbow halka */
-.music-view[data-music-view="ses-kaydi"] .record-circle::before {
-  content: "";
-  position: absolute;
-  inset: -16px; /* halkanın kalınlığı */
+  inset: -18px;
   border-radius: inherit;
   background: conic-gradient(
     from 0deg,
@@ -2028,20 +1312,21 @@ textarea:focus {
     #ff7675
   );
   filter: blur(1px);
+  animation: spinRing 5s linear infinite;
   z-index: -1;
-  animation: spinRing 5s linear infinite; /* biraz daha hızlı dönsün */
 }
 
-/* Mikrofon emoji boyutu */
+/* Mikrofon ikonu */
 .music-view[data-music-view="ses-kaydi"] .record-icon {
   font-size: 80px;
   text-shadow:
     0 0 18px rgba(255, 255, 255, 0.9),
     0 0 40px rgba(253, 121, 168, 0.8);
+  position: relative;
+  z-index: 2;
 }
 
-/* ===== MÜZİK NOTALARI / SES DALGALARI ===== */
-
+/* İsteğe bağlı: nota / ses dalgası ikonları */
 .music-view[data-music-view="ses-kaydi"] .sound-wave {
   position: absolute;
   font-size: 30px;
@@ -2053,7 +1338,6 @@ textarea:focus {
   animation: wavePulse 1.8s ease-out infinite;
 }
 
-/* Üç farklı pozisyon ve gecikme – tüm daireyi sarıyor */
 .music-view[data-music-view="ses-kaydi"] .wave-1 {
   top: 8%;
   right: 12%;
@@ -2075,12 +1359,8 @@ textarea:focus {
 /* ===== ANİMASYONLAR ===== */
 
 @keyframes spinRing {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @keyframes wavePulse {
@@ -2102,4 +1382,18 @@ textarea:focus {
   }
 }
 
+/* Tablet / dar ekran düzeni */
+@media (max-width: 900px) {
+  .music-view[data-music-view="ses-kaydi"] .record-main-card {
+    flex-direction: column;
+    padding-top: 160px; /* büyük daire için yukarıda yer bırak */
+    min-height: 480px;
+  }
 
+  .music-view[data-music-view="ses-kaydi"] .record-circle {
+    top: 80px;
+    transform: translate(-50%, 0);
+    width: 240px;
+    height: 240px;
+  }
+}
