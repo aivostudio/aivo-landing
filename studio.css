@@ -1506,3 +1506,114 @@ textarea:focus {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+/* Ses Kaydı görünümünde orta kolonun alta kadar uzaması için */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  margin-bottom: 80px; /* Çok gelirse 60, az gelirse 100 yapabilirsin */
+}
+/* ===== SES KAYDI STÜDYOSU – NEON MİKROFON HALKASI ===== */
+
+.record-intro-card,
+.record-main-card {
+  margin-top: 10px;
+}
+
+.record-main-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+  gap: 24px;
+  align-items: center;
+}
+
+.record-main-left,
+.record-main-right {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.record-main-title {
+  font-size: 20px;
+  margin: 10px 0 4px;
+}
+
+.record-main-text,
+.record-upload-text,
+.record-upload-hint,
+.record-hint {
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.record-btn {
+  margin-top: 8px;
+}
+
+/* === NEON DÖNEN HALKA === */
+
+.record-circle {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Dıştaki dönen neon halka */
+.record-circle::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    #fd79a8,
+    #ffeaa7,
+    #00cec9,
+    #74b9ff,
+    #a29bfe,
+    #fd79a8
+  );
+  animation: record-ring-rotate 6s linear infinite;
+}
+
+/* İç mask ve yumuşak parlama – ışıklar içerden geçiyormuş gibi */
+.record-circle::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 30% 0, rgba(255, 255, 255, 0.28), transparent 55%),
+    radial-gradient(circle at 70% 100%, rgba(255, 118, 214, 0.35), transparent 60%),
+    #050816;
+  box-shadow:
+    0 0 25px rgba(253, 121, 168, 0.9),
+    0 0 45px rgba(9, 132, 227, 0.8);
+}
+
+/* Mikrofon ikonu önde dursun ve parlasın */
+.record-icon {
+  position: relative;
+  z-index: 1;
+  font-size: 40px;
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.9),
+    0 0 24px rgba(253, 121, 168, 0.9);
+}
+
+/* Dönen ışık animasyonu */
+@keyframes record-ring-rotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.03);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
