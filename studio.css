@@ -1,23 +1,45 @@
-/* =========== GENEL =========== */
+/* =========================================================
+   AIVO Studio – Full CSS
+   ========================================================= */
+
+/* ---------- Root Theme ---------- */
+
+:root {
+  --bg-page: radial-gradient(circle at top, #251057 0%, #050816 48%, #020008 100%);
+  --bg-card-soft: rgba(10, 15, 40, 0.96);
+  --bg-card-soft-alt: rgba(8, 12, 34, 0.98);
+  --border-subtle: rgba(133, 150, 255, 0.25);
+  --border-soft: rgba(133, 150, 255, 0.45);
+
+  --accent: #f26ad8;
+  --accent-soft: rgba(242, 106, 216, 0.18);
+  --accent-strong: #ff7cf3;
+  --accent-blue: #6bd3ff;
+
+  --text-primary: #ffffff;
+  --text-muted: #a9b1d9;
+  --text-softer: #7b82a6;
+  --text-softest: #6c7395;
+
+  --danger: #ff4b81;
+
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-pill: 999px;
+
+  --shadow-strong: 0 28px 80px rgba(0, 0, 0, 0.85);
+  --shadow-card: 0 20px 55px rgba(0, 0, 0, 0.75);
+
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+}
+
+/* ---------- Reset / Base ---------- */
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-}
-
-:root {
-  --bg: #050617;
-  --bg-card: #0b1026;
-  --bg-card-soft: rgba(8, 12, 34, 0.96);
-  --accent: #b46cff;
-  --accent-soft: rgba(180, 108, 255, 0.12);
-  --accent-strong: #66e4ff;
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --text-main: #f7f5ff;
-  --text-muted: #afb7d9;
-  --danger: #ff4f7b;
-  --radius-lg: 20px;
 }
 
 html,
@@ -28,182 +50,223 @@ body {
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-    "Segoe UI", sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  background:
-    radial-gradient(160% 220% at 0% 0%, #292a63 0, transparent 45%),
-    radial-gradient(160% 220% at 100% 0%, #5810a5 0, transparent 45%),
-    linear-gradient(180deg, #050617 0%, #020313 100%);
-  color: var(--text-main);
+  font-family: var(--font-sans);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
 }
 
-/* =========== SHELL =========== */
+/* Smooth mode / panel transitions */
+body {
+  transition: background 300ms ease;
+}
+
+body.mode-basic .aivo-layout {
+  /* hafif daha mavi ton */
+  background: radial-gradient(circle at top left, #1c2452 0%, #050816 55%, #020008 100%);
+}
+
+body.mode-advanced .aivo-layout {
+  /* mor ton */
+  background: radial-gradient(circle at top, #2a124d 0%, #050816 55%, #020008 100%);
+}
+
+body.panel-cover .aivo-layout {
+  background: radial-gradient(circle at top, #2e195c 0%, #050816 55%, #020008 100%);
+}
+
+/* ---------- Global layout wrappers ---------- */
+
+.aivo-body {
+  min-height: 100vh;
+}
 
 .aivo-shell {
-  min-height: 100vh;
-  color: var(--text-main);
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 18px 28px 34px;
 }
 
-.aivo-header {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 18px 32px 14px;
+/* Top navbar (logo + üst tablar vs) */
+
+.aivo-navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  margin-bottom: 18px;
+  gap: 18px;
 }
 
-.logo-wrap {
+.aivo-logo-wrap {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.logo {
-  width: 32px;
-  height: 32px;
+.aivo-logo-wrap img {
+  height: 26px;
 }
 
-.logo-text {
-  font-size: 20px;
+.aivo-logo-text {
+  font-size: 16px;
   font-weight: 600;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
 }
 
-.top-nav {
+/* Üst nav tabları (Müzik Üret / Kapak Üret / Üretimlerim) */
+
+.aivo-nav-tabs {
   display: flex;
-  gap: 8px;
+  align-items: center;
+  gap: 6px;
+  border-radius: var(--radius-pill);
+  padding: 3px;
+  background: rgba(8, 11, 31, 0.85);
+  border: 1px solid rgba(145, 161, 255, 0.35);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
 }
 
 .nav-pill {
-  padding: 8px 16px;
-  border-radius: 999px;
-  border: 1px solid transparent;
+  border: none;
   background: transparent;
-  color: var(--text-muted);
-  font-size: 14px;
+  color: var(--text-softer);
+  font-size: 13px;
+  padding: 7px 18px;
+  border-radius: var(--radius-pill);
   cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, transform 120ms ease;
+}
+
+.nav-pill:hover {
+  color: var(--text-primary);
+  transform: translateY(-1px);
 }
 
 .nav-pill-active {
-  background: rgba(26, 36, 89, 0.95);
-  border-color: var(--accent-soft);
-  color: var(--text-main);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-blue) 100%);
+  color: #050816;
+  font-weight: 600;
 }
 
-.top-right {
+/* Sağ üst mod toggle + kredi */
+
+.aivo-navbar-right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
-/* KREDİ BADGE */
-
-.credit-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 10px;
-  border-radius: 999px;
-  background: radial-gradient(circle at top, #3b1f72, #120826);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  font-size: 13px;
-}
-
-.credit-label {
-  color: var(--text-muted);
-}
-
-.credit-value {
-  font-weight: 600;
-  color: var(--accent-strong);
-}
-
-/* MODE TOGGLE & BUTONLAR */
+/* Mod toggle (Basit / Gelişmiş) */
 
 .mode-toggle {
   display: inline-flex;
+  align-items: center;
+  gap: 0;
+  background: rgba(8, 11, 31, 0.9);
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(145, 161, 255, 0.4);
   padding: 3px;
-  border-radius: 999px;
-  background: rgba(7, 10, 27, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .mode-btn {
   border: none;
+  padding: 5px 15px;
+  font-size: 12px;
+  border-radius: var(--radius-pill);
   background: transparent;
-  color: var(--text-muted);
-  font-size: 13px;
-  padding: 6px 14px;
-  border-radius: 999px;
+  color: var(--text-softest);
   cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, transform 100ms ease;
 }
 
 .mode-btn.active {
-  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-  color: #050617;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 10px 26px rgba(0, 0, 0, 0.6);
+  background: linear-gradient(135deg, #ffffff, #d0e6ff);
+  color: #111322;
+  font-weight: 600;
+  transform: translateY(-1px);
 }
 
-.btn-primary,
-.btn-outline {
-  border-radius: 999px;
-  font-size: 13px;
-  padding: 7px 14px;
-  cursor: pointer;
-}
+/* Dil seçici + girişyap/kayıt butonları */
 
-.btn-primary {
-  border: none;
-  background: linear-gradient(135deg, var(--accent), #ff79c9);
-  color: #050617;
-}
-
-.btn-outline {
-  border: 1px solid rgba(255, 255, 255, 0.16);
+.lang-select {
   background: transparent;
-  color: var(--text-main);
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(145, 161, 255, 0.55);
+  color: var(--text-primary);
+  font-size: 12px;
+  padding: 4px 8px;
 }
 
-/* =========== ANA DÜZEN =========== */
+.lang-select option {
+  background: #050816;
+}
 
-.aivo-main {
-  max-width: 1320px;
-  margin: 0 auto 32px;
-  padding: 0 32px 32px;
+/* ---------- Ana grid ---------- */
+
+.aivo-layout {
   display: grid;
-  grid-template-columns: 260px minmax(0, 1.8fr) minmax(0, 1.1fr);
-  gap: 24px;
-  min-height: calc(100vh - 90px);
+  grid-template-columns: 260px minmax(0, 1.7fr) 330px;
+  gap: 18px;
+  align-items: flex-start;
+  padding: 16px 0 10px;
 }
 
-/* SOL SİDEBAR */
+/* Small screens – sadece temel davranış (responsive) */
 
+@media (max-width: 1024px) {
+  .aivo-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sidebar,
+  .side-nav,
+  .output-panel {
+    min-height: auto;
+  }
+}
+
+/* ---------- Sidebar (PANELLER) ---------- */
+
+.sidebar,
 .side-nav {
   background: var(--bg-card-soft);
   border-radius: var(--radius-lg);
   padding: 18px 16px 18px;
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
   gap: 14px;
+  min-height: calc(100vh - 120px);
 }
 
-.side-title {
-  margin: 0 0 4px;
-  font-size: 15px;
+.sidebar-title-main {
+  font-size: 16px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
 }
 
-/* SOL MENÜ */
+.sidebar-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+/* Sol menü başlıkları (PANELLER, Hızlı Presetler vb) */
+
+.sidebar-section-title,
+.side-header,
+.hızlı-title {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--text-softest);
+  text-transform: uppercase;
+  margin-top: 8px;
+  margin-bottom: 6px;
+}
+
+/* Sol menü öğeleri */
 
 .side-menu {
   display: flex;
@@ -212,452 +275,376 @@ body {
 }
 
 .side-menu-item {
-  width: 100%;
-  padding: 7px 11px;
-  border-radius: 9px;
   border: none;
   background: transparent;
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 13px;
   text-align: left;
+  padding: 7px 9px;
+  border-radius: 9px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 160ms ease, color 160ms ease, transform 80ms ease;
+}
+
+.side-menu-item span {
+  font-size: 12px;
 }
 
 .side-menu-item:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(133, 150, 255, 0.12);
+  color: var(--text-primary);
+  transform: translateY(-1px);
 }
 
-.side-menu-item-active {
-  background: linear-gradient(135deg, #2b2f6d, #4e1e7a);
-  color: #ffffff;
+.side-menu-item.active {
+  background: linear-gradient(135deg, #f26ad8 0%, #6bd3ff 100%);
+  color: #050816;
+  font-weight: 500;
 }
 
-.side-menu-item-danger {
-  color: var(--danger);
+/* Kredi etiketi */
+
+.credit-badge {
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(242, 106, 216, 0.6);
 }
 
-/* Preset & ipucu */
+/* Hızlı presetler (Türkçe Pop, Enerjik Pop…) */
 
-.side-section {
-  margin-top: 4px;
-}
-
-.side-section-title {
-  margin: 0 0 6px;
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-}
-
-.chip-row {
+.preset-list,
+.hızlı-presets {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  margin-bottom: 6px;
 }
 
-.preset-chip {
-  padding: 5px 10px;
+.preset-chip,
+.chip {
+  border: none;
+  padding: 5px 9px;
+  font-size: 11px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(9, 12, 35, 0.9);
-  color: var(--text-muted);
-  font-size: 12px;
+  background: rgba(15, 22, 60, 0.9);
+  color: var(--text-softest);
   cursor: pointer;
+  border: 1px solid rgba(113, 135, 255, 0.35);
+  transition: background 160ms ease, color 160ms ease, transform 80ms ease,
+    border-color 160ms ease;
 }
 
-.side-tip {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-muted);
+.preset-chip:hover,
+.chip:hover {
+  background: rgba(133, 150, 255, 0.16);
+  color: var(--text-primary);
+  border-color: rgba(190, 203, 255, 0.7);
+  transform: translateY(-1px);
 }
 
-/* ORTA KART */
+/* İpucu kutusu */
+
+.sidebar-tip {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(133, 150, 255, 0.16);
+  font-size: 11px;
+  color: var(--text-softest);
+}
+
+/* ---------- Orta panel – Music / Cover ---------- */
 
 .music-main-card {
-  background: var(--bg-card-soft);
+  background: var(--bg-card-soft-alt);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-subtle);
   padding: 18px 18px 20px;
-  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.65);
+  box-shadow: var(--shadow-strong);
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 120px);
+  transition: background 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
 }
 
-.hidden-card {
-  display: none;
+/* Mode colour tweaks */
+
+body.mode-basic .music-main-card {
+  background: radial-gradient(circle at top left, #181f4a, #050818);
+  box-shadow: 0 24px 65px rgba(0, 0, 0, 0.8);
 }
 
-.music-header {
+body.mode-advanced .music-main-card {
+  background: radial-gradient(circle at top right, #2e144f, #050818);
+}
+
+body.panel-cover .music-main-card {
+  background: radial-gradient(circle at top, #2b195e, #050818);
+}
+
+/* Panel header */
+
+.music-main-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
+  align-items: baseline;
   margin-bottom: 12px;
 }
 
-.page-title {
-  margin: 0 0 2px;
-  font-size: 22px;
+.music-title {
+  font-size: 18px;
   font-weight: 600;
 }
 
-.page-subtitle {
-  margin: 0;
-  font-size: 14px;
-  color: var(--text-muted);
+.music-subtitle {
+  font-size: 12px;
+  color: var(--text-softest);
 }
 
-/* Form alanı */
+/* Form layout */
 
-.form-wrapper {
-  position: relative;
-  flex: 1;
-  display: flex;
-}
-
-.music-form {
-  width: 100%;
+.music-form-grid {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
-.music-form.hidden {
-  display: none;
+/* Form labels */
+
+label.form-label {
+  font-size: 12px;
+  color: var(--text-softest);
+  display: block;
+  margin-bottom: 4px;
 }
 
-.form-row {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form-row-inline {
-  flex-direction: row;
-  gap: 12px;
-}
-
-.form-col {
-  flex: 1;
-  min-width: 0;
-}
-
-.form-label {
-  font-size: 14px;
-  color: var(--text-muted);
-}
+/* Inputs / selects / textarea */
 
 .input,
 .select,
 .textarea {
   width: 100%;
+  background: rgba(5, 7, 26, 0.9);
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(3, 6, 22, 0.9);
-  color: var(--text-main);
-  font-size: 15px;
-  padding: 8px 11px;
+  border: 1px solid rgba(120, 143, 255, 0.45);
+  color: var(--text-primary);
+  font-size: 13px;
+  padding: 7px 10px;
   outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--text-softest);
 }
 
 .input:focus,
 .select:focus,
 .textarea:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 1px rgba(180, 108, 255, 0.4);
+  box-shadow: 0 0 0 1px rgba(242, 106, 216, 0.45);
+  background: rgba(7, 9, 30, 0.98);
 }
+
+.select {
+  padding-right: 22px;
+}
+
+/* Textarea */
 
 .textarea {
   min-height: 70px;
   resize: vertical;
 }
 
-.textarea-tall {
-  min-height: 110px;
+/* Row helpers */
+
+.field-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
 }
 
-.field-hint {
-  margin: 2px 0 0;
-  font-size: 12px;
-  color: var(--text-muted);
+.field-row-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
 }
 
-.chip {
-  padding: 5px 9px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(10, 14, 40, 0.9);
-  color: var(--text-muted);
-  font-size: 12px;
-  cursor: pointer;
+/* BPM hint */
+
+.bpm-hint {
+  font-size: 11px;
+  color: var(--text-softest);
 }
 
-.chip-outline:hover {
-  border-color: var(--accent);
-}
-
-.radio-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 9px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(10, 14, 40, 0.9);
-  color: var(--text-muted);
-  font-size: 13px;
-  cursor: pointer;
-}
-
-.radio-chip input {
-  accent-color: var(--accent);
-}
+/* Enstrüman seçimi */
 
 .instrument-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 32px;
+  gap: 6px 20px;
+  padding: 8px 9px 4px;
+  border-radius: 12px;
+  background: rgba(4, 7, 26, 0.9);
+  border: 1px solid rgba(120, 143, 255, 0.4);
 }
 
-.instrument-title {
-  margin: 0 0 2px;
-  font-size: 14px;
-  font-weight: 600;
+.instrument-group-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-softest);
+  margin-bottom: 4px;
 }
 
-.check-row {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
-  color: var(--text-muted);
-}
+/* Checkbox/radio list */
 
-.check-row input {
-  accent-color: var(--accent);
-}
-
-.platform-row {
+.option-list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
-/* ALT KISIM */
-
-.form-footer {
-  margin-top: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.btn-gradient {
-  border-radius: 999px;
-  padding: 9px 18px;
-  border: none;
-  cursor: pointer;
-  background: linear-gradient(135deg, var(--accent), #ff79c9);
-  color: #050617;
-  font-size: 15px;
-  font-weight: 500;
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.7);
-}
-
-.beta-note {
-  margin: 0;
+.option-item {
   font-size: 12px;
   color: var(--text-muted);
 }
 
-.tips {
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+/* Vokal türü radio row */
+
+.vocal-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
 }
 
-.tips-title {
-  margin: 0 0 4px;
+/* ---------- Buttons ---------- */
+
+.btn {
+  border-radius: 10px;
+  border: 1px solid transparent;
   font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  padding: 7px 13px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background 160ms ease, color 160ms ease, transform 100ms ease,
+    box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-blue) 100%);
+  color: #050816;
+  font-weight: 600;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.75);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 24px 55px rgba(0, 0, 0, 0.85);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: rgba(133, 150, 255, 0.45);
   color: var(--text-muted);
 }
 
-.tips-list {
-  margin: 0;
-  padding-left: 18px;
-  font-size: 13px;
-  color: var(--text-muted);
+.btn-ghost:hover {
+  background: rgba(133, 150, 255, 0.1);
+  color: var(--text-primary);
 }
 
-/* SAĞ PANEL */
+.btn-pill {
+  border-radius: 999px;
+}
+
+/* Alt taraftaki ana butonlar */
+
+.music-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.music-note {
+  font-size: 11px;
+  color: var(--text-softest);
+}
+
+/* Gelişmiş ipuçları */
+
+.tip-box {
+  margin-top: 14px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(133, 150, 255, 0.4);
+  font-size: 11px;
+  color: var(--text-softest);
+}
+
+/* ---------- Sağ panel – Son Üretilen Müzikler ---------- */
 
 .output-panel {
   background: var(--bg-card-soft);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-subtle);
-  padding: 18px 18px 20px;
-  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.65);
+  padding: 18px 18px 18px;
+  box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
+  min-height: calc(100vh - 120px);
 }
 
 .output-title {
-  margin: 0 0 12px;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
 }
 
 .output-empty {
   flex: 1;
   border-radius: 16px;
-  border: 1px dashed rgba(255, 255, 255, 0.12);
-  background: radial-gradient(circle at top, rgba(180, 108, 255, 0.12), transparent 60%);
+  background: radial-gradient(circle at top, rgba(86, 70, 146, 0.28), rgba(6, 8, 30, 0.95));
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 18px;
+  font-size: 12px;
   text-align: center;
-  padding: 24px 18px;
+  color: var(--text-softest);
 }
 
-.output-empty-title {
-  margin: 0 0 4px;
-  font-size: 14px;
-  font-weight: 500;
+/* ---------- Utilities ---------- */
+
+.hidden {
+  display: none !important;
 }
 
-.output-empty-text {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-muted);
+.hidden-card {
+  display: none !important;
 }
 
-/* KREDİ TABLOSU */
+/* Küçük text */
 
-.pricing-section {
-  max-width: 1320px;
-  margin: 0 auto 40px;
-  padding: 0 32px;
+.text-xs {
+  font-size: 11px;
 }
 
-.pricing-card {
-  margin-top: 8px;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: radial-gradient(circle at top, #311c64, #090b1f);
-  padding: 18px 20px 20px;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+/* Kredi bölüm fiyat tablosu için anchor */
+
+#pricing-section {
+  scroll-margin-top: 80px;
 }
 
-.pricing-title {
-  margin: 0 0 2px;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.pricing-subtitle {
-  margin: 0 0 12px;
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.pricing-plan {
-  border-radius: 16px;
-  padding: 12px 14px;
-  background: rgba(5, 7, 26, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.pricing-plan-highlight {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 1px rgba(180, 108, 255, 0.5);
-}
-
-.pricing-plan h3 {
-  margin: 0 0 4px;
-  font-size: 15px;
-}
-
-.pricing-price {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.pricing-detail {
-  margin: 2px 0 0;
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-/* =========== RESPONSIVE =========== */
-
-@media (max-width: 1040px) {
-  .aivo-main {
-    grid-template-columns: 1fr;
-  }
-
-  .side-nav {
-    order: -1;
-  }
-
-  .pricing-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 720px) {
-  .aivo-header {
-    flex-wrap: wrap;
-    row-gap: 8px;
-  }
-
-  .top-nav {
-    order: 3;
-    width: 100%;
-    justify-content: center;
-  }
-
-  .aivo-main {
-    padding-inline: 16px;
-  }
-
-  .music-main-card,
-  .side-nav,
-  .output-panel {
-    padding-inline: 14px;
-  }
-
-  .form-row-inline {
-    flex-direction: column;
-  }
-
-  .instrument-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .form-footer {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .pricing-section {
-    padding-inline: 16px;
-  }
-
-  .pricing-grid {
-    grid-template-columns: 1fr;
-  }
-}
+/* ---------- End of File ---------- */
