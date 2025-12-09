@@ -1746,4 +1746,122 @@ textarea:focus {
   margin: 0 0 10px;
   text-align: left;
 }
+/* Mikrofon dairesi – büyüt + ortaya sabitle */
+.music-view[data-music-view="ses-kaydi"] .record-circle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 210px;                /* daha büyük daire */
+  height: 210px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 30% 30%, #1b1635, #050816 65%);
+  box-shadow:
+    0 0 40px rgba(255, 121, 198, 0.45),
+    0 0 80px rgba(72, 219, 251, 0.35);
+  overflow: visible;
+}
+
+/* Mikrofon ikonu biraz büyüsün */
+.music-view[data-music-view="ses-kaydi"] .record-icon {
+  font-size: 60px;
+  position: relative;
+  z-index: 3;
+}
+
+/* Neon halka – daha hızlı dönen ışık */
+.music-view[data-music-view="ses-kaydi"] .record-circle::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    #ff9ff3,
+    #feca57,
+    #1dd1a1,
+    #54a0ff,
+    #5f27cd,
+    #ff9ff3
+  );
+  filter: blur(1px);
+  z-index: 1;
+  animation: record-ring-spin 4s linear infinite; /* hızlandırılmış */
+}
+
+/* Ses dalgaları – 1. halka */
+.music-view[data-music-view="ses-kaydi"] .record-circle::after {
+  content: "";
+  position: absolute;
+  inset: -26px;
+  border-radius: inherit;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+  opacity: 0;
+  z-index: 0;
+  animation: record-wave 1.8s ease-out infinite;
+}
+
+/* Ses dalgaları – 2. halka (gecikmeli) */
+.music-view[data-music-view="ses-kaydi"] .record-icon::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 255, 255, 0.18);
+  opacity: 0;
+  animation: record-wave 1.8s ease-out infinite;
+  animation-delay: 0.4s;
+}
+
+/* Ses dalgaları – 3. halka (daha geniş, dışta) */
+.music-view[data-music-view="ses-kaydi"] .record-icon::after {
+  content: "";
+  position: absolute;
+  inset: -56px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  opacity: 0;
+  animation: record-wave 1.8s ease-out infinite;
+  animation-delay: 0.8s;
+}
+
+/* Neon halka dönüş animasyonu */
+@keyframes record-ring-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Ses dalgası – kalp atışı gibi büyüyen halkalar */
+@keyframes record-wave {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
+  60% {
+    transform: scale(1.1);
+    opacity: 0.0;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+}
+
+/* Küçük ekran ayarı */
+@media (max-width: 900px) {
+  .music-view[data-music-view="ses-kaydi"] .record-main-card {
+    flex-direction: column;
+    padding-top: 140px; /* büyük daire için yer */
+  }
+
+  .music-view[data-music-view="ses-kaydi"] .record-circle {
+    top: 60px;
+    transform: translate(-50%, 0);
+  }
+}
+
 
