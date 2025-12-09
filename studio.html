@@ -2,415 +2,538 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title>AIVO Studio – Müzik & Kapak Üret</title>
+  <title>AIVO Studio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="studio.css" />
 </head>
-<body>
-<div class="aivo-shell">
-
-  <!-- ÜST NAVBAR -->
-  <header class="aivo-header">
-    <div class="logo-wrap">
-      <img src="aivo-logo.png" alt="AIVO Studio" class="logo" />
-      <span class="logo-text">AIVO Studio</span>
-    </div>
-
-    <nav class="top-nav">
-      <button class="nav-pill nav-pill-active" data-target="music">Müzik Üret</button>
-      <button class="nav-pill" data-target="cover">Kapak Üret</button>
-      <button class="nav-pill" data-target="projects">Üretimlerim</button>
-    </nav>
-
-    <div class="top-right">
-      <div class="credit-badge">
-        <span class="credit-label">Kredi</span>
-        <span class="credit-value">78</span>
-      </div>
-      <div class="mode-toggle" aria-label="Üretim modu">
-        <button id="mode-basic-btn" class="mode-btn active" data-mode="basic">Basit</button>
-        <button id="mode-advanced-btn" class="mode-btn" data-mode="advanced">Gelişmiş</button>
-      </div>
-      <button class="btn-outline">Giriş Yap</button>
-      <button class="btn-primary">Kayıt Ol</button>
-    </div>
-  </header>
-
-  <!-- ANA YAPI -->
-  <main class="aivo-main">
-    <!-- SOL SİDEBAR -->
-    <aside class="side-nav">
-      <h2 class="side-title">Paneller</h2>
-
-      <nav class="side-menu">
-        <button class="side-menu-item">Anasayfa</button>
-        <button class="side-menu-item">Dashboard</button>
-        <button class="side-menu-item">Ürettiklerim</button>
-        <button class="side-menu-item side-menu-item-active" data-target="music">Müzik Üret</button>
-        <button class="side-menu-item" data-open="pricing">Kredi Al</button>
-        <button class="side-menu-item">Faturalarım</button>
-        <button class="side-menu-item">Profil</button>
-        <button class="side-menu-item">Ayarlar</button>
-        <button class="side-menu-item side-menu-item-danger">Çıkış Yap</button>
-      </nav>
-
-      <div class="side-section">
-        <h3 class="side-section-title">Hızlı Presetler</h3>
-        <div class="chip-row">
-          <button class="preset-chip" data-genre="pop" data-mood="enerjik">Türkçe Pop</button>
-          <button class="preset-chip" data-genre="pop" data-mood="enerjik">Enerjik Pop</button>
-          <button class="preset-chip" data-genre="deep" data-mood="enerjik">Deep House Club</button>
-          <button class="preset-chip" data-genre="anadolu" data-mood="duygusal">Anadolu Pop</button>
-          <button class="preset-chip" data-genre="slow" data-mood="melankolik">Slowed + Reverb</button>
+<body class="aivo-body">
+  <div class="app-shell">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-mark">A</div>
+        <div class="logo-text">
+          <span class="logo-title">AIVO Studio</span>
+          <span class="logo-sub">AI Music & Artwork</span>
         </div>
       </div>
 
-      <div class="side-section">
-        <h3 class="side-section-title">İpucu</h3>
-        <p class="side-tip">
-          Önce şarkının duygusunu ve temposunu seç. Presetlerden biriyle başla, kalan ayarları AIVO senin için doldurur.
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">PANELLER</div>
+        <button class="nav-item" data-page="home">
+          <span>Anasayfa</span>
+        </button>
+        <button class="nav-item" data-page="dashboard">
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-item" data-page="library">
+          <span>Üretiklerim</span>
+        </button>
+        <button class="nav-item is-active" data-page="music">
+          <span>Müzik Üret</span>
+        </button>
+        <button class="nav-item" data-page="cover">
+          <span>Kapak Üret</span>
+        </button>
+        <button class="nav-item" data-page="studio">
+          <span>AIVO Studio</span>
+          <span class="nav-pill">BETA</span>
+        </button>
+        <button class="nav-item" data-page="billing">
+          <span>Faturalarım</span>
+        </button>
+        <button class="nav-item" data-page="settings">
+          <span>Ayarlar</span>
+        </button>
+        <button class="nav-item nav-item-danger" data-page="logout">
+          <span>Çıkış Yap</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-section">
+        <div class="nav-section-label">HIZLI PRESETLER</div>
+        <div class="preset-grid">
+          <button class="preset-chip" data-preset="tr-pop">Türkçe Pop</button>
+          <button class="preset-chip" data-preset="enerjik">
+            Enerjik Pop
+          </button>
+          <button class="preset-chip" data-preset="deep">
+            Deep House Club
+          </button>
+          <button class="preset-chip" data-preset="anadolu">
+            Anadolu Pop
+          </button>
+          <button class="preset-chip" data-preset="lofi">
+            Lo-fi Chill
+          </button>
+          <button class="preset-chip" data-preset="reverb">
+            Slowed + Reverb
+          </button>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="nav-section-label">İPUCU</div>
+        <p class="sidebar-tip">
+          Önce şarkının duygusunu ve temposunu seç. Presetlerden biriyle başla,
+          kalan ayarları AIVO senin için doldurur.
         </p>
       </div>
     </aside>
 
-    <!-- ORTA ANA KART – MÜZİK -->
-    <section class="music-main-card" id="music-panel">
-      <header class="music-header">
-        <div>
-          <h1 class="page-title">Müzik Üret</h1>
-          <p class="page-subtitle">
-            Ritim, vokal, mood ve makam seç — AIVO şarkıyı oluştursun.
-          </p>
+    <!-- Main Area -->
+    <div class="main-area">
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <nav class="top-tabs">
+            <button class="top-tab is-active" data-page="music">
+              Müzik Üret
+            </button>
+            <button class="top-tab" data-page="cover">
+              Kapak Üret
+            </button>
+            <button class="top-tab" data-page="library">
+              Üretiklerim
+            </button>
+          </nav>
+        </div>
+
+        <div class="topbar-right">
+          <div class="credit-pill">
+            <span>Kredi</span>
+            <span class="credit-count" id="creditCount">78</span>
+          </div>
+
+          <div class="mode-toggle" id="modeToggle">
+            <button class="mode-btn is-active" data-mode="basic">Basit</button>
+            <button class="mode-btn" data-mode="advanced">Gelişmiş</button>
+            <div class="mode-highlight"></div>
+          </div>
+
+          <button class="top-btn ghost">Giriş Yap</button>
+          <button class="top-btn primary">Kayıt Ol</button>
         </div>
       </header>
 
-      <!-- FORMLAR (BASİT + GELİŞMİŞ) -->
-      <div class="form-wrapper" id="form-wrapper">
-        <!-- BASİT MOD FORMU -->
-        <form id="basic-form" class="music-form" autocomplete="off">
-          <div class="form-row">
-            <label class="form-label" for="basic-title">Şarkı Adı</label>
-            <input id="basic-title" type="text" class="input" placeholder="Örn: Kül Bahçesi, Midnight Drive..." />
-          </div>
+      <!-- Pages Wrapper -->
+      <div class="pages">
+        <!-- MUSIC PAGE -->
+        <section class="page page-music is-active" data-page="music">
+          <div class="columns">
+            <!-- LEFT: Form -->
+            <div class="col col-main">
+              <header class="page-header">
+                <h1>Müzik Üret</h1>
+                <p>
+                  Ritim, vokal, mood ve makam seç — AIVO şarkıyı senin için
+                  oluştursun.
+                </p>
+              </header>
 
-          <div class="form-row">
-            <label class="form-label" for="basic-mood">Ruh Hali (Mood)</label>
-            <select id="basic-mood" class="select">
-              <option value="">Seç</option>
-              <option value="enerjik">Enerjik</option>
-              <option value="duygusal">Duygusal</option>
-              <option value="melankolik">Melankolik</option>
-              <option value="gece">Gece / Şehir</option>
-              <option value="elegant">Şık & Modern</option>
-            </select>
-          </div>
+              <form class="card form-card" id="musicForm">
+                <!-- BASIC FIELDS -->
+                <div class="form-section basic-only">
+                  <div class="field">
+                    <label>Şarkı Adı</label>
+                    <input
+                      type="text"
+                      name="title"
+                      placeholder="Örn: Kül Bahçesi, Midnight Drive..."
+                    />
+                  </div>
 
-          <div class="form-row">
-            <label class="form-label" for="basic-desc">Şarkı Açıklaması (max 200 karakter)</label>
-            <textarea id="basic-desc" class="textarea" maxlength="200"
-              placeholder="Şarkının genel havasını kısaca anlat..."></textarea>
-          </div>
+                  <div class="field">
+                    <label>Şarkı Açıklaması (max 200 karakter)</label>
+                    <textarea
+                      name="description"
+                      rows="2"
+                      maxlength="200"
+                      placeholder="Şarkının genel havasını kısaca anlat..."
+                    ></textarea>
+                    <div class="char-counter">
+                      <span id="descCounter">0</span>/200
+                    </div>
+                  </div>
 
-          <div class="form-row">
-            <label class="form-label">Hızlı Öneriler</label>
-            <div class="chip-row">
-              <button type="button" class="chip chip-outline" data-genre="pop">Türkçe Pop</button>
-              <button type="button" class="chip chip-outline" data-genre="deep">Deep House</button>
-              <button type="button" class="chip chip-outline" data-genre="anadolu">Anadolu Pop</button>
-              <button type="button" class="chip chip-outline" data-genre="slow">Slowed + Reverb</button>
+                  <div class="field">
+                    <label>Ruh Hali (Mood)</label>
+                    <select name="mood">
+                      <option value="">Ruh halini seç</option>
+                      <option value="enerjik">Enerjik</option>
+                      <option value="huzunlu">Hüzünlü</option>
+                      <option value="romantik">Romantik</option>
+                      <option value="sakin">Sakin</option>
+                      <option value="epik">Epik</option>
+                      <option value="lofi">Lo-fi Chill</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- ADVANCED FIELDS -->
+                <div class="form-section advanced-only">
+                  <div class="field inline-3">
+                    <div>
+                      <label>Tür (Genre)</label>
+                      <select name="genre">
+                        <option value="">Tür seçin</option>
+                        <option value="tr-pop">Türkçe Pop</option>
+                        <option value="anadolu-pop">Anadolu Pop</option>
+                        <option value="arabesk">Arabesk</option>
+                        <option value="trap">Trap</option>
+                        <option value="deep-house">Deep House</option>
+                        <option value="lofi">Lo-fi</option>
+                        <option value="edm">EDM</option>
+                        <option value="cinematic">Cinematic</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label>Tempo (BPM)</label>
+                      <input
+                        type="number"
+                        name="bpm"
+                        placeholder="Örn: 105"
+                      />
+                      <span class="field-hint">Önerilen BPM: 90–120</span>
+                    </div>
+                    <div>
+                      <label>Karar Sesi (Key)</label>
+                      <select name="key">
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="G">G</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="field inline-2">
+                    <div>
+                      <label>Mix Stili</label>
+                      <select name="mixStyle">
+                        <option value="aivo-pop">AIVO Pop Mix (varsayılan)</option>
+                        <option value="warm-analog">Warm Analog</option>
+                        <option value="club">Club Mix</option>
+                        <option value="cinematic">Cinematic Wide</option>
+                        <option value="clean">Clean Vocal</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label>Vokal Türü (İsteğe Bağlı)</label>
+                      <select name="vocalType">
+                        <option value="">Enstrümantal</option>
+                        <option value="female">Kadın Pop Vokal</option>
+                        <option value="male">Erkek Pop Vokal</option>
+                        <option value="soft">Soft Vokal</option>
+                        <option value="choir">Koro</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label>Türk Enstrümanları</label>
+                    <div class="checkbox-grid">
+                      <label><input type="checkbox" name="trInst" value="baglama" /> Bağlama</label>
+                      <label><input type="checkbox" name="trInst" value="saz" /> Saz</label>
+                      <label><input type="checkbox" name="trInst" value="kanun" /> Kanun</label>
+                      <label><input type="checkbox" name="trInst" value="ney" /> Ney</label>
+                      <label><input type="checkbox" name="trInst" value="darbuka" /> Darbuka</label>
+                      <label><input type="checkbox" name="trInst" value="ud" /> Ud</label>
+                      <label><input type="checkbox" name="trInst" value="zurna" /> Zurna</label>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label>Modern Enstrümanlar</label>
+                    <div class="checkbox-grid">
+                      <label><input type="checkbox" name="modInst" value="piano" /> Piyano</label>
+                      <label><input type="checkbox" name="modInst" value="guitar" /> Gitar</label>
+                      <label><input type="checkbox" name="modInst" value="eguitar" /> Elektro Gitar</label>
+                      <label><input type="checkbox" name="modInst" value="bass" /> Bas Gitar</label>
+                      <label><input type="checkbox" name="modInst" value="synth" /> Synth</label>
+                      <label><input type="checkbox" name="modInst" value="trap" /> Trap Drums</label>
+                      <label><input type="checkbox" name="modInst" value="strings" /> Strings</label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SHARED FIELDS -->
+                <div class="form-section">
+                  <div class="field">
+                    <label>Şarkı Sözleri (isteğe bağlı)</label>
+                    <textarea
+                      name="lyrics"
+                      rows="3"
+                      placeholder="Şarkı sözlerinizi buraya yazın veya boş bırakın; AIVO enstrümantal üretir..."
+                    ></textarea>
+                  </div>
+
+                  <div class="field">
+                    <label>Ek Açıklama / Prompt</label>
+                    <textarea
+                      name="prompt"
+                      rows="2"
+                      placeholder="Müzikte özellikle vurgulamak istediğin detayları yaz..."
+                    ></textarea>
+                  </div>
+
+                  <div class="field">
+                    <label>Referans Ses Yükle (opsiyonel)</label>
+                    <div class="upload-dropzone" id="audioDrop">
+                      <span class="upload-icon">🎧</span>
+                      <div class="upload-text">
+                        <strong>Ses dosyası seç veya sürükleyip bırak</strong>
+                        <span>MP3, WAV, M4A — maksimum 10MB</span>
+                      </div>
+                      <input type="file" id="audioInput" accept=".mp3,.wav,.m4a" />
+                    </div>
+                    <div class="upload-file-name" id="audioFileName"></div>
+                  </div>
+                </div>
+
+                <div class="form-footer">
+                  <button type="submit" class="primary-cta">
+                    <span class="cta-icon">🎵</span>
+                    <span>Müzik Üret</span>
+                  </button>
+                  <span class="form-footnote">
+                    AIVO şu anda kapalı beta aşamasında. Günlük 10 ücretsiz üretim.
+                  </span>
+                </div>
+              </form>
+
+              <section class="card info-card advanced-only">
+                <h3>Gelişmiş İpuçları</h3>
+                <ul>
+                  <li>Açıklamayı sade tut, metni maksimum 200 karakter.</li>
+                  <li>Tür ve ruh halini uyumlu seç (örneğin: Trap Pop + Enerjik).</li>
+                  <li>Türk enstrümanlarını seçmen, mix sonucunu iyileştirir.</li>
+                  <li>Referans ses yüklersen, AIVO ritim ve atmosferi ona göre şekillendirir.</li>
+                </ul>
+              </section>
+
+              <!-- EXTRA CARDS: Ses Kaydı & Vokale Göre -->
+              <section class="bottom-tools">
+                <article class="card mini-tool">
+                  <h3>🎙 Ses Kaydı Stüdyosu</h3>
+                  <p>
+                    Mikrofonundan ses kaydedip doğrudan müzik üretiminde kullan.
+                    Yakında: tarayıcı içi kayıt.
+                  </p>
+                  <button class="secondary-cta" type="button">
+                    Ses Kaydı Modunu Aç
+                  </button>
+                </article>
+
+                <article class="card mini-tool">
+                  <h3>🎼 Vokale Göre Müzik Üret</h3>
+                  <p>
+                    Vokal kaydını yükle, AIVO ona uygun enstrümantal altyapıyı
+                    otomatik üretsin.
+                  </p>
+                  <button class="secondary-cta" type="button">
+                    Vokal Yükle ve Başla
+                  </button>
+                </article>
+              </section>
             </div>
-          </div>
 
-          <div class="form-row form-row-inline">
-            <div class="form-col">
-              <label class="form-label" for="basic-genre">Tür (Genre)</label>
-              <select id="basic-genre" class="select">
-                <option value="">Tür Seçin</option>
-                <option value="pop">Pop</option>
-                <option value="trap">Trap</option>
-                <option value="deep">Deep House</option>
-                <option value="rock">Rock</option>
-                <option value="anadolu">Anadolu / Etnik</option>
-              </select>
-            </div>
-            <div class="form-col">
-              <label class="form-label" for="basic-bpm">Tempo (BPM)</label>
-              <input id="basic-bpm" type="number" class="input" placeholder="Örn: 105" />
-              <p class="field-hint" id="basic-bpm-hint">Önerilen BPM: 90–120</p>
-            </div>
-            <div class="form-col">
-              <label class="form-label" for="basic-key">Karar Sesi (Key)</label>
-              <select id="basic-key" class="select"></select>
-            </div>
-          </div>
+            <!-- RIGHT: Recently Generated -->
+            <aside class="col col-side">
+              <div class="card recent-card" id="recentCard">
+                <header class="recent-header">
+                  <h2>Son Üretilen Müzikler</h2>
+                  <span class="recent-meta" id="recentMeta">Toplam 0 müzik</span>
+                </header>
 
-          <div class="form-row">
-            <label class="form-label">Vokal Türü</label>
-            <div class="chip-row">
-              <label class="radio-chip">
-                <input type="radio" name="basic-vocal" value="instrumental" checked />
-                <span>Enstrümantal</span>
-              </label>
-              <label class="radio-chip">
-                <input type="radio" name="basic-vocal" value="female" />
-                <span>Kadın vokal</span>
-              </label>
-              <label class="radio-chip">
-                <input type="radio" name="basic-vocal" value="male" />
-                <span>Erkek vokal</span>
-              </label>
-            </div>
-          </div>
+                <div class="recent-empty" id="recentEmpty">
+                  <div class="empty-icon">🎵</div>
+                  <p>Henüz müzik üretmedin.</p>
+                  <p class="empty-sub">
+                    Soldaki formu doldurup <strong>Müzik Üret</strong> tuşuna
+                    basarak başla.
+                  </p>
+                </div>
 
-          <div class="form-row">
-            <label class="form-label" for="basic-notes">Ek Açıklama / Prompt</label>
-            <textarea id="basic-notes" class="textarea" placeholder="Müzikte özellikle vurgulamak istediğin detayları yaz..."></textarea>
-          </div>
-        </form>
-
-        <!-- GELİŞMİŞ MOD FORMU -->
-        <form id="advanced-form" class="music-form hidden" autocomplete="off">
-          <div class="form-row">
-            <label class="form-label" for="adv-title">Şarkı Adı</label>
-            <input id="adv-title" type="text" class="input" placeholder="Örn: Kül Bahçesi, Midnight Drive..." />
-          </div>
-
-          <div class="form-row">
-            <label class="form-label" for="adv-desc">Şarkı Açıklaması (max 200 karakter)</label>
-            <textarea id="adv-desc" class="textarea" maxlength="200"
-              placeholder="Şarkının genel havasını kısaca anlat..."></textarea>
-          </div>
-
-          <div class="form-row">
-            <label class="form-label" for="adv-lyrics">Şarkı Sözleri (İsteğe bağlı)</label>
-            <textarea id="adv-lyrics" class="textarea textarea-tall"
-              placeholder="Şarkı sözlerinizi buraya yazın veya boş bırakın; AIVO enstrümantal üretir..."></textarea>
-          </div>
-
-          <div class="form-row form-row-inline">
-            <div class="form-col">
-              <label class="form-label" for="adv-genre">Tür (Genre)</label>
-              <select id="adv-genre" class="select">
-                <option value="">Tür Seçin</option>
-                <option value="pop">Pop</option>
-                <option value="trap">Trap</option>
-                <option value="deep">Deep House</option>
-                <option value="rock">Rock</option>
-                <option value="anadolu">Anadolu / Etnik</option>
-              </select>
-            </div>
-            <div class="form-col">
-              <label class="form-label" for="adv-bpm">Tempo (BPM)</label>
-              <input id="adv-bpm" type="number" class="input" placeholder="Örn: 105" />
-              <p class="field-hint" id="adv-bpm-hint">Önerilen BPM: 90–120</p>
-            </div>
-            <div class="form-col">
-              <label class="form-label" for="adv-key">Karar Sesi (Key)</label>
-              <select id="adv-key" class="select"></select>
-            </div>
-          </div>
-
-          <div class="form-row form-row-inline">
-            <div class="form-col">
-              <label class="form-label" for="adv-mix-style">Mix Stili</label>
-              <select id="adv-mix-style" class="select">
-                <option value="aivo-pop">AIVO Pop Mix (varsayılan)</option>
-                <option value="club">Club / Dans</option>
-                <option value="lofi">Lo-fi / Chill</option>
-                <option value="cinematic">Sinematik Geniş</option>
-              </select>
-            </div>
-            <div class="form-col">
-              <label class="form-label" for="adv-mood">Ruh Hali (Mood)</label>
-              <select id="adv-mood" class="select">
-                <option value="">Seç</option>
-                <option value="enerjik">Enerjik</option>
-                <option value="duygusal">Duygusal</option>
-                <option value="melankolik">Melankolik</option>
-                <option value="gece">Gece / Şehir</option>
-                <option value="elegant">Şık & Modern</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <label class="form-label">Enstrüman Seçimi</label>
-            <div class="instrument-grid">
-              <div>
-                <p class="instrument-title">Türk Enstrümanları</p>
-                <label class="check-row"><input type="checkbox" value="bağlama" checked /> Bağlama</label>
-                <label class="check-row"><input type="checkbox" value="saz" /> Saz</label>
-                <label class="check-row"><input type="checkbox" value="kanun" /> Kanun</label>
-                <label class="check-row"><input type="checkbox" value="ney" /> Ney</label>
-                <label class="check-row"><input type="checkbox" value="darbuka" /> Darbuka</label>
-                <label class="check-row"><input type="checkbox" value="ud" /> Ud</label>
-                <label class="check-row"><input type="checkbox" value="zurna" /> Zurna</label>
+                <ul class="recent-list" id="recentList"></ul>
               </div>
-              <div>
-                <p class="instrument-title">Modern Enstrümanlar</p>
-                <label class="check-row"><input type="checkbox" value="piyano" checked /> Piyano</label>
-                <label class="check-row"><input type="checkbox" value="gitar" /> Gitar</label>
-                <label class="check-row"><input type="checkbox" value="elektro" /> Elektro Gitar</label>
-                <label class="check-row"><input type="checkbox" value="bas" /> Bas Gitar</label>
-                <label class="check-row"><input type="checkbox" value="synth" /> Synth</label>
-                <label class="check-row"><input type="checkbox" value="trap-drums" /> Trap Drums</label>
-                <label class="check-row"><input type="checkbox" value="strings" /> Strings</label>
+            </aside>
+          </div>
+        </section>
+
+        <!-- COVER PAGE (BASIC PLACEHOLDER) -->
+        <section class="page page-cover" data-page="cover">
+          <div class="columns">
+            <div class="col col-main">
+              <header class="page-header">
+                <h1>Kapak Üret</h1>
+                <p>
+                  Spotify, Apple Music ve YouTube için AI destekli kapak görselleri üret.
+                </p>
+              </header>
+
+              <div class="card form-card">
+                <div class="field inline-3">
+                  <div>
+                    <label>Platform Preset</label>
+                    <select>
+                      <option>Spotify (1:1)</option>
+                      <option>YouTube (16:9)</option>
+                      <option>YouTube Shorts (9:16)</option>
+                      <option>Apple Music</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Renk Teması</label>
+                    <select>
+                      <option>Mor / Lila</option>
+                      <option>Gece Mavisi</option>
+                      <option>Pastel Bahçe</option>
+                      <option>Karanlık Neon</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label>Stil</label>
+                    <select>
+                      <option>Fotoğraf Gerçekçi</option>
+                      <option>Illustrasyon</option>
+                      <option>Vaporwave</option>
+                      <option>Sinema Afişi</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label>Kapak Açıklaması / Prompt</label>
+                  <textarea rows="3" placeholder="Örn: Gece yarısı, mor ve mavi neon ışıklar, sisli şehir manzarası..."></textarea>
+                </div>
+
+                <div class="form-footer">
+                  <button type="button" class="primary-cta">
+                    <span class="cta-icon">🖼️</span>
+                    <span>Kapak Üret</span>
+                  </button>
+                  <span class="form-footnote">
+                    Yakında: Üretilen kapağı kırpma ve ince ayar editörü.
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <aside class="col col-side">
+              <div class="card recent-card">
+                <header class="recent-header">
+                  <h2>Son Kapaklar</h2>
+                  <span class="recent-meta">Yakında</span>
+                </header>
+                <div class="recent-empty">
+                  <div class="empty-icon">🖼️</div>
+                  <p>Kapak stüdyosu geliştirme aşamasında.</p>
+                  <p class="empty-sub">
+                    Ürettiğin müzikler için otomatik kapak önerileri de burada görünecek.
+                  </p>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <!-- STUDIO PAGE (ROADMAP) -->
+        <section class="page page-studio" data-page="studio">
+          <header class="page-header wide">
+            <h1>AIVO Studio</h1>
+            <p>
+              Profesyonel miks & düzenleme stüdyosu. Şarkılarını stem’lere ayır,
+              düzenle ve yeniden mix’le. Şu anda beta planlama aşamasında.
+            </p>
+            <span class="beta-pill">BETA AŞAMASINDA</span>
+          </header>
+
+          <div class="columns single">
+            <div class="col col-main">
+              <div class="card studio-banner">
+                <h2>Geliştirme Devam Ediyor</h2>
+                <p>
+                  AIVO Studio, Eita Studio benzeri ama Türk prodüktörlerin
+                  alışkanlıklarına göre tasarlanan gelişmiş bir ses düzenleme
+                  ortamı olacak.
+                </p>
+                <ul>
+                  <li>Çok kanallı waveform görüntüleme</li>
+                  <li>Stem ayrıştırma (vokal, davul, bass vs.)</li>
+                  <li>EQ, reverb, delay gibi temel efektler</li>
+                  <li>Tek tıkla export & mix presetleri</li>
+                </ul>
+              </div>
+
+              <div class="studio-grid">
+                <div class="card studio-feature">
+                  <h3>🔊 Stem Separation</h3>
+                  <p>Şarkılarını vokal, davul, bass ve diğer enstrümanlara ayır.</p>
+                </div>
+                <div class="card studio-feature">
+                  <h3>📈 Waveform Görselleştirme</h3>
+                  <p>Her stem için detaylı dalga formu görüntüleme.</p>
+                </div>
+                <div class="card studio-feature">
+                  <h3>🎚 Volume & Pan Kontrol</h3>
+                  <p>Her kanal için ses seviyesi ve stereo pozisyon ayarı.</p>
+                </div>
+                <div class="card studio-feature">
+                  <h3🎛 Basic Effects</h3>
+                  <p>EQ, reverb, delay gibi temel ses efektleri.</p>
+                </div>
+                <div class="card studio-feature">
+                  <h3>📤 Export & Mix</h3>
+                  <p>Düzenlenmiş şarkını tek dosya olarak indir.</p>
+                </div>
               </div>
             </div>
           </div>
+        </section>
 
-          <div class="form-row">
-            <label class="form-label">Vokal Türü (İsteğe Bağlı)</label>
-            <select id="adv-vocal" class="select">
-              <option value="instrumental">Enstrümantal</option>
-              <option value="female">Kadın vokal</option>
-              <option value="male">Erkek vokal</option>
-              <option value="choir">Koro / Back vokal</option>
-            </select>
-          </div>
+        <!-- DİĞER SAYFALAR ŞİMDİLİK BOŞ -->
+        <section class="page" data-page="home">
+          <header class="page-header">
+            <h1>Anasayfa</h1>
+            <p>Yakında: onboarding, son haberler ve hızlı başlangıç.</p>
+          </header>
+        </section>
 
-          <div class="form-row">
-            <label class="form-label" for="adv-notes">Ek Açıklama / Prompt</label>
-            <textarea id="adv-notes" class="textarea"
-              placeholder="Müzikte özellikle vurgulamak istediğin detayları yaz..."></textarea>
-          </div>
-        </form>
-      </div>
+        <section class="page" data-page="dashboard">
+          <header class="page-header">
+            <h1>Dashboard</h1>
+            <p>Yakında: üretim istatistikleri ve kredi kullanımı grafikleri.</p>
+          </header>
+        </section>
 
-      <!-- BUTON + NOTLAR -->
-      <div class="form-footer">
-        <button id="generate-btn" class="btn-gradient">
-          🎵 Müzik Üret
-        </button>
-        <p class="beta-note">
-          AIVO şu anda kapalı beta aşamasında. Günlük 10 ücretsiz üretim.
-        </p>
-      </div>
+        <section class="page" data-page="library">
+          <header class="page-header">
+            <h1>Üretiklerim</h1>
+            <p>Yakında: tüm üretilen müzik ve kapakların listesi.</p>
+          </header>
+        </section>
 
-      <section class="tips">
-        <h3 class="tips-title">Gelişmiş İpuçları</h3>
-        <ul class="tips-list">
-          <li>Açıklamayı sade tut, net maksimum 200 karakter.</li>
-          <li>Tür ve ruh halini uyumlu seç (örneğin: Pop + Enerjik).</li>
-          <li>Makam seçimi Türk müziği için önemli.</li>
-          <li>Ana enstrümanı belirtmek, miks sonucunu iyileştirir.</li>
-        </ul>
-      </section>
-    </section>
+        <section class="page" data-page="billing">
+          <header class="page-header">
+            <h1>Faturalarım</h1>
+            <p>Yakında: kredi alımların ve faturaların detay listesi.</p>
+          </header>
+        </section>
 
-    <!-- ORTA ANA KART – KAPAK -->
-    <section class="music-main-card hidden-card" id="cover-panel">
-      <header class="music-header">
-        <div>
-          <h1 class="page-title">Kapak Üret</h1>
-          <p class="page-subtitle">
-            Şarkın için AIVO tarzı kapak görselleri oluştur.
-          </p>
-        </div>
-      </header>
-
-      <form class="music-form">
-        <div class="form-row">
-          <label class="form-label" for="cover-title">Kapak / Şarkı Adı</label>
-          <input id="cover-title" type="text" class="input" placeholder="Örn: Kül Bahçesi Kapak" />
-        </div>
-
-        <div class="form-row">
-          <label class="form-label" for="cover-desc">Kapak Açıklaması</label>
-          <textarea id="cover-desc" class="textarea" maxlength="200"
-            placeholder="Kapağın atmosferini kısaca anlat..."></textarea>
-        </div>
-
-        <div class="form-row form-row-inline">
-          <div class="form-col">
-            <label class="form-label" for="cover-style">Stil</label>
-            <select id="cover-style" class="select">
-              <option value="neon">Neon / Cyber</option>
-              <option value="minimal">Minimal</option>
-              <option value="dark">Dark / Sinematik</option>
-              <option value="pastel">Pastel</option>
-              <option value="anadolu">Anadolu motifli</option>
-            </select>
-          </div>
-          <div class="form-col">
-            <label class="form-label" for="cover-mood">Mood</label>
-            <select id="cover-mood" class="select">
-              <option value="enerjik">Enerjik</option>
-              <option value="duygusal">Duygusal</option>
-              <option value="gece">Gece / Şehir</option>
-              <option value="melankolik">Melankolik</option>
-              <option value="renkli">Renkli / Fun</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <label class="form-label">Platform & Oran</label>
-          <div class="platform-row">
-            <label class="check-row">
-              <input type="checkbox" checked />
-              Spotify / Apple Music (1:1 – 3000x3000)
-            </label>
-            <label class="check-row">
-              <input type="checkbox" />
-              YouTube Kapak (16:9)
-            </label>
-            <label class="check-row">
-              <input type="checkbox" />
-              TikTok / Reels Kapak (9:16)
-            </label>
-          </div>
-        </div>
-
-        <div class="form-footer">
-          <button type="button" class="btn-gradient">
-            🎨 Kapak Üret
-          </button>
-          <p class="beta-note">
-            Görseller demo amaçlıdır; telif kontrolünü yayın öncesi mutlaka yap.
-          </p>
-        </div>
-      </form>
-    </section>
-
-    <!-- SAĞ PANEL -->
-    <section class="output-panel">
-      <h2 class="output-title">Son Üretilen Müzikler</h2>
-      <div class="output-empty">
-        <p class="output-empty-title">Henüz müzik üretmedin.</p>
-        <p class="output-empty-text">
-          Soldaki formu doldurup <strong>Müzik Üret</strong> butonuna basarak başla.
-        </p>
-      </div>
-    </section>
-  </main>
-
-  <!-- KREDİ TABLOSU -->
-  <section id="pricing-section" class="pricing-section">
-    <div class="pricing-card">
-      <h2 class="pricing-title">Kredi Paketleri</h2>
-      <p class="pricing-subtitle">İhtiyacına göre kredi paketini seç.</p>
-      <div class="pricing-grid">
-        <div class="pricing-plan">
-          <h3>Starter</h3>
-          <p class="pricing-price">₺49</p>
-          <p class="pricing-detail">50 kredi</p>
-        </div>
-        <div class="pricing-plan pricing-plan-highlight">
-          <h3>Pro</h3>
-          <p class="pricing-price">₺99</p>
-          <p class="pricing-detail">120 kredi</p>
-        </div>
-        <div class="pricing-plan">
-          <h3>Studio</h3>
-          <p class="pricing-price">₺199</p>
-          <p class="pricing-detail">280 kredi</p>
-        </div>
+        <section class="page" data-page="settings">
+          <header class="page-header">
+            <h1>Ayarlar</h1>
+            <p>Yakında: dil, tema ve hesap ayarları.</p>
+          </header>
+        </section>
       </div>
     </div>
-  </section>
-</div>
+  </div>
 
-<script src="studio.js"></script>
+  <script src="studio.js"></script>
 </body>
 </html>
