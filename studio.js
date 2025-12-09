@@ -5,6 +5,55 @@ document.addEventListener("DOMContentLoaded", () => {
   const advForm = document.getElementById("advanced-form");
   const generateBtn = document.getElementById("generate-btn");
 
+  const musicPanel = document.getElementById("music-panel");
+  const coverPanel = document.getElementById("cover-panel");
+  const pricingSection = document.getElementById("pricing-section");
+
+  /* ==== 0. ÜST NAV – Müzik / Kapak ==== */
+
+  const navPills = document.querySelectorAll(".nav-pill");
+
+  function showSection(target) {
+    if (target === "music") {
+      musicPanel.classList.remove("hidden-card");
+      coverPanel.classList.add("hidden-card");
+    } else if (target === "cover") {
+      musicPanel.classList.add("hidden-card");
+      coverPanel.classList.remove("hidden-card");
+    } else if (target === "projects") {
+      alert("Üretimlerim sayfası yakında eklenecek.");
+    }
+  }
+
+  navPills.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = btn.dataset.target;
+      navPills.forEach((b) => b.classList.remove("nav-pill-active"));
+      btn.classList.add("nav-pill-active");
+      showSection(target);
+    });
+  });
+
+  // Sol menüden Müzik Üret bağlantısı
+  document
+    .querySelectorAll('.side-menu-item[data-target="music"]')
+    .forEach((btn) => {
+      btn.addEventListener("click", () => {
+        navPills.forEach((b) => {
+          if (b.dataset.target === "music") b.click();
+        });
+      });
+    });
+
+  // Kredi Al → fiyat tablosuna scroll
+  document
+    .querySelectorAll('[data-open="pricing"]')
+    .forEach((btn) => {
+      btn.addEventListener("click", () => {
+        pricingSection?.scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
   /* ==== 1. KEY LISTESİ (24 nota) ==== */
   const KEY_OPTIONS = {
     major: [
@@ -64,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
   fillKeySelect(document.getElementById("basic-key"));
   fillKeySelect(document.getElementById("adv-key"));
 
-  /* ==== 2. BPM ÖNERİSİ – çok basit mantık ==== */
+  /* ==== 2. BPM ÖNERİSİ ==== */
   const genreBpm = {
     pop: "90–120",
     trap: "130–150",
@@ -89,18 +138,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const basicGenre = document.getElementById("basic-genre");
   const advGenre = document.getElementById("adv-genre");
 
-  if (basicGenre) {
-    basicGenre.addEventListener("change", () =>
-      updateBpmHint("basic-genre", "basic-bpm-hint")
-    );
-  }
-  if (advGenre) {
-    advGenre.addEventListener("change", () =>
-      updateBpmHint("adv-genre", "adv-bpm-hint")
-    );
-  }
+  basicGenre?.addEventListener("change", () =>
+    updateBpmHint("basic-genre", "basic-bpm-hint")
+  );
+  advGenre?.addEventListener("change", () =>
+    updateBpmHint("adv-genre", "adv-bpm-hint")
+  );
 
-  /* ==== 3. Hızlı presetler (sol & form içi) ==== */
+  /* ==== 3. Hızlı presetler ==== */
+
   function applyPreset(genre, mood) {
     if (basicGenre && genre) {
       basicGenre.value = genre;
@@ -144,50 +190,45 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  if (basicBtn) {
-    basicBtn.addEventListener("click", () => setMode("basic"));
-  }
-  if (advBtn) {
-    advBtn.addEventListener("click", () => setMode("advanced"));
-  }
+  basicBtn?.addEventListener("click", () => setMode("basic"));
+  advBtn?.addEventListener("click", () => setMode("advanced"));
 
-  setMode("advanced"); // girişte gelişmiş açık olsun
+  // Varsayılan: Gelişmiş açık olsun
+  setMode("advanced");
 
-  /* ==== 5. Sadece demo için – veriyi console.log ==== */
+  /* ==== 5. Demo – payload log ==== */
 
-  if (generateBtn) {
-    generateBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const isBasicVisible = !basicForm.classList.contains("hidden");
+  generateBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const isBasicVisible = !basicForm.classList.contains("hidden");
 
-      if (isBasicVisible) {
-        const payload = {
-          mode: "basic",
-          title: document.getElementById("basic-title")?.value || "",
-          mood: document.getElementById("basic-mood")?.value || "",
-          desc: document.getElementById("basic-desc")?.value || "",
-          genre: document.getElementById("basic-genre")?.value || "",
-          bpm: document.getElementById("basic-bpm")?.value || "",
-          key: document.getElementById("basic-key")?.value || "C"
-        };
-        console.log("BASIT MOD PAYLOAD", payload);
-        alert("Basit mod verileri konsola yazıldı (demo). Gerçek üretim için backend'e bağlanacak.");
-      } else {
-        const payload = {
-          mode: "advanced",
-          title: document.getElementById("adv-title")?.value || "",
-          mood: document.getElementById("adv-mood")?.value || "",
-          desc: document.getElementById("adv-desc")?.value || "",
-          lyrics: document.getElementById("adv-lyrics")?.value || "",
-          genre: document.getElementById("adv-genre")?.value || "",
-          bpm: document.getElementById("adv-bpm")?.value || "",
-          key: document.getElementById("adv-key")?.value || "C",
-          mixStyle: document.getElementById("adv-mix-style")?.value || "",
-          vocal: document.getElementById("adv-vocal")?.value || ""
-        };
-        console.log("GELISMIS MOD PAYLOAD", payload);
-        alert("Gelişmiş mod verileri konsola yazıldı (demo). Gerçek üretim için backend'e bağlanacak.");
-      }
-    });
-  }
+    if (isBasicVisible) {
+      const payload = {
+        mode: "basic",
+        title: document.getElementById("basic-title")?.value || "",
+        mood: document.getElementById("basic-mood")?.value || "",
+        desc: document.getElementById("basic-desc")?.value || "",
+        genre: document.getElementById("basic-genre")?.value || "",
+        bpm: document.getElementById("basic-bpm")?.value || "",
+        key: document.getElementById("basic-key")?.value || "C"
+      };
+      console.log("BASIT MOD PAYLOAD", payload);
+      alert("Basit mod verileri konsola yazıldı (demo). Gerçek üretim için backend'e bağlanacak.");
+    } else {
+      const payload = {
+        mode: "advanced",
+        title: document.getElementById("adv-title")?.value || "",
+        mood: document.getElementById("adv-mood")?.value || "",
+        desc: document.getElementById("adv-desc")?.value || "",
+        lyrics: document.getElementById("adv-lyrics")?.value || "",
+        genre: document.getElementById("adv-genre")?.value || "",
+        bpm: document.getElementById("adv-bpm")?.value || "",
+        key: document.getElementById("adv-key")?.value || "C",
+        mixStyle: document.getElementById("adv-mix-style")?.value || "",
+        vocal: document.getElementById("adv-vocal")?.value || ""
+      };
+      console.log("GELISMIS MOD PAYLOAD", payload);
+      alert("Gelişmiş mod verileri konsola yazıldı (demo). Gerçek üretim için backend'e bağlanacak.");
+    }
+  });
 });
