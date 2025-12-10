@@ -1018,3 +1018,7 @@ textarea:focus {
   flex: 0 0 auto;
   margin-top: auto;          /* bütün boşluk yukarıda kalır */
 }
+/* ==== SES KAYDI – DAİRENİN YÜKSEKLİĞİNİ DÜZELT ==== */
+.music-view[data-music-view="ses-kaydi"] .record-circle {
+  top: -60px !important;   /* daha fazla aşağı almak için sayıyı küçültme! */
+}
