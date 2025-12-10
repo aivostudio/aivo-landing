@@ -1482,5 +1482,85 @@ textarea:focus {
   position: relative;
   z-index: 2;
 }
+/* === SES KAYDI – SON HİZALAMA OVERRIDE === */
+
+/* Üst kartı biraz aşağı çekip altında boşluk bırak */
+.music-view[data-music-view="ses-kaydi"] .record-intro-card {
+  margin-bottom: 90px !important;  /* iki kart arasındaki boşluk */
+}
+
+/* Alt kart (Ses Kaydetmeye Başlayın) – yazı dairenin altında başlasın */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  position: relative !important;
+  margin-top: 0 !important;
+  padding: 120px 42px 56px !important;  /* 120px = daire için üst boşluk */
+  min-height: 460px !important;         /* sol alttaki İPUCU kartıyla hizayı ayarlar */
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: space-between !important;
+  gap: 48px !important;
+}
+
+/* Sol / sağ metin blokları alt hizalı */
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  z-index: 2; /* dairenin önünde */
+}
+
+/* Daire: iki kartın tam arasında, alt kartın üst kenarı tam ortasından kesiyor */
+.music-view[data-music-view="ses-kaydi"] .record-circle {
+  position: absolute !important;
+  top: -150px !important;          /* yarım daire yukarıda, yarım daire kartın içinde */
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 300px !important;
+  height: 300px !important;
+  border-radius: 50%;
+  background: #050816;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 40px rgba(255, 255, 255, 0.12),
+    0 0 90px rgba(132, 94, 247, 0.45);
+  z-index: 1;
+}
+
+/* Dıştaki renkli halka aynı kalsın ama override edelim ki emin olalım */
+.music-view[data-music-view="ses-kaydi"] .record-circle::before {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    #ff7675,
+    #fd79a8,
+    #a29bfe,
+    #74b9ff,
+    #55efc4,
+    #ffeaa7,
+    #ff7675
+  );
+  filter: blur(1px);
+  animation: spinRing 5s linear infinite;
+  z-index: -1;
+}
+
+/* Mikrofon ikonunu öne al */
+.music-view[data-music-view="ses-kaydi"] .record-icon {
+  font-size: 80px !important;
+  position: relative;
+  z-index: 2;
+  text-shadow:
+    0 0 18px rgba(255, 255, 255, 0.9),
+    0 0 40px rgba(253, 121, 168, 0.8);
+}
+
 
 
