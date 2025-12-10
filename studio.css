@@ -989,3 +989,51 @@ textarea:focus {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+/* ==== SES KAYDI – SON DÜZELTME ==== */
+/* ÜST KART: Ses Kaydetme Stüdyosu ile ALT KART arasındaki boşluk */
+.music-view[data-music-view="ses-kaydi"] .record-intro-card {
+  margin-bottom: 140px !important; /* iki kartın arası – daire burada duracak */
+}
+
+/* ALT KART: “Ses Kaydetmeye Başlayın / MP3-WAV Yükle” */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  position: relative !important;
+  margin-top: 0 !important;
+  padding: 80px 40px 30px !important;   /* 80px = daire için üst boşluk */
+  min-height: 260px !important;         /* KUTUNUN BOYU – kesik çizgiye yakın */
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+  gap: 32px !important;
+}
+
+/* Sol & sağ sütun: içerik altta hizalansın */
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  align-items: flex-start !important;
+  z-index: 2 !important; /* dairenin önünde */
+}
+
+/* DAİRE: üst kart ile alt kartın tam ORTASINDA, ortaya hizalı */
+.music-view[data-music-view="ses-kaydi"] .record-circle {
+  position: absolute !important;
+  top: -130px !important;                /* yarısı üstte, yarısı alt kartın içinde */
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 260px !important;
+  height: 260px !important;
+  border-radius: 50%;
+  z-index: 1 !important;
+}
+
+/* Daire içindeki mikrofon */
+.music-view[data-music-view="ses-kaydi"] .record-icon {
+  font-size: 60px !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
