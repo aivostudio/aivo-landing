@@ -989,36 +989,28 @@ textarea:focus {
     grid-template-columns: minmax(0, 1fr);
   }
 }
-/* =====================================
-   SES KAYDI – DİKEY HİZALAMA (TEMİZ)
-   ===================================== */
+/* ==== SES KAYDI – DAİREYİ KART İÇİNE AL ==== */
 
-/* Orta kolon yüksekliği doldursun */
-.main-panel {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-/* Sadece Ses Kaydı görünümünde dikey layout kullan */
-.music-view[data-music-view="ses-kaydi"] {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Üst kart: her zaman yukarıda */
-.music-view[data-music-view="ses-kaydi"] .record-intro-card {
-  flex: 0 0 auto;
-  margin-bottom: 24px;
-}
-
-/* Alt kart: kolonun EN ALTINA yapışsın */
 .music-view[data-music-view="ses-kaydi"] .record-main-card {
-  flex: 0 0 auto;
-  margin-top: auto;          /* bütün boşluk yukarıda kalır */
+  position: relative !important;
+  padding-top: 140px !important;  /* daire için üst boşluk */
 }
-/* ==== SES KAYDI – DAİRENİN YÜKSEKLİĞİNİ DÜZELT ==== */
+
+/* Daire tamamen Ses Kaydetmeye Başlayın kartının içinde dursun */
 .music-view[data-music-view="ses-kaydi"] .record-circle {
-  top: -60px !important;   /* daha fazla aşağı almak için sayıyı küçültme! */
+  position: absolute !important;
+  top: 20px !important;           /* kartın üstünden 20px aşağı */
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 200px !important;
+  height: 200px !important;
+  border-radius: 50%;
+  z-index: 1 !important;
+}
+
+/* Mikrofon ortada kalsın */
+.music-view[data-music-view="ses-kaydi"] .record-icon {
+  position: relative !important;
+  z-index: 2 !important;
+  font-size: 52px !important;
 }
