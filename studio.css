@@ -1561,6 +1561,86 @@ textarea:focus {
     0 0 18px rgba(255, 255, 255, 0.9),
     0 0 40px rgba(253, 121, 168, 0.8);
 }
+/* === SES KAYDI – TEMİZ SON HİZALAMA === */
+
+/* Üst kart ile alt kart arasındaki boşluk */
+.music-view[data-music-view="ses-kaydi"] .record-intro-card {
+  margin-bottom: 110px !important;   /* iki kartın arasını açar */
+}
+
+/* ALT KART (Ses Kaydetmeye Başlayın) */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  position: relative !important;
+  margin-top: 0 !important;
+  padding: 130px 42px 56px !important;  /* 130px = daire için üst boşluk */
+  min-height: 420px !important;         /* sağdaki sütunla boyu dengeler */
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: space-between !important;
+  gap: 48px !important;
+}
+
+/* Sol / sağ blok: içerik alt hizalı */
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  z-index: 2;
+}
+
+/* DAİRE – ÜST KART & ALT KART ARASINDA YARIM YARIM DURUR */
+.music-view[data-music-view="ses-kaydi"] .record-circle {
+  position: absolute !important;
+  left: 50% !important;
+  top: -150px !important;              /* 150px = dairenin yarıçapı (300/2) */
+  transform: translateX(-50%) !important;
+
+  width: 300px !important;
+  height: 300px !important;
+  border-radius: 50%;
+  background: #050816;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 40px rgba(255, 255, 255, 0.12),
+    0 0 90px rgba(132, 94, 247, 0.45);
+  z-index: 1;
+}
+
+/* Dıştaki renkli halka */
+.music-view[data-music-view="ses-kaydi"] .record-circle::before {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    #ff7675,
+    #fd79a8,
+    #a29bfe,
+    #74b9ff,
+    #55efc4,
+    #ffeaa7,
+    #ff7675
+  );
+  filter: blur(1px);
+  animation: spinRing 5s linear infinite;
+  z-index: -1;
+}
+
+/* Mikrofon ikonu */
+.music-view[data-music-view="ses-kaydi"] .record-icon {
+  font-size: 80px !important;
+  position: relative;
+  z-index: 2;
+  text-shadow:
+    0 0 18px rgba(255, 255, 255, 0.9),
+    0 0 40px rgba(253, 121, 168, 0.8);
+}
 
 
 
