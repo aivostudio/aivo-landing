@@ -1385,6 +1385,11 @@ textarea:focus {
 .music-view[data-music-view="ses-kaydi"] .record-circle {
   animation: spinRing 26s linear infinite;
 }
+/* ==== SES KAYDI: Yazıları daireye yaklaştır (daire sabit kalsın) ==== */
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  margin-top: -40px;   /* Yazıları yukarı çek – istersen -30 / -50 ile oynayabilirsin */
+}
 
 
 
