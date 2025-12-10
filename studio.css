@@ -2544,3 +2544,6 @@ body.is-recording .record-wave {
 .primary-btn.recording {
   background: linear-gradient(135deg, #ff9ff3, #a18bff) !important;
 }
+.record-circle {
+  cursor: pointer;
+}
