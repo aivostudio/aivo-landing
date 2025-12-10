@@ -1552,13 +1552,24 @@ textarea:focus {
   100% { transform: translateX(-50%) scale(1); }
 }
 /* =========================================
-   SES KAYDI – DAİRE TASARIMI ve ANİMASYON
+   SES KAYDI – HALKA TASARIMI (FINAL)
    ========================================= */
 
-/* Dış halka aynı, ama içi deep purple ve kalp atışı efekti */
+/* Alt kart hizası */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  position: relative;
+  padding: 90px 40px 40px;      /* yazıları daireye yaklaştırır */
+  min-height: 320px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;          /* içerik artık ortada */
+  gap: 32px;
+}
+
+/* Dış halka – idle (boştayken) */
 .music-view[data-music-view="ses-kaydi"] .record-circle {
   position: absolute;
-  top: -110px;
+  top: -95px;                   /* üst kart ile alt kartın tam ortasına yakın */
   left: 50%;
   transform: translateX(-50%);
   width: 230px;
@@ -1581,20 +1592,21 @@ textarea:focus {
     0 0 40px rgba(255, 255, 255, 0.14),
     0 0 80px rgba(132, 94, 247, 0.45);
   z-index: 1;
-  animation: pulseIdle 2.4s ease-in-out infinite;
+  animation: pulseIdle 2.4s ease-in-out infinite; /* kalp atışı */
 }
 
-/* İç kısım: tek renk, deep purple */
+/* İç kısım – deep purple tonları */
 .music-view[data-music-view="ses-kaydi"] .record-circle::after {
   content: "";
   position: absolute;
-  inset: 26px;
+  inset: 24px;
   border-radius: inherit;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12), transparent 55%),
-    radial-gradient(circle at bottom, #381861, #090313);
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12), transparent 55%),
+    radial-gradient(circle at bottom, #2e1b52, #05020c);
 }
 
-/* Mikrofon ikonu sabit, biraz daha kalp efekti için glow azalsın */
+/* Mikrofon ikonu */
 .music-view[data-music-view="ses-kaydi"] .record-icon {
   position: relative;
   z-index: 2;
@@ -1604,7 +1616,7 @@ textarea:focus {
     0 0 20px rgba(253, 121, 168, 0.7);
 }
 
-/* Kalp atışı (boşta iken) */
+/* Boştaki kalp atışı */
 @keyframes pulseIdle {
   0%   { transform: translateX(-50%) scale(1); }
   30%  { transform: translateX(-50%) scale(1.05); }
@@ -1612,26 +1624,35 @@ textarea:focus {
   100% { transform: translateX(-50%) scale(1); }
 }
 
-/* Kayıt modunda: daha koyu renk + daha hızlı atış */
+/* KAYIT MODU: dış halka kırmızı/mor, daha hızlı atış */
 .music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
+  background: conic-gradient(
+    from 0deg,
+    #ff4757,
+    #ff6b81,
+    #ff4757,
+    #c23616,
+    #ff6b81,
+    #ff4757
+  );
   box-shadow:
-    0 0 40px rgba(255, 118, 117, 0.7),
-    0 0 90px rgba(214, 48, 49, 0.7);
-  animation: pulseRecording 1.1s ease-in-out infinite;
+    0 0 45px rgba(255, 71, 87, 0.9),
+    0 0 110px rgba(214, 48, 49, 0.9);
+  animation: pulseRecording 1s ease-in-out infinite;
 }
 
+/* Kayıt modunda iç kısım daha sıcak kırmızı-mor */
 .music-view[data-music-view="ses-kaydi"] .record-circle.is-recording::after {
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), transparent 55%),
-    radial-gradient(circle at bottom, #8e1b4a, #19000c);
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), transparent 55%),
+    radial-gradient(circle at bottom, #7d122f, #140005);
 }
 
 /* Kayıtta kalp atışı */
 @keyframes pulseRecording {
   0%   { transform: translateX(-50%) scale(1); }
-  25%  { transform: translateX(-50%) scale(1.08); }
+  20%  { transform: translateX(-50%) scale(1.1); }
   50%  { transform: translateX(-50%) scale(1.02); }
-  75%  { transform: translateX(-50%) scale(1.09); }
+  80%  { transform: translateX(-50%) scale(1.1); }
   100% { transform: translateX(-50%) scale(1); }
 }
-
-
