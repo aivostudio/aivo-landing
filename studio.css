@@ -1036,4 +1036,23 @@ textarea:focus {
   position: relative !important;
   z-index: 2 !important;
 }
+/* ==== SES KAYDI – KARTI AŞAĞI UZAT ==== */
+
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  min-height: 440px !important;   /* kutunun boyu: daha aşağı insin */
+  padding-bottom: 40px !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+}
+
+/* Sol ve sağ kolon içeriği kartın ALTINA yapıştır */
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  align-items: flex-start !important;
+}
 
