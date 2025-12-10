@@ -1948,3 +1948,325 @@ body.is-recording .record-wave {
     rgba(140, 60, 200, 0.9)
   ) !important;
 }
+/* =========================================
+   SES KAYDI – STATE, OVERLAY ve SONUÇ PANELİ
+   ========================================= */
+
+/* Genel gizleme yardımcı sınıfı */
+.is-hidden {
+  display: none !important;
+}
+
+/* Record main kartı state'e göre ufak styling farklılıkları için hook */
+.record-main-card[data-record-state="recording"] {
+  box-shadow: 0 20px 50px rgba(255, 118, 170, 0.6);
+}
+
+.record-main-card[data-record-state="finished"] {
+  box-shadow: 0 18px 45px rgba(9, 132, 227, 0.55);
+}
+
+/* Kayıt durumu pill */
+.record-status-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  margin-left: 8px;
+  background: rgba(9, 132, 227, 0.15);
+  color: var(--text-soft);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* State'e göre renk */
+[data-record-state="idle"] .record-status-pill {
+  background: rgba(72, 219, 251, 0.12);
+  color: var(--text-soft);
+}
+
+[data-record-state="recording"] .record-status-pill {
+  background: rgba(255, 118, 117, 0.25);
+  color: #ffecec;
+}
+
+[data-record-state="finished"] .record-status-pill {
+  background: rgba(108, 92, 231, 0.35);
+  color: #f5f5ff;
+}
+
+/* Sonuç kartı – 4 butonlu panel */
+.record-result-card {
+  margin-top: 12px;
+  padding: 14px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.record-result-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.record-result-title {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.record-result-subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.record-result-meta {
+  font-size: 12px;
+  color: var(--text-soft);
+  opacity: 0.9;
+}
+
+/* 4 aksiyon butonu + blur glow */
+.record-actions {
+  position: relative;
+  margin-top: 6px;
+  padding: 14px 20px;
+  border-radius: 20px;
+  background: radial-gradient(circle at top, rgba(108, 92, 231, 0.3), transparent 65%),
+    rgba(5, 7, 34, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  overflow: hidden;
+}
+
+/* Mor–lila blur glow */
+.record-actions::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(
+    circle at top,
+    rgba(186, 104, 255, 0.8),
+    rgba(129, 236, 236, 0.0) 60%
+  );
+  opacity: 0.9;
+  filter: blur(40px);
+  z-index: 0;
+}
+
+/* Her bir buton */
+.record-action-btn {
+  position: relative;
+  z-index: 1;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #fff;
+  background: radial-gradient(circle at 0 0, #ff9ff3, #6c5ce7);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.7);
+  transition: transform 0.14s ease-out, box-shadow 0.14s ease-out, filter 0.14s ease-out,
+    opacity 0.14s ease-out;
+}
+
+/* Ton farklılıkları */
+.record-action-btn.is-play {
+  background: radial-gradient(circle at 0 0, #55efc4, #0984e3);
+}
+
+.record-action-btn.is-download {
+  background: radial-gradient(circle at 0 0, #ffeaa7, #fd79a8);
+}
+
+.record-action-btn.is-to-music {
+  background: radial-gradient(circle at 0 0, #a29bfe, #6c5ce7);
+}
+
+.record-action-btn.is-delete {
+  background: radial-gradient(circle at 0 0, #ff7675, #d63031);
+}
+
+/* Hover / aktif animasyon */
+.record-action-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
+  filter: brightness(1.05);
+}
+
+.record-action-btn.is-pressed {
+  transform: translateY(1px) scale(0.95);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.8);
+  opacity: 0.9;
+}
+
+/* === Kayıt overlay – Eita 2. ekran benzeri === */
+
+.record-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+}
+
+.record-overlay.is-open {
+  display: flex;
+}
+
+.record-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(108, 92, 231, 0.6), transparent 65%),
+    rgba(0, 0, 0, 0.86);
+  backdrop-filter: blur(18px);
+}
+
+.record-overlay-dialog {
+  position: relative;
+  width: min(540px, 92%);
+  padding: 24px 22px 20px;
+  border-radius: 24px;
+  background: radial-gradient(circle at top left, rgba(255, 121, 198, 0.35), transparent 60%),
+    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.3), transparent 60%),
+    #050818;
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 1;
+}
+
+.record-overlay-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.record-overlay-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.record-overlay-circle {
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 0 0, #ff7675, #d63031);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 26px rgba(255, 71, 87, 0.85),
+    0 0 70px rgba(214, 48, 49, 0.85);
+}
+
+.record-overlay-icon {
+  font-size: 26px;
+  color: #fff;
+}
+
+.record-overlay-texts {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.record-overlay-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.record-overlay-subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.record-overlay-timer {
+  min-width: 70px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(5, 7, 34, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* Overlay waveform alanı */
+.record-overlay-wave {
+  position: relative;
+  height: 96px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(108, 92, 231, 0.16), rgba(9, 132, 227, 0.18));
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.record-overlay-wave::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(129, 236, 236, 0),
+    rgba(129, 236, 236, 0) 8px,
+    rgba(129, 236, 236, 0.9) 8px,
+    rgba(9, 132, 227, 0.95) 14px
+  );
+  opacity: 0.9;
+  animation: overlayWave 1.4s linear infinite;
+}
+
+@keyframes overlayWave {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+/* Overlay footer butonları */
+.record-overlay-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.record-overlay-stop {
+  flex: 1;
+}
+
+.record-overlay-cancel {
+  min-width: 110px;
+}
+
+/* Küçük ekranlarda overlay dialog genişliği */
+@media (max-width: 600px) {
+  .record-overlay-dialog {
+    width: 94%;
+    padding-inline: 16px;
+  }
+}
+
