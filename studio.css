@@ -1915,3 +1915,36 @@ body.is-recording .record-wave {
     transform: scaleY(1);
   }
 }
+/* Daireyi aşağı kaydırma */
+.record-circle {
+  margin-top: 40px !important; /* daha çok indirmek istersen 50-60 yapabilirsin */
+}
+/* Daire altına güçlü ama soft glow efekti */
+.record-circle::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  height: 320px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(205, 90, 255, 0.45) 0%,
+    rgba(120, 60, 255, 0.25) 40%,
+    rgba(60, 40, 130, 0.10) 70%,
+    transparent 100%
+  );
+  filter: blur(45px);
+  pointer-events: none;
+  z-index: -1;
+}
+/* Kayıt sırasında dairenin soft mor-pembe yanması */
+.record-circle.recording {
+  box-shadow: 0 0 55px rgba(255, 100, 180, 0.65) !important;
+  background: radial-gradient(circle at center,
+    rgba(255, 110, 180, 0.9),
+    rgba(140, 60, 200, 0.9)
+  ) !important;
+}
