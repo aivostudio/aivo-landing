@@ -4,21 +4,25 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ===================== SAYFA GEÇİŞLERİ (Müzik / Kapak) ===================== */
 
   const pages = document.querySelectorAll(".page");
+  const topnavLinks = document.querySelectorAll(".topnav-link[data-page-link]");
 
   function showPage(name) {
+    // Sayfaları göster/gizle
     pages.forEach((page) => {
       const isTarget = page.dataset.page === name;
       page.classList.toggle("is-active", isTarget);
     });
 
-    document.querySelectorAll("[data-page-link]").forEach((link) => {
+    // SADECE ÜST MENÜ (topnav) aktif olmalı
+    topnavLinks.forEach((link) => {
       const target = link.getAttribute("data-page-link");
       if (!target) return;
       link.classList.toggle("is-active", target === name);
     });
   }
 
-  document.querySelectorAll("[data-page-link]").forEach((link) => {
+  // Üst menü tıklamaları
+  topnavLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const target = link.getAttribute("data-page-link");
@@ -138,6 +142,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const recordResultCard = document.getElementById("recordResultCard");
   const recordedDurationEl = document.getElementById("recordedDuration");
 
+  const recordCircle = document.querySelector(".record-circle");
+
   const MAX_SECONDS = 120; // 2 dk
   let isRecording = false;
   let startTime = null;
@@ -231,10 +237,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     closeRecordingModal();
 
-    // Gerçek kaydı durdurma:
     // stopMicrophoneRecording();
 
-    // Kullanıcı kendi durdurduysa sonucu göster
     if (recordResultCard && !autoByLimit) {
       recordResultCard.classList.add("is-visible");
     }
@@ -261,10 +265,10 @@ document.addEventListener("DOMContentLoaded", () => {
     closeRecordingModal();
     if (recordMainTimerEl) recordMainTimerEl.textContent = "00:00";
 
-    // İptal durumunda varsa kaydı çöpe atabilirsin:
     // cancelMicrophoneRecording();
   }
 
+  // Ana kayıt butonu
   if (recordBtn) {
     recordBtn.addEventListener("click", () => {
       if (!isRecording) {
@@ -275,6 +279,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Yuvarlak kayıt dairesi de buton gibi davransın
+  if (recordCircle && recordBtn) {
+    recordCircle.style.cursor = "pointer";
+    recordCircle.addEventListener("click", () => {
+      recordBtn.click();
+    });
+  }
+
+  // Modal içi butonlar
   if (modalStopBtn) {
     modalStopBtn.addEventListener("click", () => {
       if (isRecording) {
