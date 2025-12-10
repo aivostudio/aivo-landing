@@ -1,5 +1,12 @@
 body {
-  background: #00ff00 !important;
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  background:
+    radial-gradient(circle at top, #1b0448 0%, #050816 40%, #02030a 100%);
+  color: #f5f5ff;
+}
+
 }
 
 /* =============================
