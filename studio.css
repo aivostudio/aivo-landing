@@ -1055,4 +1055,33 @@ textarea:focus {
   justify-content: flex-end !important;
   align-items: flex-start !important;
 }
+/* === ORTA KOLONU TAM YÜKSEKLİK YAP === */
+.layout {
+  align-items: stretch; /* grid item'lar satır yüksekliğini doldursun */
+}
+
+/* Orta kolon (main-panel) tüm yüksekliği kullansın */
+.main-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* === SES KAYDI – ALT KARTI KALAN BOŞLUĞU DOLDURSUN === */
+/* Sadece Ses Kaydı görünümünde, alttaki kartı esnetiyoruz */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  flex: 1 !important;          /* Kalan tüm yüksekliği kapla */
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+}
+
+/* İçerik alt hizalı kalsın */
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
 
