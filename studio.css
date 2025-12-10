@@ -1385,6 +1385,91 @@ textarea:focus {
 .music-view[data-music-view="ses-kaydi"] .record-circle {
   animation: spinRing 26s linear infinite;
 }
+/* =========================================
+   SES KAYDI – AIVO DÜZENİ (TEK BLOK)
+   ========================================= */
+
+/* Üst bilgi kartı: Ses Kaydetme Stüdyosu */
+.music-view[data-music-view="ses-kaydi"] .record-intro-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 10px;
+  margin-bottom: 70px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
+    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
+    var(--bg-card-soft);
+}
+
+/* Alt kart: Ses Kaydetmeye Başlayın + MP3 / WAV yükle */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  position: relative;
+  margin-top: 0;
+  padding: 90px 40px 40px;   /* 120 yerine 90 → yazılar daireye yaklaştı */
+  min-height: 320px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+/* Daire: üst kart ile alt kartın arasında, ortada */
+.music-view[data-music-view="ses-kaydi"] .record-circle {
+  position: absolute;
+  top: -110px;               /* dairenin yeri sabit */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #ff7675,
+    #fd79a8,
+    #ffeaa7,
+    #55efc4,
+    #74b9ff,
+    #a29bfe,
+    #ff7675
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 40px rgba(255, 255, 255, 0.14),
+    0 0 80px rgba(132, 94, 247, 0.45);
+  z-index: 1;
+  animation: spinRing 26s linear infinite;
+}
+
+/* Dairenin içindeki koyu merkez */
+.music-view[data-music-view="ses-kaydi"] .record-circle::after {
+  content: "";
+  position: absolute;
+  inset: 26px;
+  border-radius: inherit;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 55%),
+    #050816;
+}
+
+/* Mikrofon ikonu */
+.music-view[data-music-view="ses-kaydi"] .record-icon {
+  position: relative;
+  z-index: 2;
+  font-size: 60px;
+  text-shadow:
+    0 0 18px rgba(255, 255, 255, 0.9),
+    0 0 32px rgba(253, 121, 168, 0.8);
+}
+
+/* Yavaş dönen halka animasyonu */
+@keyframes spinRing {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 
 
 
