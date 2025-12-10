@@ -1955,13 +1955,21 @@ body.is-recording .record-wave {
   padding-top: 210px !important;
 }
 
-/* Daireyi kartın tam ortasına yaerleştir */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  top: -40px !important;          /* -120 yerine -40: daha aşağı */
+/* Kartı merkezleme referansı yap */
+.record-main-card {
+  position: relative !important;
+}
+
+/* Daireyi tam ortaya oturt */
+.record-circle {
+  position: absolute !important;
+  top: 20px !important;   /* yukarı-aşağı mesafe - istersen artırabilirsin */
   left: 50% !important;
   transform: translateX(-50%) !important;
+
   width: 260px !important;
   height: 260px !important;
+  z-index: 5;
 }
 
 /* Dairenin altına, kartın ortasına doğru soft glow */
