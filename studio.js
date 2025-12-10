@@ -199,49 +199,83 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 })();
 // ======================================
-// SES KAYDI – DAİREYE TIKLAYINCA KAYIT EFFECT
+// SES KAYDI – Görsel kayıt durumu + waveform + süre
 // ======================================
-
 (function () {
-  const recordCircle = document.querySelector(
-    '.music-view[data-music-view="ses-kaydi"] .record-circle'
-  );
-  const recordButton = document.querySelector(
-    '.music-view[data-music-view="ses-kaydi"] .record-btn'
-  );
-  const recordTitle = document.querySelector(
-    '.music-view[data-music-view="ses-kaydi"] .record-main-title'
-  );
+  const view = document.querySelector('.music-view[data-music-view="ses-kaydi"]');
+  if (!view) return;
+
+  const mainCard = view.querySelector('.record-main-card');
+  const circle   = view.querySelector('.record-circle');
+  const button   = view.querySelector('.record-btn');
+  const title    = view.querySelector('.record-main-title');
+  const timerEl  = view.querySelector('.record-timer');
+
+  if (!mainCard || (!circle && !button)) return;
 
   let isRecording = false;
+  let timerInterval = null;
+  let startTime = 0;
+
+  function formatTime(ms) {
+    const totalSec = Math.floor(ms / 1000);
+    const min = String(Math.floor(totalSec / 60)).padStart(2, "0");
+    const sec = String(totalSec % 60).padStart(2, "0");
+    return `${min}:${sec}`;
+  }
+
+  function startTimer() {
+    if (!timerEl) return;
+    startTime = Date.now();
+    timerEl.textContent = "00:00";
+
+    timerInterval = setInterval(() => {
+      const diff = Date.now() - startTime;
+      timerEl.textContent = formatTime(diff);
+    }, 200);
+  }
+
+  function stopTimer() {
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+  }
 
   function toggleRecordingVisual() {
-    if (!recordCircle) return;
-
     isRecording = !isRecording;
-    recordCircle.classList.toggle('is-recording', isRecording);
 
-    // Başlık metni
-    if (recordTitle) {
-      recordTitle.textContent = isRecording
-        ? 'Kayıt Devam Ediyor'
-        : 'Ses Kaydetmeye Başlayın';
+    if (circle) {
+      circle.classList.toggle("is-recording", isRecording);
     }
 
-    // Buton metni (istersen)
-    if (recordButton) {
-      recordButton.textContent = isRecording
-        ? '⏹ Kaydı Durdur'
-        : '⏺ Kaydı Başlat';
+    mainCard.classList.toggle("is-recording", isRecording);
+
+    if (title) {
+      title.textContent = isRecording
+        ? "Kayıt Devam Ediyor"
+        : "Ses Kaydetmeye Başlayın";
+    }
+
+    if (button) {
+      button.textContent = isRecording
+        ? "⏹ Kaydı Durdur"
+        : "⏺ Kaydı Başlat";
+    }
+
+    if (isRecording) {
+      startTimer();
+    } else {
+      stopTimer();
     }
   }
 
-  if (recordCircle) {
-    recordCircle.style.cursor = 'pointer';
-    recordCircle.addEventListener('click', toggleRecordingVisual);
+  if (circle) {
+    circle.style.cursor = "pointer";
+    circle.addEventListener("click", toggleRecordingVisual);
   }
 
-  if (recordButton) {
-    recordButton.addEventListener('click', toggleRecordingVisual);
+  if (button) {
+    button.addEventListener("click", toggleRecordingVisual);
   }
 })();
