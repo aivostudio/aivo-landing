@@ -2009,3 +2009,35 @@ body.is-recording .record-wave {
   height: 260px !important;
   z-index: 5;
 }
+/* Glow tam dairenin altında ve simetrik */
+.record-circle::after {
+  content: "";
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(190, 130, 255, 0.40),
+    rgba(100, 70, 200, 0.25),
+    rgba(20, 15, 80, 0.10),
+    transparent
+  );
+  filter: blur(45px);
+  pointer-events: none;
+  z-index: -1;
+}
+/* Kayıt sırasında daha soft magenta */
+.record-circle.recording {
+  background: radial-gradient(circle,
+    rgba(255, 140, 210, 0.95),
+    rgba(160, 100, 230, 0.95)
+  ) !important;
+  box-shadow:
+    0 0 45px rgba(255, 150, 220, 0.6),
+    0 0 80px rgba(140, 90, 230, 0.5) !important;
+}
+
