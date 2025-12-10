@@ -198,5 +198,52 @@ window.addEventListener("DOMContentLoaded", () => {
     recordBtn.textContent = isRecording ? '⏹ Kaydı Durdur' : '⏺ Kaydı Başlat';
   });
 })();
+// ======================================
+// SES KAYDI – DAİREYE TIKLAYINCA KAYIT EFFECT
+// ======================================
+
+(function () {
+  const recordCircle = document.querySelector(
+    '.music-view[data-music-view="ses-kaydi"] .record-circle'
+  );
+  const recordButton = document.querySelector(
+    '.music-view[data-music-view="ses-kaydi"] .record-btn'
+  );
+  const recordTitle = document.querySelector(
+    '.music-view[data-music-view="ses-kaydi"] .record-main-title'
+  );
+
+  let isRecording = false;
+
+  function toggleRecordingVisual() {
+    if (!recordCircle) return;
+
+    isRecording = !isRecording;
+    recordCircle.classList.toggle('is-recording', isRecording);
+
+    // Başlık metni
+    if (recordTitle) {
+      recordTitle.textContent = isRecording
+        ? 'Kayıt Devam Ediyor'
+        : 'Ses Kaydetmeye Başlayın';
+    }
+
+    // Buton metni (istersen)
+    if (recordButton) {
+      recordButton.textContent = isRecording
+        ? '⏹ Kaydı Durdur'
+        : '⏺ Kaydı Başlat';
+    }
+  }
+
+  if (recordCircle) {
+    recordCircle.style.cursor = 'pointer';
+    recordCircle.addEventListener('click', toggleRecordingVisual);
+  }
+
+  if (recordButton) {
+    recordButton.addEventListener('click', toggleRecordingVisual);
+  }
+})();
 
 
