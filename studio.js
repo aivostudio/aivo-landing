@@ -199,51 +199,49 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 })();
 // ======================================
-// SES KAYDI – DAİRE / BUTON GÖRSEL KAYIT DURUMU
+// SES KAYDI – DAİREYE TIKLAYINCA KAYIT EFFECT
 // ======================================
+
 (function () {
-  const view = document.querySelector('.music-view[data-music-view="ses-kaydi"]');
-  if (!view) return;
-
-  const circle = view.querySelector('.record-circle');
-  const button = view.querySelector('.record-btn');
-  const title  = view.querySelector('.record-main-title');
-
-  if (!circle && !button) return;
+  const recordCircle = document.querySelector(
+    '.music-view[data-music-view="ses-kaydi"] .record-circle'
+  );
+  const recordButton = document.querySelector(
+    '.music-view[data-music-view="ses-kaydi"] .record-btn'
+  );
+  const recordTitle = document.querySelector(
+    '.music-view[data-music-view="ses-kaydi"] .record-main-title'
+  );
 
   let isRecording = false;
 
   function toggleRecordingVisual() {
+    if (!recordCircle) return;
+
     isRecording = !isRecording;
+    recordCircle.classList.toggle('is-recording', isRecording);
 
-    if (circle) {
-      circle.classList.toggle('is-recording', isRecording);
-    }
-
-    if (title) {
-      title.textContent = isRecording
+    // Başlık metni
+    if (recordTitle) {
+      recordTitle.textContent = isRecording
         ? 'Kayıt Devam Ediyor'
         : 'Ses Kaydetmeye Başlayın';
     }
 
-    if (button) {
-      button.textContent = isRecording
+    // Buton metni (istersen)
+    if (recordButton) {
+      recordButton.textContent = isRecording
         ? '⏹ Kaydı Durdur'
         : '⏺ Kaydı Başlat';
     }
   }
 
-  // Daireye tıklayınca kayıt modunu aç/kapat
-  if (circle) {
-    circle.style.cursor = 'pointer';
-    circle.addEventListener('click', toggleRecordingVisual);
+  if (recordCircle) {
+    recordCircle.style.cursor = 'pointer';
+    recordCircle.addEventListener('click', toggleRecordingVisual);
   }
 
-  // Alttaki buton da aynı efekti tetiklesin
-  if (button) {
-    button.addEventListener('click', toggleRecordingVisual);
+  if (recordButton) {
+    recordButton.addEventListener('click', toggleRecordingVisual);
   }
 })();
-
-
-
