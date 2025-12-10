@@ -1385,4 +1385,9 @@ textarea:focus {
 .music-view[data-music-view="ses-kaydi"] .record-circle {
   animation: spinRing 26s linear infinite;
 }
+/* ==== SES KAYDI: Yazıları daireye yaklaştır ==== */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  padding-top: 80px !important;   /* 120 → 80 = daha yakın */
+}
+
 
