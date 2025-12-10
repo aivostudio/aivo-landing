@@ -42,7 +42,7 @@
 
     <!-- PAGES -->
     <main class="main-pages">
-      <!-- ================== MÜZİK SAYFASI ================== -->
+      <!-- ============ MÜZİK SAYFASI ============ -->
       <div class="page page-music is-active" data-page="music">
         <div class="layout">
           <!-- LEFT SIDEBAR -->
@@ -108,12 +108,12 @@
             <div class="sidebar-section">
               <div class="sidebar-title">Hızlı Presetler</div>
               <div class="preset-chip-row">
-                <button class="preset-chip">Türkçe Pop</button>
-                <button class="preset-chip">Enerjik Pop</button>
-                <button class="preset-chip">Deep House Club</button>
-                <button class="preset-chip">Anadolu Pop</button>
-                <button class="preset-chip">Lo-fi Chill</button>
-                <button class="preset-chip">Slowed + Reverb</button>
+                <button class="preset-chip" data-preset="tr-pop">Türkçe Pop</button>
+                <button class="preset-chip" data-preset="enerjik-pop">Enerjik Pop</button>
+                <button class="preset-chip" data-preset="deep-house">Deep House Club</button>
+                <button class="preset-chip" data-preset="anadolu-pop">Anadolu Pop</button>
+                <button class="preset-chip" data-preset="lofi">Lo-fi Chill</button>
+                <button class="preset-chip" data-preset="slowed">Slowed + Reverb</button>
               </div>
             </div>
 
@@ -128,7 +128,7 @@
 
           <!-- MAIN CENTER -->
           <section class="main-panel">
-            <!-- ========= G E L E N E K S E L ========= -->
+            <!-- ===== GELENEKSEL ===== -->
             <div class="music-view is-active" data-music-view="geleneksel">
               <div class="panel-header">
                 <h1 class="panel-title">Müzik Üret</h1>
@@ -214,14 +214,14 @@
               <div class="card advanced-section" data-visible-in="advanced">
                 <div class="card-title small">Referans Ses Yükle (opsiyonel)</div>
                 <div class="reference-upload">
-                  <div class="upload-dropzone">
+                  <label class="upload-dropzone">
                     <div class="upload-icon">🎧</div>
                     <div class="upload-text">
                       <strong>Ses dosyası seç veya sürükleyip bırak</strong>
                       <span>MP3, WAV, M4A — maksimum 10MB</span>
                     </div>
                     <input type="file" class="upload-input" />
-                  </div>
+                  </label>
                 </div>
               </div>
 
@@ -365,7 +365,7 @@
               </div>
             </div>
 
-            <!-- ====== SES KAYDI ====== -->
+            <!-- ===== SES KAYDI ===== -->
             <div class="music-view" data-music-view="ses-kaydi">
               <div class="panel-header">
                 <h1 class="panel-title">Ses Kaydı</h1>
@@ -394,7 +394,7 @@
 
               <!-- Ana kayıt alanı -->
               <div class="card record-main-card">
-                <!-- YENİ GÖRSEL BLOK: ortadaki yuvarlak + alt efekt -->
+                <!-- YUVARLAK + ÇİZGİ EFEKTİ -->
                 <div class="record-visual">
                   <div class="record-visual-effect">
                     <span class="record-line line-1"></span>
@@ -405,8 +405,23 @@
                     <span class="record-line line-6"></span>
                   </div>
 
-                  <div class="record-visual-circle">
+                  <div class="record-visual-circle" id="recordCircle">
+                    <!-- Buraya kendi mikrofon ikonunun dosya adını yaz -->
                     <img src="mic-icon.png" alt="Mikrofon" class="record-visual-mic" />
+                  </div>
+
+                  <!-- Waveform -->
+                  <div class="record-wave" id="recordWave">
+                    <div class="wave-bar" style="--i:1"></div>
+                    <div class="wave-bar" style="--i:2"></div>
+                    <div class="wave-bar" style="--i:3"></div>
+                    <div class="wave-bar" style="--i:4"></div>
+                    <div class="wave-bar" style="--i:5"></div>
+                    <div class="wave-bar" style="--i:6"></div>
+                    <div class="wave-bar" style="--i:7"></div>
+                    <div class="wave-bar" style="--i:8"></div>
+                    <div class="wave-bar" style="--i:9"></div>
+                    <div class="wave-bar" style="--i:10"></div>
                   </div>
                 </div>
 
@@ -421,7 +436,9 @@
                     ⏺ Kaydı Başlat
                   </button>
 
-                  <p class="record-timer" id="recordTimer">00:00</p>
+                  <div class="record-wave-row">
+                    <p class="record-timer" id="recordTimer">00:00</p>
+                  </div>
 
                   <p class="record-hint">
                     İlk kullanımda tarayıcı mikrofon izni isteyebilir. İzne “İzin ver” demeyi unutma.
@@ -445,7 +462,7 @@
                       class="upload-input"
                       type="file"
                       accept="audio/mp3,audio/mpeg"
-                      id="record-file-input"
+                      id="recordFileInput"
                     />
                   </label>
 
@@ -456,7 +473,7 @@
               </div>
             </div>
 
-            <!-- ========= VOKALE GÖRE ========= -->
+            <!-- ===== VOKALE GÖRE ===== -->
             <div class="music-view" data-music-view="vokale-gore">
               <div class="panel-header">
                 <h1 class="panel-title">Vokale Göre (Yakında)</h1>
@@ -494,7 +511,7 @@
         </div>
       </div>
 
-      <!-- ================== KAPAK / GÖRÜNTÜ SAYFASI ================== -->
+      <!-- ============ KAPAK / GÖRÜNTÜ SAYFASI ============ -->
       <div class="page page-cover" data-page="cover">
         <div class="layout">
           <!-- LEFT SIDEBAR -->
@@ -562,8 +579,7 @@
                       id="coverPrompt"
                       rows="3"
                       maxlength="700"
-                      placeholder="Oluşturmak istediğin görüntüyü detaylı anlat...
-Örn: Gece vakti neon ışıklar altında mor ve mavi tonlarda, enerjik Türkçe pop vibe'lı bir sahne..."
+                      placeholder="Oluşturmak istediğin görüntüyü detaylı anlat..."
                     ></textarea>
                   </div>
 
@@ -659,32 +675,8 @@
                     <div class="gallery-card">
                       <div class="gallery-thumb fake-thumb thumb-1"></div>
                       <div class="gallery-info">
-                        <div class="gallery-title">Göl</div>
-                        <div class="gallery-meta">Spotify Kapak • 1:1</div>
-                      </div>
-                    </div>
-
-                    <div class="gallery-card">
-                      <div class="gallery-thumb fake-thumb thumb-2"></div>
-                      <div class="gallery-info">
-                        <div class="gallery-title"></div>
-                        <div class="gallery-meta">YouTube Cover • 16:9</div>
-                      </div>
-                    </div>
-
-                    <div class="gallery-card">
-                      <div class="gallery-thumb fake-thumb thumb-3"></div>
-                      <div class="gallery-info">
-                        <div class="gallery-title">Tepeleri</div>
-                        <div class="gallery-meta">Apple Music • 1:1</div>
-                      </div>
-                    </div>
-
-                    <div class="gallery-card">
-                      <div class="gallery-thumb fake-thumb thumb-4"></div>
-                      <div class="gallery-info">
-                        <div class="gallery-title">Fiesta – Karayip Renkleri</div>
-                        <div class="gallery-meta">Instagram • 4:5</div>
+                        <div class="gallery-title">Örnek Kapak</div>
+                        <div class="gallery-meta">Spotify • 1:1</div>
                       </div>
                     </div>
                   </div>
@@ -695,7 +687,7 @@
                       <button class="page-btn">2</button>
                       <button class="page-btn">Sonraki</button>
                     </div>
-                    <div class="gallery-count">15 toplam görüntü • Sayfa 1 / 2</div>
+                    <div class="gallery-count">1 örnek görüntü • Sayfa 1 / 1</div>
                   </div>
                 </div>
               </div>
@@ -706,16 +698,14 @@
     </main>
   </div>
 
-  <!-- PRICING FULLSCREEN OVERLAY -->
+  <!-- KREDİ MODALI -->
   <div class="pricing-modal" id="pricingModal">
     <div class="pricing-backdrop"></div>
     <div class="pricing-dialog">
       <div class="pricing-header">
         <div>
           <h2>Kredi Paketleri</h2>
-          <p>
-            AIVO’da daha fazla müzik ve kapak üretmek için ihtiyacına uygun kredi paketini seç.
-          </p>
+          <p>AIVO’da daha fazla müzik ve kapak üretmek için kredi paketi seç.</p>
         </div>
         <button class="icon-button" id="closePricing" aria-label="Kapat">
           ✕
