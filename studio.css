@@ -1633,3 +1633,9 @@ textarea:focus {
   75%  { transform: translateX(-50%) scale(1.09); }
   100% { transform: translateX(-50%) scale(1); }
 }
+/* ==== SES KAYDI – Daireyi tam ortaya yaklaştır ==== */
+.music-view[data-music-view="ses-kaydi"] .record-circle {
+  left: 50%;
+  transform: translateX(-52%); /* -50 yerine -52: hafif sola kaydırır */
+}
+
