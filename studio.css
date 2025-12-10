@@ -989,99 +989,32 @@ textarea:focus {
     grid-template-columns: minmax(0, 1fr);
   }
 }
-/* ==== SES KAYDI – SON DÜZELTME ==== */
-/* ÜST KART: Ses Kaydetme Stüdyosu ile ALT KART arasındaki boşluk */
-.music-view[data-music-view="ses-kaydi"] .record-intro-card {
-  margin-bottom: 140px !important; /* iki kartın arası – daire burada duracak */
-}
+/* =====================================
+   SES KAYDI – DİKEY HİZALAMA (TEMİZ)
+   ===================================== */
 
-/* ALT KART: “Ses Kaydetmeye Başlayın / MP3-WAV Yükle” */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  position: relative !important;
-  margin-top: 0 !important;
-  padding: 80px 40px 30px !important;   /* 80px = daire için üst boşluk */
-  min-height: 230 px !important;         /* KUTUNUN BOYU – kesik çizgiye yakın */
-  display: flex !important;
-  align-items: flex-end !important;
-  justify-content: space-between !important;
-  gap: 32px !important;
-}
-
-/* Sol & sağ sütun: içerik altta hizalansın */
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
-  flex: 1 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: flex-end !important;
-  align-items: flex-start !important;
-  z-index: 2 !important; /* dairenin önünde */
-}
-
-/* DAİRE: üst kart ile alt kartın tam ORTASINDA, ortaya hizalı */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute !important;
-  top: -130px !important;                /* yarısı üstte, yarısı alt kartın içinde */
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  width: 260px !important;
-  height: 260px !important;
-  border-radius: 50%;
-  z-index: 1 !important;
-}
-
-/* Daire içindeki mikrofon */
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  font-size: 60px !important;
-  position: relative !important;
-  z-index: 2 !important;
-}
-/* ==== SES KAYDI – KARTI AŞAĞI UZAT ==== */
-
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  min-height: 180px !important;   /* kutunun boyu: daha aşağı insin */
-  padding-bottom: 40px !important;
-  display: flex !important;
-  align-items: flex-end !important;
-  justify-content: space-between !important;
-}
-
-/* Sol ve sağ kolon içeriği kartın ALTINA yapıştır */
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
-  flex: 1 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: flex-end !important;
-  align-items: flex-start !important;
-}
-/* === ORTA KOLONU TAM YÜKSEKLİK YAP === */
-.layout {
-  align-items: stretch; /* grid item'lar satır yüksekliğini doldursun */
-}
-
-/* Orta kolon (main-panel) tüm yüksekliği kullansın */
+/* Orta kolon yüksekliği doldursun */
 .main-panel {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-/* === SES KAYDI – ALT KARTI KALAN BOŞLUĞU DOLDURSUN === */
-/* Sadece Ses Kaydı görünümünde, alttaki kartı esnetiyoruz */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  flex: 1 !important;          /* Kalan tüm yüksekliği kapla */
-  display: flex !important;
-  align-items: flex-end !important;
-  justify-content: space-between !important;
-}
-
-/* İçerik alt hizalı kalsın */
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
+/* Sadece Ses Kaydı görünümünde dikey layout kullan */
+.music-view[data-music-view="ses-kaydi"] {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
 }
 
+/* Üst kart: her zaman yukarıda */
+.music-view[data-music-view="ses-kaydi"] .record-intro-card {
+  flex: 0 0 auto;
+  margin-bottom: 24px;
+}
+
+/* Alt kart: kolonun EN ALTINA yapışsın */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  flex: 0 0 auto;
+  margin-top: auto;          /* bütün boşluk yukarıda kalır */
+}
