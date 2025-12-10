@@ -2594,18 +2594,27 @@ body.is-recording .record-wave {
 .result-btn.result-delete:hover {
   box-shadow: 0 0 36px rgba(255, 107, 158, 0.98);
 }
-/* === SON ÜRETİLEN MÜZİKLER – AKAN NOTA EFEKTİ === */
+/* === SON ÜRETİLEN MÜZİKLER – AKAN NOTA EFEKTİ (KART GENELİ) === */
 
-.empty-state {
+/* Kartın tamamı animasyon alanı olsun */
+.right-card {
   position: relative;
-  overflow: hidden; /* Notalar dışarı taşmasın */
+  overflow: hidden; /* Notalar kartın dışına taşmasın */
 }
 
+/* Yazı kartın içinde normal dursun */
+.empty-state {
+  position: relative;
+  z-index: 2; /* Notaların üstünde kalsın */
+}
+
+/* Arkadaki akan notalar */
 .empty-notes {
   position: absolute;
   inset: 0;
   pointer-events: none;
   opacity: 0.35;
+  z-index: 1; /* Kartın içinde, yazının arkasında */
 }
 
 .empty-notes span {
@@ -2618,6 +2627,7 @@ body.is-recording .record-wave {
   animation-delay: calc(var(--i, 0) * -1.1s);
 }
 
+/* Yukarıdan aşağı akış animasyonu */
 @keyframes aivoNoteFall {
   0% {
     transform: translate3d(0, -10%, 0) translateX(0);
@@ -2635,4 +2645,5 @@ body.is-recording .record-wave {
     opacity: 0;
   }
 }
+
 
