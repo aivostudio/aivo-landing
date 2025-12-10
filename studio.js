@@ -1,301 +1,373 @@
-// studio.js
-
+// AIVO STUDIO – STUDIO.JS (TEMİZ SÜRÜM)
 document.addEventListener("DOMContentLoaded", () => {
-  /* ===================== SAYFA GEÇİŞLERİ (Müzik / Kapak) ===================== */
+  // ==========================
+  // YARDIMCI FONKSİYONLAR
+  // ==========================
+  const $ = (sel, parent = document) => parent.querySelector(sel);
+  const $$ = (sel, parent = document) => Array.from(parent.querySelectorAll(sel));
 
-  const pages = document.querySelectorAll(".page");
-  const topnavLinks = document.querySelectorAll(".topnav-link[data-page-link]");
+  // ==========================
+  // SAYFA GEÇİŞLERİ (TOP NAV)
+  // ==========================
+  const pages = $$(".page");
+  const topnavLinks = $$(".topnav-link");
 
-  function showPage(name) {
-    pages.forEach((page) => {
-      const isTarget = page.dataset.page === name;
-      page.classList.toggle("is-active", isTarget);
-    });
-  }
-
-  // Üst menü tıklamaları: sadece tıklanan link aktif olsun
   topnavLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
-      const target = link.getAttribute("data-page-link");
-      if (!target) return;
+      const pageKey = link.dataset.pageLink;
+      if (!pageKey) return;
 
-      // Tüm üst linklerden is-active'i kaldır
-      topnavLinks.forEach((l) => l.classList.remove("is-active"));
-      // Sadece tıklananı aktif yap
+      // Topnav aktiflik
+      topnavLinks.forEach((lnk) => lnk.classList.remove("is-active"));
       link.classList.add("is-active");
 
-      // İlgili sayfayı göster (music / cover)
-      showPage(target);
+      // Page göster/gizle
+      pages.forEach((page) => {
+        const key = page.dataset.page;
+        page.classList.toggle("is-active", key === pageKey);
+      });
     });
   });
 
-  // Başlangıç: music sayfasını göster (HTML'de zaten Anasayfa aktif)
-  showPage("music");
+  // Varsayılan: music sayfası açık kalsın
+  const firstPage = $('.page[data-page="music"]');
+  if (firstPage) firstPage.classList.add("is-active");
 
-  /* ===================== MÜZİK İÇİ SEKME GEÇİŞLERİ ===================== */
+  // ==========================
+  // SOL MENÜ – MÜZİK TABS
+  // ==========================
+  const musicTabs = $$("[data-music-tab]");
+  const musicViews = $$("[data-music-view]");
 
-  const musicViews = document.querySelectorAll(".music-view");
+  musicTabs.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = btn.dataset.musicTab;
 
-  function showMusicView(viewName) {
-    musicViews.forEach((view) => {
-      const isTarget = view.dataset.musicView === viewName;
-      view.classList.toggle("is-active", isTarget);
+      musicTabs.forEach((b) => b.classList.remove("is-active"));
+      btn.classList.add("is-active");
+
+      musicViews.forEach((view) => {
+        view.classList.toggle("is-active", view.dataset.musicView === target);
+      });
     });
+  });
 
-    document.querySelectorAll("[data-music-tab]").forEach((btn) => {
-      const target = btn.getAttribute("data-music-tab");
-      btn.classList.toggle("is-active", target === viewName);
-    });
+  // Başlangıçta "geleneksel" açılsın
+  const gelenekselTab = $('[data-music-tab="geleneksel"]');
+  const gelenekselView = $('[data-music-view="geleneksel"]');
+  if (gelenekselTab && gelenekselView) {
+    gelenekselTab.classList.add("is-active");
+    gelenekselView.classList.add("is-active");
   }
 
-  document.querySelectorAll("[data-music-tab]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const target = btn.getAttribute("data-music-tab");
-      if (!target) return;
-      showMusicView(target);
-    });
-  });
-
-  // Başlangıç: Geleneksel
-  showMusicView("geleneksel");
-
-  /* ===================== ÇALIŞMA MODU (Basit / Gelişmiş) ===================== */
-
-  const modeButtons = document.querySelectorAll(".mode-btn[data-mode-button]");
-  const advancedSections = document.querySelectorAll(
-    ".advanced-section[data-visible-in]"
-  );
+  // ==========================
+  // ÇALIŞMA MODU (BASİT / GELİŞMİŞ)
+  // ==========================
+  const modeButtons = $$("[data-mode-button]");
   const body = document.body;
+  const advancedSections = $$(".advanced-section");
 
-  function setMode(mode) {
-    body.setAttribute("data-mode", mode);
+  const applyMode = (mode) => {
+    body.dataset.mode = mode;
 
     modeButtons.forEach((btn) => {
-      const btnMode = btn.getAttribute("data-mode-button");
+      const btnMode = btn.dataset.modeButton;
       btn.classList.toggle("is-active", btnMode === mode);
     });
 
-    advancedSections.forEach((section) => {
-      const visibleIn = section.getAttribute("data-visible-in") || "";
-      const shouldShow = visibleIn
-        .split(",")
-        .map((s) => s.trim())
-        .includes(mode);
-      section.style.display = shouldShow ? "" : "none";
+    advancedSections.forEach((sec) => {
+      const visibleIn = sec.dataset.visibleIn || "advanced";
+      sec.style.display = visibleIn === mode ? "block" : "none";
     });
-  }
+  };
 
   modeButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
-      const mode = btn.getAttribute("data-mode-button");
-      if (!mode) return;
-      setMode(mode);
+      const mode = btn.dataset.modeButton || "advanced";
+      applyMode(mode);
     });
   });
 
-  // Başlangıç modu: advanced
-  setMode("advanced");
+  // Varsayılan: gelişmiş
+  applyMode("advanced");
 
-  /* ===================== KREDİ / PRICING MODAL ===================== */
+  // ==========================
+  // KREDİ MODAL (PRICING)
+  // ==========================
+  const pricingModal = $("#pricingModal");
+  const openPricingButtons = $$("[data-open-pricing], #creditsButton");
+  const closePricingButton = $("#closePricing");
 
-  const pricingModal = document.getElementById("pricingModal");
-  const pricingBackdrop = pricingModal?.querySelector(".pricing-backdrop");
-  const closePricingBtn = document.getElementById("closePricing");
+  if (pricingModal) {
+    const openPricing = () => pricingModal.classList.add("is-visible");
+    const closePricing = () => pricingModal.classList.remove("is-visible");
 
-  function openPricing() {
-    if (!pricingModal) return;
-    pricingModal.classList.add("is-open");
+    openPricingButtons.forEach((btn) =>
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        openPricing();
+      })
+    );
+
+    if (closePricingButton) {
+      closePricingButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        closePricing();
+      });
+    }
+
+    const backdrop = $(".pricing-backdrop", pricingModal);
+    if (backdrop) {
+      backdrop.addEventListener("click", closePricing);
+    }
   }
 
-  function closePricing() {
-    if (!pricingModal) return;
-    pricingModal.classList.remove("is-open");
-  }
+  // ==========================
+  // SES KAYDI – DEĞİŞKENLER
+  // ==========================
+  const recordCard = $(".record-main-card");
+  const recordToggleBtn = $("#recordToggleBtn");
+  const recordTimerEl = $("#recordTimer");
+  const recordingOverlay = $("#recordingOverlay");
+  const overlayStopBtn = $("#overlayStopBtn");
+  const overlayCancelBtn = $("#overlayCancelBtn");
 
-  document.querySelectorAll("[data-open-pricing]").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      openPricing();
-    });
-  });
+  const resultCard = $("#recordResultCard");
+  const resultTimeEl = $("#recordResultTime");
+  const resultPlayBtn = $("#resultPlayBtn");
+  const resultDownloadBtn = $("#resultDownloadBtn");
+  const resultMusicBtn = $("#resultMusicBtn");
+  const resultDeleteBtn = $("#resultDeleteBtn");
 
-  if (closePricingBtn) closePricingBtn.addEventListener("click", closePricing);
-  if (pricingBackdrop) pricingBackdrop.addEventListener("click", closePricing);
+  const fileInput = $("#record-file-input");
 
-  /* ===================== SES KAYIT MODALI + UI AKIŞI ===================== */
+  let mediaRecorder = null;
+  let recordChunks = [];
+  let recordTimer = null;
+  let recordSeconds = 0;
+  let recordedUrl = null;
+  let audioPlayer = null;
 
-  const recordBtn = document.getElementById("recordBtn");
-  const recordingOverlay = document.getElementById("recordingOverlay");
-  const modalStopBtn = document.getElementById("modalStopBtn");
-  const modalCancelBtn = document.getElementById("modalCancelBtn");
-
-  const recordingTimerEl = document.getElementById("recordingTimer");
-  const recordingRemainingEl = document.getElementById("recordingRemaining");
-  const recordingProgressBar = document.getElementById("recordingProgressBar");
-  const recordMainTimerEl = document.getElementById("recordMainTimer");
-
-  const recordMainTitleEl = document.getElementById("recordMainTitle");
-  const recordMainDescEl = document.getElementById("recordMainDescription");
-
-  const recordResultCard = document.getElementById("recordResultCard");
-  const recordedDurationEl = document.getElementById("recordedDuration");
-
-  const recordCircle = document.querySelector(".record-circle");
-
-  const MAX_SECONDS = 120; // 2 dk
-  let isRecording = false;
-  let startTime = null;
-  let recordInterval = null;
-
-  function formatTime(sec) {
-    const m = String(Math.floor(sec / 60)).padStart(2, "0");
-    const s = String(sec % 60).padStart(2, "0");
+  // ==========================
+  // ZAMAN FORMAT
+  // ==========================
+  const formatTime = (totalSec) => {
+    const m = String(Math.floor(totalSec / 60)).padStart(2, "0");
+    const s = String(totalSec % 60).padStart(2, "0");
     return `${m}:${s}`;
-  }
+  };
 
-  function openRecordingModal() {
-    if (!recordingOverlay) return;
-    recordingOverlay.classList.add("is-open");
-  }
-
-  function closeRecordingModal() {
-    if (!recordingOverlay) return;
-    recordingOverlay.classList.remove("is-open");
-  }
-
-  function startRecordingUI() {
-    isRecording = true;
-    startTime = Date.now();
-
-    if (recordBtn) {
-      recordBtn.textContent = "⏹ Kaydı Durdur";
-      recordBtn.classList.add("recording");
+  // ==========================
+  // OVERLAY AÇ/KAPAT
+  // ==========================
+  const openOverlay = () => {
+    if (recordingOverlay) {
+      recordingOverlay.classList.add("is-visible");
     }
+  };
 
-    if (recordMainTitleEl) recordMainTitleEl.textContent = "Kayıt Devam Ediyor.";
-    if (recordMainDescEl)
-      recordMainDescEl.textContent = "Kaydı durdurmak için butona tıklayın.";
+  const closeOverlay = () => {
+    if (recordingOverlay) {
+      recordingOverlay.classList.remove("is-visible");
+    }
+  };
 
-    if (recordMainTimerEl) recordMainTimerEl.textContent = "00:00";
-    if (recordingTimerEl) recordingTimerEl.textContent = "00:00";
-    if (recordingRemainingEl)
-      recordingRemainingEl.textContent = formatTime(MAX_SECONDS);
-    if (recordingProgressBar) recordingProgressBar.style.width = "0%";
+  // ==========================
+  // SONUÇ KARTI
+  // ==========================
+  const showResultCard = (durationSec) => {
+    if (!resultCard) return;
 
-    openRecordingModal();
+    if (resultTimeEl) {
+      resultTimeEl.textContent = formatTime(durationSec);
+    }
+    resultCard.classList.add("is-visible");
+  };
 
-    // Buraya gerçek getUserMedia kaydını bağlayabilirsin:
-    // startMicrophoneRecording();
+  const hideResultCard = () => {
+    if (!resultCard) return;
+    resultCard.classList.remove("is-visible");
 
-    recordInterval = setInterval(() => {
-      const diffMs = Date.now() - startTime;
-      const diffSec = Math.floor(diffMs / 1000);
-      const remaining = Math.max(0, MAX_SECONDS - diffSec);
+    if (audioPlayer) {
+      audioPlayer.pause();
+      audioPlayer.currentTime = 0;
+    }
+    if (recordedUrl) {
+      URL.revokeObjectURL(recordedUrl);
+      recordedUrl = null;
+    }
+  };
 
-      const tStr = formatTime(diffSec);
-      if (recordMainTimerEl) recordMainTimerEl.textContent = tStr;
-      if (recordingTimerEl) recordingTimerEl.textContent = tStr;
-      if (recordingRemainingEl)
-        recordingRemainingEl.textContent = formatTime(remaining);
+  // ==========================
+  // KAYIT ZAMANLAYICI
+  // ==========================
+  const startTimer = () => {
+    recordSeconds = 0;
+    if (recordTimerEl) recordTimerEl.textContent = "00:00";
 
-      const percent = Math.min(100, (diffSec / MAX_SECONDS) * 100);
-      if (recordingProgressBar) {
-        recordingProgressBar.style.width = percent + "%";
+    recordTimer = setInterval(() => {
+      recordSeconds += 1;
+      if (recordTimerEl) recordTimerEl.textContent = formatTime(recordSeconds);
+    }, 1000);
+  };
+
+  const stopTimer = () => {
+    if (recordTimer) {
+      clearInterval(recordTimer);
+      recordTimer = null;
+    }
+  };
+
+  // ==========================
+  // KAYIT BAŞLAT
+  // ==========================
+  const startRecording = async () => {
+    if (!recordToggleBtn || !recordCard) return;
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+      recordChunks = [];
+      mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) recordChunks.push(e.data);
+      };
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(recordChunks, { type: "audio/mp3" });
+        recordedUrl = URL.createObjectURL(blob);
+        audioPlayer = new Audio(recordedUrl);
+
+        showResultCard(recordSeconds);
+      };
+
+      mediaRecorder.start();
+
+      // UI
+      recordCard.classList.add("is-recording");
+      if (recordToggleBtn) {
+        recordToggleBtn.textContent = "⏹ Kaydı Durdur";
       }
-
-      if (diffSec >= MAX_SECONDS) {
-        stopRecordingUI(true);
-      }
-    }, 250);
-  }
-
-  function stopRecordingUI(autoByLimit = false) {
-    isRecording = false;
-
-    if (recordBtn) {
-      recordBtn.textContent = "⏺ Kaydı Başlat";
-      recordBtn.classList.remove("recording");
+      startTimer();
+      openOverlay();
+    } catch (err) {
+      console.error("Mikrofon hatası:", err);
+      alert("Mikrofon izni alınamadı veya desteklenmiyor.");
     }
+  };
 
-    if (recordMainTitleEl)
-      recordMainTitleEl.textContent = "Ses Kaydetmeye Başlayın";
-    if (recordMainDescEl)
-      recordMainDescEl.textContent = "Butona tıklayarak kayıt modunu açın.";
+  // ==========================
+  // KAYIT DURDUR
+  // ==========================
+  const stopRecording = () => {
+    if (!recordToggleBtn || !recordCard) return;
 
-    if (recordInterval) {
-      clearInterval(recordInterval);
-      recordInterval = null;
+    if (mediaRecorder && mediaRecorder.state === "recording") {
+      mediaRecorder.stop();
     }
+    stopTimer();
+    recordCard.classList.remove("is-recording");
+    closeOverlay();
 
-    const diffSec = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
-    const tStr = formatTime(diffSec);
-
-    if (recordMainTimerEl) recordMainTimerEl.textContent = tStr;
-    if (recordedDurationEl) recordedDurationEl.textContent = tStr;
-
-    closeRecordingModal();
-
-    // stopMicrophoneRecording();
-
-    if (recordResultCard && !autoByLimit) {
-      recordResultCard.classList.add("is-visible");
+    if (recordToggleBtn) {
+      recordToggleBtn.textContent = "⏺ Kaydı Başlat";
     }
-  }
+  };
 
-  function cancelRecordingUI() {
-    isRecording = false;
-
-    if (recordBtn) {
-      recordBtn.textContent = "⏺ Kaydı Başlat";
-      recordBtn.classList.remove("recording");
-    }
-
-    if (recordMainTitleEl)
-      recordMainTitleEl.textContent = "Ses Kaydetmeye Başlayın";
-    if (recordMainDescEl)
-      recordMainDescEl.textContent = "Butona tıklayarak kayıt modunu açın.";
-
-    if (recordInterval) {
-      clearInterval(recordInterval);
-      recordInterval = null;
-    }
-
-    closeRecordingModal();
-    if (recordMainTimerEl) recordMainTimerEl.textContent = "00:00";
-
-    // cancelMicrophoneRecording();
-  }
-
-  // Ana kayıt butonu
-  if (recordBtn) {
-    recordBtn.addEventListener("click", () => {
-      if (!isRecording) {
-        startRecordingUI();
+  // ==========================
+  // KAYIT BUTONU
+  // ==========================
+  if (recordToggleBtn) {
+    recordToggleBtn.addEventListener("click", () => {
+      if (mediaRecorder && mediaRecorder.state === "recording") {
+        stopRecording();
       } else {
-        stopRecordingUI(false);
+        startRecording();
       }
     });
   }
 
-  // Yuvarlak kayıt dairesi de buton gibi çalışsın
-  if (recordCircle && recordBtn) {
-    recordCircle.style.cursor = "pointer";
-    recordCircle.addEventListener("click", () => {
-      recordBtn.click();
+  // ==========================
+  // OVERLAY BUTONLARI
+  // ==========================
+  if (overlayStopBtn) {
+    overlayStopBtn.addEventListener("click", () => {
+      stopRecording();
     });
   }
 
-  // Modal içi butonlar
-  if (modalStopBtn) {
-    modalStopBtn.addEventListener("click", () => {
-      if (isRecording) {
-        stopRecordingUI(false);
+  if (overlayCancelBtn) {
+    overlayCancelBtn.addEventListener("click", () => {
+      // Kaydı tamamen iptal et
+      stopRecording();
+      hideResultCard();
+    });
+  }
+
+  // ==========================
+  // MP3 YÜKLEME (FILE INPUT)
+  // ==========================
+  if (fileInput) {
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith("audio/")) {
+        alert("Lütfen bir ses dosyası seçin (MP3).");
+        return;
+      }
+
+      if (recordedUrl) {
+        URL.revokeObjectURL(recordedUrl);
+      }
+
+      recordedUrl = URL.createObjectURL(file);
+      audioPlayer = new Audio(recordedUrl);
+      recordSeconds = Math.floor(file.duration || 5); // Bilinmiyorsa tahmini
+
+      showResultCard(recordSeconds || 5);
+    });
+  }
+
+  // ==========================
+  // SONUÇ KARTI BUTONLARI
+  // ==========================
+  if (resultPlayBtn) {
+    resultPlayBtn.addEventListener("click", () => {
+      if (!audioPlayer) return;
+      if (audioPlayer.paused) {
+        audioPlayer.currentTime = 0;
+        audioPlayer.play();
+      } else {
+        audioPlayer.pause();
       }
     });
   }
 
-  if (modalCancelBtn) {
-    modalCancelBtn.addEventListener("click", cancelRecordingUI);
+  if (resultDownloadBtn) {
+    resultDownloadBtn.addEventListener("click", () => {
+      if (!recordedUrl) return;
+
+      const a = document.createElement("a");
+      a.href = recordedUrl;
+      a.download = "aivo-kayit.mp3";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+  }
+
+  if (resultMusicBtn) {
+    resultMusicBtn.addEventListener("click", () => {
+      alert(
+        "Bu kayıt ileride müzik üretiminde referans ses olarak kullanılacak (MVP'de sadece görsel)."
+      );
+    });
+  }
+
+  if (resultDeleteBtn) {
+    resultDeleteBtn.addEventListener("click", () => {
+      hideResultCard();
+    });
   }
 });
