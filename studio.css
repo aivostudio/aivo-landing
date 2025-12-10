@@ -2488,7 +2488,7 @@ body.is-recording .record-wave {
   background: rgba(8, 11, 36, 0.92);
   border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, 0.04);
-  padding: 14px 16px;
+  padding: 16px 18px;
   display: none;
 }
 
@@ -2502,7 +2502,7 @@ body.is-recording .record-wave {
   align-items: center;
   color: #f5f5ff;
   font-size: 14px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .record-result-time {
@@ -2513,92 +2513,50 @@ body.is-recording .record-wave {
 
 .record-result-actions {
   display: flex;
-  gap: 10px;
+  gap: 12px;
+  align-items: center;
 }
 
+/* Ortak buton stili */
+
 .result-btn {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.result-play {
-  background: #00d26a;
-}
-.result-download {
-  background: #4b7bff;
-}
-.result-music {
-  background: #ff9f43;
-}
-.result-delete {
-  background: #ff4757;
-  color: #fff;
-}
-
-/* Kayıt aktifken ana buton rengi */
-
-.primary-btn.recording {
-  background: linear-gradient(135deg, #ff9ff3, #a18bff) !important;
-}
-.record-circle {
-  cursor: pointer;
-}
-/* ===================== KAYDEDİLEN SES BUTONLARI ===================== */
-
-.record-result-buttons {
-  display: flex;
-  gap: 14px;
-  margin-top: 14px;
-}
-
-.result-btn {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 22px;
+  color: #ffffff;
+  font-size: 20px;
   cursor: pointer;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.05);
-  transition: 0.25s ease;
-  box-shadow: 0 0 0 transparent;
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+  transition: box-shadow 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
 }
 
-/* Play */
-.result-btn.play {
-  background: linear-gradient(145deg, #a974ff, #6c5ce7);
+/* Play (mor ton) */
+.result-btn.result-play {
+  background: linear-gradient(135deg, #a974ff, #6c5ce7);
 }
-.result-btn.play:hover {
-  box-shadow: 0 0 12px #a974ff;
-}
-
-/* Download */
-.result-btn.download {
-  background: linear-gradient(145deg, #6c8bff, #4e5bff);
-}
-.result-btn.download:hover {
-  box-shadow: 0 0 12px #6c8bff;
+.result-btn.result-play:hover {
+  box-shadow: 0 0 14px rgba(169, 116, 255, 0.9);
+  transform: translateY(-1px);
 }
 
-/* Music */
-.result-btn.music {
-  background: linear-gradient(145deg, #ff72d2, #ff4fb3);
+/* Download (lacivert-mavi) */
+.result-btn.result-download {
+  background: linear-gradient(135deg, #6c8bff, #4e5bff);
 }
-.result-btn.music:hover {
-  box-shadow: 0 0 12px #ff4fb3;
+.result-btn.result-download:hover {
+  box-shadow: 0 0 14px rgba(108, 139, 255, 0.9);
+  transform: translateY(-1px);
 }
 
-/* Trash */
-.result-btn.delete {
-  background: linear-gradient(145deg, #3a0c27, #74173a);
+/* Music (pembe-lila) */
+.result-btn.result-music {
+  background: linear-gradient(135deg, #ff72d2, #ff4fb3);
 }
-.result-btn.delete:hover {
-  box-shadow: 0 0 12px #ff2f6c;
-}
+.result-btn.result-music:hover {
+  box-shadow: 0 0 14px rgba(255, 114, 210, 0.95);
+  transform: translateY
