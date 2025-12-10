@@ -40,9 +40,9 @@
       </div>
     </header>
 
-    <!-- PAGES (SPA) -->
+    <!-- PAGES -->
     <main class="main-pages">
-      <!-- ================== MÜZİK SAYFASI ================== -->
+      <!-- ============= MÜZİK SAYFASI ============= -->
       <div class="page page-music is-active" data-page="music">
         <div class="layout">
           <!-- LEFT SIDEBAR -->
@@ -52,7 +52,6 @@
 
               <!-- MÜZİK ÜRET GRUBU -->
               <div class="sidebar-group">
-                <!-- Ana satır: alt menüyü aç/kapa yapar -->
                 <button
                   type="button"
                   class="sidebar-link sidebar-link-main is-open"
@@ -62,9 +61,7 @@
                   <span class="sidebar-arrow">▾</span>
                 </button>
 
-                <!-- Alt seçenekler -->
                 <div class="sidebar-submenu is-open" data-submenu="music">
-                  <!-- Varsayılan açık sekme -->
                   <button
                     type="button"
                     class="sidebar-sublink is-active"
@@ -91,7 +88,6 @@
                 </div>
               </div>
 
-              <!-- Diğer menü elemanları -->
               <button class="sidebar-link" data-page-link="music">
                 <span>Ürettiklerim</span>
               </button>
@@ -132,7 +128,7 @@
 
           <!-- MAIN CENTER -->
           <section class="main-panel">
-            <!-- ========= G E L E N E K S E L  (Müzik Üret) ========= -->
+            <!-- ====== GELENEKSEL (MÜZİK ÜRET) ====== -->
             <div class="music-view is-active" data-music-view="geleneksel">
               <div class="panel-header">
                 <h1 class="panel-title">Müzik Üret</h1>
@@ -214,7 +210,7 @@
                 </div>
               </div>
 
-              <!-- REFERANS SES (GELİŞMİŞ) -->
+              <!-- REFERANS SES -->
               <div class="card advanced-section" data-visible-in="advanced">
                 <div class="card-title small">Referans Ses Yükle (opsiyonel)</div>
                 <div class="reference-upload">
@@ -278,7 +274,7 @@
                 </div>
               </div>
 
-              <!-- ENSTRÜMANLAR (GELİŞMİŞ) -->
+              <!-- ENSTRÜMANLAR -->
               <div class="card advanced-section" data-visible-in="advanced">
                 <div class="form-grid">
                   <div class="form-field half">
@@ -369,133 +365,79 @@
               </div>
             </div>
 
-          <!-- ========= S E S   K A Y D I  ========= -->
-<div class="music-view" data-music-view="ses-kaydi">
-  <div class="panel-header">
-    <h1 class="panel-title">Ses Kaydı</h1>
-    <p class="panel-subtitle">
-      Mikrofonundan ses kaydet ya da hazır ses dosyası yükle; AIVO müziğini buna göre şekillendirsin.
-    </p>
-  </div>
+            <!-- ====== SES KAYDI ====== -->
+            <div class="music-view" data-music-view="ses-kaydi">
+              <div class="panel-header">
+                <h1 class="panel-title">Ses Kaydı</h1>
+                <p class="panel-subtitle">
+                  Mikrofonundan ses kaydet ya da hazır ses dosyası yükle; AIVO müziğini buna göre şekillendirsin.
+                </p>
+              </div>
 
-  <!-- Üst bilgi kartı -->
-  <div class="card record-intro-card">
-    <div class="record-intro-left">
-      <h3 class="record-intro-title">Ses Kaydetme Stüdyosu</h3>
-      <p class="record-intro-text">
-        Müzik üretiminde kullanmak istediğin vokali veya rehber melodiyi burada kaydedebilirsin.
-      </p>
-      <ul class="record-badges">
-        <li>🎙 Yüksek kalite kayıt</li>
-        <li>⏱ Maksimum 120 saniye</li>
-        <li>🎧 MP3 destekli</li>
-      </ul>
-    </div>
-    <div class="record-intro-right">
-      <span class="record-pill">Mikrofon + Dosya Yükleme</span>
-    </div>
-  </div>
+              <!-- Üst bilgi kartı -->
+              <div class="card record-intro-card">
+                <div class="record-intro-left">
+                  <h3 class="record-intro-title">Ses Kaydetme Stüdyosu</h3>
+                  <p class="record-intro-text">
+                    Müzik üretiminde kullanmak istediğin vokali veya rehber melodiyi burada kaydedebilirsin.
+                  </p>
+                  <ul class="record-badges">
+                    <li>🎙 Yüksek kalite kayıt</li>
+                    <li>⏱ Maksimum 120 saniye</li>
+                    <li>🎧 MP3 destekli</li>
+                  </ul>
+                </div>
+                <div class="record-intro-right">
+                  <span class="record-pill">Mikrofon + Dosya Yükleme</span>
+                </div>
+              </div>
 
-  <!-- Ana kayıt / upload alanı -->
-  <div class="card record-main-card">
-    <!-- ORTA DAİRE -->
-    <div class="record-circle">
-      <div class="record-icon">🎤</div>
-    </div>
-
-    <!-- SOL: Kayıt -->
-    <div class="record-main-left">
-      <h3 class="record-main-title">Ses Kaydetmeye Başlayın</h3>
-      <p class="record-main-text">
-        Butona tıklayarak kayıt modunu açın.
-      </p>
-
-      <button class="primary-btn record-btn" type="button">
-        ⏺ Kaydı Başlat
-      </button>
-
-      <!-- Waveform + süre -->
-      <div class="record-wave-row">
-        <div class="record-wave" aria-hidden="true"></div>
-        <div class="record-timer">00:00</div>
-      </div>
-
-      <p class="record-hint">
-        İlk kullanımda tarayıcı mikrofon izni isteyebilir. İzne “İzin ver” demeyi unutma.
-      </p>
-    </div>
-
-    <div class="record-main-right">
-  <h4 class="record-upload-title">MP3 Dosyası Yükle</h4>
-  <p class="record-upload-text">
-    Mikrofondan kayıt almak yerine daha önce kaydettiğin bir MP3 ses dosyasını yükleyebilirsin.
-  </p>
-
-  <label class="upload-dropzone record-upload-dropzone">
-    <div class="upload-icon">⬆️</div>
-    <div class="upload-text">
-      <strong>Ses dosyası seç veya sürükleyip bırak</strong>
-      <span>MP3 — maksimum 10MB</span>
-    </div>
-    <input
-      class="upload-input"
-      type="file"
-      accept="audio/mp3,audio/mpeg"
-    />
-  </label> <!-- BAK! BU SATIR ÇOK ÖNEMLİ -->
-
-  <p class="record-upload-hint">
-    Yüklediğin ses dosyası analiz edilerek ritim, tempo ve vokal karakteri AIVO üretimine yansıtılır.
-  </p>
-</div>
-
-
-              <!-- Ana kayıt / upload alanı -->
+              <!-- Ana kayıt alanı -->
               <div class="card record-main-card">
-                <div class="record-main-left">
-  <div class="record-circle">
-    <div class="record-icon">🎤</div>
-  </div>
-
-  <h3 class="record-main-title">Ses Kaydetmeye Başlayın</h3>
-  <p class="record-main-text">
-    Butona tıklayarak kayıt modunu açın.
-  </p>
-
-  <button class="primary-btn record-btn" type="button">
-    ⏺ Kaydı Başlat
-  </button>
-
-  <!-- KAYIT SIRASINDA GÖRÜNECEK WAVEFORM + SÜRE -->
-  <div class="record-wave-row">
-    <div class="record-wave" aria-hidden="true"></div>
-    <div class="record-timer">00:00</div>
-  </div>
-
-  <p class="record-hint">
-    İlk kullanımda tarayıcı mikrofon izni isteyebilir. İzne “İzin ver” demeyi unutma.
-  </p>
-</div>
-
+                <!-- Daire -->
+                <div class="record-circle">
+                  <div class="record-icon">🎤</div>
                 </div>
 
+                <!-- Sol blok: kayıt -->
+                <div class="record-main-left">
+                  <h3 class="record-main-title">Ses Kaydetmeye Başlayın</h3>
+                  <p class="record-main-text">
+                    Butona tıklayarak kayıt modunu açın.
+                  </p>
+
+                  <button class="primary-btn record-btn" type="button">
+                    ⏺ Kaydı Başlat
+                  </button>
+
+                  <!-- Waveform + süre (görsel) -->
+                  <div class="record-wave-row">
+                    <div class="record-wave" aria-hidden="true"></div>
+                    <div class="record-timer">00:00</div>
+                  </div>
+
+                  <p class="record-hint">
+                    İlk kullanımda tarayıcı mikrofon izni isteyebilir. İzne “İzin ver” demeyi unutma.
+                  </p>
+                </div>
+
+                <!-- Sağ blok: MP3 yükleme -->
                 <div class="record-main-right">
                   <h4 class="record-upload-title">MP3 Dosyası Yükle</h4>
-...
-<span>MP3 — maksimum 10MB</span>
-...
-<input
-  class="upload-input"
-  type="file"
-  accept="audio/mp3,audio/mpeg"
-  id="record-file-input"
-/>
+                  <p class="record-upload-text">
+                    Mikrofondan kayıt almak yerine daha önce kaydettiğin bir MP3 ses dosyasını yükleyebilirsin.
+                  </p>
 
+                  <label class="upload-dropzone record-upload-dropzone">
+                    <div class="upload-icon">⬆️</div>
+                    <div class="upload-text">
+                      <strong>Ses dosyası seç veya sürükleyip bırak</strong>
+                      <span>MP3 — maksimum 10MB</span>
                     </div>
                     <input
                       class="upload-input"
                       type="file"
-                      accept="audio/mp3,audio/mpeg,audio/wav"
+                      accept="audio/mp3,audio/mpeg"
                       id="record-file-input"
                     />
                   </label>
@@ -507,7 +449,7 @@
               </div>
             </div>
 
-            <!-- ========= V O K A L E   G Ö R E  ========= -->
+            <!-- ====== VOKALE GÖRE ====== -->
             <div class="music-view" data-music-view="vokale-gore">
               <div class="panel-header">
                 <h1 class="panel-title">Vokale Göre (Yakında)</h1>
@@ -545,7 +487,7 @@
         </div>
       </div>
 
-      <!-- ================== KAPAK / GÖRÜNTÜ SAYFASI ================== -->
+      <!-- ============= KAPAK / GÖRSEL SAYFASI ============= -->
       <div class="page page-cover" data-page="cover">
         <div class="layout">
           <!-- LEFT SIDEBAR -->
@@ -594,7 +536,7 @@
             </div>
 
             <div class="cover-grid">
-              <!-- SOL: YENİ GÖRÜNTÜ -->
+              <!-- SOL: Yeni görüntü -->
               <div class="card cover-left">
                 <div class="card-header">
                   <div>
@@ -688,7 +630,7 @@
                 </div>
               </div>
 
-              <!-- SAĞ: GALERİ -->
+              <!-- SAĞ: Galeri -->
               <div class="cover-right">
                 <div class="card cover-gallery-card">
                   <div class="card-header">
@@ -757,7 +699,7 @@
     </main>
   </div>
 
-  <!-- PRICING FULLSCREEN OVERLAY -->
+  <!-- PRICING MODAL -->
   <div class="pricing-modal" id="pricingModal">
     <div class="pricing-backdrop"></div>
     <div class="pricing-dialog">
