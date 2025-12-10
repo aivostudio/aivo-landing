@@ -1280,3 +1280,23 @@ textarea:focus {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+/* ================================
+   PANELLER SÜTUNUNU AŞAĞI KADAR UZAT
+   ================================ */
+
+/* Sol paneldeki tüm grup yukarıdan aşağıya tam uzasın */
+.sidebar {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+
+/* En alttaki "İPUCU" kartı kalan boşluğu doldursun */
+.sidebar-section.hint-card {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important; /* Yazı yukarı, boşluk aşağı */
+}
+
