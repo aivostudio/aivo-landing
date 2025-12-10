@@ -1386,7 +1386,7 @@ textarea:focus {
   animation: spinRing 26s linear infinite;
 }
 /* =========================================
-   SES KAYDI – AIVO DÜZENİ (TEK BLOK)
+   SES KAYDI – AIVO DÜZENİ (FINAL)
    ========================================= */
 
 /* Üst bilgi kartı: Ses Kaydetme Stüdyosu */
@@ -1407,10 +1407,10 @@ textarea:focus {
 .music-view[data-music-view="ses-kaydi"] .record-main-card {
   position: relative;
   margin-top: 0;
-  padding: 90px 40px 40px;   /* 120 yerine 90 → yazılar daireye yaklaştı */
+  padding: 90px 40px 40px;   /* yazıları daireye yaklaştırır */
   min-height: 320px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;       /* İÇERİĞİ DİKEYDE ORTALAR (artık dipte değil) */
   justify-content: space-between;
   gap: 32px;
 }
@@ -1418,7 +1418,7 @@ textarea:focus {
 /* Daire: üst kart ile alt kartın arasında, ortada */
 .music-view[data-music-view="ses-kaydi"] .record-circle {
   position: absolute;
-  top: -110px;               /* dairenin yeri sabit */
+  top: -110px;
   left: 50%;
   transform: translateX(-50%);
   width: 220px;
@@ -1469,7 +1469,3 @@ textarea:focus {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-
-
-
-
