@@ -394,6 +394,7 @@
 
               <!-- Ana kayıt alanı -->
               <div class="card record-main-card">
+
                 <!-- DAİRE -->
                 <div class="record-circle">
                   <div class="record-icon">🎤</div>
@@ -415,16 +416,16 @@
 
                 <!-- Sol blok: kayıt -->
                 <div class="record-main-left">
-                  <h3 class="record-main-title" id="recordMainTitle">Ses Kaydetmeye Başlayın</h3>
-                  <p class="record-main-text" id="recordMainDescription">
+                  <h3 class="record-main-title">Ses Kaydetmeye Başlayın</h3>
+                  <p class="record-main-text">
                     Butona tıklayarak kayıt modunu açın.
                   </p>
 
-                  <button class="primary-btn record-btn" type="button" id="recordBtn">
+                  <button class="primary-btn record-btn" type="button" id="recordToggleBtn">
                     ⏺ Kaydı Başlat
                   </button>
 
-                  <p class="record-timer" id="recordMainTimer">00:00</p>
+                  <p class="record-timer" id="recordTimer">00:00</p>
 
                   <p class="record-hint">
                     İlk kullanımda tarayıcı mikrofon izni isteyebilir. İzne “İzin ver” demeyi unutma.
@@ -455,28 +456,6 @@
                   <p class="record-upload-hint">
                     Yüklediğin ses dosyası analiz edilerek ritim, tempo ve vokal karakteri AIVO üretimine yansıtılır.
                   </p>
-                </div>
-              </div>
-
-              <!-- KAYIT SONUCU KARTI (EITA TARZI SON EKRAN) -->
-              <div class="record-result-card" id="recordResultCard">
-                <div class="record-result-header">
-                  <span>Kaydedilen Ses (MP3)</span>
-                  <span class="record-result-time" id="recordedDuration">00:00</span>
-                </div>
-                <div class="record-result-actions">
-                  <button class="result-btn result-play" type="button">
-                    ▶︎
-                  </button>
-                  <button class="result-btn result-download" type="button">
-                    ⬇︎
-                  </button>
-                  <button class="result-btn result-music" type="button">
-                    🎵
-                  </button>
-                  <button class="result-btn result-delete" type="button">
-                    🗑
-                  </button>
                 </div>
               </div>
             </div>
@@ -729,50 +708,6 @@
         </div>
       </div>
     </main>
-  </div>
-
-  <!-- KAYIT MODALI (EITA TARZI) -->
-  <div class="recording-overlay" id="recordingOverlay">
-    <div class="recording-dialog">
-      <div class="recording-dialog-header">
-        <div class="recording-icon-circle">
-          <i class="icon-mic"></i>
-        </div>
-        <div class="recording-title-wrap">
-          <h2 class="recording-title">Kayıt Yapılıyor...</h2>
-          <p class="recording-subtitle">
-            Kalan süre: <span id="recordingRemaining">02:00</span>
-          </p>
-        </div>
-      </div>
-
-      <div class="recording-timer-row">
-        <span class="recording-timer-label">Süre</span>
-        <span class="recording-timer-value" id="recordingTimer">00:00</span>
-      </div>
-
-      <div class="recording-progress">
-        <div class="recording-progress-bar" id="recordingProgressBar"></div>
-      </div>
-
-      <div class="recording-waveform">
-        <div class="recording-wave-bar"></div>
-        <div class="recording-wave-bar"></div>
-        <div class="recording-wave-bar"></div>
-        <div class="recording-wave-bar"></div>
-        <div class="recording-wave-bar"></div>
-        <div class="recording-wave-bar"></div>
-        <div class="recording-wave-bar"></div>
-        <div class="recording-wave-bar"></div>
-        <div class="recording-wave-bar"></div>
-        <div class="recording-wave-bar"></div>
-      </div>
-
-      <div class="recording-dialog-footer">
-        <button class="btn-primary" id="modalStopBtn">Kaydı Durdur</button>
-        <button class="btn-ghost" id="modalCancelBtn">İptal</button>
-      </div>
-    </div>
   </div>
 
   <!-- PRICING FULLSCREEN OVERLAY -->
