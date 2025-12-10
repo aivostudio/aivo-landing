@@ -1000,7 +1000,7 @@ textarea:focus {
   position: relative !important;
   margin-top: 0 !important;
   padding: 80px 40px 30px !important;   /* 80px = daire için üst boşluk */
-  min-height: 130 px !important;         /* KUTUNUN BOYU – kesik çizgiye yakın */
+  min-height: 230 px !important;         /* KUTUNUN BOYU – kesik çizgiye yakın */
   display: flex !important;
   align-items: flex-end !important;
   justify-content: space-between !important;
