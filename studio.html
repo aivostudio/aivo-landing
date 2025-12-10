@@ -1,2066 +1,811 @@
-/* ================================
-   AIVO STUDIO – STUDIO.CSS
-   ================================ */
-
-/* ---- GENEL RESET & DEĞİŞKENLER ---- */
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-:root {
-  --bg: #050816;
-  --bg-elevated: #070b1d;
-  --bg-card: #0d1024;
-  --bg-card-soft: #121632;
-  --accent: #6c5ce7;
-  --accent-soft: #8e8df5;
-  --accent-strong: #ff9f43;
-  --text: #f5f5ff;
-  --text-soft: #9aa4d7;
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --radius-lg: 18px;
-  --radius-xl: 22px;
-  --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.65);
-  --transition-fast: 0.2s ease-out;
-  --transition-med: 0.3s ease-out;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  background: radial-gradient(circle at top left, #222b4b 0, #050816 45%, #02030a 100%);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-  color: var(--text);
-}
-
-/* ---- APP SHELL ---- */
-
-.app-shell {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: radial-gradient(circle at top right, rgba(108, 92, 231, 0.18), transparent 45%),
-    radial-gradient(circle at bottom left, rgba(9, 132, 227, 0.16), transparent 50%),
-    rgba(3, 6, 24, 0.96);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03), var(--shadow-soft);
-  overflow: hidden;
-}
-
-/* ---- TOPBAR ---- */
-
-.topbar {
-  display: flex;
-  align-items: center;
-  padding: 12px 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  background: linear-gradient(90deg, rgba(23, 32, 78, 0.96), rgba(10, 16, 52, 0.96));
-}
-
-.topbar-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo-img {
-  height: 26px;
-  width: auto;
-}
-
-.logo-text {
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  font-size: 15px;
-}
-
-.topnav {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.topnav-link {
-  position: relative;
-  padding: 6px 11px;
-  font-size: 13px;
-  color: var(--text-soft);
-  text-decoration: none;
-  border-radius: 999px;
-  transition: color var(--transition-fast), background var(--transition-fast),
-    transform var(--transition-fast);
-}
-
-.topnav-link:hover {
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.06);
-  transform: translateY(-1px);
-}
-
-.topnav-link.is-active {
-  color: #fff;
-  background: linear-gradient(135deg, #6c5ce7, #a55eea);
-}
-
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.credits-pill {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: radial-gradient(circle at 20% 0, rgba(255, 234, 167, 0.4), transparent 60%),
-    rgba(9, 10, 40, 0.9);
-  color: var(--text);
-  padding: 6px 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
-    border-color var(--transition-fast), background var(--transition-fast);
-}
-
-.credits-pill:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-  border-color: rgba(255, 255, 255, 0.2);
-}
-
-.credits-label {
-  opacity: 0.8;
-}
-
-.credits-value {
-  font-weight: 600;
-  font-size: 13px;
-}
-
-.top-btn {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  padding: 6px 12px;
-  font-size: 12px;
-  background: transparent;
-  color: var(--text);
-  cursor: pointer;
-  transition: background var(--transition-fast), transform var(--transition-fast),
-    box-shadow var(--transition-fast), border-color var(--transition-fast);
-}
-
-.top-btn.ghost:hover {
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-1px);
-}
-
-.top-btn.primary {
-  background: linear-gradient(135deg, #6c5ce7, #fd79a8);
-  border-color: transparent;
-  font-weight: 500;
-}
-
-.top-btn.primary:hover {
-  box-shadow: 0 10px 30px rgba(253, 121, 168, 0.5);
-  transform: translateY(-1px);
-}
-
-/* ---- PAGE WRAPPER ---- */
-
-.main-pages {
-  position: relative;
-  flex: 1;
-}
-
-.page {
-  display: none;
-}
-
-.page.is-active {
-  display: block;
-}
-
-/* ---- LAYOUT GRID ---- */
-
-.layout {
-  display: grid;
-  grid-template-columns: 250px minmax(0, 1.7fr) 320px;
-  gap: 14px;
-  padding: 18px 20px 22px;
-  min-height: calc(100vh - 64px);
-}
-
-/* Kapak sayfasında sağ panel yok */
-.page-cover .layout {
-  grid-template-columns: 250px minmax(0, 1fr);
-}
-
-/* ---- LEFT SIDEBAR ---- */
-
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.sidebar-section {
-  background: rgba(5, 7, 30, 0.96);
-  border-radius: var(--radius-lg);
-  padding: 22px 22px 18px;
-  border: 1px solid var(--border-subtle);
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6);
-}
-
-.sidebar-title {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  color: var(--text-soft);
-  margin-bottom: 14px;
-  font-weight: 600;
-}
-
-.sidebar-group {
-  margin-bottom: 10px;
-}
-
-.sidebar-link-main {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 9px 4px;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text-soft);
-  cursor: pointer;
-  border-radius: 10px;
-  transition: color var(--transition-fast);
-}
-
-.sidebar-link-main.is-open {
-  color: #fff;
-}
-
-.sidebar-arrow {
-  font-size: 10px;
-  opacity: 0.8;
-  transition: transform 0.2s ease-out;
-}
-
-.sidebar-link-main.is-open .sidebar-arrow {
-  transform: rotate(180deg);
-}
-
-.sidebar-submenu {
-  margin-top: 6px;
-  padding-left: 6px;
-  display: none;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.sidebar-submenu.is-open {
-  display: flex;
-}
-
-.sidebar-sublink {
-  width: 100%;
-  border: none;
-  outline: none;
-  border-radius: 12px;
-  padding: 9px 13px;
-  font-size: 14px;
-  background: transparent;
-  color: var(--text-soft);
-  text-align: left;
-  cursor: pointer;
-  transition: background 0.2s ease-out, color 0.2s ease-out, transform 0.2s ease-out;
-}
-
-.sidebar-sublink:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text);
-  transform: translateY(-1px);
-}
-
-.sidebar-sublink.is-active {
-  background: rgba(108, 92, 231, 0.35);
-  color: #fff;
-  font-weight: 600;
-}
-
-.sidebar-link {
-  width: 100%;
-  border: none;
-  outline: none;
-  margin-bottom: 6px;
-  border-radius: 12px;
-  padding: 10px 14px;
-  font-size: 14px;
-  background: transparent;
-  color: var(--text-soft);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background var(--transition-fast), color var(--transition-fast),
-    transform var(--transition-fast);
-}
-
-.sidebar-link:last-child {
-  margin-bottom: 0;
-}
-
-.sidebar-link:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text);
-  transform: translateY(-1px);
-}
-
-.sidebar-link.is-active {
-  background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.12), transparent 55%),
-    linear-gradient(135deg, #6c5ce7, #0984e3);
-  color: #fff;
-}
-
-.sidebar-link-danger {
-  color: #ff7675;
-}
-
-.preset-chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.preset-chip {
-  padding: 4px 9px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.02);
-  font-size: 11px;
-  color: var(--text-soft);
-  cursor: pointer;
-  transition: background var(--transition-fast), color var(--transition-fast),
-    transform var(--transition-fast), border-color var(--transition-fast);
-}
-
-.preset-chip:hover {
-  background: rgba(108, 92, 231, 0.32);
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.18);
-  transform: translateY(-1px);
-}
-
-.hint-card {
-  background: radial-gradient(circle at 0 0, rgba(108, 92, 231, 0.35), transparent 65%),
-    rgba(5, 7, 30, 0.98);
-}
-
-.hint-text {
-  margin: 0;
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-/* ---- MAIN PANEL + COVER MAIN ---- */
-
-.main-panel,
-.cover-main {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  min-height: 0;
-}
-
-.panel-header {
-  margin-bottom: 4px;
-}
-
-.panel-title {
-  font-size: 22px;
-  margin: 0 0 4px;
-}
-
-.panel-subtitle {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-/* ---- CARD ---- */
-
-.card {
-  background: radial-gradient(circle at top left, rgba(108, 92, 231, 0.22), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.15), transparent 60%),
-    var(--bg-card);
-  border-radius: var(--radius-xl);
-  padding: 14px 16px;
-  border: 1px solid var(--border-subtle);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
-}
-
-.card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.card-title {
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.card-title.small {
-  font-size: 13px;
-}
-
-.card-subtitle {
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-/* ---- MODE TOGGLE ---- */
-
-.mode-toggle {
-  display: inline-flex;
-  padding: 5px;
-  border-radius: 999px;
-  background: rgba(7, 9, 40, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.mode-btn {
-  border: none;
-  padding: 9px 22px;
-  border-radius: 999px;
-  font-size: 13px;
-  color: var(--text-soft);
-  background: transparent;
-  cursor: pointer;
-  transition: background var(--transition-med), color var(--transition-med),
-    box-shadow var(--transition-med), transform var(--transition-med);
-}
-
-.mode-btn.is-active {
-  background: linear-gradient(135deg, #6c5ce7, #a55eea);
-  color: #fff;
-  box-shadow: 0 10px 28px rgba(108, 92, 231, 0.6);
-  transform: translateY(-1px);
-}
-
-/* Kart arka planları moda göre */
-
-body[data-mode="basic"] .card {
-  background: radial-gradient(circle at top left, rgba(99, 205, 218, 0.18), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(72, 219, 251, 0.12), transparent 60%),
-    var(--bg-card-soft);
-  transition: background 0.35s ease-out;
-}
-
-body[data-mode="advanced"] .card {
-  background: radial-gradient(circle at top left, rgba(123, 44, 191, 0.3), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(0, 184, 148, 0.16), transparent 60%),
-    var(--bg-card);
-  transition: background 0.35s ease-out;
-}
-
-/* ---- FORMLAR ---- */
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 18px;
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 13px;
-}
-
-.form-field.full {
-  grid-column: 1 / -1;
-}
-
-.form-field.third {
-  /* grid 2 kolon olduğu için doğal olarak alta geçer, sorun yok */
-}
-
-.form-field.half {
-  /* sadece anlam için, özel stil gerekmiyor */
-}
-
-.form-field.align-end {
-  justify-content: flex-end;
-}
-
-label {
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-input[type="text"],
-input[type="number"],
-select,
-textarea {
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(5, 6, 26, 0.95);
-  color: var(--text);
-  padding: 8px 10px;
-  font-size: 13px;
-  outline: none;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
-    background var(--transition-fast), transform var(--transition-fast);
-  resize: vertical;
-}
-
-textarea {
-  min-height: 60px;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  border-color: rgba(108, 92, 231, 0.9);
-  box-shadow: 0 0 0 1px rgba(108, 92, 231, 0.6);
-  transform: translateY(-1px);
-}
-
-.field-hint {
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.primary-btn {
-  border-radius: 12px;
-  border: none;
-  padding: 10px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  background: linear-gradient(135deg, #6c5ce7, #fd79a8);
-  color: #fff;
-  cursor: pointer;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
-    filter var(--transition-fast);
-}
-
-.primary-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 16px 40px rgba(253, 121, 168, 0.6);
-  filter: brightness(1.05);
-}
-
-.full-width {
-  width: 100%;
-}
-
-/* Upload dropzone */
-
-.reference-upload {
-  margin-top: 8px;
-}
-
-.upload-dropzone {
-  position: relative;
-  border-radius: 14px;
-  border: 1px dashed rgba(255, 255, 255, 0.26);
-  background: rgba(5, 7, 30, 0.95);
-  padding: 14px 14px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  transition: border-color var(--transition-fast), background var(--transition-fast),
-    transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.upload-dropzone:hover {
-  border-color: rgba(108, 92, 231, 0.9);
-  background: radial-gradient(circle at top left, rgba(108, 92, 231, 0.25), transparent 65%),
-    rgba(5, 7, 30, 0.98);
-  transform: translateY(-1px);
-  box-shadow: 0 15px 38px rgba(0, 0, 0, 0.7);
-}
-
-.upload-icon {
-  font-size: 20px;
-}
-
-.upload-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-.upload-text strong {
-  color: var(--text);
-}
-
-.upload-input {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-}
-
-/* Chip checkbox */
-
-.chip-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.chip-checkbox {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 9px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.02);
-  font-size: 11px;
-  color: var(--text-soft);
-  cursor: pointer;
-  transition: background var(--transition-fast), border-color var(--transition-fast),
-    color var(--transition-fast), transform var(--transition-fast);
-}
-
-.chip-checkbox input {
-  width: 0;
-  height: 0;
-  appearance: none;
-}
-
-.chip-checkbox:hover {
-  background: rgba(108, 92, 231, 0.35);
-  border-color: rgba(255, 255, 255, 0.25);
-  color: #fff;
-  transform: translateY(-1px);
-}
-
-/* ---- BASIC / ADVANCED GİZLEME ---- */
-
-.advanced-section {
-  transition: opacity 0.25s ease-out, max-height 0.25s ease-out, margin 0.25s ease-out,
-    padding 0.25s ease-out;
-}
-
-.hidden {
-  opacity: 0;
-  max-height: 0 !important;
-  overflow: hidden;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-}
-
-/* ---- RIGHT PANEL ---- */
-
-.right-panel {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.right-card {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.empty-state {
-  border-radius: 18px;
-  border: 1px dashed rgba(255, 255, 255, 0.2);
-  background: radial-gradient(circle at top, rgba(108, 92, 231, 0.25), transparent 65%),
-    rgba(7, 9, 34, 0.95);
-  padding: 28px 18px;
-  text-align: center;
-  margin-top: 14px;
-}
-
-.empty-icon {
-  font-size: 24px;
-  margin-bottom: 8px;
-}
-
-.empty-title {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.empty-text {
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-/* =========================================
-   MÜZİK VIEWS
-   ========================================= */
-
-.music-view {
-  display: none;
-}
-
-.music-view.is-active {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-}
-
-/* ---- SES KAYDI ÜST KART ---- */
-
-.music-view[data-music-view="ses-kaydi"] .record-intro-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  margin-top: 10px;
-  margin-bottom: 16px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
-    var(--bg-card-soft);
-}
-
-.record-intro-left {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.record-intro-title {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.record-intro-text {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.record-badges {
-  list-style: none;
-  margin: 8px 0 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-.record-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 7px 14px;
-  border-radius: 999px;
-  font-size: 12px;
-  background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.16), transparent 60%),
-    rgba(10, 10, 40, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-/* ---- SES KAYDI ANA KART (ALTA KADAR UZAR) ---- */
-
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  position: relative;
-  flex: 1;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 32px;
-  padding: 120px 40px 36px; /* üstte daire için yer */
-  min-height: 380px;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  z-index: 2;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-title {
-  margin: 0 0 8px;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-hint,
-.music-view[data-music-view="ses-kaydi"] .record-hint {
-  margin: 0 0 10px;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-upload-title {
-  margin: 0 0 8px;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-btn {
-  margin-top: 6px;
-}
-
-/* DAİRE – kartın ortasında */
-
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #ffeaa7,
-    #55efc4,
-    #74b9ff,
-    #a29bfe,
-    #ff7675
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.14),
-    0 0 80px rgba(132, 94, 247, 0.45);
-  z-index: 1;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-circle::after {
-  content: "";
-  position: absolute;
-  inset: 26px;
-  border-radius: inherit;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 55%),
-    #050816;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  position: relative;
-  z-index: 2;
-  font-size: 60px;
-  text-shadow:
-    0 0 18px rgba(255, 255, 255, 0.9),
-    0 0 32px rgba(253, 121, 168, 0.8);
-}
-
-@keyframes spinRing {
-  0% {
-    transform: translateX(-50%) rotate(0deg);
-  }
-  100% {
-    transform: translateX(-50%) rotate(360deg);
-  }
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  animation: spinRing 26s linear infinite;
-}
-
-/* Upload alanı Ses Kaydı için */
-.music-view[data-music-view="ses-kaydi"] .record-upload-dropzone {
-  margin-top: 8px;
-}
-
-/* =========================================
-   KAPAK / GÖRSEL SAYFASI
-   ========================================= */
-
-.cover-main {
-  gap: 16px;
-}
-
-.cover-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.4fr);
-  gap: 16px;
-}
-
-.cover-form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 18px;
-}
-
-.cover-left .card-header {
-  align-items: flex-start;
-}
-
-.badge-beta {
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 11px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-}
-
-/* Stil butonları */
-
-.style-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.style-pill {
-  padding: 5px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.02);
-  font-size: 11px;
-  color: var(--text-soft);
-  cursor: pointer;
-  transition: background var(--transition-fast), border-color var(--transition-fast),
-    color var(--transition-fast), transform var(--transition-fast);
-}
-
-.style-pill.is-active,
-.style-pill:hover {
-  background: rgba(108, 92, 231, 0.45);
-  border-color: rgba(255, 255, 255, 0.25);
-  color: #fff;
-  transform: translateY(-1px);
-}
-
-/* Gelişmiş kutu */
-
-.advanced-box {
-  background: rgba(7, 9, 34, 0.95);
-  border-radius: 14px;
-  padding: 10px 12px;
-  border: 1px dashed rgba(255, 255, 255, 0.16);
-}
-
-.advanced-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-}
-
-.advanced-credit {
-  font-size: 11px;
-}
-
-.advanced-desc {
-  margin: 6px 0 0;
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-/* Kapak yazıları grid */
-
-.cover-text-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-/* Sağ galeri */
-
-.cover-right {
-  display: flex;
-  flex-direction: column;
-}
-
-.cover-gallery-card {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.gallery-filter {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  padding: 6px 10px;
-  background: rgba(0, 0, 0, 0.35);
-  color: var(--text-soft);
-  font-size: 12px;
-}
-
-.gallery-grid {
-  margin-top: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.gallery-card {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 14px;
-  background: rgba(5, 7, 30, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.gallery-thumb {
-  width: 52px;
-  height: 52px;
-  border-radius: 12px;
-  background: radial-gradient(circle at top left, #6c5ce7, #22a6b3);
-}
-
-.fake-thumb.thumb-1 {
-  background-image: linear-gradient(135deg, #6c5ce7, #00cec9);
-}
-.fake-thumb.thumb-2 {
-  background-image: linear-gradient(135deg, #ff7675, #fd79a8);
-}
-.fake-thumb.thumb-3 {
-  background-image: linear-gradient(135deg, #00b894, #0984e3);
-}
-.fake-thumb.thumb-4 {
-  background-image: linear-gradient(135deg, #ffeaa7, #fab1a0);
-}
-
-.gallery-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.gallery-title {
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.gallery-meta {
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.gallery-footer {
-  margin-top: auto;
-  padding-top: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.gallery-pagination {
-  display: inline-flex;
-  gap: 6px;
-}
-
-.page-btn {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(0, 0, 0, 0.4);
-  color: var(--text-soft);
-  padding: 4px 9px;
-  font-size: 11px;
-  cursor: pointer;
-  transition: background var(--transition-fast), color var(--transition-fast),
-    transform var(--transition-fast);
-}
-
-.page-btn.is-active {
-  background: linear-gradient(135deg, #6c5ce7, #a55eea);
-  color: #fff;
-}
-
-.page-btn:hover {
-  transform: translateY(-1px);
-}
-
-/* =========================================
-   KREDİ MODALI
-   ========================================= */
-
-.pricing-modal {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease-out;
-  z-index: 40;
-}
-
-.pricing-modal.is-open {
-  pointer-events: auto;
-  opacity: 1;
-}
-
-.pricing-backdrop {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at top, rgba(108, 92, 231, 0.45), transparent 65%),
-    rgba(0, 0, 0, 0.82);
-  backdrop-filter: blur(14px);
-}
-
-.pricing-dialog {
-  position: relative;
-  width: 95%;
-  max-width: 1100px;
-  max-height: 88vh;
-  background: radial-gradient(circle at top left, rgba(108, 92, 231, 0.4), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.3), transparent 60%),
-    #050819;
-  border-radius: 30px;
-  padding: 24px 26px 26px;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  overflow: hidden;
-}
-
-.pricing-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 18px;
-}
-
-.pricing-header h2 {
-  margin: 0 0 4px;
-  font-size: 22px;
-}
-
-.pricing-header p {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.icon-button {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  padding: 6px 10px;
-  background: rgba(0, 0, 0, 0.4);
-  color: var(--text-soft);
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.icon-button:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.pricing-card {
-  background: radial-gradient(circle at top left, rgba(108, 92, 231, 0.25), transparent 60%),
-    rgba(7, 9, 34, 0.98);
-  border-radius: 22px;
-  padding: 16px 16px 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.pricing-card.is-popular {
-  border-color: rgba(253, 121, 168, 0.9);
-  box-shadow: 0 22px 60px rgba(253, 121, 168, 0.6);
-  transform: translateY(-4px);
-}
-
-.pricing-badge {
-  align-self: flex-start;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 11px;
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-}
-
-.pricing-badge.small {
-  background: rgba(108, 92, 231, 0.4);
-}
-
-.pricing-price {
-  font-size: 24px;
-  font-weight: 700;
-  margin: 2px 0 4px;
-}
-
-.pricing-list {
-  list-style: none;
-  padding: 0;
-  margin: 4px 0 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-/* buton kartın en altında olsun */
-.pricing-card .primary-btn {
-  margin-top: auto;
-}
-
-/* =========================================
-   RESPONSIVE
-   ========================================= */
-
-@media (max-width: 1200px) {
-  .layout {
-    grid-template-columns: 230px minmax(0, 1.6fr);
-  }
-  .right-panel {
-    display: none;
-  }
-  .pricing-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 992px) {
-  .layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .sidebar {
-    display: none;
-  }
-  .topnav {
-    display: none;
-  }
-  .page-cover .layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .pricing-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .cover-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-/* ================================
-   PANELLER SÜTUNUNU AŞAĞI KADAR UZAT
-   ================================ */
-
-/* Sol paneldeki tüm grup yukarıdan aşağıya tam uzasın */
-.sidebar {
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 16px !important;
-}
-
-/* En alttaki "İPUCU" kartı kalan boşluğu doldursun */
-.sidebar-section.hint-card {
-  flex: 1 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: space-between !important; /* Yazı yukarı, boşluk aşağı */
-}
-/* =========================================
-   SES KAYDI – TEMİZ VE DENGELİ LAYOUT
-   ========================================= */
-
-/* Üst bilgi kartı (Ses Kaydetme Stüdyosu) */
-.music-view[data-music-view="ses-kaydi"] .record-intro-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  margin-top: 10px;
-  margin-bottom: 70px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
-    var(--bg-card-soft);
-}
-
-/* Alt kart */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  position: relative;
-  padding: 120px 40px 36px; /* daire için üst boşluk */
-  min-height: 300px;       /* DAHA YUMUŞAK GÖRÜNÜM */
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 32px;
-}
-
-/* Daire */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute;
-  top: -110px;             /* üst kartla alt kartın arasına taşma */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #ffeaa7,
-    #55efc4,
-    #74b9ff,
-    #a29bfe,
-    #ff7675
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.14),
-    0 0 80px rgba(132, 94, 247, 0.45);
-  z-index: 1;
-}
-
-/* Daire iç gölge */
-.music-view[data-music-view="ses-kaydi"] .record-circle::after {
-  content: "";
-  position: absolute;
-  inset: 26px;
-  border-radius: inherit;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 55%),
-    #050816;
-}
-
-/* Mikrofon ikonu */
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  position: relative;
-  z-index: 2;
-  font-size: 60px;
-  text-shadow:
-    0 0 18px rgba(255, 255, 255, 0.9),
-    0 0 32px rgba(253, 121, 168, 0.8);
-}
-
-/* Yavaş halka animasyonu */
-@keyframes spinRing {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  animation: spinRing 26s linear infinite;
-}
-/* =========================================
-   SES KAYDI – AIVO DÜZENİ (FINAL)
-   ========================================= */
-
-/* Üst bilgi kartı: Ses Kaydetme Stüdyosu */
-.music-view[data-music-view="ses-kaydi"] .record-intro-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  margin-top: 10px;
-  margin-bottom: 70px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
-    var(--bg-card-soft);
-}
-
-/* Alt kart: Ses Kaydetmeye Başlayın + MP3 / WAV yükle */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  position: relative;
-  margin-top: 0;
-  padding: 90px 40px 40px;   /* yazıları daireye yaklaştırır */
-  min-height: 320px;
-  display: flex;
-  align-items: center;       /* İÇERİĞİ DİKEYDE ORTALAR (artık dipte değil) */
-  justify-content: space-between;
-  gap: 32px;
-}
-
-/* Daire: üst kart ile alt kartın arasında, ortada */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute;
-  top: -110px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #ffeaa7,
-    #55efc4,
-    #74b9ff,
-    #a29bfe,
-    #ff7675
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.14),
-    0 0 80px rgba(132, 94, 247, 0.45);
-  z-index: 1;
-  animation: spinRing 26s linear infinite;
-}
-
-/* Dairenin içindeki koyu merkez */
-.music-view[data-music-view="ses-kaydi"] .record-circle::after {
-  content: "";
-  position: absolute;
-  inset: 26px;
-  border-radius: inherit;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 55%),
-    #050816;
-}
-
-/* Mikrofon ikonu */
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  position: relative;
-  z-index: 2;
-  font-size: 60px;
-  text-shadow:
-    0 0 18px rgba(255, 255, 255, 0.9),
-    0 0 32px rgba(253, 121, 168, 0.8);
-}
-
-/* Yavaş dönen halka animasyonu */
-@keyframes spinRing {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-/* =========================================
-   SES KAYDI – DAİRE TASARIMI ve ANİMASYON
-   ========================================= */
-
-/* Dış halka aynı, ama içi deep purple ve kalp atışı efekti */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute;
-  top: -110px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 230px;
-  height: 230px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #ffeaa7,
-    #55efc4,
-    #74b9ff,
-    #a29bfe,
-    #ff7675
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.14),
-    0 0 80px rgba(132, 94, 247, 0.45);
-  z-index: 1;
-  animation: pulseIdle 2.4s ease-in-out infinite;
-}
-
-/* İç kısım: tek renk, deep purple */
-.music-view[data-music-view="ses-kaydi"] .record-circle::after {
-  content: "";
-  position: absolute;
-  inset: 26px;
-  border-radius: inherit;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12), transparent 55%),
-    radial-gradient(circle at bottom, #381861, #090313);
-}
-
-/* Mikrofon ikonu sabit, biraz daha kalp efekti için glow azalsın */
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  position: relative;
-  z-index: 2;
-  font-size: 58px;
-  text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.7),
-    0 0 20px rgba(253, 121, 168, 0.7);
-}
-
-/* Kalp atışı (boşta iken) */
-@keyframes pulseIdle {
-  0%   { transform: translateX(-50%) scale(1); }
-  30%  { transform: translateX(-50%) scale(1.05); }
-  60%  { transform: translateX(-50%) scale(1); }
-  100% { transform: translateX(-50%) scale(1); }
-}
-
-/* Kayıt modunda: daha koyu renk + daha hızlı atış */
-.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
-  box-shadow:
-    0 0 40px rgba(255, 118, 117, 0.7),
-    0 0 90px rgba(214, 48, 49, 0.7);
-  animation: pulseRecording 1.1s ease-in-out infinite;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording::after {
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), transparent 55%),
-    radial-gradient(circle at bottom, #8e1b4a, #19000c);
-}
-
-/* Kayıtta kalp atışı */
-@keyframes pulseRecording {
-  0%   { transform: translateX(-50%) scale(1); }
-  25%  { transform: translateX(-50%) scale(1.08); }
-  50%  { transform: translateX(-50%) scale(1.02); }
-  75%  { transform: translateX(-50%) scale(1.09); }
-  100% { transform: translateX(-50%) scale(1); }
-}
-/* =========================================
-   SES KAYDI – DAİRE TASARIMI ve ANİMASYON
-   ========================================= */
-
-/* Dış halka aynı, ama içi deep purple ve kalp atışı efekti */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute;
-  top: -110px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 230px;
-  height: 230px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #ffeaa7,
-    #55efc4,
-    #74b9ff,
-    #a29bfe,
-    #ff7675
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.14),
-    0 0 80px rgba(132, 94, 247, 0.45);
-  z-index: 1;
-  animation: pulseIdle 2.4s ease-in-out infinite;
-}
-
-/* İç kısım: tek renk, deep purple */
-.music-view[data-music-view="ses-kaydi"] .record-circle::after {
-  content: "";
-  position: absolute;
-  inset: 26px;
-  border-radius: inherit;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12), transparent 55%),
-    radial-gradient(circle at bottom, #381861, #090313);
-}
-
-/* Mikrofon ikonu sabit, biraz daha kalp efekti için glow azalsın */
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  position: relative;
-  z-index: 2;
-  font-size: 58px;
-  text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.7),
-    0 0 20px rgba(253, 121, 168, 0.7);
-}
-
-/* Kalp atışı (boşta iken) */
-@keyframes pulseIdle {
-  0%   { transform: translateX(-50%) scale(1); }
-  30%  { transform: translateX(-50%) scale(1.05); }
-  60%  { transform: translateX(-50%) scale(1); }
-  100% { transform: translateX(-50%) scale(1); }
-}
-
-/* Kayıt modunda: daha koyu renk + daha hızlı atış */
-.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
-  box-shadow:
-    0 0 40px rgba(255, 118, 117, 0.7),
-    0 0 90px rgba(214, 48, 49, 0.7);
-  animation: pulseRecording 1.1s ease-in-out infinite;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording::after {
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), transparent 55%),
-    radial-gradient(circle at bottom, #8e1b4a, #19000c);
-}
-
-/* Kayıtta kalp atışı */
-@keyframes pulseRecording {
-  0%   { transform: translateX(-50%) scale(1); }
-  25%  { transform: translateX(-50%) scale(1.08); }
-  50%  { transform: translateX(-50%) scale(1.02); }
-  75%  { transform: translateX(-50%) scale(1.09); }
-  100% { transform: translateX(-50%) scale(1); }
-}
-/* =========================================
-   SES KAYDI – FINAL LAYOUT
-   ========================================= */
-
-/* Üst kart: Ses Kaydetme Stüdyosu */
-.music-view[data-music-view="ses-kaydi"] .record-intro-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  margin-top: 10px;
-  margin-bottom: 70px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
-    var(--bg-card-soft);
-}
-
-.record-intro-left {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.record-intro-title {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.record-intro-text {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.record-badges {
-  list-style: none;
-  margin: 8px 0 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-/* Alt kart: ana kayıt alanı */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  position: relative;
-  margin-top: 0;
-  padding: 90px 40px 40px;
-  min-height: 320px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 32px;
-}
-
-/* Sol & sağ kolon */
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  z-index: 2;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-title {
-  margin: 0 0 6px;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-hint,
-.music-view[data-music-view="ses-kaydi"] .record-hint {
-  margin: 0 0 10px;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-upload-title {
-  margin: 0 0 8px;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-btn {
-  margin-top: 6px;
-}
-
-/* DAİRE: üst kart ile alt kartın arasında, ortada */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute;
-  top: -95px;
-  left: 50%;
-  transform: translateX(-52%);  /* hafif sola – ortalamayı beğenmezsen -50 / -54 ile oyna */
-  width: 230px;
-  height: 230px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #ffeaa7,
-    #55efc4,
-    #74b9ff,
-    #a29bfe,
-    #ff7675
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.14),
-    0 0 80px rgba(132, 94, 247, 0.45);
-  z-index: 1;
-  animation: pulseIdle 2.4s ease-in-out infinite;
-}
-
-/* Dairenin içi: deep purple */
-.music-view[data-music-view="ses-kaydi"] .record-circle::after {
-  content: "";
-  position: absolute;
-  inset: 24px;
-  border-radius: inherit;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12), transparent 55%),
-    radial-gradient(circle at bottom, #2e1b52, #05020c);
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  position: relative;
-  z-index: 2;
-  font-size: 58px;
-  text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.7),
-    0 0 20px rgba(253, 121, 168, 0.7);
-}
-
-/* Kalp atışı – idle */
-@keyframes pulseIdle {
-  0%   { transform: translateX(-52%) scale(1); }
-  30%  { transform: translateX(-52%) scale(1.05); }
-  60%  { transform: translateX(-52%) scale(1); }
-  100% { transform: translateX(-52%) scale(1); }
-}
-
-/* Kayıt modunda daire */
-.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
-  background: conic-gradient(
-    from 0deg,
-    #ff4757,
-    #ff6b81,
-    #ff4757,
-    #c23616,
-    #ff6b81,
-    #ff4757
-  );
-  box-shadow:
-    0 0 45px rgba(255, 71, 87, 0.9),
-    0 0 110px rgba(214, 48, 49, 0.9);
-  animation: pulseRecording 1s ease-in-out infinite;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording::after {
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), transparent 55%),
-    radial-gradient(circle at bottom, #7d122f, #140005);
-}
-
-/* Kayıtta kalp atışı */
-@keyframes pulseRecording {
-  0%   { transform: translateX(-52%) scale(1); }
-  20%  { transform: translateX(-52%) scale(1.1); }
-  50%  { transform: translateX(-52%) scale(1.02); }
-  80%  { transform: translateX(-52%) scale(1.1); }
-  100% { transform: translateX(-52%) scale(1); }
-}
-
-/* Waveform + süre */
-.record-wave-row {
-  margin-top: 14px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.record-wave {
-  flex: 1;
-  height: 32px;
-  border-radius: 999px;
-  background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.12), transparent 55%),
-    repeating-linear-gradient(
-      90deg,
-      rgba(129, 236, 236, 0.0) 0px,
-      rgba(129, 236, 236, 0.0) 6px,
-      rgba(129, 236, 236, 0.8) 6px,
-      rgba(9, 132, 227, 0.9) 10px
-    );
-  opacity: 0.15;
-  transform: scaleY(0.6);
-  transform-origin: center;
-  overflow: hidden;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-card.is-recording .record-wave {
-  opacity: 0.9;
-  animation: waveMove 0.55s linear infinite alternate;
-}
-
-.record-timer {
-  min-width: 48px;
-  font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 13px;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: rgba(5, 7, 30, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  text-align: center;
-  color: #f5f5ff;
-}
-
-/* Waveform animasyonu */
-@keyframes waveMove {
-  0% {
-    transform: scaleY(0.7) translateX(0);
-    filter: hue-rotate(0deg);
-  }
-  50% {
-    transform: scaleY(1) translateX(-6px);
-    filter: hue-rotate(20deg);
-  }
-  100% {
-    transform: scaleY(0.8) translateX(-12px);
-    filter: hue-rotate(-15deg);
-  }
-}
-/* === KAYIT WAVEFORM GÖRSELİ === */
-
-.record-wave {
-  position: absolute;
-  top: 150px;                 /* dairenin hemen altı */
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(520px, 80%);
-  height: 60px;
-  display: none;              /* default gizli */
-  align-items: flex-end;
-  gap: 4px;
-  pointer-events: none;
-}
-
-.wave-bar {
-  flex: 1;
-  min-width: 3px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #74b9ff, #a29bfe);
-  opacity: 0.9;
-  transform-origin: bottom center;
-  animation: wavePulse 0.7s ease-in-out infinite alternate;
-  animation-delay: calc(var(--i) * 0.05s);
-}
-
-/* Kayıt sırasında aç */
-body.is-recording .record-wave {
-  display: flex;
-}
-
-/* Fake waveform hareketi */
-@keyframes wavePulse {
-  from {
-    transform: scaleY(0.2);
-  }
-  to {
-    transform: scaleY(1);
-  }
-}
-/* Daireyi aşağı kaydırma */
-.record-circle {
-  margin-top: 40px !important; /* daha çok indirmek istersen 50-60 yapabilirsin */
-}
-/* Daire altına güçlü ama soft glow efekti */
-.record-circle::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 320px;
-  height: 320px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(205, 90, 255, 0.45) 0%,
-    rgba(120, 60, 255, 0.25) 40%,
-    rgba(60, 40, 130, 0.10) 70%,
-    transparent 100%
-  );
-  filter: blur(45px);
-  pointer-events: none;
-  z-index: -1;
-}
-/* Kayıt sırasında dairenin soft mor-pembe yanması */
-.record-circle.recording {
-  box-shadow: 0 0 55px rgba(255, 100, 180, 0.65) !important;
-  background: radial-gradient(circle at center,
-    rgba(255, 110, 180, 0.9),
-    rgba(140, 60, 200, 0.9)
-  ) !important;
-}
-/* ===== SES KAYDI – DAİRE KONUMU + GLOW + KAYIT RENGİ ===== */
-
-/* Kartın üst boşluğunu biraz artır ki daire rahat otursun */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  padding-top: 210px !important;
-}
-
-/* Kartı merkezleme referansı yap */
-.record-main-card {
-  position: relative !important;
-}
-
-/* Dairenin altına, kartın ortasına doğru soft glow */
-.music-view[data-music-view="ses-kaydi"] .record-circle::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 62%;                       /* merkezin biraz altı */
-  transform: translate(-50%, -50%);
-  width: 320px;
-  height: 230px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(190, 130, 255, 0.40) 0%,
-    rgba(100, 70, 200, 0.30) 40%,
-    rgba(20, 15, 80, 0.15) 75%,
-    transparent 100%
-  );
-  filter: blur(32px);
-  pointer-events: none;
-  z-index: -1;                    /* dairenin ALTINDA */
-}
-
-/* Kayıt sırasında kırmızı yerine AIVO uyumlu mor-pembe glow */
-.music-view[data-music-view="ses-kaydi"] .record-circle.recording {
-  background: radial-gradient(circle at center,
-    rgba(255, 180, 230, 0.96),
-    rgba(160, 95, 230, 0.96)
-  ) !important;
-  box-shadow:
-    0 0 40px rgba(255, 150, 220, 0.85),
-    0 0 80px rgba(140, 90, 230, 0.6) !important;
-}
-
-/* Kartı merkezleme referansı yap */
-.record-main-card {
-  position: relative !important;
-}
-
-/* Daireyi tam ortaya oturt */
-.record-circle {
-  position: absolute !important;
-  top: 20px !important;   /* yukarı-aşağı mesafe - istersen artırabilirsin */
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-
-  width: 260px !important;
-  height: 260px !important;
-  z-index: 5;
-}
-/* Glow tam dairenin altında ve simetrik */
-.record-circle::after {
-  content: "";
-  position: absolute;
-  width: 350px;
-  height: 350px;
-  left: 50%;
-  top: 55%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(190, 130, 255, 0.40),
-    rgba(100, 70, 200, 0.25),
-    rgba(20, 15, 80, 0.10),
-    transparent
-  );
-  filter: blur(45px);
-  pointer-events: none;
-  z-index: -1;
-}
-/* Kayıt sırasında daha soft magenta */
-.record-circle.recording {
-  background: radial-gradient(circle,
-    rgba(255, 140, 210, 0.95),
-    rgba(160, 100, 230, 0.95)
-  ) !important;
-  box-shadow:
-    0 0 45px rgba(255, 150, 220, 0.6),
-    0 0 80px rgba(140, 90, 230, 0.5) !important;
-}
-/* === SES KAYDI – DAİRE RENK & SOFT KAYIT GLOWU === */
-
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  /* normal (kayıt yokken) pastel gradient */
-  background:
-    radial-gradient(circle at 30% 10%, rgba(255, 255, 255, 0.45), transparent 55%),
-    radial-gradient(circle at 70% 90%, rgba(165, 110, 255, 0.55), transparent 60%),
-    conic-gradient(from 220deg, #ff9ff3, #a29bfe, #74b9ff, #ff9ff3);
-  box-shadow:
-    0 0 40px rgba(162, 155, 254, 0.45),
-    0 0 120px rgba(253, 121, 168, 0.55);
-}
-
-/* kayıt halindeki ana renk – kırmızı yerine lila / mor-pembe */
-.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
-  background:
-    radial-gradient(circle at 30% 10%, rgba(255, 255, 255, 0.55), transparent 55%),
-    radial-gradient(circle at 70% 90%, rgba(255, 159, 243, 0.65), transparent 60%),
-    radial-gradient(circle at center, #ff6ec7, #a66bff);
-  box-shadow:
-    0 0 45px rgba(255, 159, 243, 0.8),
-    0 0 130px rgba(162, 155, 254, 0.9);
-}
-
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>AIVO Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="studio.css" />
+</head>
+<body data-mode="advanced">
+  <div class="app-shell">
+    <!-- ================= TOPBAR ================= -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="logo">
+          <img src="aivo-logo1.png" alt="AIVO logo" class="logo-img" />
+          <span class="logo-text">AIVO Studio</span>
+        </div>
+      </div>
+
+      <nav class="topnav">
+        <a href="#" class="topnav-link is-active" data-page-link="music">Anasayfa</a>
+        <a href="#" class="topnav-link" data-page-link="music">Dashboard</a>
+        <a href="#" class="topnav-link" data-page-link="music">Ürettiklerim</a>
+        <a href="#" class="topnav-link" data-page-link="music">Müzik Üret</a>
+        <a href="#" class="topnav-link" data-page-link="cover">Kapak Üret</a>
+        <a href="#" class="topnav-link" data-open-pricing>Kredi Al</a>
+        <a href="#" class="topnav-link" data-page-link="music">Faturalarım</a>
+        <a href="#" class="topnav-link" data-page-link="music">Profil</a>
+        <a href="#" class="topnav-link" data-page-link="music">Ayarlar</a>
+        <a href="#" class="topnav-link" data-page-link="music">Çıkış Yap</a>
+      </nav>
+
+      <div class="topbar-right">
+        <button class="credits-pill" id="creditsButton">
+          <span class="credits-label">Kredi</span>
+          <span class="credits-value" id="creditsValue">78</span>
+        </button>
+        <button class="top-btn ghost">Giriş Yap</button>
+        <button class="top-btn primary">Kayıt Ol</button>
+      </div>
+    </header>
+
+    <!-- ================= ANA SAYFALAR ================= -->
+    <main class="main-pages">
+      <!-- ========== MÜZİK SAYFASI ========== -->
+      <div class="page page-music is-active" data-page="music">
+        <div class="layout">
+          <!-- ========== SOL PANEL ========== -->
+          <aside class="sidebar">
+            <div class="sidebar-section">
+              <div class="sidebar-title">Paneller</div>
+
+              <!-- Müzik Üret grubu -->
+              <div class="sidebar-group">
+                <button
+                  type="button"
+                  class="sidebar-link sidebar-link-main is-open"
+                  data-submenu-toggle="music"
+                >
+                  <span>🎵 Müzik Üret</span>
+                  <span class="sidebar-arrow">▾</span>
+                </button>
+
+                <div class="sidebar-submenu is-open" data-submenu="music">
+                  <button
+                    type="button"
+                    class="sidebar-sublink is-active"
+                    data-music-tab="geleneksel"
+                  >
+                    Geleneksel
+                  </button>
+                  <button
+                    type="button"
+                    class="sidebar-sublink"
+                    data-music-tab="ses-kaydi"
+                  >
+                    Ses Kaydı
+                  </button>
+                  <button
+                    type="button"
+                    class="sidebar-sublink"
+                    data-music-tab="vokale-gore"
+                  >
+                    Vokale Göre
+                  </button>
+                </div>
+              </div>
+
+              <button class="sidebar-link" data-page-link="music">
+                <span>Ürettiklerim</span>
+              </button>
+              <button class="sidebar-link" data-page-link="music">
+                <span>AIVO Studio</span>
+              </button>
+              <button class="sidebar-link" data-open-pricing>
+                <span>Kredi / Faturalarım</span>
+              </button>
+              <button class="sidebar-link" data-page-link="music">
+                <span>Ayarlar</span>
+              </button>
+              <button class="sidebar-link sidebar-link-danger" data-page-link="music">
+                <span>Çıkış Yap</span>
+              </button>
+            </div>
+
+            <div class="sidebar-section">
+              <div class="sidebar-title">Hızlı Presetler</div>
+              <div class="preset-chip-row">
+                <button class="preset-chip">Türkçe Pop</button>
+                <button class="preset-chip">Enerjik Pop</button>
+                <button class="preset-chip">Deep House Club</button>
+                <button class="preset-chip">Anadolu Pop</button>
+                <button class="preset-chip">Lo-fi Chill</button>
+                <button class="preset-chip">Slowed + Reverb</button>
+              </div>
+            </div>
+
+            <div class="sidebar-section hint-card">
+              <div class="sidebar-title">İpucu</div>
+              <p class="hint-text">
+                Önce şarkının duygusunu ve temposunu seç. Presetlerden biriyle başla,
+                kalan ayarları AIVO senin için doldursun.
+              </p>
+            </div>
+          </aside>
+
+          <!-- ========== ORTA PANEL ========== -->
+          <section class="main-panel">
+            <!-- ===== GELENEKSEL ===== -->
+            <div class="music-view is-active" data-music-view="geleneksel">
+              <div class="panel-header">
+                <h1 class="panel-title">Müzik Üret</h1>
+                <p class="panel-subtitle">
+                  Ritim, vokal, mood ve makam seç – AIVO şarkıyı senin için oluştursun.
+                </p>
+              </div>
+
+              <!-- Çalışma Modu -->
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <div class="card-title">Çalışma Modu</div>
+                    <div class="card-subtitle">
+                      İlk kez başlıyorsan Basit modla başla, sonra Gelişmiş’e geç.
+                    </div>
+                  </div>
+                  <div class="mode-toggle">
+                    <button class="mode-btn" data-mode-button="basic">Basit Mod</button>
+                    <button class="mode-btn is-active" data-mode-button="advanced">
+                      Gelişmiş Mod
+                      <span class="mode-star" aria-hidden="true">✦</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Şarkı detayları -->
+              <div class="card">
+                <div class="form-grid">
+                  <div class="form-field full">
+                    <label for="songName">Şarkı Adı</label>
+                    <input
+                      type="text"
+                      id="songName"
+                      placeholder="Örn: Kül Bahçesi, Midnight Drive..."
+                    />
+                  </div>
+
+                  <div class="form-field full">
+                    <label for="songDesc">Şarkı Açıklaması (max 200 karakter)</label>
+                    <textarea
+                      id="songDesc"
+                      rows="2"
+                      maxlength="200"
+                      placeholder="Şarkının genel havasını kısaca anlat..."
+                    ></textarea>
+                  </div>
+
+                  <div class="form-field half">
+                    <label for="mood">Ruh Hali (Mood)</label>
+                    <select id="mood">
+                      <option>Ruh halini seç</option>
+                      <option>Enerjik</option>
+                      <option>Hüzünlü</option>
+                      <option>Romantik</option>
+                      <option>Sakin</option>
+                      <option>Epik</option>
+                    </select>
+                  </div>
+
+                  <div class="form-field half">
+                    <label for="lyrics">Şarkı Sözleri (isteğe bağlı)</label>
+                    <textarea
+                      id="lyrics"
+                      rows="2"
+                      placeholder="Şarkı sözlerini buraya yazın veya boş bırakın; AIVO enstrümantal üretir..."
+                    ></textarea>
+                  </div>
+
+                  <div class="form-field full">
+                    <label for="prompt">Ek Açıklama / Prompt</label>
+                    <textarea
+                      id="prompt"
+                      rows="2"
+                      placeholder="Müzikte özellikle vurgulamak istediğin detayları yaz..."
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Referans ses (gelişmiş) -->
+              <div class="card advanced-section" data-visible-in="advanced">
+                <div class="card-title small">Referans Ses Yükle (opsiyonel)</div>
+                <div class="reference-upload">
+                  <label class="upload-dropzone">
+                    <div class="upload-icon">🎧</div>
+                    <div class="upload-text">
+                      <strong>Ses dosyası seç veya sürükleyip bırak</strong>
+                      <span>MP3, WAV, M4A — maksimum 10MB</span>
+                    </div>
+                    <input type="file" class="upload-input" />
+                  </label>
+                </div>
+              </div>
+
+              <!-- Tür / tempo / key -->
+              <div class="card">
+                <div class="form-grid">
+                  <div class="form-field third">
+                    <label for="genre">Tür (Genre)</label>
+                    <select id="genre">
+                      <option>Tür seçin</option>
+                      <option>Türkçe Pop</option>
+                      <option>Anadolu Pop</option>
+                      <option>Arabesk</option>
+                      <option>Deep House</option>
+                      <option>Lo-fi</option>
+                      <option>Trap</option>
+                    </select>
+                  </div>
+
+                  <div class="form-field third">
+                    <label for="tempo">Tempo (BPM)</label>
+                    <input
+                      type="number"
+                      id="tempo"
+                      placeholder="Örn: 105"
+                      min="60"
+                      max="180"
+                    />
+                    <div class="field-hint">Önerilen BPM: 90–120</div>
+                  </div>
+
+                  <div class="form-field third">
+                    <label for="key">Karar Sesi (Key)</label>
+                    <select id="key">
+                      <option>Karar sesi seçin</option>
+                      <option value="C">C</option>
+                      <option value="C#">C# / Db</option>
+                      <option value="D">D</option>
+                      <option value="D#">D# / Eb</option>
+                      <option value="E">E</option>
+                      <option value="F">F</option>
+                      <option value="F#">F# / Gb</option>
+                      <option value="G">G</option>
+                      <option value="G#">G# / Ab</option>
+                      <option value="A">A</option>
+                      <option value="A#">A# / Bb</option>
+                      <option value="B">B</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Enstrümanlar (gelişmiş) -->
+              <div class="card advanced-section" data-visible-in="advanced">
+                <div class="form-grid">
+                  <div class="form-field half">
+                    <label>Türk Enstrümanları</label>
+                    <div class="chip-grid">
+                      <label class="chip-checkbox">
+                        <input type="checkbox" /> <span>Bağlama</span>
+                      </label>
+                      <label class="chip-checkbox">
+                        <input type="checkbox" /> <span>Saz</span>
+                      </label>
+                      <label class="chip-checkbox">
+                        <input type="checkbox" /> <span>Kanun</span>
+                      </label>
+                      <label class="chip-checkbox">
+                        <input type="checkbox" /> <span>Ney</span>
+                      </label>
+                      <label class="chip-checkbox">
+                        <input type="checkbox" /> <span>Zurna</span>
+                      </label>
+                      <label class="chip-checkbox">
+                        <input type="checkbox" /> <span>Darbuka</span>
+                      </label>
+                      <label class="chip-checkbox">
+                        <input type="checkbox" /> <span>Ud</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-field half">
+                    <label>Modern Enstrümanlar</label>
+                    <div class="chip-grid">
+                      <label class="chip-checkbox">
+                        <input type="checkbox" /> <span>Piyano</span>
+                      </label>
+                      <label class="chip-checkbox">
+                        <input type="checkbox" /> <span>Gitar</span>
+                      </label>
+                      <label class="chip-checkbox">
+                        <input type="checkbox" /> <span>Elektro Gitar</span>
+                      </label>
+                      <label class="chip-checkbox">
+                        <input type="checkbox" /> <span>Bas Gitar</span>
+                      </label>
+                      <label class="chip-checkbox">
+                        <input type="checkbox" /> <span>Synth</span>
+                      </label>
+                      <label class="chip-checkbox">
+                        <input type="checkbox" /> <span>Trap Drums</span>
+                      </label>
+                      <label class="chip-checkbox">
+                        <input type="checkbox" /> <span>Strings</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mix / vokal / buton -->
+              <div class="card">
+                <div class="form-grid">
+                  <div class="form-field third">
+                    <label for="mixStyle">Mix Stili</label>
+                    <select id="mixStyle">
+                      <option>AIVO Pop Mix</option>
+                      <option>Warm Analog</option>
+                      <option>Club Mix</option>
+                      <option>Cinematic</option>
+                    </select>
+                  </div>
+
+                  <div class="form-field third">
+                    <label for="vocalType">Vokal Tipi</label>
+                    <select id="vocalType">
+                      <option>Enstrümantal</option>
+                      <option>Kadın Pop Vokal</option>
+                      <option>Erkek Pop Vokal</option>
+                      <option>Koro</option>
+                    </select>
+                  </div>
+
+                  <div class="form-field third align-end">
+                    <button class="primary-btn full-width" id="musicGenerateBtn">
+                      🎵 Müzik Üret
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== SES KAYDI ===== -->
+            <div class="music-view" data-music-view="ses-kaydi">
+              <div class="panel-header">
+                <h1 class="panel-title">Ses Kaydı</h1>
+                <p class="panel-subtitle">
+                  Mikrofonundan ses kaydet ya da hazır ses dosyası yükle; AIVO müziğini buna göre şekillendirsin.
+                </p>
+              </div>
+
+              <!-- Üst bilgi kartı -->
+              <div class="card record-intro-card">
+                <div class="record-intro-left">
+                  <h3 class="record-intro-title">Ses Kaydetme Stüdyosu</h3>
+                  <p class="record-intro-text">
+                    Müzik üretiminde kullanmak istediğin vokali veya rehber melodiyi burada kaydedebilirsin.
+                  </p>
+                  <ul class="record-badges">
+                    <li>🎙 Yüksek kalite kayıt</li>
+                    <li>⏱ Maksimum 120 saniye</li>
+                    <li>🎧 MP3 destekli</li>
+                  </ul>
+                </div>
+                <div class="record-intro-right">
+                  <span class="record-pill">Mikrofon + Dosya Yükleme</span>
+                </div>
+              </div>
+
+              <!-- Ana kayıt alanı -->
+              <div class="card record-main-card">
+                <!-- Ortadaki daire -->
+                <div class="record-circle">
+                  <div class="record-icon">🎤</div>
+                </div>
+
+                <!-- Fake waveform -->
+                <div class="record-wave" id="recordWave">
+                  <div class="wave-bar" style="--i:1"></div>
+                  <div class="wave-bar" style="--i:2"></div>
+                  <div class="wave-bar" style="--i:3"></div>
+                  <div class="wave-bar" style="--i:4"></div>
+                  <div class="wave-bar" style="--i:5"></div>
+                  <div class="wave-bar" style="--i:6"></div>
+                  <div class="wave-bar" style="--i:7"></div>
+                  <div class="wave-bar" style="--i:8"></div>
+                  <div class="wave-bar" style="--i:9"></div>
+                  <div class="wave-bar" style="--i:10"></div>
+                </div>
+
+                <!-- Sol blok -->
+                <div class="record-main-left">
+                  <h3 class="record-main-title" id="recordMainTitle">
+                    Ses Kaydetmeye Başlayın
+                  </h3>
+                  <p class="record-main-text" id="recordMainText">
+                    Butona tıklayarak kayıt modunu açın.
+                  </p>
+
+                  <button
+                    class="primary-btn record-btn"
+                    type="button"
+                    id="recordToggleBtn"
+                  >
+                    ⏺ Kaydı Başlat
+                  </button>
+
+                  <p class="record-timer" id="recordTimer">00:00</p>
+
+                  <p class="record-hint">
+                    İlk kullanımda tarayıcı mikrofon izni isteyebilir. İzne “İzin ver”
+                    demeyi unutma.
+                  </p>
+                </div>
+
+                <!-- Sağ blok: MP3 yükleme -->
+                <div class="record-main-right">
+                  <h4 class="record-upload-title">MP3 Dosyası Yükle</h4>
+                  <p class="record-upload-text">
+                    Mikrofondan kayıt almak yerine daha önce kaydettiğin bir MP3 ses
+                    dosyasını yükleyebilirsin.
+                  </p>
+
+                  <label class="upload-dropzone record-upload-dropzone">
+                    <div class="upload-icon">⬆️</div>
+                    <div class="upload-text">
+                      <strong>Ses dosyası seç veya sürükleyip bırak</strong>
+                      <span>MP3 — maksimum 10MB</span>
+                    </div>
+                    <input
+                      class="upload-input"
+                      type="file"
+                      accept="audio/mp3,audio/mpeg"
+                      id="record-file-input"
+                    />
+                  </label>
+
+                  <p class="record-upload-hint">
+                    Yüklediğin ses dosyası analiz edilerek ritim, tempo ve vokal
+                    karakteri AIVO üretimine yansıtılır.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Alt MP3 sonuç kartı -->
+              <div class="record-result-card" id="recordResultCard">
+                <div class="record-result-header">
+                  <span>Kaydedilen Ses (MP3)</span>
+                  <span class="record-result-time" id="recordResultTime">00:00</span>
+                </div>
+
+                <div class="record-result-actions">
+                  <button
+                    class="result-btn result-play"
+                    type="button"
+                    id="resultPlayBtn"
+                    title="Çal"
+                  >
+                    ▶
+                  </button>
+                  <button
+                    class="result-btn result-download"
+                    type="button"
+                    id="resultDownloadBtn"
+                    title="İndir"
+                  >
+                    ⬇
+                  </button>
+                  <button
+                    class="result-btn result-music"
+                    type="button"
+                    id="resultUseForMusicBtn"
+                    title="Müzik Üretimde Kullan"
+                  >
+                    🎵
+                  </button>
+                  <button
+                    class="result-btn result-delete"
+                    type="button"
+                    id="resultDeleteBtn"
+                    title="Sil"
+                  >
+                    🗑
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== VOKALE GÖRE ===== -->
+            <div class="music-view" data-music-view="vokale-gore">
+              <div class="panel-header">
+                <h1 class="panel-title">Vokale Göre (Yakında)</h1>
+                <p class="panel-subtitle">
+                  Vokal analizine göre otomatik enstrümantasyon ve miks ayarları burada
+                  tasarlanacak.
+                </p>
+              </div>
+
+              <div class="card">
+                <p>
+                  Bu bölüm MVP sonrasında eklenecek. Şimdilik Geleneksel ve Ses Kaydı
+                  sekmelerini kullanabilirsin.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== SAĞ PANEL ========== -->
+          <aside class="right-panel">
+            <div class="card right-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Son Üretilen Müzikler</div>
+                  <div class="card-subtitle">
+                    Ürettiklerin burada listelenecek.
+                  </div>
+                </div>
+              </div>
+
+              <div class="empty-state">
+                <div class="empty-icon">🎶</div>
+                <div class="empty-title">Henüz müzik üretmedin.</div>
+                <div class="empty-text">
+                  Soldaki formu doldurup “Müzik Üret” butonuna basarak başla.
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <!-- ========== KAPAK / GÖRÜNTÜ SAYFASI ========== -->
+      <div class="page page-cover" data-page="cover">
+        <div class="layout">
+          <!-- Sol panel (kapak için sade) -->
+          <aside class="sidebar">
+            <div class="sidebar-section">
+              <div class="sidebar-title">Paneller</div>
+              <button class="sidebar-link" data-page-link="music">
+                <span>Müzik Üret</span>
+              </button>
+              <button class="sidebar-link is-active" data-page-link="cover">
+                <span>Kapak Üret</span>
+              </button>
+              <button class="sidebar-link" data-page-link="music">
+                <span>Ürettiklerim</span>
+              </button>
+              <button class="sidebar-link" data-page-link="music">
+                <span>AIVO Studio</span>
+              </button>
+              <button class="sidebar-link" data-open-pricing>
+                <span>Kredi / Faturalarım</span>
+              </button>
+              <button class="sidebar-link" data-page-link="music">
+                <span>Ayarlar</span>
+              </button>
+              <button class="sidebar-link sidebar-link-danger" data-page-link="music">
+                <span>Çıkış Yap</span>
+              </button>
+            </div>
+
+            <div class="sidebar-section hint-card">
+              <div class="sidebar-title">İpucu</div>
+              <p class="hint-text">
+                Kapak stilini, renklerini ve oranını seç; gerisini AIVO halletsin.
+              </p>
+            </div>
+          </aside>
+
+          <!-- Kapak ana alan -->
+          <section class="cover-main">
+            <div class="panel-header">
+              <h1 class="panel-title">Kapak / Görsel Üret</h1>
+              <p class="panel-subtitle">
+                Spotify, Apple Music ve YouTube için kapaklarını AI ile tasarla.
+              </p>
+            </div>
+
+            <div class="cover-grid">
+              <!-- Sol: yeni görüntü -->
+              <div class="card cover-left">
+                <div class="card-header">
+                  <div>
+                    <div class="card-title">Yeni Görüntü</div>
+                    <div class="card-subtitle">
+                      Kapak açıklamasını ve stilini seç, gerisini AIVO’ya bırak.
+                    </div>
+                  </div>
+                  <span class="badge-beta">BETA</span>
+                </div>
+
+                <div class="form-grid">
+                  <div class="form-field full">
+                    <label for="coverPrompt">Görüntü Açıklaması</label>
+                    <textarea
+                      id="coverPrompt"
+                      rows="3"
+                      maxlength="700"
+                      placeholder="Oluşturmak istediğin görüntüyü detaylı anlat..."
+                    ></textarea>
+                  </div>
+
+                  <div class="form-field full">
+                    <label>Stil Seçenekleri</label>
+                    <div class="style-grid">
+                      <button class="style-pill is-active">Gerçekçi</button>
+                      <button class="style-pill">Sanatsal</button>
+                      <button class="style-pill">Çizgi Film</button>
+                      <button class="style-pill">Soyut</button>
+                      <button class="style-pill">Fotoğrafik</button>
+                      <button class="style-pill">Anime</button>
+                    </div>
+                  </div>
+
+                  <div class="form-field half">
+                    <label>Görüntü Sayısı</label>
+                    <select id="coverCount">
+                      <option>1 Görüntü</option>
+                      <option>2 Görüntü</option>
+                      <option>4 Görüntü</option>
+                    </select>
+                  </div>
+
+                  <div class="form-field half">
+                    <label>En / Boy Oranı</label>
+                    <select id="coverRatio">
+                      <option>Kare (1:1)</option>
+                      <option>Dikey (9:16)</option>
+                      <option>Yatay (16:9)</option>
+                    </select>
+                  </div>
+
+                  <div class="form-field full">
+                    <label>Kapak Yazıları</label>
+                    <div class="form-grid">
+                      <div class="form-field half">
+                        <label for="coverTextTop">Üst Yazı</label>
+                        <input
+                          type="text"
+                          id="coverTextTop"
+                          placeholder="Örn: Harun Erkezen"
+                        />
+                      </div>
+                      <div class="form-field half">
+                        <label for="coverTextBottom">Alt Yazı</label>
+                        <input
+                          type="text"
+                          id="coverTextBottom"
+                          placeholder="Örn: Kül Bahçesi"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-field full">
+                    <button class="primary-btn full-width" id="coverGenerateBtn">
+                      🖼️ Kapak Üret
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sağ: basit galeri placeholder -->
+              <div class="cover-right">
+                <div class="card cover-gallery-card">
+                  <div class="card-header">
+                    <div>
+                      <div class="card-title">Görsel Galeriniz</div>
+                      <div class="card-subtitle">
+                        Ürettiğin kapaklar burada listelenecek.
+                      </div>
+                    </div>
+                    <select class="gallery-filter">
+                      <option>Tümü</option>
+                      <option>Spotify</option>
+                      <option>YouTube</option>
+                      <option>Instagram</option>
+                    </select>
+                  </div>
+
+                  <div class="empty-state">
+                    <div class="empty-icon">🖼️</div>
+                    <div class="empty-title">Henüz kapak üretmedin.</div>
+                    <div class="empty-text">
+                      Soldaki formu doldurup “Kapak Üret” butonuna basarak başla.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ========== KREDİ MODAL ========= -->
+  <div class="pricing-modal" id="pricingModal">
+    <div class="pricing-backdrop"></div>
+    <div class="pricing-dialog">
+      <div class="pricing-header">
+        <div>
+          <h2>Kredi Paketleri</h2>
+          <p>
+            AIVO’da daha fazla müzik ve kapak üretmek için ihtiyacına uygun kredi paketini seç.
+          </p>
+        </div>
+        <button class="icon-button" id="closePricing" aria-label="Kapat">
+          ✕
+        </button>
+      </div>
+
+      <div class="pricing-grid">
+        <article class="pricing-card">
+          <div class="pricing-badge small">Başlangıç</div>
+          <h3>Ekonomik Paket</h3>
+          <div class="pricing-price">349₺</div>
+          <ul class="pricing-list">
+            <li>50 kredi • 100 şarkı</li>
+            <li>Yüksek kalite üretim</li>
+            <li>Email destek</li>
+            <li>Kapak üretimi</li>
+            <li>Kişisel kullanım</li>
+          </ul>
+          <button class="primary-btn full-width">Satın Al</button>
+        </article>
+
+        <article class="pricing-card is-popular">
+          <div class="pricing-badge">En Popüler</div>
+          <h3>Temel Kredi Paketi</h3>
+          <div class="pricing-price">599₺</div>
+          <ul class="pricing-list">
+            <li>100 kredi • 200 şarkı</li>
+            <li>Öncelikli destek</li>
+            <li>Gelişmiş özellikler</li>
+            <li>Ticari kullanım</li>
+            <li>Kapak + video üretimi</li>
+          </ul>
+          <button class="primary-btn full-width">Satın Al</button>
+        </article>
+
+        <article class="pricing-card">
+          <div class="pricing-badge small">Stüdyo</div>
+          <h3>Studio Paketi</h3>
+          <div class="pricing-price">2899₺</div>
+          <ul class="pricing-list">
+            <li>500 kredi • 1000 şarkı</li>
+            <li>Premium kalite</li>
+            <li>7/24 öncelikli destek</li>
+            <li>AIVO Studio sınırsız kullanım</li>
+            <li>Takım / ajans lisansı</li>
+          </ul>
+          <button class="primary-btn full-width">Satın Al</button>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== KAYIT OVERLAY ========= -->
+  <div id="recordingOverlay">
+    <div class="recording-backdrop"></div>
+    <div class="recording-dialog">
+      <div class="record-result-header">
+        <span>Kayıt Yapılıyor...</span>
+        <span class="record-result-time" id="overlayTimer">00:00</span>
+      </div>
+      <div class="record-wave" id="overlayWave">
+        <div class="wave-bar" style="--i:1"></div>
+        <div class="wave-bar" style="--i:2"></div>
+        <div class="wave-bar" style="--i:3"></div>
+        <div class="wave-bar" style="--i:4"></div>
+        <div class="wave-bar" style="--i:5"></div>
+        <div class="wave-bar" style="--i:6"></div>
+        <div class="wave-bar" style="--i:7"></div>
+        <div class="wave-bar" style="--i:8"></div>
+        <div class="wave-bar" style="--i:9"></div>
+        <div class="wave-bar" style="--i:10"></div>
+      </div>
+      <div style="margin-top:14px; display:flex; justify-content:flex-end; gap:8px;">
+        <button class="top-btn ghost" id="overlayCancelBtn">İptal</button>
+        <button class="primary-btn" id="overlayStopBtn">Kaydı Durdur</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="studio.js"></script>
+</body>
+</html>
