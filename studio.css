@@ -2480,132 +2480,19 @@ body.is-recording .record-wave {
   cursor: pointer;
 }
 
-/* === SES KAYDI SONUÇ KARTI – AIVO GRADIENT STYLE === */
-
-.record-result-card {
-  margin: 20px auto 0;
-  max-width: 620px;
-  background: radial-gradient(circle at top, #171a33 0, #050816 60%);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 14px 18px 16px;
-  display: none;
-}
-
-.record-result-card.is-visible {
-  display: block;
-}
-
-.record-result-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #f5f5ff;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
-.record-result-time {
-  font-variant-numeric: tabular-nums;
-  font-size: 13px;
-  color: #9aa4d7;
-}
-
-.record-result-actions {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-/* Ortak buton stili – daireyle aynı “cam” + glow mantığı */
-
-.result-btn {
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fdfdff;
-  font-size: 20px;
-  cursor: pointer;
-  backdrop-filter: blur(14px);
-  box-shadow: 0 0 26px rgba(0, 0, 0, 0.8);
-  transition:
-    transform 0.18s ease-out,
-    box-shadow 0.18s ease-out,
-    background 0.18s ease-out,
-    border-color 0.18s ease-out,
-    opacity 0.18s ease-out;
-}
-
-/* Hover / click animasyonu – dairenin altındaki glow hissi */
-
-.result-btn:hover {
-  transform: translateY(-2px) scale(1.06);
-  opacity: 1;
-}
-
-.result-btn:active {
-  transform: translateY(0) scale(0.94);
-  box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
-  opacity: 0.9;
-}
-
-/* 4 butonu da yuvarlağın renklerinden türetiyoruz */
-
-/* 1) Play – üstteki dairenin pembe/mor kısmı */
-.result-btn.result-play {
-  background: radial-gradient(circle at 30% 0, #ffd5ff 0, #ff9ff3 40%, #c77dff 80%);
-  border-color: rgba(255, 159, 243, 0.4);
-  box-shadow: 0 0 26px rgba(255, 159, 243, 0.6);
-}
-.result-btn.result-play:hover {
-  box-shadow: 0 0 36px rgba(255, 159, 243, 0.95);
-}
-
-/* 2) Download – mordan maviye kayan kısım */
-.result-btn.result-download {
-  background: radial-gradient(circle at 30% 0, #e0d4ff 0, #a18bff 40%, #6c5ce7 80%);
-  border-color: rgba(161, 139, 255, 0.4);
-  box-shadow: 0 0 26px rgba(161, 139, 255, 0.6);
-}
-.result-btn.result-download:hover {
-  box-shadow: 0 0 36px rgba(161, 139, 255, 0.95);
-}
-
-/* 3) Music – morun daha sıcak, pembe/lila tarafı */
-.result-btn.result-music {
-  background: radial-gradient(circle at 30% 0, #ffe0ff 0, #ffb0ff 35%, #ff8fd6 80%);
-  border-color: rgba(255, 176, 255, 0.45);
-  box-shadow: 0 0 26px rgba(255, 143, 214, 0.7);
-}
-.result-btn.result-music:hover {
-  box-shadow: 0 0 36px rgba(255, 143, 214, 0.98);
-}
-
-/* 4) Delete – düz kırmızı değil; dairenin en koyu bordomsu kısmı */
-.result-btn.result-delete {
-  background: radial-gradient(circle at 30% 0, #ffb3c7 0, #ff6b9e 35%, #7a1230 85%);
-  border-color: rgba(255, 107, 158, 0.5);
-  box-shadow: 0 0 26px rgba(255, 107, 158, 0.6);
-}
-.result-btn.result-delete:hover {
-  box-shadow: 0 0 36px rgba(255, 107, 158, 0.98);
-}
 /* === SON ÜRETİLEN MÜZİKLER – AKAN NOTA EFEKTİ (KART GENELİ) === */
 
-/* Kartın tamamı animasyon alanı olsun */
+/* Kart animasyon alanı */
 .right-card {
   position: relative;
-  overflow: hidden; /* Notalar kartın dışına taşmasın */
+  overflow: hidden; /* Notalar karttan taşmasın */
 }
 
-/* Yazı kartın içinde normal dursun */
-.empty-state {
+/* Yazı ve iç kutu normal dursun */
+.right-card .card-header,
+.right-card .empty-state {
   position: relative;
-  z-index: 2; /* Notaların üstünde kalsın */
+  z-index: 2; /* Notaların üstünde */
 }
 
 /* Arkadaki akan notalar */
@@ -2613,16 +2500,16 @@ body.is-recording .record-wave {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.35;
-  z-index: 1; /* Kartın içinde, yazının arkasında */
+  opacity: 0.6;
+  z-index: 1; /* Kartın arka planı ile boş kart arasında */
 }
 
 .empty-notes span {
   position: absolute;
   top: -20%;
   left: var(--x, 50%);
-  font-size: 22px;
-  filter: drop-shadow(0 0 8px rgba(255, 198, 255, 0.7));
+  font-size: 24px;
+  filter: drop-shadow(0 0 10px rgba(255, 198, 255, 0.9));
   animation: aivoNoteFall 7s linear infinite;
   animation-delay: calc(var(--i, 0) * -1.1s);
 }
@@ -2645,5 +2532,3 @@ body.is-recording .record-wave {
     opacity: 0;
   }
 }
-
-
