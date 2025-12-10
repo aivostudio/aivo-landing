@@ -305,6 +305,149 @@ function startRecording() {
 }
 
 function stopRecording() {
+
+  // === SES KAYIT UI AKIŞI ===
+
+// Elemanlar
+const recordBtn = document.getElementById("recordBtn");
+const recordingOverlay = document.getElementById("recordingOverlay");
+const modalStopBtn = document.getElementById("modalStopBtn");
+const modalCancelBtn = document.getElementById("modalCancelBtn");
+
+const recordingTimerEl = document.getElementById("recordingTimer");
+const recordingRemainingEl = document.getElementById("recordingRemaining");
+const recordingProgressBar = document.getElementById("recordingProgressBar");
+const recordMainTimerEl = document.getElementById("recordMainTimer");
+
+const recordResultCard = document.getElementById("recordResultCard");
+const recordedDurationEl = document.getElementById("recordedDuration");
+
+// Ayarlar
+const MAX_SECONDS = 120; // 2 dakika
+
+let isRecording = false;
+let startTime = null;
+let recordInterval = null;
+
+function openRecordingModal() {
+  if (!recordingOverlay) return;
+  recordingOverlay.classList.add("is-open");
+}
+
+function closeRecordingModal() {
+  if (!recordingOverlay) return;
+  recordingOverlay.classList.remove("is-open");
+}
+
+function formatTime(sec) {
+  const m = String(Math.floor(sec / 60)).padStart(2, "0");
+  const s = String(sec % 60).padStart(2, "0");
+  return `${m}:${s}`;
+}
+
+function startRecordingUI() {
+  isRecording = true;
+  startTime = Date.now();
+  recordBtn.textContent = "Kaydı Durdur";
+  recordBtn.classList.add("recording");
+
+  if (recordMainTimerEl) recordMainTimerEl.textContent = "00:00";
+  if (recordingTimerEl) recordingTimerEl.textContent = "00:00";
+  if (recordingRemainingEl) recordingRemainingEl.textContent = formatTime(MAX_SECONDS);
+  if (recordingProgressBar) recordingProgressBar.style.width = "0%";
+
+  openRecordingModal();
+
+  // Buraya GERÇEK mikrofon kaydını başlatan fonksiyonlarını bağlayabilirsin:
+  // startMicrophoneRecording();
+
+  recordInterval = setInterval(() => {
+    const diffMs = Date.now() - startTime;
+    const diffSec = Math.floor(diffMs / 1000);
+    const remaining = Math.max(0, MAX_SECONDS - diffSec);
+
+    const tStr = formatTime(diffSec);
+    if (recordMainTimerEl) recordMainTimerEl.textContent = tStr;
+    if (recordingTimerEl) recordingTimerEl.textContent = tStr;
+    if (recordingRemainingEl) recordingRemainingEl.textContent = formatTime(remaining);
+
+    const percent = Math.min(100, (diffSec / MAX_SECONDS) * 100);
+    if (recordingProgressBar) {
+      recordingProgressBar.style.width = percent + "%";
+    }
+
+    if (diffSec >= MAX_SECONDS) {
+      stopRecordingUI(true);
+    }
+  }, 250);
+}
+
+function stopRecordingUI(autoByLimit = false) {
+  isRecording = false;
+  recordBtn.textContent = "Kaydı Başlat";
+  recordBtn.classList.remove("recording");
+
+  if (recordInterval) {
+    clearInterval(recordInterval);
+    recordInterval = null;
+  }
+
+  const diffSec = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
+  const tStr = formatTime(diffSec);
+  if (recordMainTimerEl) recordMainTimerEl.textContent = tStr;
+  if (recordedDurationEl) recordedDurationEl.textContent = tStr;
+
+  closeRecordingModal();
+
+  // Kaydı bitirdiğimizde sonucu göster
+  if (recordResultCard && !autoByLimit) {
+    recordResultCard.classList.add("is-visible");
+  }
+
+  // Buraya GERÇEK mikrofon kaydını durduran fonksiyonu ekleyebilirsin:
+  // stopMicrophoneRecording();
+}
+
+function cancelRecordingUI() {
+  isRecording = false;
+  recordBtn.textContent = "Kaydı Başlat";
+  recordBtn.classList.remove("recording");
+
+  if (recordInterval) {
+    clearInterval(recordInterval);
+    recordInterval = null;
+  }
+
+  closeRecordingModal();
+  if (recordMainTimerEl) recordMainTimerEl.textContent = "00:00";
+
+  // Kaydı iptal ettiğin durumda audio'yu da çöpe atmak istersen burada yap:
+  // cancelMicrophoneRecording();
+}
+
+// Eventler
+if (recordBtn) {
+  recordBtn.addEventListener("click", () => {
+    if (!isRecording) {
+      startRecordingUI();
+    } else {
+      stopRecordingUI(false);
+    }
+  });
+}
+
+if (modalStopBtn) {
+  modalStopBtn.addEventListener("click", () => {
+    if (isRecording) {
+      stopRecordingUI(false);
+    }
+  });
+}
+
+if (modalCancelBtn) {
+  modalCancelBtn.addEventListener("click", cancelRecordingUI);
+}
+
   // ... senin mevcut kayıt durdurma kodların ...
 
   isRecording = false;
