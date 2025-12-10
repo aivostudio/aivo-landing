@@ -2040,4 +2040,27 @@ body.is-recording .record-wave {
     0 0 45px rgba(255, 150, 220, 0.6),
     0 0 80px rgba(140, 90, 230, 0.5) !important;
 }
+/* === SES KAYDI – DAİRE RENK & SOFT KAYIT GLOWU === */
+
+.music-view[data-music-view="ses-kaydi"] .record-circle {
+  /* normal (kayıt yokken) pastel gradient */
+  background:
+    radial-gradient(circle at 30% 10%, rgba(255, 255, 255, 0.45), transparent 55%),
+    radial-gradient(circle at 70% 90%, rgba(165, 110, 255, 0.55), transparent 60%),
+    conic-gradient(from 220deg, #ff9ff3, #a29bfe, #74b9ff, #ff9ff3);
+  box-shadow:
+    0 0 40px rgba(162, 155, 254, 0.45),
+    0 0 120px rgba(253, 121, 168, 0.55);
+}
+
+/* kayıt halindeki ana renk – kırmızı yerine lila / mor-pembe */
+.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
+  background:
+    radial-gradient(circle at 30% 10%, rgba(255, 255, 255, 0.55), transparent 55%),
+    radial-gradient(circle at 70% 90%, rgba(255, 159, 243, 0.65), transparent 60%),
+    radial-gradient(circle at center, #ff6ec7, #a66bff);
+  box-shadow:
+    0 0 45px rgba(255, 159, 243, 0.8),
+    0 0 130px rgba(162, 155, 254, 0.9);
+}
 
