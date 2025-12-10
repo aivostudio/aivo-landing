@@ -2594,3 +2594,45 @@ body.is-recording .record-wave {
 .result-btn.result-delete:hover {
   box-shadow: 0 0 36px rgba(255, 107, 158, 0.98);
 }
+/* === SON ÜRETİLEN MÜZİKLER – AKAN NOTA EFEKTİ === */
+
+.empty-state {
+  position: relative;
+  overflow: hidden; /* Notalar dışarı taşmasın */
+}
+
+.empty-notes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+.empty-notes span {
+  position: absolute;
+  top: -20%;
+  left: var(--x, 50%);
+  font-size: 22px;
+  filter: drop-shadow(0 0 8px rgba(255, 198, 255, 0.7));
+  animation: aivoNoteFall 7s linear infinite;
+  animation-delay: calc(var(--i, 0) * -1.1s);
+}
+
+@keyframes aivoNoteFall {
+  0% {
+    transform: translate3d(0, -10%, 0) translateX(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate3d(0, 140%, 0) translateX(-8px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(0, 260%, 0) translateX(8px);
+    opacity: 0;
+  }
+}
+
