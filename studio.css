@@ -2480,15 +2480,15 @@ body.is-recording .record-wave {
   cursor: pointer;
 }
 
-/* === SES KAYDI SONUÇ KARTI === */
+/* === SES KAYDI SONUÇ KARTI – AIVO STYLE === */
 
 .record-result-card {
   margin: 20px auto 0;
   max-width: 620px;
-  background: rgba(8, 11, 36, 0.92);
-  border-radius: 18px;
+  background: radial-gradient(circle at top, #171a33 0, #06081a 60%);
+  border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.04);
-  padding: 16px 18px;
+  padding: 14px 18px;
   display: none;
 }
 
@@ -2502,7 +2502,7 @@ body.is-recording .record-wave {
   align-items: center;
   color: #f5f5ff;
   font-size: 14px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .record-result-time {
@@ -2523,40 +2523,69 @@ body.is-recording .record-wave {
   width: 44px;
   height: 44px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.04);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  color: #fdfdff;
   font-size: 20px;
   cursor: pointer;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 0 0 rgba(0,0,0,0);
-  transition: box-shadow 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+  backdrop-filter: blur(12px);
+  background: radial-gradient(circle at 30% 0, #2b2651 0, #101327 55%, #050816 100%);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+  transition:
+    transform 0.18s ease-out,
+    box-shadow 0.18s ease-out,
+    background 0.18s ease-out,
+    border-color 0.18s ease-out,
+    opacity 0.18s ease-out;
 }
 
-/* Play (mor ton) */
+/* Hover / active animasyonu */
+.result-btn:hover {
+  transform: translateY(-2px) scale(1.06);
+}
+
+.result-btn:active {
+  transform: translateY(0) scale(0.94);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.65);
+  opacity: 0.9;
+}
+
+/* Play – hafif neon yeşil ama mor bazlı */
 .result-btn.result-play {
-  background: linear-gradient(135deg, #a974ff, #6c5ce7);
+  --glow: rgba(40, 255, 184, 0.75);
+  border-color: rgba(40, 255, 184, 0.18);
 }
 .result-btn.result-play:hover {
-  box-shadow: 0 0 14px rgba(169, 116, 255, 0.9);
-  transform: translateY(-1px);
+  box-shadow: 0 0 20px var(--glow);
 }
 
-/* Download (lacivert-mavi) */
+/* Download – mavi/lavanta glow */
 .result-btn.result-download {
-  background: linear-gradient(135deg, #6c8bff, #4e5bff);
+  --glow: rgba(123, 170, 255, 0.8);
+  border-color: rgba(123, 170, 255, 0.2);
 }
 .result-btn.result-download:hover {
-  box-shadow: 0 0 14px rgba(108, 139, 255, 0.9);
-  transform: translateY(-1px);
+  box-shadow: 0 0 20px var(--glow);
 }
 
-/* Music (pembe-lila) */
+/* Music – lila/pembe glow (AIVO imzası) */
 .result-btn.result-music {
-  background: linear-gradient(135deg, #ff72d2, #ff4fb3);
+  --glow: rgba(255, 132, 228, 0.9);
+  border-color: rgba(255, 132, 228, 0.22);
 }
 .result-btn.result-music:hover {
-  box-shadow: 0 0 14px rgba(255, 114, 210, 0.95);
-  transform: translateY
+  box-shadow: 0 0 20px var(--glow);
+}
+
+/* Delete – artık dümdüz kırmızı değil,
+   koyu bordo baz + kırmızı glow sadece hover'da */
+.result-btn.result-delete {
+  background: radial-gradient(circle at 30% 0, #3a1221 0, #190713 55%, #050816 100%);
+  --glow: rgba(255, 70, 120, 0.85);
+  border-color: rgba(255, 70, 120, 0.2);
+}
+.result-btn.result-delete:hover {
+  box-shadow: 0 0 20px var(--glow);
+}
