@@ -1020,7 +1020,7 @@ textarea:focus {
   position: relative;
   margin-top: 80px;              /* üst kartla aradaki boşluk */
   padding: 80px 48px 40px;       /* üstte daire için yer + iç boşluk */
-  min-height: 380px;             /* kartın boyu: aşağı doğru uzasın */
+  min-height: 480px;             /* kartın boyu: aşağı doğru uzasın */
   display: flex;
   align-items: flex-end;         /* içerik alt kenara hizalansın */
   justify-content: space-between;
