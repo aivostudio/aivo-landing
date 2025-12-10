@@ -1633,13 +1633,190 @@ textarea:focus {
   75%  { transform: translateX(-50%) scale(1.09); }
   100% { transform: translateX(-50%) scale(1); }
 }
-/* ==== SES KAYDI – Daireyi tam ortaya yaklaştır ==== */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  left: 50%;
-  transform: translateX(-52%); /* -50 yerine -52: hafif sola kaydırır */
-}
-/* ==== SES KAYDI – Waveform ve süre ==== */
+/* =========================================
+   SES KAYDI – FINAL LAYOUT
+   ========================================= */
 
+/* Üst kart: Ses Kaydetme Stüdyosu */
+.music-view[data-music-view="ses-kaydi"] .record-intro-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 10px;
+  margin-bottom: 70px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
+    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
+    var(--bg-card-soft);
+}
+
+.record-intro-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.record-intro-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.record-intro-text {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.record-badges {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+/* Alt kart: ana kayıt alanı */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  position: relative;
+  margin-top: 0;
+  padding: 90px 40px 40px;
+  min-height: 320px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+}
+
+/* Sol & sağ kolon */
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  z-index: 2;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-title {
+  margin: 0 0 6px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-text,
+.music-view[data-music-view="ses-kaydi"] .record-upload-text,
+.music-view[data-music-view="ses-kaydi"] .record-upload-hint,
+.music-view[data-music-view="ses-kaydi"] .record-hint {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-upload-title {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-btn {
+  margin-top: 6px;
+}
+
+/* DAİRE: üst kart ile alt kartın arasında, ortada */
+.music-view[data-music-view="ses-kaydi"] .record-circle {
+  position: absolute;
+  top: -95px;
+  left: 50%;
+  transform: translateX(-52%);  /* hafif sola – ortalamayı beğenmezsen -50 / -54 ile oyna */
+  width: 230px;
+  height: 230px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #ff7675,
+    #fd79a8,
+    #ffeaa7,
+    #55efc4,
+    #74b9ff,
+    #a29bfe,
+    #ff7675
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 40px rgba(255, 255, 255, 0.14),
+    0 0 80px rgba(132, 94, 247, 0.45);
+  z-index: 1;
+  animation: pulseIdle 2.4s ease-in-out infinite;
+}
+
+/* Dairenin içi: deep purple */
+.music-view[data-music-view="ses-kaydi"] .record-circle::after {
+  content: "";
+  position: absolute;
+  inset: 24px;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12), transparent 55%),
+    radial-gradient(circle at bottom, #2e1b52, #05020c);
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-icon {
+  position: relative;
+  z-index: 2;
+  font-size: 58px;
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.7),
+    0 0 20px rgba(253, 121, 168, 0.7);
+}
+
+/* Kalp atışı – idle */
+@keyframes pulseIdle {
+  0%   { transform: translateX(-52%) scale(1); }
+  30%  { transform: translateX(-52%) scale(1.05); }
+  60%  { transform: translateX(-52%) scale(1); }
+  100% { transform: translateX(-52%) scale(1); }
+}
+
+/* Kayıt modunda daire */
+.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
+  background: conic-gradient(
+    from 0deg,
+    #ff4757,
+    #ff6b81,
+    #ff4757,
+    #c23616,
+    #ff6b81,
+    #ff4757
+  );
+  box-shadow:
+    0 0 45px rgba(255, 71, 87, 0.9),
+    0 0 110px rgba(214, 48, 49, 0.9);
+  animation: pulseRecording 1s ease-in-out infinite;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording::after {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), transparent 55%),
+    radial-gradient(circle at bottom, #7d122f, #140005);
+}
+
+/* Kayıtta kalp atışı */
+@keyframes pulseRecording {
+  0%   { transform: translateX(-52%) scale(1); }
+  20%  { transform: translateX(-52%) scale(1.1); }
+  50%  { transform: translateX(-52%) scale(1.02); }
+  80%  { transform: translateX(-52%) scale(1.1); }
+  100% { transform: translateX(-52%) scale(1); }
+}
+
+/* Waveform + süre */
 .record-wave-row {
   margin-top: 14px;
   display: flex;
@@ -1666,13 +1843,11 @@ textarea:focus {
   overflow: hidden;
 }
 
-/* Kayıtta aktif olsun */
 .music-view[data-music-view="ses-kaydi"] .record-main-card.is-recording .record-wave {
   opacity: 0.9;
   animation: waveMove 0.55s linear infinite alternate;
 }
 
-/* Saniye göstergesi */
 .record-timer {
   min-width: 48px;
   font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -1685,7 +1860,7 @@ textarea:focus {
   color: #f5f5ff;
 }
 
-/* Waveform hareket animasyonu */
+/* Waveform animasyonu */
 @keyframes waveMove {
   0% {
     transform: scaleY(0.7) translateX(0);
@@ -1700,4 +1875,3 @@ textarea:focus {
     filter: hue-rotate(-15deg);
   }
 }
-
