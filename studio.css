@@ -1039,7 +1039,7 @@ textarea:focus {
 /* ==== SES KAYDI – KARTI AŞAĞI UZAT ==== */
 
 .music-view[data-music-view="ses-kaydi"] .record-main-card {
-  min-height: 220px !important;   /* kutunun boyu: daha aşağı insin */
+  min-height: 180px !important;   /* kutunun boyu: daha aşağı insin */
   padding-bottom: 40px !important;
   display: flex !important;
   align-items: flex-end !important;
