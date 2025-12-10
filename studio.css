@@ -1,9 +1,9 @@
-/* ================================
+/* =============================
    AIVO STUDIO – STUDIO.CSS
-   ================================ */
+   (Sade, stabil sürüm – nota efekti yok)
+   ============================= */
 
-/* ---- GENEL RESET & DEĞİŞKENLER ---- */
-
+/* GENEL RESET & DEĞİŞKENLER */
 *,
 *::before,
 *::after {
@@ -15,15 +15,21 @@
   --bg-elevated: #070b1d;
   --bg-card: #0d1024;
   --bg-card-soft: #121632;
-  --accent: #6c5ce7;
+
+  --accent: #a974ff;
   --accent-soft: #8e8df5;
   --accent-strong: #ff9f43;
+
   --text: #f5f5ff;
   --text-soft: #9aa4d7;
+
   --border-subtle: rgba(255, 255, 255, 0.06);
+
   --radius-lg: 18px;
   --radius-xl: 22px;
+
   --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.65);
+
   --transition-fast: 0.2s ease-out;
   --transition-med: 0.3s ease-out;
 }
@@ -32,46 +38,55 @@ html,
 body {
   margin: 0;
   padding: 0;
-  min-height: 100vh;
-  background: radial-gradient(circle at top left, #222b4b 0, #050816 45%, #02030a 100%);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  height: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
   color: var(--text);
+  background:
+    radial-gradient(circle at top, #18163d 0, #050816 55%, #02030a 100%);
 }
 
-/* ---- APP SHELL ---- */
+body {
+  display: flex;
+  justify-content: center;
+}
+
+/* ======================
+   APP SHELL & TOPBAR
+   ====================== */
 
 .app-shell {
   width: 100%;
+  max-width: 1400px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: radial-gradient(circle at top right, rgba(108, 92, 231, 0.18), transparent 45%),
-    radial-gradient(circle at bottom left, rgba(9, 132, 227, 0.16), transparent 50%),
-    rgba(3, 6, 24, 0.96);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03), var(--shadow-soft);
-  overflow: hidden;
+  padding: 12px 18px 24px;
 }
-
-/* ---- TOPBAR ---- */
 
 .topbar {
   display: flex;
   align-items: center;
-  padding: 12px 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  background: linear-gradient(90deg, rgba(23, 32, 78, 0.96), rgba(10, 16, 52, 0.96));
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at top, #31245a 0, #070b1d 55%, #050816 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 14px;
 }
 
 .topbar-left {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .logo-img {
@@ -81,38 +96,43 @@ body {
 
 .logo-text {
   font-weight: 600;
-  letter-spacing: 0.04em;
   font-size: 15px;
+  letter-spacing: 0.03em;
 }
 
 .topnav {
   display: flex;
-  flex: 1;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .topnav-link {
-  position: relative;
-  padding: 6px 11px;
+  border-radius: 999px;
+  padding: 6px 12px;
   font-size: 13px;
   color: var(--text-soft);
   text-decoration: none;
-  border-radius: 999px;
-  transition: color var(--transition-fast), background var(--transition-fast),
-    transform var(--transition-fast);
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform 0.12s ease-out;
 }
 
 .topnav-link:hover {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.06);
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .topnav-link.is-active {
-  color: #fff;
-  background: linear-gradient(135deg, #6c5ce7, #a55eea);
+  background: linear-gradient(115deg, #a974ff, #ff7ee5);
+  color: #120820;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 14px rgba(169, 116, 255, 0.7);
+  transform: translateY(-1px);
 }
 
 .topbar-right {
@@ -123,24 +143,16 @@ body {
 
 .credits-pill {
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: radial-gradient(circle at 20% 0, rgba(255, 234, 167, 0.4), transparent 60%),
-    rgba(9, 10, 40, 0.9);
-  color: var(--text);
-  padding: 6px 12px;
+  padding: 5px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background:
+    radial-gradient(circle at top, #3b235f 0, #120b28 60%);
+  color: #f5f5ff;
+  font-size: 12px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
   cursor: pointer;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
-    border-color var(--transition-fast), background var(--transition-fast);
-}
-
-.credits-pill:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .credits-label {
@@ -149,42 +161,50 @@ body {
 
 .credits-value {
   font-weight: 600;
-  font-size: 13px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .top-btn {
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  padding: 6px 12px;
+  padding: 6px 14px;
   font-size: 12px;
-  background: transparent;
-  color: var(--text);
+  border: none;
   cursor: pointer;
-  transition: background var(--transition-fast), transform var(--transition-fast),
-    box-shadow var(--transition-fast), border-color var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    transform 0.12s ease-out,
+    box-shadow 0.12s ease-out;
+}
+
+.top-btn.ghost {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
 }
 
 .top-btn.ghost:hover {
-  background: rgba(255, 255, 255, 0.08);
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.09);
 }
 
 .top-btn.primary {
-  background: linear-gradient(135deg, #6c5ce7, #fd79a8);
-  border-color: transparent;
-  font-weight: 500;
+  background: linear-gradient(120deg, #a974ff, #ff7ee5);
+  color: #120820;
+  box-shadow: 0 0 12px rgba(255, 126, 229, 0.75);
 }
 
 .top-btn.primary:hover {
-  box-shadow: 0 10px 30px rgba(253, 121, 168, 0.5);
   transform: translateY(-1px);
 }
 
-/* ---- PAGE WRAPPER ---- */
+/* ======================
+   PAGE & LAYOUT
+   ====================== */
 
 .main-pages {
-  position: relative;
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .page {
@@ -195,80 +215,100 @@ body {
   display: block;
 }
 
-/* ---- LAYOUT GRID ---- */
+.music-view {
+  display: none;
+}
+
+.music-view.is-active {
+  display: block;
+}
 
 .layout {
   display: grid;
-  grid-template-columns: 250px minmax(0, 1.7fr) 320px;
-  gap: 14px;
-  padding: 18px 20px 22px;
-  min-height: calc(100vh - 64px);
+  grid-template-columns: 250px minmax(0, 1.8fr) 320px;
+  gap: 18px;
+  margin-top: 6px;
 }
 
-/* Kapak sayfasında sağ panel yok */
-.page-cover .layout {
-  grid-template-columns: 250px minmax(0, 1fr);
-}
-
-/* ---- LEFT SIDEBAR ---- */
+/* ======================
+   LEFT SIDEBAR
+   ====================== */
 
 .sidebar {
+  background:
+    radial-gradient(circle at top, #151634 0, #06091a 60%);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-subtle);
+  padding: 14px 14px 18px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
 .sidebar-section {
-  background: rgba(5, 7, 30, 0.96);
+  padding: 10px 10px 12px;
   border-radius: var(--radius-lg);
-  padding: 22px 22px 18px;
-  border: 1px solid var(--border-subtle);
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6);
+}
+
+.sidebar-section + .sidebar-section {
+  background: rgba(0, 0, 0, 0.08);
 }
 
 .sidebar-title {
   font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.08em;
   color: var(--text-soft);
-  margin-bottom: 14px;
-  font-weight: 600;
+  margin-bottom: 8px;
 }
 
-.sidebar-group {
-  margin-bottom: 10px;
-}
-
+.sidebar-link,
+.sidebar-sublink,
 .sidebar-link-main {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  padding: 7px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 9px 4px;
-  font-size: 15px;
-  font-weight: 700;
+  background: transparent;
   color: var(--text-soft);
+  font-size: 13px;
   cursor: pointer;
-  border-radius: 10px;
-  transition: color var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform 0.12s ease-out;
 }
 
+.sidebar-link:hover,
+.sidebar-sublink:hover,
+.sidebar-link-main:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+}
+
+.sidebar-link.is-active,
+.sidebar-sublink.is-active,
 .sidebar-link-main.is-open {
-  color: #fff;
+  background:
+    radial-gradient(circle at top left, #3b2060 0, #15142e 75%);
+  border-color: rgba(170, 132, 255, 0.45);
+  color: #f5f0ff;
 }
 
-.sidebar-arrow {
-  font-size: 10px;
-  opacity: 0.8;
-  transition: transform 0.2s ease-out;
+.sidebar-link-danger {
+  color: #ff6b81;
 }
 
-.sidebar-link-main.is-open .sidebar-arrow {
-  transform: rotate(180deg);
+.sidebar-group {
+  margin-bottom: 4px;
 }
 
 .sidebar-submenu {
-  margin-top: 6px;
-  padding-left: 6px;
+  margin-top: 4px;
   display: none;
   flex-direction: column;
   gap: 4px;
@@ -279,68 +319,12 @@ body {
 }
 
 .sidebar-sublink {
-  width: 100%;
-  border: none;
-  outline: none;
-  border-radius: 12px;
-  padding: 9px 13px;
-  font-size: 14px;
-  background: transparent;
-  color: var(--text-soft);
-  text-align: left;
-  cursor: pointer;
-  transition: background 0.2s ease-out, color 0.2s ease-out, transform 0.2s ease-out;
+  font-size: 13px;
+  padding-left: 14px;
 }
 
-.sidebar-sublink:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text);
-  transform: translateY(-1px);
-}
-
-.sidebar-sublink.is-active {
-  background: rgba(108, 92, 231, 0.35);
-  color: #fff;
-  font-weight: 600;
-}
-
-.sidebar-link {
-  width: 100%;
-  border: none;
-  outline: none;
-  margin-bottom: 6px;
-  border-radius: 12px;
-  padding: 10px 14px;
-  font-size: 14px;
-  background: transparent;
-  color: var(--text-soft);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background var(--transition-fast), color var(--transition-fast),
-    transform var(--transition-fast);
-}
-
-.sidebar-link:last-child {
-  margin-bottom: 0;
-}
-
-.sidebar-link:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text);
-  transform: translateY(-1px);
-}
-
-.sidebar-link.is-active {
-  background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.12), transparent 55%),
-    linear-gradient(135deg, #6c5ce7, #0984e3);
-  color: #fff;
-}
-
-.sidebar-link-danger {
-  color: #ff7675;
+.sidebar-arrow {
+  font-size: 11px;
 }
 
 .preset-chip-row {
@@ -350,52 +334,48 @@ body {
 }
 
 .preset-chip {
-  padding: 4px 9px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 5px 9px;
   font-size: 11px;
+  background: rgba(255, 255, 255, 0.03);
   color: var(--text-soft);
   cursor: pointer;
-  transition: background var(--transition-fast), color var(--transition-fast),
-    transform var(--transition-fast), border-color var(--transition-fast);
-}
-
-.preset-chip:hover {
-  background: rgba(108, 92, 231, 0.32);
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.18);
-  transform: translateY(-1px);
 }
 
 .hint-card {
-  background: radial-gradient(circle at 0 0, rgba(108, 92, 231, 0.35), transparent 65%),
-    rgba(5, 7, 30, 0.98);
+  background:
+    radial-gradient(circle at top left, #181a3a 0, #050816 70%);
 }
 
 .hint-text {
   margin: 0;
   font-size: 12px;
+  line-height: 1.5;
   color: var(--text-soft);
 }
 
-/* ---- MAIN PANEL + COVER MAIN ---- */
+/* ======================
+   MAIN & RIGHT PANEL
+   ====================== */
 
 .main-panel,
 .cover-main {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  min-height: 0;
+  background:
+    radial-gradient(circle at top, #141736 0, #050816 65%);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-subtle);
+  padding: 16px 18px 18px;
+  box-shadow: var(--shadow-soft);
 }
 
 .panel-header {
-  margin-bottom: 4px;
+  margin-bottom: 12px;
 }
 
 .panel-title {
-  font-size: 22px;
-  margin: 0 0 4px;
+  font-size: 20px;
+  margin: 0 0 2px;
 }
 
 .panel-subtitle {
@@ -404,23 +384,35 @@ body {
   color: var(--text-soft);
 }
 
-/* ---- CARD ---- */
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card.right-card {
+  background:
+    radial-gradient(circle at top, #241545 0, #050816 70%);
+}
+
+/* ======================
+   CARD & FORM GENEL
+   ====================== */
 
 .card {
-  background: radial-gradient(circle at top left, rgba(108, 92, 231, 0.22), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.15), transparent 60%),
-    var(--bg-card);
+  background:
+    radial-gradient(circle at top, #161832 0, #07091c 55%, #050816 100%);
   border-radius: var(--radius-xl);
-  padding: 14px 16px;
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+  padding: 14px 16px 16px;
+  box-shadow: var(--shadow-soft);
 }
 
 .card-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
 .card-title {
@@ -429,7 +421,7 @@ body {
 }
 
 .card-title.small {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .card-subtitle {
@@ -437,76 +429,32 @@ body {
   color: var(--text-soft);
 }
 
-/* ---- MODE TOGGLE ---- */
-
-.mode-toggle {
-  display: inline-flex;
-  padding: 5px;
-  border-radius: 999px;
-  background: rgba(7, 9, 40, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.mode-btn {
-  border: none;
-  padding: 9px 22px;
-  border-radius: 999px;
-  font-size: 13px;
-  color: var(--text-soft);
-  background: transparent;
-  cursor: pointer;
-  transition: background var(--transition-med), color var(--transition-med),
-    box-shadow var(--transition-med), transform var(--transition-med);
-}
-
-.mode-btn.is-active {
-  background: linear-gradient(135deg, #6c5ce7, #a55eea);
-  color: #fff;
-  box-shadow: 0 10px 28px rgba(108, 92, 231, 0.6);
-  transform: translateY(-1px);
-}
-
-/* Kart arka planları moda göre */
-
-body[data-mode="basic"] .card {
-  background: radial-gradient(circle at top left, rgba(99, 205, 218, 0.18), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(72, 219, 251, 0.12), transparent 60%),
-    var(--bg-card-soft);
-  transition: background 0.35s ease-out;
-}
-
-body[data-mode="advanced"] .card {
-  background: radial-gradient(circle at top left, rgba(123, 44, 191, 0.3), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(0, 184, 148, 0.16), transparent 60%),
-    var(--bg-card);
-  transition: background 0.35s ease-out;
-}
-
-/* ---- FORMLAR ---- */
+/* form grid */
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 18px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 10px 12px;
 }
 
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
   font-size: 13px;
+  color: var(--text-soft);
 }
 
 .form-field.full {
-  grid-column: 1 / -1;
-}
-
-.form-field.third {
-  /* grid 2 kolon olduğu için doğal olarak alta geçer, sorun yok */
+  grid-column: span 12;
 }
 
 .form-field.half {
-  /* sadece anlam için, özel stil gerekmiyor */
+  grid-column: span 6;
+}
+
+.form-field.third {
+  grid-column: span 4;
 }
 
 .form-field.align-end {
@@ -520,111 +468,63 @@ label {
 
 input[type="text"],
 input[type="number"],
-select,
-textarea {
+textarea,
+select {
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(5, 6, 26, 0.95);
-  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(4, 7, 24, 0.96);
   padding: 8px 10px;
+  color: var(--text);
   font-size: 13px;
   outline: none;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
-    background var(--transition-fast), transform var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast);
+}
+
+textarea {
   resize: vertical;
 }
 
-textarea {
-  min-height: 60px;
-}
-
 input:focus,
-select:focus,
-textarea:focus {
-  border-color: rgba(108, 92, 231, 0.9);
-  box-shadow: 0 0 0 1px rgba(108, 92, 231, 0.6);
-  transform: translateY(-1px);
+textarea:focus,
+select:focus {
+  border-color: rgba(168, 129, 255, 0.8);
+  box-shadow: 0 0 0 1px rgba(168, 129, 255, 0.4);
 }
 
-.field-hint {
-  font-size: 11px;
-  color: var(--text-soft);
+/* MODE TOGGLE */
+
+.mode-toggle {
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(4, 6, 24, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.primary-btn {
-  border-radius: 12px;
+.mode-btn {
+  border-radius: 999px;
   border: none;
-  padding: 10px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  background: linear-gradient(135deg, #6c5ce7, #fd79a8);
-  color: #fff;
-  cursor: pointer;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
-    filter var(--transition-fast);
-}
-
-.primary-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 16px 40px rgba(253, 121, 168, 0.6);
-  filter: brightness(1.05);
-}
-
-.full-width {
-  width: 100%;
-}
-
-/* Upload dropzone */
-
-.reference-upload {
-  margin-top: 8px;
-}
-
-.upload-dropzone {
-  position: relative;
-  border-radius: 14px;
-  border: 1px dashed rgba(255, 255, 255, 0.26);
-  background: rgba(5, 7, 30, 0.95);
-  padding: 14px 14px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  transition: border-color var(--transition-fast), background var(--transition-fast),
-    transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.upload-dropzone:hover {
-  border-color: rgba(108, 92, 231, 0.9);
-  background: radial-gradient(circle at top left, rgba(108, 92, 231, 0.25), transparent 65%),
-    rgba(5, 7, 30, 0.98);
-  transform: translateY(-1px);
-  box-shadow: 0 15px 38px rgba(0, 0, 0, 0.7);
-}
-
-.upload-icon {
-  font-size: 20px;
-}
-
-.upload-text {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+  padding: 6px 10px;
   font-size: 12px;
   color: var(--text-soft);
+  cursor: pointer;
+  background: transparent;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    transform 0.12s ease-out;
 }
 
-.upload-text strong {
-  color: var(--text);
+.mode-btn.is-active {
+  background: linear-gradient(120deg, #a974ff, #ff7ee5);
+  color: #150a26;
+  box-shadow: 0 0 12px rgba(255, 126, 229, 0.7);
 }
 
-.upload-input {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-}
-
-/* Chip checkbox */
+/* CHIP CHECKBOX */
 
 .chip-grid {
   display: flex;
@@ -636,1242 +536,501 @@ textarea:focus {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 4px 9px;
+  padding: 5px 9px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(255, 255, 255, 0.02);
-  font-size: 11px;
-  color: var(--text-soft);
+  font-size: 12px;
   cursor: pointer;
-  transition: background var(--transition-fast), border-color var(--transition-fast),
-    color var(--transition-fast), transform var(--transition-fast);
 }
 
 .chip-checkbox input {
-  width: 0;
-  height: 0;
-  appearance: none;
+  accent-color: var(--accent);
 }
 
-.chip-checkbox:hover {
-  background: rgba(108, 92, 231, 0.35);
-  border-color: rgba(255, 255, 255, 0.25);
-  color: #fff;
-  transform: translateY(-1px);
-}
+/* GENEL BUTONLAR */
 
-/* ---- BASIC / ADVANCED GİZLEME ---- */
-
-.advanced-section {
-  transition: opacity 0.25s ease-out, max-height 0.25s ease-out, margin 0.25s ease-out,
-    padding 0.25s ease-out;
-}
-
-.hidden {
-  opacity: 0;
-  max-height: 0 !important;
-  overflow: hidden;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-}
-
-/* ---- RIGHT PANEL ---- */
-
-.right-panel {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.right-card {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.empty-state {
-  border-radius: 18px;
-  border: 1px dashed rgba(255, 255, 255, 0.2);
-  background: radial-gradient(circle at top, rgba(108, 92, 231, 0.25), transparent 65%),
-    rgba(7, 9, 34, 0.95);
-  padding: 28px 18px;
-  text-align: center;
-  margin-top: 14px;
-}
-
-.empty-icon {
-  font-size: 24px;
-  margin-bottom: 8px;
-}
-
-.empty-title {
-  font-size: 14px;
+.primary-btn {
+  border-radius: 999px;
+  border: none;
+  padding: 9px 16px;
+  font-size: 13px;
+  background: linear-gradient(120deg, #a974ff, #ff7ee5);
+  color: #120820;
+  cursor: pointer;
   font-weight: 600;
-  margin-bottom: 4px;
+  box-shadow: 0 0 16px rgba(255, 126, 229, 0.7);
+  transition:
+    transform 0.12s ease-out,
+    box-shadow 0.12s ease-out,
+    filter 0.12s ease-out;
 }
 
-.empty-text {
-  font-size: 12px;
-  color: var(--text-soft);
+.primary-btn:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
 }
 
-/* =========================================
-   MÜZİK VIEWS
-   ========================================= */
-
-.music-view {
-  display: none;
+.primary-btn.full-width {
+  width: 100%;
 }
 
-.music-view.is-active {
+/* ======================
+   SES KAYDI – ÜST KART
+   ====================== */
+
+.record-intro-card {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-}
-
-/* ---- SES KAYDI ÜST KART ---- */
-
-.music-view[data-music-view="ses-kaydi"] .record-intro-card {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
   gap: 18px;
-  margin-top: 10px;
-  margin-bottom: 16px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
-    var(--bg-card-soft);
+  align-items: center;
 }
 
 .record-intro-left {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  max-width: 70%;
 }
 
 .record-intro-title {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
+  margin: 0 0 4px;
+  font-size: 15px;
 }
 
 .record-intro-text {
-  margin: 0;
+  margin: 0 0 6px;
   font-size: 13px;
   color: var(--text-soft);
 }
 
 .record-badges {
   list-style: none;
-  margin: 8px 0 0;
   padding: 0;
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 12px;
+  gap: 8px;
   font-size: 12px;
   color: var(--text-soft);
 }
 
 .record-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 7px 14px;
+  padding: 7px 12px;
   border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    radial-gradient(circle at top, #3d235f 0, #140b2c 70%);
   font-size: 12px;
-  background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.16), transparent 60%),
-    rgba(10, 10, 40, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-/* ---- SES KAYDI ANA KART (ALTA KADAR UZAR) ---- */
+/* =========================
+   SES KAYDI – ANA KART
+   ========================= */
 
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
+.record-main-card {
+  margin-top: 16px;
+  padding-top: 26px;
+  padding-bottom: 22px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+  column-gap: 26px;
   position: relative;
-  flex: 1;
+}
+
+/* Ortadaki büyük daire */
+
+.record-circle {
+  position: absolute;
+  inset: -70px 18% auto 18%;
+  margin: auto;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 0, #ffe1ff 0, #ff9ff3 35%, #a974ff 65%, #36235f 100%);
+  box-shadow: 0 0 80px rgba(255, 148, 255, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  cursor: default;
+}
+
+.record-icon {
+  font-size: 42px;
+}
+
+/* Fake waveform */
+
+.record-wave {
+  position: absolute;
+  inset: 190px 22% auto 22%;
+  height: 42px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 32px;
-  padding: 120px 40px 36px; /* üstte daire için yer */
-  min-height: 380px;
+  opacity: 0.75;
 }
 
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  z-index: 2;
+.wave-bar {
+  width: 6px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffe1ff, #ff9ff3, #a974ff);
+  animation: wavePulse 1.3s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.06s);
 }
 
-.music-view[data-music-view="ses-kaydi"] .record-main-title {
-  margin: 0 0 8px;
-  font-size: 20px;
-  font-weight: 600;
+.wave-bar:nth-child(even) {
+  height: 80%;
 }
 
-.music-view[data-music-view="ses-kaydi"] .record-main-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-hint,
-.music-view[data-music-view="ses-kaydi"] .record-hint {
+.wave-bar:nth-child(odd) {
+  height: 50%;
+}
+
+@keyframes wavePulse {
+  0% {
+    transform: scaleY(0.6);
+  }
+  50% {
+    transform: scaleY(1.05);
+  }
+  100% {
+    transform: scaleY(0.6);
+  }
+}
+
+/* Sol blok */
+
+.record-main-left {
+  margin-top: 165px;
+}
+
+.record-main-title {
+  margin: 0 0 4px;
+  font-size: 15px;
+}
+
+.record-main-text {
   margin: 0 0 10px;
   font-size: 13px;
   color: var(--text-soft);
 }
 
-.music-view[data-music-view="ses-kaydi"] .record-upload-title {
+.record-btn {
+  margin-bottom: 10px;
+}
+
+.record-btn.recording {
+  background: linear-gradient(120deg, #ff6b81, #ff9f43);
+  box-shadow: 0 0 16px rgba(255, 107, 129, 0.9);
+}
+
+.record-timer,
+#recordMainTimer {
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  color: #f5f5ff;
   margin: 0 0 8px;
-  font-size: 15px;
-  font-weight: 600;
 }
 
-.music-view[data-music-view="ses-kaydi"] .record-btn {
-  margin-top: 6px;
+.record-hint {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-soft);
 }
 
-/* DAİRE – kartın ortasında */
+/* Sağ blok */
 
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #ffeaa7,
-    #55efc4,
-    #74b9ff,
-    #a29bfe,
-    #ff7675
-  );
+.record-main-right {
+  margin-top: 165px;
+}
+
+.record-upload-title {
+  margin: 0 0 4px;
+  font-size: 14px;
+}
+
+.record-upload-text {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.record-upload-hint {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+/* Upload kutusu */
+
+.upload-dropzone {
+  border-radius: 14px;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background:
+    radial-gradient(circle at top, #151634 0, #050816 70%);
+  cursor: pointer;
+}
+
+.upload-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.14),
-    0 0 80px rgba(132, 94, 247, 0.45);
-  z-index: 1;
+  background: linear-gradient(135deg, #a974ff, #6c5ce7);
+  font-size: 16px;
 }
 
-.music-view[data-music-view="ses-kaydi"] .record-circle::after {
-  content: "";
-  position: absolute;
-  inset: 26px;
-  border-radius: inherit;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 55%),
-    #050816;
+.upload-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  color: var(--text-soft);
 }
 
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  position: relative;
-  z-index: 2;
-  font-size: 60px;
-  text-shadow:
-    0 0 18px rgba(255, 255, 255, 0.9),
-    0 0 32px rgba(253, 121, 168, 0.8);
+.upload-text strong {
+  color: var(--text);
+  margin-bottom: 2px;
 }
 
-@keyframes spinRing {
-  0% {
-    transform: translateX(-50%) rotate(0deg);
-  }
-  100% {
-    transform: translateX(-50%) rotate(360deg);
-  }
+.upload-input {
+  display: none;
 }
 
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  animation: spinRing 26s linear infinite;
+/* =========================
+   ALT MP3 SONUÇ KARTI
+   ========================= */
+
+.record-result-card {
+  margin: 20px auto 0;
+  max-width: 620px;
+  background:
+    radial-gradient(circle at top, #171a33 0, #050816 60%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 14px 18px 16px;
+  display: none;
 }
 
-/* Upload alanı Ses Kaydı için */
-.music-view[data-music-view="ses-kaydi"] .record-upload-dropzone {
-  margin-top: 8px;
+.record-result-card.is-visible {
+  display: block;
 }
 
-/* =========================================
-   KAPAK / GÖRSEL SAYFASI
-   ========================================= */
-
-.cover-main {
-  gap: 16px;
+.record-result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #f5f5ff;
+  font-size: 14px;
+  margin-bottom: 10px;
 }
+
+.record-result-time {
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  color: #9aa4d7;
+}
+
+.record-result-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.result-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fdfdff;
+  font-size: 20px;
+  cursor: pointer;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 0 26px rgba(0, 0, 0, 0.8);
+  transition:
+    transform 0.18s ease-out,
+    box-shadow 0.18s ease-out,
+    background 0.18s ease-out,
+    border-color 0.18s ease-out,
+    opacity 0.18s ease-out;
+}
+
+.result-btn:hover {
+  transform: translateY(-2px) scale(1.06);
+}
+
+.result-btn:active {
+  transform: translateY(0) scale(0.94);
+}
+
+/* Play */
+.result-btn.result-play {
+  background:
+    radial-gradient(circle at 30% 0, #ffd5ff 0, #ff9ff3 40%, #c77dff 80%);
+}
+
+/* Download */
+.result-btn.result-download {
+  background:
+    radial-gradient(circle at 30% 0, #e0d4ff 0, #a18bff 40%, #6c5ce7 80%);
+}
+
+/* Müzik */
+.result-btn.result-music {
+  background:
+    radial-gradient(circle at 30% 0, #ffe0ff 0, #ffb0ff 35%, #ff8fd6 80%);
+}
+
+/* Sil */
+.result-btn.result-delete {
+  background:
+    radial-gradient(circle at 30% 0, #ffb3c7 0, #ff6b9e 35%, #7a1230 85%);
+}
+
+/* =========================
+   SAĞ BLOK – SON ÜRETİLENLER
+   ========================= */
+
+.empty-state {
+  margin-top: 4px;
+  padding: 18px 16px 20px;
+  border-radius: 20px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  background:
+    radial-gradient(circle at top, #090c25 0, #050816 70%);
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+.empty-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.empty-text {
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+/* =========================
+   COVER SAYFASI – BASİT
+   ========================= */
 
 .cover-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.4fr);
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
   gap: 16px;
 }
 
-.cover-form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 18px;
+.cover-right,
+.cover-left {
+  min-height: 220px;
 }
 
-.cover-left .card-header {
-  align-items: flex-start;
-}
-
-.badge-beta {
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 11px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-}
-
-/* Stil butonları */
-
-.style-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.style-pill {
-  padding: 5px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.02);
-  font-size: 11px;
-  color: var(--text-soft);
-  cursor: pointer;
-  transition: background var(--transition-fast), border-color var(--transition-fast),
-    color var(--transition-fast), transform var(--transition-fast);
-}
-
-.style-pill.is-active,
-.style-pill:hover {
-  background: rgba(108, 92, 231, 0.45);
-  border-color: rgba(255, 255, 255, 0.25);
-  color: #fff;
-  transform: translateY(-1px);
-}
-
-/* Gelişmiş kutu */
-
-.advanced-box {
-  background: rgba(7, 9, 34, 0.95);
-  border-radius: 14px;
-  padding: 10px 12px;
-  border: 1px dashed rgba(255, 255, 255, 0.16);
-}
-
-.advanced-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-}
-
-.advanced-credit {
-  font-size: 11px;
-}
-
-.advanced-desc {
-  margin: 6px 0 0;
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-/* Kapak yazıları grid */
-
-.cover-text-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-/* Sağ galeri */
-
-.cover-right {
-  display: flex;
-  flex-direction: column;
-}
-
-.cover-gallery-card {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.gallery-filter {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  padding: 6px 10px;
-  background: rgba(0, 0, 0, 0.35);
-  color: var(--text-soft);
-  font-size: 12px;
-}
-
-.gallery-grid {
-  margin-top: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.gallery-card {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 14px;
-  background: rgba(5, 7, 30, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.gallery-thumb {
-  width: 52px;
-  height: 52px;
-  border-radius: 12px;
-  background: radial-gradient(circle at top left, #6c5ce7, #22a6b3);
-}
-
-.fake-thumb.thumb-1 {
-  background-image: linear-gradient(135deg, #6c5ce7, #00cec9);
-}
-.fake-thumb.thumb-2 {
-  background-image: linear-gradient(135deg, #ff7675, #fd79a8);
-}
-.fake-thumb.thumb-3 {
-  background-image: linear-gradient(135deg, #00b894, #0984e3);
-}
-.fake-thumb.thumb-4 {
-  background-image: linear-gradient(135deg, #ffeaa7, #fab1a0);
-}
-
-.gallery-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.gallery-title {
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.gallery-meta {
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.gallery-footer {
-  margin-top: auto;
-  padding-top: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.gallery-pagination {
-  display: inline-flex;
-  gap: 6px;
-}
-
-.page-btn {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(0, 0, 0, 0.4);
-  color: var(--text-soft);
-  padding: 4px 9px;
-  font-size: 11px;
-  cursor: pointer;
-  transition: background var(--transition-fast), color var(--transition-fast),
-    transform var(--transition-fast);
-}
-
-.page-btn.is-active {
-  background: linear-gradient(135deg, #6c5ce7, #a55eea);
-  color: #fff;
-}
-
-.page-btn:hover {
-  transform: translateY(-1px);
-}
-
-/* =========================================
-   KREDİ MODALI
-   ========================================= */
+/* =========================
+   PRICING / RECORDING MODAL
+   ========================= */
 
 .pricing-modal {
   position: fixed;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease-out;
+  display: none;
   z-index: 40;
 }
 
 .pricing-modal.is-open {
-  pointer-events: auto;
-  opacity: 1;
+  display: block;
 }
 
 .pricing-backdrop {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top, rgba(108, 92, 231, 0.45), transparent 65%),
-    rgba(0, 0, 0, 0.82);
-  backdrop-filter: blur(14px);
+  background: rgba(1, 2, 10, 0.82);
+  backdrop-filter: blur(6px);
 }
 
 .pricing-dialog {
   position: relative;
-  width: 95%;
-  max-width: 1100px;
-  max-height: 88vh;
-  background: radial-gradient(circle at top left, rgba(108, 92, 231, 0.4), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.3), transparent 60%),
-    #050819;
-  border-radius: 30px;
-  padding: 24px 26px 26px;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  overflow: hidden;
+  max-width: 820px;
+  margin: 40px auto;
+  background:
+    radial-gradient(circle at top, #1b153b 0, #050816 70%);
+  border-radius: 24px;
+  padding: 18px 20px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
+  z-index: 1;
 }
 
-.pricing-header {
+/* Recording overlay */
+
+#recordingOverlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+}
+
+#recordingOverlay.is-open {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 18px;
 }
 
-.pricing-header h2 {
-  margin: 0 0 4px;
-  font-size: 22px;
+.recording-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(1, 2, 10, 0.82);
+  backdrop-filter: blur(6px);
 }
 
-.pricing-header p {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-soft);
+.recording-dialog {
+  position: relative;
+  z-index: 1;
+  width: 460px;
+  max-width: 90vw;
+  border-radius: 24px;
+  padding: 16px 18px 18px;
+  background:
+    radial-gradient(circle at top, #2a1747 0, #050816 70%);
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
 }
 
-.icon-button {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  padding: 6px 10px;
-  background: rgba(0, 0, 0, 0.4);
-  color: var(--text-soft);
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.icon-button:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.pricing-card {
-  background: radial-gradient(circle at top left, rgba(108, 92, 231, 0.25), transparent 60%),
-    rgba(7, 9, 34, 0.98);
-  border-radius: 22px;
-  padding: 16px 16px 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.pricing-card.is-popular {
-  border-color: rgba(253, 121, 168, 0.9);
-  box-shadow: 0 22px 60px rgba(253, 121, 168, 0.6);
-  transform: translateY(-4px);
-}
-
-.pricing-badge {
-  align-self: flex-start;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: 11px;
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-}
-
-.pricing-badge.small {
-  background: rgba(108, 92, 231, 0.4);
-}
-
-.pricing-price {
-  font-size: 24px;
-  font-weight: 700;
-  margin: 2px 0 4px;
-}
-
-.pricing-list {
-  list-style: none;
-  padding: 0;
-  margin: 4px 0 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-/* buton kartın en altında olsun */
-.pricing-card .primary-btn {
-  margin-top: auto;
-}
-
-/* =========================================
+/* =========================
    RESPONSIVE
-   ========================================= */
+   ========================= */
 
-@media (max-width: 1200px) {
+@media (max-width: 1100px) {
   .layout {
-    grid-template-columns: 230px minmax(0, 1.6fr);
+    grid-template-columns: 230px minmax(0, 1.7fr);
   }
   .right-panel {
     display: none;
   }
-  .pricing-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 840px) {
+  .topbar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
   .layout {
     grid-template-columns: minmax(0, 1fr);
   }
   .sidebar {
-    display: none;
-  }
-  .topnav {
-    display: none;
-  }
-  .page-cover .layout {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .pricing-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .cover-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-/* ================================
-   PANELLER SÜTUNUNU AŞAĞI KADAR UZAT
-   ================================ */
-
-/* Sol paneldeki tüm grup yukarıdan aşağıya tam uzasın */
-.sidebar {
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 16px !important;
-}
-
-/* En alttaki "İPUCU" kartı kalan boşluğu doldursun */
-.sidebar-section.hint-card {
-  flex: 1 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: space-between !important; /* Yazı yukarı, boşluk aşağı */
-}
-/* =========================================
-   SES KAYDI – TEMİZ VE DENGELİ LAYOUT
-   ========================================= */
-
-/* Üst bilgi kartı (Ses Kaydetme Stüdyosu) */
-.music-view[data-music-view="ses-kaydi"] .record-intro-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  margin-top: 10px;
-  margin-bottom: 70px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
-    var(--bg-card-soft);
-}
-
-/* Alt kart */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  position: relative;
-  padding: 120px 40px 36px; /* daire için üst boşluk */
-  min-height: 300px;       /* DAHA YUMUŞAK GÖRÜNÜM */
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 32px;
-}
-
-/* Daire */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute;
-  top: -110px;             /* üst kartla alt kartın arasına taşma */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #ffeaa7,
-    #55efc4,
-    #74b9ff,
-    #a29bfe,
-    #ff7675
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.14),
-    0 0 80px rgba(132, 94, 247, 0.45);
-  z-index: 1;
-}
-
-/* Daire iç gölge */
-.music-view[data-music-view="ses-kaydi"] .record-circle::after {
-  content: "";
-  position: absolute;
-  inset: 26px;
-  border-radius: inherit;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 55%),
-    #050816;
-}
-
-/* Mikrofon ikonu */
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  position: relative;
-  z-index: 2;
-  font-size: 60px;
-  text-shadow:
-    0 0 18px rgba(255, 255, 255, 0.9),
-    0 0 32px rgba(253, 121, 168, 0.8);
-}
-
-/* Yavaş halka animasyonu */
-@keyframes spinRing {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  animation: spinRing 26s linear infinite;
-}
-/* =========================================
-   SES KAYDI – AIVO DÜZENİ (FINAL)
-   ========================================= */
-
-/* Üst bilgi kartı: Ses Kaydetme Stüdyosu */
-.music-view[data-music-view="ses-kaydi"] .record-intro-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  margin-top: 10px;
-  margin-bottom: 70px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
-    var(--bg-card-soft);
-}
-
-/* Alt kart: Ses Kaydetmeye Başlayın + MP3 / WAV yükle */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  position: relative;
-  margin-top: 0;
-  padding: 90px 40px 40px;   /* yazıları daireye yaklaştırır */
-  min-height: 320px;
-  display: flex;
-  align-items: center;       /* İÇERİĞİ DİKEYDE ORTALAR (artık dipte değil) */
-  justify-content: space-between;
-  gap: 32px;
-}
-
-/* Daire: üst kart ile alt kartın arasında, ortada */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute;
-  top: -110px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #ffeaa7,
-    #55efc4,
-    #74b9ff,
-    #a29bfe,
-    #ff7675
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.14),
-    0 0 80px rgba(132, 94, 247, 0.45);
-  z-index: 1;
-  animation: spinRing 26s linear infinite;
-}
-
-/* Dairenin içindeki koyu merkez */
-.music-view[data-music-view="ses-kaydi"] .record-circle::after {
-  content: "";
-  position: absolute;
-  inset: 26px;
-  border-radius: inherit;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 55%),
-    #050816;
-}
-
-/* Mikrofon ikonu */
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  position: relative;
-  z-index: 2;
-  font-size: 60px;
-  text-shadow:
-    0 0 18px rgba(255, 255, 255, 0.9),
-    0 0 32px rgba(253, 121, 168, 0.8);
-}
-
-/* Yavaş dönen halka animasyonu */
-@keyframes spinRing {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-/* =========================================
-   SES KAYDI – DAİRE TASARIMI ve ANİMASYON
-   ========================================= */
-
-/* Dış halka aynı, ama içi deep purple ve kalp atışı efekti */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute;
-  top: -110px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 230px;
-  height: 230px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #ffeaa7,
-    #55efc4,
-    #74b9ff,
-    #a29bfe,
-    #ff7675
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.14),
-    0 0 80px rgba(132, 94, 247, 0.45);
-  z-index: 1;
-  animation: pulseIdle 2.4s ease-in-out infinite;
-}
-
-/* İç kısım: tek renk, deep purple */
-.music-view[data-music-view="ses-kaydi"] .record-circle::after {
-  content: "";
-  position: absolute;
-  inset: 26px;
-  border-radius: inherit;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12), transparent 55%),
-    radial-gradient(circle at bottom, #381861, #090313);
-}
-
-/* Mikrofon ikonu sabit, biraz daha kalp efekti için glow azalsın */
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  position: relative;
-  z-index: 2;
-  font-size: 58px;
-  text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.7),
-    0 0 20px rgba(253, 121, 168, 0.7);
-}
-
-/* Kalp atışı (boşta iken) */
-@keyframes pulseIdle {
-  0%   { transform: translateX(-50%) scale(1); }
-  30%  { transform: translateX(-50%) scale(1.05); }
-  60%  { transform: translateX(-50%) scale(1); }
-  100% { transform: translateX(-50%) scale(1); }
-}
-
-/* Kayıt modunda: daha koyu renk + daha hızlı atış */
-.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
-  box-shadow:
-    0 0 40px rgba(255, 118, 117, 0.7),
-    0 0 90px rgba(214, 48, 49, 0.7);
-  animation: pulseRecording 1.1s ease-in-out infinite;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording::after {
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), transparent 55%),
-    radial-gradient(circle at bottom, #8e1b4a, #19000c);
-}
-
-/* Kayıtta kalp atışı */
-@keyframes pulseRecording {
-  0%   { transform: translateX(-50%) scale(1); }
-  25%  { transform: translateX(-50%) scale(1.08); }
-  50%  { transform: translateX(-50%) scale(1.02); }
-  75%  { transform: translateX(-50%) scale(1.09); }
-  100% { transform: translateX(-50%) scale(1); }
-}
-/* =========================================
-   SES KAYDI – DAİRE TASARIMI ve ANİMASYON
-   ========================================= */
-
-/* Dış halka aynı, ama içi deep purple ve kalp atışı efekti */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute;
-  top: -110px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 230px;
-  height: 230px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #ffeaa7,
-    #55efc4,
-    #74b9ff,
-    #a29bfe,
-    #ff7675
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.14),
-    0 0 80px rgba(132, 94, 247, 0.45);
-  z-index: 1;
-  animation: pulseIdle 2.4s ease-in-out infinite;
-}
-
-/* İç kısım: tek renk, deep purple */
-.music-view[data-music-view="ses-kaydi"] .record-circle::after {
-  content: "";
-  position: absolute;
-  inset: 26px;
-  border-radius: inherit;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12), transparent 55%),
-    radial-gradient(circle at bottom, #381861, #090313);
-}
-
-/* Mikrofon ikonu sabit, biraz daha kalp efekti için glow azalsın */
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  position: relative;
-  z-index: 2;
-  font-size: 58px;
-  text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.7),
-    0 0 20px rgba(253, 121, 168, 0.7);
-}
-
-/* Kalp atışı (boşta iken) */
-@keyframes pulseIdle {
-  0%   { transform: translateX(-50%) scale(1); }
-  30%  { transform: translateX(-50%) scale(1.05); }
-  60%  { transform: translateX(-50%) scale(1); }
-  100% { transform: translateX(-50%) scale(1); }
-}
-
-/* Kayıt modunda: daha koyu renk + daha hızlı atış */
-.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
-  box-shadow:
-    0 0 40px rgba(255, 118, 117, 0.7),
-    0 0 90px rgba(214, 48, 49, 0.7);
-  animation: pulseRecording 1.1s ease-in-out infinite;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording::after {
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), transparent 55%),
-    radial-gradient(circle at bottom, #8e1b4a, #19000c);
-}
-
-/* Kayıtta kalp atışı */
-@keyframes pulseRecording {
-  0%   { transform: translateX(-50%) scale(1); }
-  25%  { transform: translateX(-50%) scale(1.08); }
-  50%  { transform: translateX(-50%) scale(1.02); }
-  75%  { transform: translateX(-50%) scale(1.09); }
-  100% { transform: translateX(-50%) scale(1); }
-}
-/* =========================================
-   SES KAYDI – FINAL LAYOUT
-   ========================================= */
-
-/* Üst kart: Ses Kaydetme Stüdyosu */
-.music-view[data-music-view="ses-kaydi"] .record-intro-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  margin-top: 10px;
-  margin-bottom: 70px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
-    var(--bg-card-soft);
-}
-
-.record-intro-left {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.record-intro-title {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.record-intro-text {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.record-badges {
-  list-style: none;
-  margin: 8px 0 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-/* Alt kart: ana kayıt alanı */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  position: relative;
-  margin-top: 0;
-  padding: 90px 40px 40px;
-  min-height: 320px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 32px;
-}
-
-/* Sol & sağ kolon */
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  z-index: 2;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-title {
-  margin: 0 0 6px;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-hint,
-.music-view[data-music-view="ses-kaydi"] .record-hint {
-  margin: 0 0 10px;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-upload-title {
-  margin: 0 0 8px;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-btn {
-  margin-top: 6px;
-}
-
-/* DAİRE: üst kart ile alt kartın arasında, ortada */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute;
-  top: -95px;
-  left: 50%;
-  transform: translateX(-52%);  /* hafif sola – ortalamayı beğenmezsen -50 / -54 ile oyna */
-  width: 230px;
-  height: 230px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #ffeaa7,
-    #55efc4,
-    #74b9ff,
-    #a29bfe,
-    #ff7675
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.14),
-    0 0 80px rgba(132, 94, 247, 0.45);
-  z-index: 1;
-  animation: pulseIdle 2.4s ease-in-out infinite;
-}
-
-/* Dairenin içi: deep purple */
-.music-view[data-music-view="ses-kaydi"] .record-circle::after {
-  content: "";
-  position: absolute;
-  inset: 24px;
-  border-radius: inherit;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12), transparent 55%),
-    radial-gradient(circle at bottom, #2e1b52, #05020c);
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  position: relative;
-  z-index: 2;
-  font-size: 58px;
-  text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.7),
-    0 0 20px rgba(253, 121, 168, 0.7);
-}
-
-/* Kalp atışı – idle */
-@keyframes pulseIdle {
-  0%   { transform: translateX(-52%) scale(1); }
-  30%  { transform: translateX(-52%) scale(1.05); }
-  60%  { transform: translateX(-52%) scale(1); }
-  100% { transform: translateX(-52%) scale(1); }
-}
-
-/* Kayıt modunda daire */
-.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
-  background: conic-gradient(
-    from 0deg,
-    #ff4757,
-    #ff6b81,
-    #ff4757,
-    #c23616,
-    #ff6b81,
-    #ff4757
-  );
-  box-shadow:
-    0 0 45px rgba(255, 71, 87, 0.9),
-    0 0 110px rgba(214, 48, 49, 0.9);
-  animation: pulseRecording 1s ease-in-out infinite;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording::after {
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.08), transparent 55%),
-    radial-gradient(circle at bottom, #7d122f, #140005);
-}
-
-/* Kayıtta kalp atışı */
-@keyframes pulseRecording {
-  0%   { transform: translateX(-52%) scale(1); }
-  20%  { transform: translateX(-52%) scale(1.1); }
-  50%  { transform: translateX(-52%) scale(1.02); }
-  80%  { transform: translateX(-52%) scale(1.1); }
-  100% { transform: translateX(-52%) scale(1); }
-}
-
-/* Waveform + süre */
-.record-wave-row {
-  margin-top: 14px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.record-wave {
-  flex: 1;
-  height: 32px;
-  border-radius: 999px;
-  background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.12), transparent 55%),
-    repeating-linear-gradient(
-      90deg,
-      rgba(129, 236, 236, 0.0) 0px,
-      rgba(129, 236, 236, 0.0) 6px,
-      rgba(129, 236, 236, 0.8) 6px,
-      rgba(9, 132, 227, 0.9) 10px
-    );
-  opacity: 0.15;
-  transform: scaleY(0.6);
-  transform-origin: center;
-  overflow: hidden;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-card.is-recording .record-wave {
-  opacity: 0.9;
-  animation: waveMove 0.55s linear infinite alternate;
-}
-
-.record-timer {
-  min-width: 48px;
-  font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 13px;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: rgba(5, 7, 30, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  text-align: center;
-  color: #f5f5ff;
-}
-
-/* Waveform animasyonu */
-@keyframes waveMove {
-  0% {
-    transform: scaleY(0.7) translateX(0);
-    filter: hue-rotate(0deg);
-  }
-  50% {
-    transform: scaleY(1) translateX(-6px);
-    filter: hue-rotate(20deg);
-  }
-  100% {
-    transform: scaleY(0.8) translateX(-12px);
-    filter: hue-rotate(-15deg);
+    order: -1;
   }
 }
