@@ -279,3 +279,49 @@ window.addEventListener("DOMContentLoaded", () => {
     button.addEventListener("click", toggleRecordingVisual);
   }
 })();
+const body = document.body;
+const recordBtn = document.getElementById("recordToggleBtn");
+const timerEl = document.getElementById("recordTimer");
+
+let isRecording = false;
+let recordInterval = null;
+let seconds = 0;
+
+function startRecording() {
+  // ... senin mevcut mikrofon başlatma kodların ...
+
+  isRecording = true;
+  body.classList.add("is-recording");
+  recordBtn.textContent = "⏹ Kaydı Durdur";
+  seconds = 0;
+  timerEl.textContent = "00:00";
+
+  recordInterval = setInterval(() => {
+    seconds++;
+    const m = String(Math.floor(seconds / 60)).padStart(2, "0");
+    const s = String(seconds % 60).padStart(2, "0");
+    timerEl.textContent = `${m}:${s}`;
+  }, 1000);
+}
+
+function stopRecording() {
+  // ... senin mevcut kayıt durdurma kodların ...
+
+  isRecording = false;
+  body.classList.remove("is-recording");
+  recordBtn.textContent = "⏺ Kaydı Başlat";
+
+  if (recordInterval) {
+    clearInterval(recordInterval);
+    recordInterval = null;
+  }
+}
+
+recordBtn.addEventListener("click", () => {
+  if (isRecording) {
+    stopRecording();
+  } else {
+    startRecording();
+  }
+});
+
