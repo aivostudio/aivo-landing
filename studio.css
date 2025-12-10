@@ -1638,4 +1638,66 @@ textarea:focus {
   left: 50%;
   transform: translateX(-52%); /* -50 yerine -52: hafif sola kaydırır */
 }
+/* ==== SES KAYDI – Waveform ve süre ==== */
+
+.record-wave-row {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.record-wave {
+  flex: 1;
+  height: 32px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.12), transparent 55%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(129, 236, 236, 0.0) 0px,
+      rgba(129, 236, 236, 0.0) 6px,
+      rgba(129, 236, 236, 0.8) 6px,
+      rgba(9, 132, 227, 0.9) 10px
+    );
+  opacity: 0.15;
+  transform: scaleY(0.6);
+  transform-origin: center;
+  overflow: hidden;
+}
+
+/* Kayıtta aktif olsun */
+.music-view[data-music-view="ses-kaydi"] .record-main-card.is-recording .record-wave {
+  opacity: 0.9;
+  animation: waveMove 0.55s linear infinite alternate;
+}
+
+/* Saniye göstergesi */
+.record-timer {
+  min-width: 48px;
+  font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 13px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(5, 7, 30, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
+  color: #f5f5ff;
+}
+
+/* Waveform hareket animasyonu */
+@keyframes waveMove {
+  0% {
+    transform: scaleY(0.7) translateX(0);
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    transform: scaleY(1) translateX(-6px);
+    filter: hue-rotate(20deg);
+  }
+  100% {
+    transform: scaleY(0.8) translateX(-12px);
+    filter: hue-rotate(-15deg);
+  }
+}
 
