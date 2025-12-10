@@ -7,31 +7,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const topnavLinks = document.querySelectorAll(".topnav-link[data-page-link]");
 
   function showPage(name) {
-    // Sayfaları göster/gizle
     pages.forEach((page) => {
       const isTarget = page.dataset.page === name;
       page.classList.toggle("is-active", isTarget);
     });
-
-    // SADECE ÜST MENÜ (topnav) aktif olmalı
-    topnavLinks.forEach((link) => {
-      const target = link.getAttribute("data-page-link");
-      if (!target) return;
-      link.classList.toggle("is-active", target === name);
-    });
   }
 
-  // Üst menü tıklamaları
+  // Üst menü tıklamaları: sadece tıklanan link aktif olsun
   topnavLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const target = link.getAttribute("data-page-link");
       if (!target) return;
+
+      // Tüm üst linklerden is-active'i kaldır
+      topnavLinks.forEach((l) => l.classList.remove("is-active"));
+      // Sadece tıklananı aktif yap
+      link.classList.add("is-active");
+
+      // İlgili sayfayı göster (music / cover)
       showPage(target);
     });
   });
 
-  // Başlangıç: music sayfası
+  // Başlangıç: music sayfasını göster (HTML'de zaten Anasayfa aktif)
   showPage("music");
 
   /* ===================== MÜZİK İÇİ SEKME GEÇİŞLERİ ===================== */
@@ -279,7 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Yuvarlak kayıt dairesi de buton gibi davransın
+  // Yuvarlak kayıt dairesi de buton gibi çalışsın
   if (recordCircle && recordBtn) {
     recordCircle.style.cursor = "pointer";
     recordCircle.addEventListener("click", () => {
