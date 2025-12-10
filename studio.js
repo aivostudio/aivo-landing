@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
   /* ==== SAYFA (Müzik / Kapak) GEÇİŞLERİ ==== */
   const pages = document.querySelectorAll(".page");
