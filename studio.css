@@ -1,4 +1,9 @@
-/* ==== GENEL ==== */
+/* ================================
+   AIVO STUDIO – STUDIO.CSS (TEMİZ)
+   ================================ */
+
+/* ---- GENEL RESET & DEĞİŞKENLER ---- */
+
 *,
 *::before,
 *::after {
@@ -30,37 +35,37 @@ body {
   min-height: 100vh;
   background: radial-gradient(circle at top left, #222b4b 0, #050816 45%, #02030a 100%);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-  color: #f5f5ff;
+  color: var(--text);
 }
 
-body {
-  display: block;
-}
-
-/* ==== APP SHELL ==== */
+/* ---- APP SHELL ---- */
 
 .app-shell {
   width: 100%;
   min-height: 100vh;
-  margin: 0;
-  border-radius: 0;
+  display: flex;
+  flex-direction: column;
   background: radial-gradient(circle at top right, rgba(108, 92, 231, 0.18), transparent 45%),
     radial-gradient(circle at bottom left, rgba(9, 132, 227, 0.16), transparent 50%),
     rgba(3, 6, 24, 0.96);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03), var(--shadow-soft);
-  display: flex;
-  flex-direction: column;
   overflow: hidden;
 }
 
-/* ==== TOPBAR ==== */
+/* ---- TOPBAR ---- */
 
 .topbar {
   display: flex;
   align-items: center;
   padding: 12px 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   background: linear-gradient(90deg, rgba(23, 32, 78, 0.96), rgba(10, 16, 52, 0.96));
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .logo {
@@ -80,23 +85,17 @@ body {
   font-size: 15px;
 }
 
-.topbar-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
 .topnav {
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .topnav-link {
   position: relative;
-  padding: 6px 10px;
+  padding: 6px 11px;
   font-size: 13px;
   color: var(--text-soft);
   text-decoration: none;
@@ -107,7 +106,7 @@ body {
 
 .topnav-link:hover {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.06);
   transform: translateY(-1px);
 }
 
@@ -124,7 +123,7 @@ body {
 
 .credits-pill {
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   background: radial-gradient(circle at 20% 0, rgba(255, 234, 167, 0.4), transparent 60%),
     rgba(9, 10, 40, 0.9);
   color: var(--text);
@@ -142,8 +141,6 @@ body {
   transform: translateY(-1px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
   border-color: rgba(255, 255, 255, 0.2);
-  background: radial-gradient(circle at 10% 0, rgba(255, 214, 165, 0.6), transparent 70%),
-    rgba(16, 18, 60, 0.95);
 }
 
 .credits-label {
@@ -168,7 +165,7 @@ body {
 }
 
 .top-btn.ghost:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.08);
   transform: translateY(-1px);
 }
 
@@ -183,10 +180,11 @@ body {
   transform: translateY(-1px);
 }
 
-/* ==== PAGES ==== */
+/* ---- PAGE WRAPPER ---- */
 
 .main-pages {
   position: relative;
+  flex: 1;
 }
 
 .page {
@@ -197,58 +195,126 @@ body {
   display: block;
 }
 
-/* ==== LAYOUT ==== */
+/* ---- LAYOUT GRID ---- */
 
 .layout {
   display: grid;
   grid-template-columns: 250px minmax(0, 1.7fr) 320px;
-  padding: 0;
   gap: 14px;
+  padding: 18px 20px 22px;
   min-height: 560px;
 }
 
-/* Kapak / Görsel Üret sayfasında sağ kolon yok */
+/* Kapak sayfasında sağ panel yok */
 .page-cover .layout {
   grid-template-columns: 250px minmax(0, 1fr);
 }
 
-/* ==== SIDEBAR LEFT ==== */
+/* ---- LEFT SIDEBAR ---- */
 
 .sidebar {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  height: 100%;
-}
-
-.sidebar-section:first-child {
-  flex: 1;
 }
 
 .sidebar-section {
-  background: rgba(5, 7, 30, 0.92);
+  background: rgba(5, 7, 30, 0.96);
   border-radius: var(--radius-lg);
-  padding: 24px 24px 22px; /* büyütülmüş tipografi ile uyumlu */
+  padding: 22px 22px 18px;
   border: 1px solid var(--border-subtle);
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.6);
 }
 
+/* PANELLER başlığı */
 .sidebar-title {
   font-size: 15px;
   text-transform: uppercase;
   letter-spacing: 0.22em;
   color: var(--text-soft);
-  margin-bottom: 22px;
+  margin-bottom: 18px;
   font-weight: 600;
 }
 
+/* Müzik Üret ana grup */
+.sidebar-group {
+  margin-bottom: 10px;
+}
+
+.sidebar-link-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 4px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-soft);
+  cursor: pointer;
+  border-radius: 10px;
+  transition: color var(--transition-fast);
+}
+
+.sidebar-link-main.is-open {
+  color: #fff;
+}
+
+.sidebar-arrow {
+  font-size: 10px;
+  opacity: 0.8;
+  transition: transform 0.2s ease-out;
+}
+
+.sidebar-link-main.is-open .sidebar-arrow {
+  transform: rotate(180deg);
+}
+
+/* Alt menü */
+.sidebar-submenu {
+  margin-top: 6px;
+  padding-left: 6px;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-submenu.is-open {
+  display: flex;
+}
+
+.sidebar-sublink {
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  padding: 9px 13px;
+  font-size: 15px;
+  background: transparent;
+  color: var(--text-soft);
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease-out, color 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.sidebar-sublink:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.sidebar-sublink.is-active {
+  background: rgba(108, 92, 231, 0.35);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Normal linkler: Ürettiklerim, Ayarlar, Kredi… */
 .sidebar-link {
   width: 100%;
   border: none;
   outline: none;
   margin-bottom: 6px;
   border-radius: 12px;
-  padding: 12px 14px;
+  padding: 10px 14px;
   font-size: 15px;
   background: transparent;
   color: var(--text-soft);
@@ -266,7 +332,7 @@ body {
 }
 
 .sidebar-link:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--text);
   transform: translateY(-1px);
 }
@@ -281,74 +347,7 @@ body {
   color: #ff7675;
 }
 
-/* Müzik Üret grup başlığı */
-.sidebar-group {
-  margin-bottom: 6px;
-}
-
-.sidebar-link-main {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 17px;
-  font-weight: 700;
-  padding: 10px 4px;
-}
-
-.sidebar-arrow {
-  font-size: 10px;
-  opacity: 0.8;
-  transition: transform 0.2s ease-out;
-}
-
-.sidebar-link-main.is-open .sidebar-arrow {
-  transform: rotate(180deg);
-}
-
-/* Alt menü */
-
-.sidebar-submenu {
-  margin-top: 6px;
-  padding-left: 8px;
-  display: none;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.sidebar-submenu.is-open {
-  display: flex;
-}
-
-/* Alt linkler */
-
-.sidebar-sublink {
-  width: 100%;
-  border: none;
-  outline: none;
-  border-radius: 12px;
-  padding: 10px 14px;
-  font-size: 15px;
-  background: transparent;
-  color: var(--text-soft);
-  text-align: left;
-  cursor: pointer;
-  transition: background 0.2s ease-out, color 0.2s ease-out, transform 0.2s ease-out;
-}
-
-.sidebar-sublink:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text);
-  transform: translateY(-1px);
-}
-
-.sidebar-sublink.is-active {
-  background: rgba(108, 92, 231, 0.35);
-  color: #fff;
-  font-weight: 600;
-}
-
-/* Preset chip’ler */
-
+/* Hızlı presetler */
 .preset-chip-row {
   display: flex;
   flex-wrap: wrap;
@@ -368,12 +367,13 @@ body {
 }
 
 .preset-chip:hover {
-  background: rgba(108, 92, 231, 0.28);
+  background: rgba(108, 92, 231, 0.32);
   color: #fff;
   border-color: rgba(255, 255, 255, 0.18);
   transform: translateY(-1px);
 }
 
+/* İpucu kartı */
 .hint-card {
   background: radial-gradient(circle at 0 0, rgba(108, 92, 231, 0.35), transparent 65%),
     rgba(5, 7, 30, 0.98);
@@ -385,7 +385,7 @@ body {
   color: var(--text-soft);
 }
 
-/* ==== MAIN PANEL ==== */
+/* ---- MAIN PANEL ---- */
 
 .main-panel,
 .cover-main {
@@ -409,18 +409,16 @@ body {
   color: var(--text-soft);
 }
 
+/* Kart */
+
 .card {
   background: radial-gradient(circle at top left, rgba(108, 92, 231, 0.22), transparent 55%),
     radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.15), transparent 60%),
     var(--bg-card);
   border-radius: var(--radius-xl);
-  padding: 10px 14px;
+  padding: 14px 16px;
   border: 1px solid var(--border-subtle);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
-}
-
-.card:not(:last-child) {
-  margin-bottom: 2px;
 }
 
 .card-header {
@@ -435,15 +433,12 @@ body {
   font-weight: 600;
 }
 
-.card-title.small {
-  font-size: 13px;
-  margin-bottom: 6px;
-}
-
 .card-subtitle {
   font-size: 12px;
   color: var(--text-soft);
 }
+
+/* Mode toggle (Basit / Gelişmiş) */
 
 .mode-toggle {
   display: inline-flex;
@@ -454,7 +449,6 @@ body {
 }
 
 .mode-btn {
-  position: relative;
   border: none;
   padding: 9px 22px;
   border-radius: 999px;
@@ -473,7 +467,7 @@ body {
   transform: translateY(-1px);
 }
 
-/* MODE BACKGROUND EFFECT */
+/* Kart arka planı moda göre renk değişimi */
 
 body[data-mode="basic"] .card {
   background: radial-gradient(circle at top left, rgba(99, 205, 218, 0.18), transparent 55%),
@@ -489,7 +483,7 @@ body[data-mode="advanced"] .card {
   transition: background 0.35s ease-out;
 }
 
-/* FORM */
+/* ---- FORM ELEMANLARI ---- */
 
 .form-grid {
   display: grid;
@@ -506,18 +500,6 @@ body[data-mode="advanced"] .card {
 
 .form-field.full {
   grid-column: 1 / -1;
-}
-
-.form-field.third {
-  grid-column: span 1;
-}
-
-.form-field.half {
-  grid-column: span 1;
-}
-
-.form-field.align-end {
-  justify-content: flex-end;
 }
 
 label {
@@ -577,16 +559,11 @@ textarea:focus {
   filter: brightness(1.05);
 }
 
-.primary-btn.is-loading {
-  opacity: 0.8;
-  cursor: default;
-}
-
 .full-width {
   width: 100%;
 }
 
-/* REFERENCE UPLOAD */
+/* Reference upload */
 
 .reference-upload {
   margin-top: 8px;
@@ -636,7 +613,7 @@ textarea:focus {
   opacity: 0;
 }
 
-/* CHIPS */
+/* Chip / checkbox */
 
 .chip-grid {
   display: flex;
@@ -665,10 +642,6 @@ textarea:focus {
   appearance: none;
 }
 
-.chip-checkbox span {
-  pointer-events: none;
-}
-
 .chip-checkbox:hover {
   background: rgba(108, 92, 231, 0.35);
   border-color: rgba(255, 255, 255, 0.25);
@@ -676,7 +649,7 @@ textarea:focus {
   transform: translateY(-1px);
 }
 
-/* Basic / advanced görünürlük */
+/* ---- BASIC / ADVANCED BÖLÜM GİZLEME ---- */
 
 .advanced-section {
   transition: opacity 0.25s ease-out, max-height 0.25s ease-out, margin 0.25s ease-out,
@@ -693,7 +666,7 @@ textarea:focus {
   margin-bottom: 0 !important;
 }
 
-/* ==== RIGHT PANEL ==== */
+/* ---- RIGHT PANEL (Son üretilen müzikler) ---- */
 
 .right-panel {
   display: flex;
@@ -733,7 +706,176 @@ textarea:focus {
   color: var(--text-soft);
 }
 
-/* ==== KAPAK / GÖRSEL SAYFASI ==== */
+/* =========================================
+   SES KAYDI – GELENEKSEL / SES KAYDI GÖRÜNÜM
+   ========================================= */
+
+.music-view {
+  display: none;
+}
+
+.music-view.is-active {
+  display: block;
+}
+
+/* Üst kart: Ses Kaydetme Stüdyosu */
+
+.music-view[data-music-view="ses-kaydi"] .record-intro-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 10px;
+  margin-bottom: 70px; /* Üst kart ile alt kart arası */
+  background:
+    radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
+    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
+    var(--bg-card-soft);
+}
+
+.record-intro-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.record-intro-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.record-intro-text {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.record-badges {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+/* ALT KART: Ses Kaydetmeye Başlayın */
+
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  position: relative;
+  margin-top: 0;
+  padding: 100px 40px 40px; /* 100px: daire için boşluk */
+  min-height: 320px;        /* ALT KUTUNUN BOYU – gerekirse 300/340 ile oyna */
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+/* Sol & sağ sütun – içerik altta dursun */
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  z-index: 2; /* dairenin önünde */
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-title {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-text,
+.music-view[data-music-view="ses-kaydi"] .record-upload-text,
+.music-view[data-music-view="ses-kaydi"] .record-upload-hint,
+.music-view[data-music-view="ses-kaydi"] .record-hint {
+  margin: 0 0 10px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-upload-title {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-btn {
+  margin-top: 6px;
+}
+
+/* DAİRE: ÜST VE ALT KART ARASINDA, ORTADA */
+
+.music-view[data-music-view="ses-kaydi"] .record-circle {
+  position: absolute;
+  left: 50%;
+  top: -140px;                    /* Üst kart ile alt kartın arasına taşar */
+  transform: translateX(-50%);
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #ff7675,
+    #fd79a8,
+    #ffeaa7,
+    #55efc4,
+    #74b9ff,
+    #a29bfe,
+    #ff7675
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 40px rgba(255, 255, 255, 0.14),
+    0 0 80px rgba(132, 94, 247, 0.45);
+  z-index: 1;
+}
+
+/* İçi hafif koyulaştır */
+.music-view[data-music-view="ses-kaydi"] .record-circle::after {
+  content: "";
+  position: absolute;
+  inset: 26px;
+  border-radius: inherit;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 55%),
+    #050816;
+}
+
+/* Mikrofon ikonu */
+.music-view[data-music-view="ses-kaydi"] .record-icon {
+  position: relative;
+  z-index: 2;
+  font-size: 60px;
+  text-shadow:
+    0 0 18px rgba(255, 255, 255, 0.9),
+    0 0 32px rgba(253, 121, 168, 0.8);
+}
+
+/* Çok basit dönüş animasyonu (isteğe bağlı) */
+@keyframes spinRing {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Dış halka yavaş döner */
+.music-view[data-music-view="ses-kaydi"] .record-circle {
+  animation: spinRing 26s linear infinite;
+}
+
+/* ---- KAPAK / ARTWORK SAYFASI (özet, kırpmadan) ---- */
 
 .cover-main {
   gap: 16px;
@@ -746,7 +888,9 @@ textarea:focus {
 }
 
 .cover-form-grid {
+  display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 18px;
 }
 
 .style-grid {
@@ -775,157 +919,7 @@ textarea:focus {
   transform: translateY(-1px);
 }
 
-.badge-beta {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  padding: 3px 10px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-  color: var(--text-soft);
-}
-
-.advanced-box {
-  background: rgba(5, 7, 30, 0.96);
-  border-radius: 14px;
-  padding: 10px 12px;
-  border: 1px dashed rgba(255, 255, 255, 0.15);
-}
-
-.advanced-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-  color: var(--text-soft);
-  margin-bottom: 4px;
-}
-
-.advanced-credit strong {
-  color: #ffeaa7;
-}
-
-.advanced-desc {
-  margin: 0;
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.cover-text-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
-.cover-right {
-  display: flex;
-  flex-direction: column;
-}
-
-.cover-gallery-card {
-  height: 100%;
-}
-
-.gallery-filter {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(5, 6, 26, 0.96);
-  color: var(--text-soft);
-  font-size: 12px;
-  padding: 4px 10px;
-}
-
-.gallery-grid {
-  margin-top: 12px;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.gallery-card {
-  border-radius: 16px;
-  overflow: hidden;
-  background: rgba(7, 9, 30, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  transition: transform 0.22s ease-out, box-shadow 0.22s ease-out,
-    border-color 0.22s ease-out;
-}
-
-.gallery-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9);
-  border-color: rgba(255, 255, 255, 0.16);
-}
-
-.gallery-thumb {
-  height: 120px;
-  background-size: cover;
-  background-position: center;
-}
-
-.fake-thumb.thumb-1 {
-  background-image: linear-gradient(135deg, #fd79a8, #ffeaa7);
-}
-
-.fake-thumb.thumb-2 {
-  background-image: linear-gradient(135deg, #0984e3, #00cec9);
-}
-
-.fake-thumb.thumb-3 {
-  background-image: linear-gradient(135deg, #6c5ce7, #00cec9);
-}
-
-.fake-thumb.thumb-4 {
-  background-image: linear-gradient(135deg, #fab1a0, #e17055);
-}
-
-.gallery-info {
-  padding: 8px 10px 9px;
-}
-
-.gallery-title {
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.gallery-meta {
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.gallery-footer {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.gallery-pagination {
-  display: flex;
-  gap: 6px;
-}
-
-.page-btn {
-  padding: 4px 9px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(5, 6, 26, 0.95);
-  color: var(--text-soft);
-  font-size: 11px;
-  cursor: pointer;
-}
-
-.page-btn.is-active {
-  background: linear-gradient(135deg, #6c5ce7, #a55eea);
-  color: #fff;
-}
-
-/* ==== PRICING FULLSCREEN ==== */
+/* ---- PRICING MODAL (Kredi Al) – Özet ---- */
 
 .pricing-modal {
   position: fixed;
@@ -967,139 +961,7 @@ textarea:focus {
   overflow: hidden;
 }
 
-.pricing-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-.pricing-header h2 {
-  margin: 0 0 4px;
-  font-size: 22px;
-}
-
-.pricing-header p {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.icon-button {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(5, 7, 30, 0.9);
-  color: var(--text-soft);
-  width: 30px;
-  height: 30px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background var(--transition-fast), transform var(--transition-fast),
-    box-shadow var(--transition-fast), color var(--transition-fast);
-}
-
-.icon-button:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text);
-  transform: translateY(-1px);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6);
-}
-
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-}
-
-.pricing-card {
-  position: relative;
-  border-radius: 20px;
-  padding: 18px 16px 20px;
-  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.06), transparent 60%),
-    rgba(6, 8, 35, 0.97);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  transform: translateY(0) scale(1);
-  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out,
-    border-color 0.25s ease-out, background 0.25s ease-out;
-}
-
-.pricing-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95);
-  border-color: rgba(255, 255, 255, 0.18);
-  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.12), transparent 60%),
-    rgba(6, 8, 35, 0.97);
-}
-
-.pricing-card h3 {
-  margin: 0;
-  font-size: 16px;
-}
-
-.pricing-price {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.pricing-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 12px;
-  font-size: 12px;
-  color: var(--text-soft);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.pricing-list li::before {
-  content: "✓ ";
-  color: #55efc4;
-}
-
-.pricing-badge {
-  align-self: flex-start;
-  border-radius: 999px;
-  padding: 3px 10px;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.13em;
-  background: linear-gradient(135deg, #fd79a8, #ffeaa7);
-  color: #1e1141;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.pricing-badge.small {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-soft);
-  letter-spacing: 0.09em;
-}
-
-.pricing-card.is-popular {
-  background: radial-gradient(circle at top, rgba(255, 255, 255, 0.25), transparent 60%),
-    linear-gradient(145deg, #6c5ce7, #a55eea);
-  border-color: rgba(255, 255, 255, 0.32);
-}
-
-.pricing-card.is-popular .pricing-price {
-  text-shadow: 0 0 18px rgba(255, 255, 255, 0.6);
-}
-
-.pricing-card.is-popular .pricing-list li::before {
-  color: #dff9fb;
-}
-
-/* ==== RESPONSIVE ==== */
+/* ---- RESPONSIVE ---- */
 
 @media (max-width: 1200px) {
   .layout {
@@ -1123,529 +985,7 @@ textarea:focus {
 }
 
 @media (max-width: 768px) {
-  .pricing-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
   .cover-grid {
     grid-template-columns: minmax(0, 1fr);
   }
-  .gallery-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
 }
-
-/* Gelişmiş Mod üzerindeki yıldız */
-
-.mode-star {
-  position: absolute;
-  top: -8px;
-  right: 10px;
-  font-size: 16px;
-  color: #ffeaa7;
-  text-shadow: 0 0 8px rgba(255, 234, 167, 0.9),
-               0 0 16px rgba(255, 184, 108, 0.8);
-  animation: spin-glow 2.2s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes spin-glow {
-  0%   { transform: rotate(0deg) scale(1);   opacity: .7; }
-  50%  { transform: rotate(180deg) scale(1.2); opacity: 1; }
-  100% { transform: rotate(360deg) scale(1);  opacity: .7; }
-}
-
-/* =========================================================
-   ==== SES KAYDI GÖRÜNÜMÜ – HİZALANMIŞ ORTA KART ====
-   ========================================================= */
-
-/* Genel müzik view görünürlüğü */
-.music-view {
-  display: none;
-}
-
-.music-view.is-active {
-  display: block;
-}
-
-/* SES KAYDI – ÜST KART (Ses Kaydetme Stüdyosu) */
-
-.record-intro-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
-    var(--bg-card-soft);
-}
-
-.record-intro-left {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.record-intro-title {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.record-intro-text {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.record-badges {
-  list-style: none;
-  margin: 8px 0 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-.record-intro-right {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  flex: 0 0 auto;
-}
-
-.record-pill {
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-/* ===== SES KAYDI – ANA KART (ORTADAKİ BÜYÜK KART) ===== */
-
-/* Bu kart “card” class’ını da taşıyor:
-   <div class="card record-main-card"> */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  position: relative;
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-  gap: 48px;
-  padding: 56px 42px;
-  margin-top: 14px;
-  min-height: 540px;      /* yüksekliği buradan ayarlayabilirsin */
-}
-
-/* Sol ve sağ bloklar – içerik altta hizalı */
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;   /* metin + butonlar kartın altına iner */
-  align-items: flex-start;
-  z-index: 2;                  /* mikrofon halkasının üstünde */
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-title {
-  font-size: 20px;
-  margin: 0 0 8px;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-hint,
-.music-view[data-music-view="ses-kaydi"] .record-hint {
-  font-size: 13px;
-  color: var(--text-soft);
-  margin: 0 0 10px;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-upload-title {
-  margin: 0 0 8px;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-btn {
-  margin-top: 6px;
-}
-
-/* ===== MİKROFON DAİRESİ – ORTADA, SABİT ===== */
-
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute;
-  top: 52%;                 /* 50–58 arasında oynayarak hizayı ince ayarlayabilirsin */
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: #050816;      /* içi koyu, halka renkli */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.12),
-    0 0 90px rgba(132, 94, 247, 0.45);
-  z-index: 1;               /* metnin arkasında, kartın önünde */
-  overflow: visible;
-}
-
-/* Dıştaki dönen renkli halka */
-.music-view[data-music-view="ses-kaydi"] .record-circle::before {
-  content: "";
-  position: absolute;
-  inset: -18px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #a29bfe,
-    #74b9ff,
-    #55efc4,
-    #ffeaa7,
-    #ff7675
-  );
-  filter: blur(1px);
-  animation: spinRing 5s linear infinite;
-  z-index: -1;
-}
-
-/* Mikrofon ikonu */
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  font-size: 80px;
-  text-shadow:
-    0 0 18px rgba(255, 255, 255, 0.9),
-    0 0 40px rgba(253, 121, 168, 0.8);
-  position: relative;
-  z-index: 2;
-}
-
-/* İsteğe bağlı: nota / ses dalgası ikonları */
-.music-view[data-music-view="ses-kaydi"] .sound-wave {
-  position: absolute;
-  font-size: 30px;
-  color: #ffeaa7;
-  text-shadow:
-    0 0 8px rgba(255, 234, 167, 0.9),
-    0 0 18px rgba(255, 184, 108, 0.8);
-  opacity: 0;
-  animation: wavePulse 1.8s ease-out infinite;
-}
-
-.music-view[data-music-view="ses-kaydi"] .wave-1 {
-  top: 8%;
-  right: 12%;
-  animation-delay: 0s;
-}
-
-.music-view[data-music-view="ses-kaydi"] .wave-2 {
-  bottom: 10%;
-  left: 14%;
-  animation-delay: 0.45s;
-}
-
-.music-view[data-music-view="ses-kaydi"] .wave-3 {
-  top: 50%;
-  left: -2%;
-  animation-delay: 0.9s;
-}
-
-/* ===== ANİMASYONLAR ===== */
-
-@keyframes spinRing {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes wavePulse {
-  0% {
-    opacity: 0;
-    transform: scale(0.6) translateY(0);
-  }
-  30% {
-    opacity: 1;
-    transform: scale(1) translateY(-4px);
-  }
-  70% {
-    opacity: 0.7;
-    transform: scale(1.2) translateY(-10px);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.4) translateY(-16px);
-  }
-}
-
-/* Tablet / dar ekran düzeni */
-@media (max-width: 900px) {
-  .music-view[data-music-view="ses-kaydi"] .record-main-card {
-    flex-direction: column;
-    padding-top: 160px; /* büyük daire için yukarıda yer bırak */
-    min-height: 480px;
-  }
-
-  .music-view[data-music-view="ses-kaydi"] .record-circle {
-    top: 80px;
-    transform: translate(-50%, 0);
-    width: 240px;
-    height: 240px;
-  }
-}
-/* === SES KAYDI BLOĞUNU AŞAĞI ÇEK === */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  margin-top: 130px;   /* kartın komple aşağı inişi – istersen 110 / 150 ile oynayabilirsin */
-}
-/* === SES KAYDI – SON HİZALAMA (ÜST KART + DAİRE + ALT KART) === */
-
-/* Alt kartı daha aşağı indir ve üstten boşluk aç */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  position: relative;
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-  gap: 48px;
-
-  /* ÜST KARTTAN UZAKLAŞTIR: kart komple aşağı iner */
-  margin-top: 190px;          /* daha az istiyorsan 170; daha çok istiyorsan 210 yapabilirsin */
-
-  /* DAİRE İÇİN ÜSTTE BOŞLUK: metin dairenin altından başlasın */
-  padding: 140px 42px 56px;   /* 140px → yazı dairenin altından başlar */
-
-  min-height: 420px;          /* sağ panelle hizayı ayarlayan yükseklik */
-}
-
-/* Sol / sağ bloklar içeriği kartın ALTINA yaslasın */
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  z-index: 2;                 /* metin, dairenin önünde kalsın */
-}
-
-/* DAİRE – ÜST KART İLE ALT KARTIN TAM ARASINDA */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute;
-  top: 0;                     /* kartın üst kenarına göre hesaplanacak */
-  left: 50%;
-  transform: translate(-50%, -50%);  /* yarısı üstte, yarısı kartın içinde */
-
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: #050816;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.12),
-    0 0 90px rgba(132, 94, 247, 0.45);
-  z-index: 1;
-  overflow: visible;
-}
-
-/* Dıştaki dönen renkli halka */
-.music-view[data-music-view="ses-kaydi"] .record-circle::before {
-  content: "";
-  position: absolute;
-  inset: -18px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #a29bfe,
-    #74b9ff,
-    #55efc4,
-    #ffeaa7,
-    #ff7675
-  );
-  filter: blur(1px);
-  animation: spinRing 5s linear infinite;
-  z-index: -1;
-}
-
-/* Mikrofon ikonu ortada kalsın */
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  font-size: 80px;
-  text-shadow:
-    0 0 18px rgba(255, 255, 255, 0.9),
-    0 0 40px rgba(253, 121, 168, 0.8);
-  position: relative;
-  z-index: 2;
-}
-/* === SES KAYDI – SON HİZALAMA OVERRIDE === */
-
-/* Üst kartı biraz aşağı çekip altında boşluk bırak */
-.music-view[data-music-view="ses-kaydi"] .record-intro-card {
-  margin-bottom: 90px !important;  /* iki kart arasındaki boşluk */
-}
-
-/* Alt kart (Ses Kaydetmeye Başlayın) – yazı dairenin altında başlasın */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  position: relative !important;
-  margin-top: 0 !important;
-  padding: 120px 42px 56px !important;  /* 120px = daire için üst boşluk */
-  min-height: 460px !important;         /* sol alttaki İPUCU kartıyla hizayı ayarlar */
-  display: flex !important;
-  align-items: stretch !important;
-  justify-content: space-between !important;
-  gap: 48px !important;
-}
-
-/* Sol / sağ metin blokları alt hizalı */
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  z-index: 2; /* dairenin önünde */
-}
-
-/* Daire: iki kartın tam arasında, alt kartın üst kenarı tam ortasından kesiyor */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute !important;
-  top: -150px !important;          /* yarım daire yukarıda, yarım daire kartın içinde */
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  width: 300px !important;
-  height: 300px !important;
-  border-radius: 50%;
-  background: #050816;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.12),
-    0 0 90px rgba(132, 94, 247, 0.45);
-  z-index: 1;
-}
-
-/* Dıştaki renkli halka aynı kalsın ama override edelim ki emin olalım */
-.music-view[data-music-view="ses-kaydi"] .record-circle::before {
-  content: "";
-  position: absolute;
-  inset: -18px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #a29bfe,
-    #74b9ff,
-    #55efc4,
-    #ffeaa7,
-    #ff7675
-  );
-  filter: blur(1px);
-  animation: spinRing 5s linear infinite;
-  z-index: -1;
-}
-
-/* Mikrofon ikonunu öne al */
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  font-size: 80px !important;
-  position: relative;
-  z-index: 2;
-  text-shadow:
-    0 0 18px rgba(255, 255, 255, 0.9),
-    0 0 40px rgba(253, 121, 168, 0.8);
-}
-/* === SES KAYDI – TEMİZ SON HİZALAMA === */
-
-/* Üst kart ile alt kart arasındaki boşluk */
-.music-view[data-music-view="ses-kaydi"] .record-intro-card {
-  margin-bottom: 110px !important;   /* iki kartın arasını açar */
-}
-
-/* ALT KART (Ses Kaydetmeye Başlayın) */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  position: relative !important;
-  margin-top: 0 !important;
-  padding: 130px 42px 56px !important;  /* 130px = daire için üst boşluk */
-  min-height: 420px !important;         /* sağdaki sütunla boyu dengeler */
-  display: flex !important;
-  align-items: stretch !important;
-  justify-content: space-between !important;
-  gap: 48px !important;
-}
-
-/* Sol / sağ blok: içerik alt hizalı */
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  z-index: 2;
-}
-
-/* DAİRE – ÜST KART & ALT KART ARASINDA YARIM YARIM DURUR */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  position: absolute !important;
-  left: 50% !important;
-  top: -150px !important;              /* 150px = dairenin yarıçapı (300/2) */
-  transform: translateX(-50%) !important;
-
-  width: 300px !important;
-  height: 300px !important;
-  border-radius: 50%;
-  background: #050816;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.12),
-    0 0 90px rgba(132, 94, 247, 0.45);
-  z-index: 1;
-}
-
-/* Dıştaki renkli halka */
-.music-view[data-music-view="ses-kaydi"] .record-circle::before {
-  content: "";
-  position: absolute;
-  inset: -18px;
-  border-radius: inherit;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #a29bfe,
-    #74b9ff,
-    #55efc4,
-    #ffeaa7,
-    #ff7675
-  );
-  filter: blur(1px);
-  animation: spinRing 5s linear infinite;
-  z-index: -1;
-}
-
-/* Mikrofon ikonu */
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  font-size: 80px !important;
-  position: relative;
-  z-index: 2;
-  text-shadow:
-    0 0 18px rgba(255, 255, 255, 0.9),
-    0 0 40px rgba(253, 121, 168, 0.8);
-}
-/* === SES KAYDI – KUTU YÜKSEKLİĞİ AYARI === */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  min-height: 280px !important;   /* kutunun boyu kısalıyor */
-  padding-bottom: 32px !important;/* alttaki boşluk azalıyor */
-}
-
-
-
