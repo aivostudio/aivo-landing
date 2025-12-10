@@ -1955,7 +1955,7 @@ body.is-recording .record-wave {
   padding-top: 210px !important;
 }
 
-/* Daireyi kartın tam ortasına yaklaştır */
+/* Daireyi kartın tam ortasına yaerleştir */
 .music-view[data-music-view="ses-kaydi"] .record-circle {
   top: -40px !important;          /* -120 yerine -40: daha aşağı */
   left: 50% !important;
