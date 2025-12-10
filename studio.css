@@ -1014,3 +1014,33 @@ textarea:focus {
   z-index: 2 !important;
   font-size: 52px !important;
 }
+/* ===== SES KAYDI – SON KEZ, HER YERDE GEÇERLİ ===== */
+
+.record-main-card {
+  position: relative;
+  margin-top: 80px;              /* üst kartla aradaki boşluk */
+  padding: 80px 48px 40px;       /* üstte daire için yer + iç boşluk */
+  min-height: 380px;             /* kartın boyu: aşağı doğru uzasın */
+  display: flex;
+  align-items: flex-end;         /* içerik alt kenara hizalansın */
+  justify-content: space-between;
+}
+
+/* Daire: alt kartın TAM içinde kalsın */
+.record-circle {
+  position: absolute;
+  top: -100px;                   /* ÜST kartla alt kartın ortasına taşsın */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+}
+
+/* Mikrofon */
+.record-icon {
+  position: relative;
+  z-index: 2;
+  font-size: 60px;
+}
+
