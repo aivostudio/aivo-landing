@@ -1,9 +1,8 @@
-/* =========================================================
-   AIVO STUDIO - STUDIO.CSS (NO NOTE ANIMATION)
-   ========================================================= */
+/* =============================
+   AIVO STUDIO – STUDIO.CSS (RESET)
+   ============================= */
 
-/* ==== GENEL RESET & DEĞİŞKENLER ==== */
-
+/* GENEL RESET & DEĞİŞKENLER */
 *,
 *::before,
 *::after {
@@ -51,7 +50,7 @@ body {
   justify-content: center;
 }
 
-/* ==== APP SHELL & TOPBAR ==== */
+/* APP SHELL & TOPBAR */
 
 .app-shell {
   width: 100%;
@@ -195,7 +194,7 @@ body {
   transform: translateY(-1px);
 }
 
-/* ==== SAYFA LAYER ==== */
+/* SAYFA LAYER */
 
 .main-pages {
   flex: 1;
@@ -219,7 +218,7 @@ body {
   display: block;
 }
 
-/* ==== LAYOUT: SOL / ORTA / SAĞ ==== */
+/* LAYOUT: SOL / ORTA / SAĞ */
 
 .layout {
   display: grid;
@@ -228,7 +227,7 @@ body {
   margin-top: 6px;
 }
 
-/* ---------- Sidebar ---------- */
+/* SIDEBAR */
 
 .sidebar {
   background:
@@ -351,7 +350,7 @@ body {
   color: var(--text-soft);
 }
 
-/* ---------- Main panel ---------- */
+/* MAIN PANEL & RIGHT PANEL */
 
 .main-panel,
 .cover-main {
@@ -378,8 +377,6 @@ body {
   color: var(--text-soft);
 }
 
-/* ---------- Right panel ---------- */
-
 .right-panel {
   display: flex;
   flex-direction: column;
@@ -391,7 +388,7 @@ body {
     radial-gradient(circle at top, #241545 0, #050816 70%);
 }
 
-/* ==== CARD / FORM GENEL ==== */
+/* CARD & FORM GENEL */
 
 .card {
   background:
@@ -486,7 +483,7 @@ select:focus {
   box-shadow: 0 0 0 1px rgba(168, 129, 255, 0.4);
 }
 
-/* ==== MOD BUTON ==== */
+/* MODE TOGGLE */
 
 .mode-toggle {
   display: inline-flex;
@@ -516,12 +513,7 @@ select:focus {
   box-shadow: 0 0 12px rgba(255, 126, 229, 0.7);
 }
 
-.mode-star {
-  margin-left: 3px;
-  font-size: 11px;
-}
-
-/* ==== CHIP CHECKBOX ==== */
+/* CHIP CHECKBOX */
 
 .chip-grid {
   display: flex;
@@ -545,7 +537,7 @@ select:focus {
   accent-color: var(--accent);
 }
 
-/* ==== BUTONLAR ==== */
+/* BUTONLAR */
 
 .primary-btn {
   border-radius: 999px;
@@ -572,9 +564,7 @@ select:focus {
   width: 100%;
 }
 
-/* =========================================================
-   SES KAYDI – ÜST KART
-   ========================================================= */
+/* ========== SES KAYDI – ÜST KART ========== */
 
 .record-intro-card {
   display: flex;
@@ -618,9 +608,7 @@ select:focus {
   font-size: 12px;
 }
 
-/* =========================================================
-   SES KAYDI – ANA KART
-   ========================================================= */
+/* ========== SES KAYDI – ANA KART ========== */
 
 .record-main-card {
   margin-top: 16px;
@@ -632,7 +620,7 @@ select:focus {
   position: relative;
 }
 
-/* DAİRE */
+/* Daire */
 
 .record-circle {
   position: absolute;
@@ -649,21 +637,13 @@ select:focus {
   justify-content: center;
   pointer-events: auto;
   cursor: pointer;
-  transition:
-    transform 0.16s ease-out,
-    box-shadow 0.16s ease-out;
-}
-
-.record-circle:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 0 90px rgba(255, 148, 255, 0.7);
 }
 
 .record-icon {
   font-size: 42px;
 }
 
-/* WAVEFORM (fake) */
+/* Wave (fake) */
 
 .record-wave {
   position: absolute;
@@ -766,7 +746,7 @@ select:focus {
   color: var(--text-soft);
 }
 
-/* UPLOAD KUTUSU */
+/* Upload kutusu */
 
 .upload-dropzone {
   border-radius: 14px;
@@ -778,16 +758,6 @@ select:focus {
   background:
     radial-gradient(circle at top, #151634 0, #050816 70%);
   cursor: pointer;
-  transition:
-    border-color var(--transition-fast),
-    box-shadow var(--transition-fast),
-    transform 0.12s ease-out;
-}
-
-.upload-dropzone:hover {
-  border-color: rgba(168, 129, 255, 0.9);
-  box-shadow: 0 0 18px rgba(168, 129, 255, 0.5);
-  transform: translateY(-1px);
 }
 
 .upload-icon {
@@ -817,9 +787,7 @@ select:focus {
   display: none;
 }
 
-/* =========================================================
-   SES KAYDI – ALT MP3 SONUÇ KARTI
-   ========================================================= */
+/* ALT MP3 SONUÇ KARTI */
 
 .record-result-card {
   margin: 20px auto 0;
@@ -857,8 +825,6 @@ select:focus {
   align-items: center;
 }
 
-/* Ortak buton stili */
-
 .result-btn {
   width: 44px;
   height: 44px;
@@ -882,50 +848,37 @@ select:focus {
 
 .result-btn:hover {
   transform: translateY(-2px) scale(1.06);
-  opacity: 1;
 }
 
 .result-btn:active {
   transform: translateY(0) scale(0.94);
-  box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
-  opacity: 0.9;
 }
 
 /* Play */
 .result-btn.result-play {
   background:
     radial-gradient(circle at 30% 0, #ffd5ff 0, #ff9ff3 40%, #c77dff 80%);
-  border-color: rgba(255, 159, 243, 0.4);
-  box-shadow: 0 0 26px rgba(255, 159, 243, 0.6);
 }
 
 /* Download */
 .result-btn.result-download {
   background:
     radial-gradient(circle at 30% 0, #e0d4ff 0, #a18bff 40%, #6c5ce7 80%);
-  border-color: rgba(161, 139, 255, 0.4);
-  box-shadow: 0 0 26px rgba(161, 139, 255, 0.6);
 }
 
 /* Müzik */
 .result-btn.result-music {
   background:
     radial-gradient(circle at 30% 0, #ffe0ff 0, #ffb0ff 35%, #ff8fd6 80%);
-  border-color: rgba(255, 176, 255, 0.45);
-  box-shadow: 0 0 26px rgba(255, 143, 214, 0.7);
 }
 
 /* Sil */
 .result-btn.result-delete {
   background:
     radial-gradient(circle at 30% 0, #ffb3c7 0, #ff6b9e 35%, #7a1230 85%);
-  border-color: rgba(255, 107, 158, 0.5);
-  box-shadow: 0 0 26px rgba(255, 107, 158, 0.6);
 }
 
-/* =========================================================
-   RIGHT PANEL – SON ÜRETİLEN MÜZİKLER (Sade, animasyonsuz)
-   ========================================================= */
+/* SAĞ BLOK – SON ÜRETİLEN MÜZİKLER (SADE) */
 
 .empty-state {
   margin-top: 4px;
@@ -952,9 +905,7 @@ select:focus {
   color: var(--text-soft);
 }
 
-/* =========================================================
-   KAPAK / COVER BÖLÜMÜ
-   ========================================================= */
+/* BASİT COVER STİLİ (boş kalmasın) */
 
 .cover-grid {
   display: grid;
@@ -962,119 +913,12 @@ select:focus {
   gap: 16px;
 }
 
+.cover-right,
 .cover-left {
-  min-height: 260px;
+  min-height: 220px;
 }
 
-.cover-right {
-  min-height: 260px;
-}
-
-.style-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.style-pill {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.03);
-  padding: 5px 10px;
-  font-size: 12px;
-  cursor: pointer;
-  color: var(--text-soft);
-}
-
-.style-pill.is-active {
-  background: linear-gradient(120deg, #a974ff, #ff7ee5);
-  color: #120820;
-}
-
-/* Galeri */
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.gallery-card {
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  background:
-    radial-gradient(circle at top, #141733 0, #050816 70%);
-  padding: 8px;
-  display: flex;
-  gap: 8px;
-}
-
-.gallery-thumb {
-  width: 58px;
-  height: 58px;
-  border-radius: 10px;
-  background-size: cover;
-  background-position: center;
-}
-
-.fake-thumb.thumb-1 {
-  background-image: linear-gradient(135deg, #5c7cfa, #4dd0e1);
-}
-.fake-thumb.thumb-2 {
-  background-image: linear-gradient(135deg, #f093fb, #f5576c);
-}
-.fake-thumb.thumb-3 {
-  background-image: linear-gradient(135deg, #96fbc4, #f9f586);
-}
-.fake-thumb.thumb-4 {
-  background-image: linear-gradient(135deg, #ff9a9e, #fecfef);
-}
-
-.gallery-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-size: 12px;
-}
-
-.gallery-meta {
-  color: var(--text-soft);
-  font-size: 11px;
-}
-
-.gallery-footer {
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-.gallery-pagination {
-  display: flex;
-  gap: 4px;
-}
-
-.page-btn {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 3px 8px;
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--text-soft);
-  font-size: 11px;
-  cursor: pointer;
-}
-
-.page-btn.is-active {
-  background: linear-gradient(120deg, #a974ff, #ff7ee5);
-  color: #120820;
-}
-
-/* =========================================================
-   PRICING MODAL
-   ========================================================= */
+/* PRICING & RECORDING MODALLARI SİMPLİFİED */
 
 .pricing-modal {
   position: fixed;
@@ -1106,82 +950,6 @@ select:focus {
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
   z-index: 1;
 }
-
-.pricing-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: flex-start;
-  margin-bottom: 14px;
-}
-
-.pricing-header h2 {
-  margin: 0 0 4px;
-}
-
-.pricing-header p {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.pricing-card {
-  border-radius: 18px;
-  padding: 14px 14px 16px;
-  background:
-    radial-gradient(circle at top, #191937 0, #050816 80%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.pricing-card.is-popular {
-  border-color: rgba(255, 126, 229, 0.7);
-  box-shadow: 0 0 26px rgba(255, 126, 229, 0.7);
-}
-
-.pricing-badge {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #ffd5ff;
-}
-
-.pricing-badge.small {
-  color: var(--text-soft);
-}
-
-.pricing-price {
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.pricing-list {
-  margin: 4px 0 10px;
-  padding-left: 18px;
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-.icon-button {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(12, 12, 30, 0.9);
-  color: var(--text-soft);
-  padding: 4px 8px;
-  cursor: pointer;
-}
-
-/* =========================================================
-   RECORDING FULLSCREEN MODAL
-   ========================================================= */
 
 #recordingOverlay {
   position: fixed;
@@ -1216,103 +984,7 @@ select:focus {
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85);
 }
 
-.recording-title {
-  margin: 0 0 2px;
-  font-size: 15px;
-}
-
-.recording-sub {
-  margin: 0 0 16px;
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-.recording-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  margin-bottom: 8px;
-  color: var(--text-soft);
-}
-
-.recording-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.recording-time {
-  font-variant-numeric: tabular-nums;
-  font-size: 13px;
-  color: #f5f5ff;
-}
-
-.recording-bar {
-  width: 100%;
-  height: 4px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-
-.recording-bar-inner {
-  height: 100%;
-  width: 0%;
-  border-radius: inherit;
-  background: linear-gradient(120deg, #a974ff, #ff7ee5);
-}
-
-.recording-wave {
-  height: 70px;
-  border-radius: 16px;
-  background:
-    radial-gradient(circle at top, #151733 0, #050816 70%);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  padding: 8px 10px;
-}
-
-.recording-wave-bar {
-  width: 8px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #ffe1ff, #ff9ff3, #a974ff);
-  animation: wavePulse 1.2s ease-in-out infinite;
-  animation-delay: calc(var(--i) * 0.06s);
-}
-
-.recording-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
-.recording-secondary {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  padding: 7px 14px;
-  font-size: 12px;
-  background: rgba(7, 9, 28, 0.96);
-  color: var(--text-soft);
-  cursor: pointer;
-}
-
-.recording-primary {
-  border-radius: 999px;
-  border: none;
-  padding: 7px 16px;
-  font-size: 12px;
-  background: linear-gradient(120deg, #ff6b81, #ff9f43);
-  color: #120820;
-  cursor: pointer;
-}
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
+/* RESPONSIVE */
 
 @media (max-width: 1100px) {
   .layout {
