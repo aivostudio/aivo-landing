@@ -2429,7 +2429,7 @@ body.is-recording .record-wave {
 .recording-wave-bar:nth-child(2n) {
   animation-delay: 0.1s;
 }
-recording-wave-bar:nth-child(3n) {
+.recording-wave-bar:nth-child(3n) {
   animation-delay: 0.2s;
 }
 .recording-wave-bar:nth-child(5n) {
@@ -2453,7 +2453,7 @@ recording-wave-bar:nth-child(3n) {
   gap: 10px;
 }
 
-/* Buton stilleri - modal içi */
+/* Modal içi butonlar */
 
 .btn-primary {
   padding: 10px 20px;
@@ -2489,7 +2489,7 @@ recording-wave-bar:nth-child(3n) {
   border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, 0.04);
   padding: 14px 16px;
-  display: none; /* Başta gizli */
+  display: none;
 }
 
 .record-result-card.is-visible {
@@ -2544,4 +2544,3 @@ recording-wave-bar:nth-child(3n) {
 .primary-btn.recording {
   background: linear-gradient(135deg, #ff9ff3, #a18bff) !important;
 }
-
