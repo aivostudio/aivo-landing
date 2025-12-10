@@ -2303,4 +2303,245 @@ body.is-recording .record-wave {
   background: linear-gradient(135deg, #ff9ff3, #a18bff) !important;
 }
 
+/* === SES KAYIT MODALI === */
+
+.recording-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 5, 20, 0.85);
+  backdrop-filter: blur(18px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.recording-overlay.is-open {
+  display: flex;
+}
+
+.recording-dialog {
+  width: 520px;
+  max-width: 90vw;
+  background: radial-gradient(circle at top, #ff8fd6 0, #432b7a 40%, #050816 100%);
+  border-radius: 26px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.75);
+  padding: 28px 28px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.recording-dialog-header {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.recording-icon-circle {
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 0, #ffe5ff 0, #ff6bd5 40%, #ff2c82 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 36px rgba(255, 107, 213, 0.75);
+}
+
+.recording-icon-circle .icon-mic::before {
+  content: "🎙️";
+  font-size: 28px;
+}
+
+.recording-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.recording-title {
+  margin: 0;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.recording-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(241, 238, 255, 0.9);
+}
+
+.recording-timer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: rgba(241, 238, 255, 0.85);
+}
+
+.recording-timer-value {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.recording-progress {
+  width: 100%;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(4, 6, 25, 0.6);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.recording-progress-bar {
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #ff9ff3, #a18bff, #6c5ce7);
+  transition: width 0.25s linear;
+}
+
+/* Dalga animasyonu */
+
+.recording-waveform {
+  height: 80px;
+  border-radius: 16px;
+  background: rgba(3, 6, 32, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 10px 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.recording-wave-bar {
+  flex: 1;
+  margin: 0 2px;
+  border-radius: 999px;
+  background: linear-gradient(to top, #ff9ff3, #a18bff);
+  animation: wavePulse 0.8s ease-in-out infinite;
+  transform-origin: bottom;
+}
+
+.recording-wave-bar:nth-child(2n) {
+  animation-delay: 0.1s;
+}
+recording-wave-bar:nth-child(3n) {
+  animation-delay: 0.2s;
+}
+.recording-wave-bar:nth-child(5n) {
+  animation-delay: 0.3s;
+}
+
+@keyframes wavePulse {
+  0%, 100% {
+    height: 20%;
+    opacity: 0.6;
+  }
+  50% {
+    height: 90%;
+    opacity: 1;
+  }
+}
+
+.recording-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Buton stilleri - modal içi */
+
+.btn-primary {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ff9ff3, #a18bff);
+  color: #050816;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.btn-ghost {
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: transparent;
+  color: #f5f5ff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* === SES KAYDI SONUÇ KARTI === */
+
+.record-result-card {
+  margin: 20px auto 0;
+  max-width: 620px;
+  background: rgba(8, 11, 36, 0.92);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 14px 16px;
+  display: none; /* Başta gizli */
+}
+
+.record-result-card.is-visible {
+  display: block;
+}
+
+.record-result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #f5f5ff;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.record-result-time {
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  color: #9aa4d7;
+}
+
+.record-result-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.result-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.result-play {
+  background: #00d26a;
+}
+.result-download {
+  background: #4b7bff;
+}
+.result-music {
+  background: #ff9f43;
+}
+.result-delete {
+  background: #ff4757;
+  color: #fff;
+}
+
+/* Kayıt aktifken ana buton rengi */
+
+.primary-btn.recording {
+  background: linear-gradient(135deg, #ff9ff3, #a18bff) !important;
+}
 
