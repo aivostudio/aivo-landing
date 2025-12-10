@@ -1641,6 +1641,11 @@ textarea:focus {
     0 0 18px rgba(255, 255, 255, 0.9),
     0 0 40px rgba(253, 121, 168, 0.8);
 }
+/* === SES KAYDI – KUTU YÜKSEKLİĞİ AYARI === */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  min-height: 280px !important;   /* kutunun boyu kısalıyor */
+  padding-bottom: 32px !important;/* alttaki boşluk azalıyor */
+}
 
 
 
