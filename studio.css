@@ -1875,3 +1875,43 @@ textarea:focus {
     filter: hue-rotate(-15deg);
   }
 }
+/* === KAYIT WAVEFORM GÖRSELİ === */
+
+.record-wave {
+  position: absolute;
+  top: 150px;                 /* dairenin hemen altı */
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(520px, 80%);
+  height: 60px;
+  display: none;              /* default gizli */
+  align-items: flex-end;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.wave-bar {
+  flex: 1;
+  min-width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #74b9ff, #a29bfe);
+  opacity: 0.9;
+  transform-origin: bottom center;
+  animation: wavePulse 0.7s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * 0.05s);
+}
+
+/* Kayıt sırasında aç */
+body.is-recording .record-wave {
+  display: flex;
+}
+
+/* Fake waveform hareketi */
+@keyframes wavePulse {
+  from {
+    transform: scaleY(0.2);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
