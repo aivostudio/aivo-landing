@@ -1802,6 +1802,18 @@ body.is-recording .record-mini-wave {
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
   filter: brightness(1.05);
 }
+/* ==== AIVO OVERRIDE – Ses Kaydı kart yüksekliği kısaltma ==== */
+
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  padding: 70px 60px 60px;  /* üst–yan–alt padding biraz küçüldü */
+  min-height: auto;         /* sabit 760px yüksekliği iptal */
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-bottom-shell {
+  margin-top: 26px;         /* buton / sonuç kartı ile arayı biraz daralt */
+  margin-bottom: 18px;      /* kartın sayfa altına fazla yaklaşmaması için */
+  min-height: 220px;        /* biraz daha kısa alt panel */
+}
 
 
 
