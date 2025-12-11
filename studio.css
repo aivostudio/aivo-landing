@@ -657,7 +657,7 @@ textarea:focus {
   position: relative;
 }
 
-/* Üst bilgi kartı aynı kalsın */
+/* ÜST BİLGİ KARTI */
 .music-view[data-music-view="ses-kaydi"] .record-intro-card {
   display: flex;
   align-items: center;
@@ -711,12 +711,11 @@ textarea:focus {
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-/* ANA KART – artık absolute yerine FLEX yapısı kullanıyoruz */
-
+/* ANA KART - FLEX YAPI */
 .music-view[data-music-view="ses-kaydi"] .record-main-card {
   position: relative;
   padding: 70px 60px 60px;
-  min-height: 720px;  /* kartı biraz daha uzattık → yazılar doğal olarak daha aşağı */
+  min-height: 850px;
   overflow: hidden;
   background:
     radial-gradient(circle at top, rgba(120, 82, 255, 0.35), transparent 70%),
@@ -727,12 +726,11 @@ textarea:focus {
   align-items: center;
 }
 
-/* Alt koyu kutu artık gerçek bir DIV: record-bottom-shell */
-
+/* ALTTAKİ KOYU KUTU */
 .music-view[data-music-view="ses-kaydi"] .record-bottom-shell {
   width: 100%;
   max-width: 980px;
-  margin-top: auto;             /* yuvarlak yukarıda kalır, kutu kartın ALTINA oturur */
+  margin-top: 160px !important;
   border-radius: 26px;
   background:
     radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 65%),
@@ -743,14 +741,15 @@ textarea:focus {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   gap: 24px;
+  position: relative !important;
 }
 
-/* Sol / sağ bloklar normal akışta – absolute YOK */
-
+/* SOL & SAĞ BLOKLAR */
 .music-view[data-music-view="ses-kaydi"] .record-main-left,
 .music-view[data-music-view="ses-kaydi"] .record-main-right {
   display: flex;
   flex-direction: column;
+  position: relative !important;
 }
 
 .music-view[data-music-view="ses-kaydi"] .record-main-title {
@@ -779,8 +778,7 @@ textarea:focus {
   margin-top: 12px;
 }
 
-/* Sayaç satırı */
-
+/* TIMER */
 .record-wave-row {
   margin-top: 12px;
   display: flex;
@@ -790,18 +788,17 @@ textarea:focus {
 
 .record-timer {
   min-width: 56px;
-  font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: "SF Mono", ui-monospace;
   font-size: 13px;
   padding: 4px 10px;
   border-radius: 999px;
   background: rgba(5, 7, 30, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  text-align: center;
   color: #f5f5ff;
+  text-align: center;
 }
 
-/* BÜYÜK DAİRE – artık normal akışta, ortalanmış */
-
+/* BÜYÜK ÇEMBER (KAYIT DIŞI HALI) */
 .music-view[data-music-view="ses-kaydi"] .record-circle {
   width: 260px;
   height: 260px;
@@ -822,9 +819,8 @@ textarea:focus {
   box-shadow:
     0 0 40px rgba(255, 255, 255, 0.14),
     0 0 80px rgba(132, 94, 247, 0.55);
-  z-index: 2;
   animation: pulseIdle 2.4s ease-in-out infinite;
-  margin-bottom: 70px;   /* yuvarlak ile alt kutu arasındaki mesafe -> İSTEDİĞİN GİBİ BOŞLUK */
+  margin-bottom: 70px;
 }
 
 .music-view[data-music-view="ses-kaydi"] .record-circle::after {
@@ -841,13 +837,9 @@ textarea:focus {
   position: relative;
   z-index: 3;
   font-size: 54px;
-  text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.7),
-    0 0 22px rgba(253, 121, 168, 0.75);
 }
 
-/* Idle animasyon (aynı) */
-
+/* IDLE ANİMASYON */
 @keyframes pulseIdle {
   0%   { transform: scale(1); }
   30%  { transform: scale(1.05); }
@@ -855,43 +847,46 @@ textarea:focus {
   100% { transform: scale(1); }
 }
 
-/* Kayıt durumunda daire */
+/* ============================================================
+   KAYIT HALİ – LİLA / PEMBE YENİ TEMA
+   ============================================================ */
 
 .music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
   background: conic-gradient(
     from 0deg,
-    #ff4757,
-    #ff6b81,
-    #ff4757,
-    #c23616,
-    #ff6b81,
-    #ff4757
+    #a86bff,
+    #d66bff,
+    #fd79a8,
+    #ffeaa7,
+    #74b9ff,
+    #a29bfe,
+    #a86bff
   );
   box-shadow:
-    0 0 45px rgba(255, 71, 87, 0.9),
-    0 0 110px rgba(214, 48, 49, 0.9);
+    0 0 45px rgba(168, 107, 255, 0.75),
+    0 0 110px rgba(253, 121, 168, 0.65);
   animation: pulseRecording 1s ease-in-out infinite;
 }
 
 .music-view[data-music-view="ses-kaydi"] .record-circle.is-recording::after {
   background:
-    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent 55%),
-    radial-gradient(circle at bottom, #7d122f, #140005);
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18), transparent 60%),
+    radial-gradient(circle at bottom, #532e91, #0a0514);
 }
 
+/* RECORDING PULSE */
 @keyframes pulseRecording {
   0%   { transform: scale(1); }
-  20%  { transform: scale(1.1); }
+  20%  { transform: scale(1.08); }
   50%  { transform: scale(1.02); }
-  80%  { transform: scale(1.1); }
+  80%  { transform: scale(1.09); }
   100% { transform: scale(1); }
 }
 
-/* Waveform – yuvarlağın hemen altında, ortada */
-
+/* WAVEFORM */
 .record-wave {
   position: absolute;
-  top: 52%;                 /* gerekirse bunu da oynayabiliriz */
+  top: 52%;
   left: 50%;
   transform: translateX(-50%);
   width: min(520px, 82%);
@@ -899,8 +894,8 @@ textarea:focus {
   display: flex;
   align-items: flex-end;
   gap: 4px;
-  pointer-events: none;
   opacity: 0;
+  pointer-events: none;
   z-index: 1;
 }
 
@@ -915,16 +910,20 @@ textarea:focus {
   animation-delay: calc(var(--i) * 0.05s);
 }
 
-/* Kayıt sırasında waveform görünür */
-
 body.is-recording #recordWave {
   opacity: 1;
 }
 
 @keyframes wavePulse {
   from { transform: scaleY(0.2); }
-  to   { transform: scaleY(1);   }
+  to   { transform: scaleY(1); }
 }
+
+
+/* =========================================
+   KAPAK / GÖRÜNTÜ SAYFASI (BÖLÜM BAŞI)
+   ========================================= */
+
 
 
 /* =========================================
