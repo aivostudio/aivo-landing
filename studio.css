@@ -542,7 +542,7 @@ textarea:focus {
   transform: translateY(-1px);
 }
 
-/* Referans ses yükle kutusu */
+/* REFERANS SES YÜKLE – UPLOAD BOX */
 
 .upload-box {
   border: 1px dashed rgba(255, 255, 255, 0.25);
@@ -564,7 +564,7 @@ textarea:focus {
   transform: translateY(-1px);
 }
 
-/* Genel primary buton */
+/* BUTONLAR */
 
 .primary-btn {
   border-radius: 12px;
@@ -584,8 +584,6 @@ textarea:focus {
   box-shadow: 0 16px 40px rgba(253, 121, 168, 0.6);
   filter: brightness(1.05);
 }
-
-/* Müzik Üret butonunu büyüt */
 
 .main-panel #musicGenerateBtn {
   padding: 18px 20px;
@@ -637,7 +635,7 @@ textarea:focus {
 }
 
 /* =========================================
-   MÜZİK VIEWS GENEL
+   MÜZİK VIEWS
    ========================================= */
 
 .music-view {
@@ -650,6 +648,7 @@ textarea:focus {
   gap: 10px;
   flex: 1;
 }
+
 /* =========================================
    SES KAYDI – LAYOUT & TASARIM (SON DÜZEN)
    ========================================= */
@@ -716,8 +715,8 @@ textarea:focus {
 .music-view[data-music-view="ses-kaydi"] .record-main-card {
   position: relative;
   margin-top: 0;
-  padding: 140px 60px 140px;   /* üst: yuvarlak, alt: kutu + yazılar */
-  min-height: 640px;
+  padding: 150px 60px 160px;   /* üst: yuvarlak, alt: kutu + yazılar */
+  min-height: 650px;
   overflow: hidden;
   background:
     radial-gradient(circle at top, rgba(120, 82, 255, 0.35), transparent 70%),
@@ -731,8 +730,8 @@ textarea:focus {
   position: absolute;
   left: 50px;
   right: 50px;
-  bottom: 18px;               /* kutu neredeyse kartın dibinde */
-  height: 260px;              /* kutunun yüksekliği */
+  bottom: 22px;               /* alt karta yakın */
+  height: 260px;
   border-radius: 26px;
   background:
     radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 65%),
@@ -746,7 +745,7 @@ textarea:focus {
 .music-view[data-music-view="ses-kaydi"] .record-main-left,
 .music-view[data-music-view="ses-kaydi"] .record-main-right {
   position: absolute;
-  bottom: 52px;               /* yazılar kutunun içine oturur */
+  bottom: 56px;               /* yazı ve butonlar kutunun içinde */
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -789,6 +788,7 @@ textarea:focus {
 }
 
 /* Sayaç satırı */
+
 .record-wave-row {
   margin-top: 12px;
   display: flex;
@@ -809,6 +809,7 @@ textarea:focus {
 }
 
 /* BÜYÜK DAİRE – kartın üst kısmında ortalı */
+
 .music-view[data-music-view="ses-kaydi"] .record-circle {
   position: absolute;
   top: 30%;
@@ -857,6 +858,7 @@ textarea:focus {
 }
 
 /* Idle animasyon */
+
 @keyframes pulseIdle {
   0%   { transform: translate(-50%, -50%) scale(1); }
   30%  { transform: translate(-50%, -50%) scale(1.05); }
@@ -865,6 +867,7 @@ textarea:focus {
 }
 
 /* Kayıt durumunda daire */
+
 .music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
   background: conic-gradient(
     from 0deg,
@@ -896,6 +899,7 @@ textarea:focus {
 }
 
 /* Waveform – yuvarlağın altında */
+
 .record-wave {
   position: absolute;
   top: 58%;
@@ -923,6 +927,7 @@ textarea:focus {
 }
 
 /* Kayıt sırasında waveform görünür */
+
 body.is-recording #recordWave {
   opacity: 1;
 }
@@ -931,7 +936,6 @@ body.is-recording #recordWave {
   from { transform: scaleY(0.2); }
   to   { transform: scaleY(1);   }
 }
-
 
 /* =========================================
    KAPAK / GÖRSEL SAYFASI
@@ -1168,8 +1172,6 @@ body.is-recording #recordWave {
   backdrop-filter: blur(18px);
 }
 
-/* Ana dialog */
-
 .pricing-dialog {
   position: relative;
   width: 88%;
@@ -1189,8 +1191,6 @@ body.is-recording #recordWave {
   transform: translateY(0);
 }
 
-/* Hafif alt glow */
-
 .pricing-dialog::before {
   content: "";
   position: absolute;
@@ -1198,12 +1198,10 @@ body.is-recording #recordWave {
   bottom: 32%;
   height: 32%;
   border-radius: 50px;
-  background: radial-gradient(circle at top, rgba(253, 121, 168, 0.40), transparent 70%);
+  background: radial-gradient(circle at top, rgba(253, 121, 168, 0.4), transparent 70%);
   opacity: 0.8;
   pointer-events: none;
 }
-
-/* Header */
 
 .pricing-header {
   position: relative;
@@ -1226,8 +1224,6 @@ body.is-recording #recordWave {
   font-size: 14px;
   color: #b9c2ff;
 }
-
-/* Kapat butonu */
 
 .icon-button {
   background: rgba(255, 255, 255, 0.08);
@@ -1281,7 +1277,7 @@ body.is-recording #recordWave {
       rgba(255, 136, 210, 0.25),
       rgba(80, 120, 255, 0.18)
     ),
-    rgba(16, 20, 48, 0.80);
+    rgba(16, 20, 48, 0.8);
   border: 1px solid rgba(255, 136, 210, 0.45);
 }
 
