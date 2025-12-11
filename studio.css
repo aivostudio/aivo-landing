@@ -1429,3 +1429,25 @@ body.is-recording #recordWave {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+/* === AIVO OVERRIDE – Ses Kaydı hizalama (en son kural) === */
+
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  min-height: 850px; /* kartı uzatıyoruz, aşağıda daha çok boşluk oluşsun */
+}
+
+/* Alt koyu kutu ve içindeki yazıları absolute'tan kurtarıp aşağı indiriyoruz */
+.music-view[data-music-view="ses-kaydi"] .record-bottom-shell {
+  position: relative !important;
+  top: auto !important;
+  bottom: auto !important;
+  margin-top: 160px !important;  /* yuvarlakla arayı açan asıl satır */
+}
+
+/* Sol ve sağ yazı blokları da normal akışta olsun */
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  position: relative !important;
+  top: auto !important;
+  bottom: auto !important;
+}
+
