@@ -1840,3 +1840,20 @@ body.is-recording .record-mini-wave {
 .music-view[data-music-view="ses-kaydi"] .record-bottom-shell {
   margin-top: 46px !important;
 }
+/* =========================================
+   AIVO – Ses Kaydı kart yüksekliği (FINAL)
+   ========================================= */
+
+/* Ana kayıt kartını kısalt */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  min-height: 620px !important;          /* 850 / 760 yerine daha kısa */
+  padding: 70px 60px 40px !important;    /* alt padding azaltıldı */
+}
+
+/* Alt paneli biraz yukarı çek, aşağı taşmasın */
+.music-view[data-music-view="ses-kaydi"] .record-bottom-shell {
+  margin-top: 32px !important;           /* butonla arayı koru ama çok açma */
+  margin-bottom: 0 !important;           /* ekstra boşluk bırakma */
+  min-height: 220px !important;          /* daha kompakt panel */
+}
+
