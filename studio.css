@@ -1454,4 +1454,30 @@ body.is-recording #recordWave {
   top: auto !important;
   bottom: auto !important;
 }
+/* ===============================================================
+   AIVO OVERRIDE BÖLÜMÜ
+   KONUM: studio.css DOSYASININ EN ALTINA EKLENİR
+   AMAÇ: Kaydı Başlat butonunu çemberin altına taşımak
+   =============================================================== */
+
+/* Eski panel içi margin'i kaldırıyoruz */
+.music-view[data-music-view="ses-kaydi"] .record-btn {
+  margin-top: 0 !important;
+}
+
+/* Çemberin altına yeni alan oluşturuyoruz */
+.ses-button-under-circle {
+  margin-top: 40px;          /* çember ile aradaki boşluk */
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Yeni buton boyutu */
+.ses-button-under-circle .record-btn {
+  padding: 16px 38px !important;
+  font-size: 16px !important;
+  border-radius: 14px !important;
+}
+
 
