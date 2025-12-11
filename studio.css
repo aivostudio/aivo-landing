@@ -1,3 +1,5 @@
+
+
 /* ================================
    AIVO STUDIO – STUDIO.CSS (FULL)
    ================================ */
@@ -826,7 +828,7 @@ body.is-recording .ses-button-under-circle .record-btn {
 
   display: grid;
   grid-template-columns: 1.15fr 1fr;
-  gap: 36px;                  /* Sol–sağ blok arası boşluk büyütüldü */
+  gap: 36px;                  /* kolon arası boşluk büyütüldü */
 }
 
 /* Sol ve sağ bloklar */
@@ -851,13 +853,13 @@ body.is-recording .ses-button-under-circle .record-btn {
 }
 
 /* Açıklama yazıları */
-.music-view[data-music-view="ses-kaydi"]
+.music-view[data-music-view="ses-kaydi"] 
 .record-main-text,
-.music-view[data-music-view="ses-kaydi"]
+.music-view[data-music-view="ses-kaydi"] 
 .record-upload-text,
-.music-view[data-music-view="ses-kaydi"]
+.music-view[data-music-view="ses-kaydi"] 
 .record-upload-hint,
-.music-view[data-music-view="ses-kaydi"]
+.music-view[data-music-view="ses-kaydi"] 
 .record-hint {
   margin: 0 0 14px;
   font-size: 15px;             /* 13 → 15 BÜYÜTÜLDÜ */
@@ -865,7 +867,14 @@ body.is-recording .ses-button-under-circle .record-btn {
   color: var(--text-soft);
 }
 
-/* Sayaç satırı (00:00 + yanındaki alan) */
+/* Sayaç (00:00) */
+.record-timer {
+  font-size: 14px;             /* 13 → 14 */
+  padding: 6px 12px;
+}
+
+/* Sayaç ---------------------------------------------------- */
+
 .record-wave-row {
   margin-top: 12px;
   display: flex;
@@ -873,17 +882,194 @@ body.is-recording .ses-button-under-circle .record-btn {
   gap: 10px;
 }
 
-/* Sayaç (00:00) */
 .record-timer {
   min-width: 56px;
   font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 14px;             /* Bir tık büyütüldü */
-  padding: 6px 12px;
+  font-size: 13px;
+  padding: 4px 10px;
   border-radius: 999px;
   background: rgba(5, 7, 30, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.12);
   text-align: center;
   color: #f5f5ff;
+}
+
+/* KAYIT HALİNDE ÇEMBER ------------------------------------ */
+
+.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
+  background: conic-gradient(
+    from 0deg,
+    #a86bff,
+    #d66bff,
+    #fd79a8,
+    #ffeaa7,
+    #74b9ff,
+    #a29bfe,
+    #a86bff
+  );
+  box-shadow:
+    0 0 45px rgba(168, 107, 255, 0.75),
+    0 0 110px rgba(253, 121, 168, 0.65);
+  animation: pulseRecording 1s ease-in-out infinite;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording::after {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18), transparent 60%),
+    radial-gradient(circle at bottom, #532e91, #0a0514);
+}
+
+/* ÇEMBER & BUTON ANİMASYONLARI --------------------------- */
+
+@keyframes pulseIdle {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.05); }
+  60%  { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes pulseRecording {
+  0%   { transform: scale(1); }
+  20%  { transform: scale(1.08); }
+  50%  { transform: scale(1.02); }
+  80%  { transform: scale(1.09); }
+  100% { transform: scale(1); }
+}
+
+/* Buton “hadi bana dokun” nefes efekti */
+
+@keyframes recordBtnIdle {
+  0% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 12px 32px rgba(253, 121, 168, 0.45);
+  }
+  50% {
+    transform: translateY(-1px) scale(1.03);
+    box-shadow: 0 18px 50px rgba(253, 121, 168, 0.75);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 12px 32px rgba(253, 121, 168, 0.45);
+  }
+}
+
+/* Kayıtta daha hızlı nabız efekti */
+
+@keyframes recordBtnRecording {
+  0%   { transform: translateY(0) scale(1); }
+  30%  { transform: translateY(-2px) scale(1.05); }
+  60%  { transform: translateY(-1px) scale(1.02); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* WAVEFORM ------------------------------------------------ */
+
+.record-wave {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(520px, 82%);
+  height: 60px;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;
+}
+
+.wave-bar {
+  flex: 1;
+  min-width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #74b9ff, #a29bfe);
+  opacity: 0.9;
+  transform-origin: bottom center;
+  animation: wavePulse 0.7s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * 0.05s);
+}
+
+body.is-recording #recordWave {
+  opacity: 1;
+}
+
+@keyframes wavePulse {
+  from { transform: scaleY(0.2); }
+  to   { transform: scaleY(1); }
+}
+
+
+/* ============================================================
+   KAYIT HALİ – LİLA / PEMBE YENİ TEMA
+   ============================================================ */
+
+.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
+  background: conic-gradient(
+    from 0deg,
+    #a86bff,
+    #d66bff,
+    #fd79a8,
+    #ffeaa7,
+    #74b9ff,
+    #a29bfe,
+    #a86bff
+  );
+  box-shadow:
+    0 0 45px rgba(168, 107, 255, 0.75),
+    0 0 110px rgba(253, 121, 168, 0.65);
+  animation: pulseRecording 1s ease-in-out infinite;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording::after {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18), transparent 60%),
+    radial-gradient(circle at bottom, #532e91, #0a0514);
+}
+
+/* RECORDING PULSE */
+@keyframes pulseRecording {
+  0%   { transform: scale(1); }
+  20%  { transform: scale(1.08); }
+  50%  { transform: scale(1.02); }
+  80%  { transform: scale(1.09); }
+  100% { transform: scale(1); }
+}
+
+/* WAVEFORM */
+.record-wave {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(520px, 82%);
+  height: 60px;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.wave-bar {
+  flex: 1;
+  min-width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #74b9ff, #a29bfe);
+  opacity: 0.9;
+  transform-origin: bottom center;
+  animation: wavePulse 0.7s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * 0.05s);
+}
+
+body.is-recording #recordWave {
+  opacity: 1;
+}
+
+@keyframes wavePulse {
+  from { transform: scaleY(0.2); }
+  to   { transform: scaleY(1); }
 }
 
 
