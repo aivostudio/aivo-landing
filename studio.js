@@ -1,7 +1,3 @@
-KODLAR :
-STUDIO HTLM  CS :
-————————
-
 // AIVO STUDIO – STUDIO.JS (FULL CLEAN VERSION)
 
 document.addEventListener("DOMContentLoaded", () => {
