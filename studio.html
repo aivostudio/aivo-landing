@@ -127,131 +127,147 @@
             </div>
           </aside>
 
-          <!-- ========== ORTA PANEL ========== -->
-          <section class="main-panel">
-            <!-- ****** GELENEKSEL ****** -->
-            <div class="music-view is-active" data-music-view="geleneksel">
-              <div class="panel-header">
-                <h1 class="panel-title">Müzik Üret</h1>
-                <p class="panel-subtitle">
-                  Şarkı adını, sözlerini, ruh halini ve vokal tipini seç – AIVO şarkıyı senin için oluştursun.
-                </p>
-              </div>
+         <!-- ========== ORTA PANEL (YENİ FULL SÜRÜM) ========== -->
+<section class="main-panel">
+  <!-- ****** GELENEKSEL ****** -->
+  <div class="music-view is-active" data-music-view="geleneksel">
+    <div class="panel-header">
+      <h1 class="panel-title">Müzik Üret</h1>
+      <p class="panel-subtitle">
+        Ritim, vokal, mood ve makam seç – AIVO şarkıyı senin için oluştursun.
+      </p>
+    </div>
 
-              <!-- ÇALIŞMA MODU -->
-              <div class="card">
-                <div class="card-header">
-                  <div>
-                    <div class="card-title">Çalışma Modu</div>
-                    <div class="card-subtitle">
-                      İlk kez başlıyorsan Basit modla başla, sonra Gelişmiş’e geç.
-                    </div>
-                  </div>
-                  <div class="mode-toggle">
-                    <button class="mode-btn" data-mode-button="basic">Basit Mod</button>
-                    <button class="mode-btn is-active" data-mode-button="advanced">
-                      Gelişmiş Mod
-                      <span class="mode-star" aria-hidden="true">✦</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
+    <!-- ÇALIŞMA MODU -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Çalışma Modu</div>
+          <div class="card-subtitle">
+            İlk kez başlıyorsan Basit modla başla, sonra Gelişmiş’e geç.
+          </div>
+        </div>
+        <div class="mode-toggle">
+          <button class="mode-btn" data-mode-button="basic">Basit Mod</button>
+          <button class="mode-btn is-active" data-mode-button="advanced">
+            Gelişmiş Mod <span class="mode-star" aria-hidden="true">✦</span>
+          </button>
+        </div>
+      </div>
+    </div>
 
-              <!-- ŞARKI FORMU (Sadeleştirilmiş) -->
-              <div class="card">
-                <div class="form-grid">
-                  <!-- Şarkı Adı -->
-                  <div class="form-field full">
-                    <label for="songName">Şarkı Adı</label>
-                    <input
-                      type="text"
-                      id="songName"
-                      placeholder="Örn: Kül Bahçesi, Gece Yolculuğu..."
-                    />
-                  </div>
+    <!-- ŞARKI FORMU (YENİ SIRALAMA) -->
+    <div class="card">
+      <div class="form-grid">
 
-                  <!-- Şarkı Sözleri -->
-                  <div class="form-field full">
-                    <label for="lyrics">Şarkı Sözleri</label>
-                    <textarea
-                      id="lyrics"
-                      rows="3"
-                      placeholder="Şarkı sözlerini buraya yazın; boş bırakırsan AIVO sözleri kendisi üretir..."
-                    ></textarea>
-                  </div>
+        <!-- Şarkı Adı -->
+        <div class="form-field full">
+          <label for="songName">Şarkı Adı</label>
+          <input type="text" id="songName" placeholder="Örn: Kül Bahçesi, Midnight Drive..." />
+        </div>
 
-                  <!-- Şarkı Açıklaması -->
-                  <div class="form-field full">
-                    <label for="songDesc">Şarkı Açıklaması (max 200 karakter)</label>
-                    <textarea
-                      id="songDesc"
-                      rows="2"
-                      maxlength="200"
-                      placeholder="Şarkının genel havasını kısaca anlat..."
-                    ></textarea>
-                  </div>
+        <!-- Şarkı Sözleri -->
+        <div class="form-field full">
+          <label for="lyrics">Şarkı Sözleri (isteğe bağlı)</label>
+          <textarea id="lyrics" rows="3" placeholder="Şarkı sözlerini buraya yazın veya boş bırakın..."></textarea>
+        </div>
 
-                  <!-- Ruh Hali & Vokal Tipi -->
-                  <div class="form-field half">
-                    <label for="mood">Ruh Hali (Mood)</label>
-                    <select id="mood">
-                      <option value="">Ruh halini seç</option>
-                      <option>Enerjik</option>
-                      <option>Hüzünlü</option>
-                      <option>Romantik</option>
-                      <option>Sakin</option>
-                      <option>Epik</option>
-                    </select>
-                  </div>
+        <!-- Ek Açıklama / Prompt (YUKARI TAŞINDI) -->
+        <div class="form-field full">
+          <label for="prompt">Ek Açıklama / Prompt</label>
+          <textarea id="prompt" rows="3" placeholder="Müzikte özellikle vurgulamak istediğin detayları yaz..."></textarea>
+        </div>
 
-                  <div class="form-field half">
-                    <label for="vocalType">Vokal Tipi</label>
-                    <select id="vocalType">
-                      <option value="">Vokal tipini seç</option>
-                      <option>Erkek Vokal (AI)</option>
-                      <option>Kadın Vokal (AI)</option>
-                      <option>Soft / Çocuk Vokal (AI)</option>
-                      <option>Enstrümantal (Vokalsiz)</option>
-                    </select>
-                  </div>
+        <!-- Şarkı Açıklaması -->
+        <div class="form-field full">
+          <label for="songDesc">Şarkı Açıklaması (max 200 karakter)</label>
+          <textarea id="songDesc" maxlength="200" rows="2" placeholder="Şarkının genel havasını kısaca anlat..."></textarea>
+        </div>
 
-                  <!-- Tür (Genre) -->
-                  <div class="form-field half">
-                    <label for="genre">Tür (Genre)</label>
-                    <select id="genre">
-                      <option value="">Tür seçin</option>
-                      <option>Türkçe Pop</option>
-                      <option>Anadolu Pop</option>
-                      <option>Arabesk</option>
-                      <option>Deep House</option>
-                      <option>Lo-fi</option>
-                      <option>Trap</option>
-                    </select>
-                  </div>
+        <!-- REFERANS SES YÜKLE (YENİ EKLENDİ) -->
+        <div class="form-field full">
+          <label>Referans Ses Yükle (opsiyonel)</label>
 
-                  <!-- Ek Açıklama / Prompt -->
-                  <div class="form-field full">
-                    <label for="prompt">Ek Açıklama / Prompt</label>
-                    <textarea
-                      id="prompt"
-                      rows="3"
-                      placeholder="Müzikte özellikle vurgulamak istediğin detayları yaz (örn: 'tribal ritimler, festival bass, 110 BPM hissi')..."
-                    ></textarea>
-                  </div>
-                </div>
-              </div>
-
-              <!-- ÜRET BUTONU -->
-              <div class="card">
-                <div class="form-grid">
-                  <div class="form-field full">
-                    <button class="primary-btn full-width" id="musicGenerateBtn">
-                      🎵 Müzik Üret
-                    </button>
-                  </div>
-                </div>
-              </div>
+          <div class="upload-box"
+            style="
+              border: 1px dashed rgba(255,255,255,0.25);
+              padding: 18px;
+              border-radius: 14px;
+              text-align: center;
+              background: rgba(10,12,40,0.45);
+              cursor: pointer;
+            "
+          >
+            <input
+              type="file"
+              id="refAudio"
+              accept=".mp3,.wav,.m4a"
+              style="display:none"
+            />
+            <div onclick="document.getElementById('refAudio').click()">
+              <strong>Ses dosyası seç veya sürükleyip bırak</strong><br />
+              <span style="font-size:12px;color:#9aa4d7;">MP3, WAV, M4A — maksimum 10MB</span>
             </div>
+          </div>
+        </div>
+
+        <!-- Mood & Vokal Tipi (AŞAĞI İNDİ) -->
+        <div class="form-field half">
+          <label for="mood">Ruh Hali (Mood)</label>
+          <select id="mood">
+            <option value="">Ruh halini seç</option>
+            <option>Enerjik</option>
+            <option>Hüzünlü</option>
+            <option>Romantik</option>
+            <option>Sakin</option>
+            <option>Epik</option>
+          </select>
+        </div>
+
+        <div class="form-field half">
+          <label for="vocalType">Vokal Tipi</label>
+          <select id="vocalType">
+            <option value="">Vokal tipini seç</option>
+            <option>Erkek Vokal (AI)</option>
+            <option>Kadın Vokal (AI)</option>
+            <option>Soft / Çocuk Vokal (AI)</option>
+            <option>Enstrümantal (Vokalsiz)</option>
+          </select>
+        </div>
+
+        <!-- Genre -->
+        <div class="form-field half">
+          <label for="genre">Tür (Genre)</label>
+          <select id="genre">
+            <option value="">Tür seçin</option>
+            <option>Türkçe Pop</option>
+            <option>Anadolu Pop</option>
+            <option>Arabesk</option>
+            <option>Deep House</option>
+            <option>Lo-fi</option>
+            <option>Trap</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ÜRET BUTONU (BÜYÜTÜLDÜ) -->
+    <div class="card">
+      <div class="form-field full">
+        <button
+          class="primary-btn full-width"
+          id="musicGenerateBtn"
+          style="padding: 18px; font-size: 17px;"
+        >
+          🎵 Müzik Üret
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ========== END ORTA PANEL ========== -->
+
 
             <!-- ****** SES KAYDI ****** -->
             <div class="music-view" data-music-view="ses-kaydi">
