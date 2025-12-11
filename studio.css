@@ -217,6 +217,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  height: 100%;
 }
 
 .sidebar-section {
@@ -383,18 +384,14 @@ body {
   color: var(--text-soft);
 }
 
-/* Sidebar'ı alta kadar uzat */
-.sidebar {
-  height: 100%;
-}
-
 .sidebar-section.hint-card {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-/* ---- MAIN PANEL + COVER MAIN (YENİ) ---- */
+
+/* ---- MAIN PANEL + COVER MAIN ---- */
 
 .main-panel,
 .cover-main {
@@ -512,10 +509,6 @@ body[data-mode="advanced"] .card {
   grid-column: 1 / -1;
 }
 
-.form-field.half {
-  /* anlam için */
-}
-
 label {
   font-size: 12px;
   color: var(--text-soft);
@@ -549,7 +542,7 @@ textarea:focus {
   transform: translateY(-1px);
 }
 
-/* REFERANS SES YÜKLE – UPLOAD BOX */
+/* Referans ses yükle kutusu */
 
 .upload-box {
   border: 1px dashed rgba(255, 255, 255, 0.25);
@@ -571,7 +564,7 @@ textarea:focus {
   transform: translateY(-1px);
 }
 
-/* BUTONLAR */
+/* Genel primary buton */
 
 .primary-btn {
   border-radius: 12px;
@@ -592,7 +585,8 @@ textarea:focus {
   filter: brightness(1.05);
 }
 
-/* Müzik Üret butonunu büyüt (sadece orta paneldeki ana buton) */
+/* Müzik Üret butonunu büyüt */
+
 .main-panel #musicGenerateBtn {
   padding: 18px 20px;
   font-size: 17px;
@@ -601,7 +595,6 @@ textarea:focus {
 .full-width {
   width: 100%;
 }
-
 
 /* ---- RIGHT PANEL ---- */
 
@@ -644,7 +637,7 @@ textarea:focus {
 }
 
 /* =========================================
-   MÜZİK VIEWS
+   MÜZİK VIEWS GENEL
    ========================================= */
 
 .music-view {
@@ -657,6 +650,7 @@ textarea:focus {
   gap: 10px;
   flex: 1;
 }
+
 /* =========================================
    SES KAYDI – LAYOUT & TASARIM (YENİ)
    ========================================= */
@@ -666,6 +660,7 @@ textarea:focus {
 }
 
 /* Üst bilgi kartı */
+
 .music-view[data-music-view="ses-kaydi"] .record-intro-card {
   display: flex;
   align-items: center;
@@ -719,12 +714,13 @@ textarea:focus {
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-/* Ana kart */
+/* Ana kart – kartı uzatıyoruz ki alt kutu aşağı insin */
+
 .music-view[data-music-view="ses-kaydi"] .record-main-card {
   position: relative;
   margin-top: 0;
-  padding: 120px 60px 80px;  /* üstte disk, altta geniş kutu için boşluk */
-  min-height: 600px;
+  padding: 140px 60px 220px;        /* üstte disk + altta kutu için boşluk */
+  min-height: 780px;                /* kartın yüksekliği */
   overflow: hidden;
   background:
     radial-gradient(circle at top, rgba(120, 82, 255, 0.35), transparent 70%),
@@ -733,9 +729,10 @@ textarea:focus {
 }
 
 /* Ortadaki daire */
+
 .music-view[data-music-view="ses-kaydi"] .record-circle {
   position: absolute;
-  top: 28%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 260px;
@@ -780,7 +777,8 @@ textarea:focus {
     0 0 22px rgba(253, 121, 168, 0.75);
 }
 
-/* Dairenin idle animasyonu */
+/* Idle animasyon */
+
 @keyframes pulseIdle {
   0%   { transform: translate(-50%, -50%) scale(1); }
   30%  { transform: translate(-50%, -50%) scale(1.05); }
@@ -789,6 +787,7 @@ textarea:focus {
 }
 
 /* Kayıtta daire */
+
 .music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
   background: conic-gradient(
     from 0deg,
@@ -819,30 +818,43 @@ textarea:focus {
   100% { transform: translate(-50%, -50%) scale(1); }
 }
 
-/* ALTTAKİ GENİŞ KUTU – tam bu blok yuvarlak çizdiğin yere iniyor */
-.record-bottom-shell {
+/* KOYU ALT KUTU – yuvarlak altında, kartın altına yakın */
+
+.music-view[data-music-view="ses-kaydi"] .record-main-card::before {
+  content: "";
   position: absolute;
-  left: 50%;
-  bottom: 40px;                      /* daha aşağı istiyorsan 30–20 yaparsın */
-  transform: translateX(-50%);
-  width: calc(100% - 120px);         /* kart içindeki paddinglerle hizalı */
-  border-radius: 24px;
-  background: rgba(5, 7, 30, 0.98);
+  left: 50px;
+  right: 50px;
+  bottom: 24px;                 /* 24 → daha da aşağı istersen 16 / 12 yaparsın */
+  height: 240px;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 65%),
+    rgba(5, 7, 30, 0.96);
   border: 1px solid rgba(255, 255, 255, 0.10);
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85);
-  padding: 20px 24px;
-  display: flex;
-  gap: 24px;
-  z-index: 3;
+  z-index: 1;
 }
 
-/* Sol / sağ sütunlar */
+/* Sol / sağ metin sütunları – kutunun içinde */
+
 .music-view[data-music-view="ses-kaydi"] .record-main-left,
 .music-view[data-music-view="ses-kaydi"] .record-main-right {
-  position: static;      /* artık absolute değil */
-  width: 50%;
+  position: absolute;
+  bottom: 44px;                /* yazıları kutunun içine yerleştirir */
+  z-index: 2;
   display: flex;
   flex-direction: column;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-left {
+  left: 70px;
+  width: 44%;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  right: 70px;
+  width: 44%;
 }
 
 .music-view[data-music-view="ses-kaydi"] .record-main-title {
@@ -872,6 +884,7 @@ textarea:focus {
 }
 
 /* Timer satırı */
+
 .record-wave-row {
   margin-top: 12px;
   display: flex;
@@ -892,9 +905,10 @@ textarea:focus {
 }
 
 /* Waveform – dairenin altında */
+
 .record-wave {
   position: absolute;
-  top: 56%;
+  top: 58%;
   left: 50%;
   transform: translateX(-50%);
   width: min(520px, 82%);
@@ -918,12 +932,12 @@ textarea:focus {
   animation-delay: calc(var(--i) * 0.05s);
 }
 
-/* Kayıt sırasında wave göster */
+/* Kayıt sırasında waveform göster */
+
 body.is-recording #recordWave {
   opacity: 1;
 }
 
-/* Fake waveform hareketi */
 @keyframes wavePulse {
   from {
     transform: scaleY(0.2);
@@ -932,10 +946,6 @@ body.is-recording #recordWave {
     transform: scaleY(1);
   }
 }
-
-
-
-
 
 /* =========================================
    KAPAK / GÖRSEL SAYFASI
@@ -1143,10 +1153,9 @@ body.is-recording #recordWave {
 }
 
 /* =========================================
-   KREDİ MODALI – AIVO PAKETLERİ (FINAL)
+   KREDİ MODALI – AIVO PAKETLERİ
    ========================================= */
 
-/* Arka plan + görünürlük kontrolü */
 .pricing-modal {
   position: fixed;
   inset: 0;
@@ -1174,6 +1183,7 @@ body.is-recording #recordWave {
 }
 
 /* Ana dialog */
+
 .pricing-dialog {
   position: relative;
   width: 88%;
@@ -1194,6 +1204,7 @@ body.is-recording #recordWave {
 }
 
 /* Hafif alt glow */
+
 .pricing-dialog::before {
   content: "";
   position: absolute;
@@ -1207,6 +1218,7 @@ body.is-recording #recordWave {
 }
 
 /* Header */
+
 .pricing-header {
   position: relative;
   z-index: 1;
@@ -1230,6 +1242,7 @@ body.is-recording #recordWave {
 }
 
 /* Kapat butonu */
+
 .icon-button {
   background: rgba(255, 255, 255, 0.08);
   border: none;
@@ -1248,9 +1261,7 @@ body.is-recording #recordWave {
   transform: translateY(-1px);
 }
 
-/* =========================================================
-   ÜST PAKET KARTLARI (BÜYÜTÜLMÜŞ)
-   ========================================================= */
+/* Paket kartları */
 
 .pricing-grid {
   position: relative;
@@ -1288,7 +1299,6 @@ body.is-recording #recordWave {
   border: 1px solid rgba(255, 136, 210, 0.45);
 }
 
-/* rozet */
 .pricing-badge {
   align-self: flex-start;
   padding: 4px 12px;
@@ -1302,8 +1312,6 @@ body.is-recording #recordWave {
 .pricing-badge.small {
   background: rgba(108, 92, 231, 0.7);
 }
-
-/* Başlık, fiyat ve liste */
 
 .pricing-card h3 {
   font-size: 21px;
@@ -1328,17 +1336,13 @@ body.is-recording #recordWave {
   margin-bottom: 8px;
 }
 
-/* Satın Al butonu */
-
 .pricing-card .primary-btn {
   margin-top: auto;
   height: 48px;
   font-size: 16px;
 }
 
-/* =========================================================
-   ALT BİLGİ KUTULARI (KÜÇÜLTÜLMÜŞ)
-   ========================================================= */
+/* Alt bilgi kutuları */
 
 .pricing-benefits {
   position: relative;
@@ -1366,9 +1370,7 @@ body.is-recording #recordWave {
   border-color: rgba(255, 255, 255, 0.12);
 }
 
-/* =========================================================
-   SSS (FAQ) BLOĞU
-   ========================================================= */
+/* SSS */
 
 .faq-section {
   position: relative;
@@ -1415,9 +1417,6 @@ body.is-recording #recordWave {
   margin: 0;
   color: #c6c9e9;
 }
-
-
-
 
 /* =========================================
    RESPONSIVE
