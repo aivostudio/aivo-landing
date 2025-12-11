@@ -1388,6 +1388,31 @@ body.is-recording #recordWave {
   color: var(--text-soft);
   margin: 0;
 }
+/* Bilgi kutuları ve SSS için hover / click animasyonu */
+
+.benefit-card,
+.faq-item {
+  transition:
+    transform 0.22s ease-out,
+    box-shadow 0.22s ease-out,
+    border-color 0.22s ease-out,
+    background 0.22s ease-out;
+}
+
+.benefit-card:hover,
+.faq-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.75);
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(10, 15, 55, 0.98);
+}
+
+.benefit-card:active,
+.faq-item:active {
+  transform: translateY(-1px) scale(0.99);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+}
+
 
 
 
