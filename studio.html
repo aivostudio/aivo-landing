@@ -155,7 +155,6 @@
                   </div>
                 </div>
               </div>
-
               <!-- ŞARKI DETAYLARI -->
               <div class="card">
                 <div class="form-grid">
@@ -169,33 +168,21 @@
                   </div>
 
                   <div class="form-field full">
-                    <label for="songDesc">Şarkı Açıklaması (max 200 karakter)</label>
-                    <textarea
-                      id="songDesc"
-                      rows="2"
-                      maxlength="200"
-                      placeholder="Şarkının genel havasını kısaca anlat..."
-                    ></textarea>
-                  </div>
-
-                  <div class="form-field half">
-                    <label for="mood">Ruh Hali (Mood)</label>
-                    <select id="mood">
-                      <option>Ruh halini seç</option>
-                      <option>Enerjik</option>
-                      <option>Hüzünlü</option>
-                      <option>Romantik</option>
-                      <option>Sakin</option>
-                      <option>Epik</option>
-                    </select>
-                  </div>
-
-                  <div class="form-field half">
                     <label for="lyrics">Şarkı Sözleri (isteğe bağlı)</label>
                     <textarea
                       id="lyrics"
-                      rows="2"
+                      rows="4"
                       placeholder="Şarkı sözlerini buraya yazın veya boş bırakın; AIVO enstrümantal üretir..."
+                    ></textarea>
+                  </div>
+
+                  <div class="form-field full">
+                    <label for="songDesc">Şarkı Açıklaması (max 200 karakter)</label>
+                    <textarea
+                      id="songDesc"
+                      rows="3"
+                      maxlength="200"
+                      placeholder="Şarkının genel havasını kısaca anlat..."
                     ></textarea>
                   </div>
 
@@ -203,12 +190,13 @@
                     <label for="prompt">Ek Açıklama / Prompt</label>
                     <textarea
                       id="prompt"
-                      rows="2"
+                      rows="4"
                       placeholder="Müzikte özellikle vurgulamak istediğin detayları yaz..."
                     ></textarea>
                   </div>
                 </div>
               </div>
+
 
               <!-- REFERANS SES (GELİŞMİŞ) -->
               <div class="card advanced-section" data-visible-in="advanced">
