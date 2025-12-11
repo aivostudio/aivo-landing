@@ -1,5 +1,3 @@
-
-
 /* ================================
    AIVO STUDIO – STUDIO.CSS (FULL)
    ================================ */
@@ -651,15 +649,14 @@ textarea:focus {
   flex: 1;
 }
 /* =========================================
-   SES KAYDI – LAYOUT & TASARIM (SON SÜRÜM)
+   SES KAYDI – LAYOUT & TASARIM (YENİ DÜZEN)
    ========================================= */
 
 .music-view[data-music-view="ses-kaydi"] {
   position: relative;
 }
 
-/* ÜST BİLGİ KARTI ----------------------------------------- */
-
+/* ÜST BİLGİ KARTI */
 .music-view[data-music-view="ses-kaydi"] .record-intro-card {
   display: flex;
   align-items: center;
@@ -713,13 +710,12 @@ textarea:focus {
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-/* ANA KART (ÇEMBER + BUTON + ALT PANEL) ------------------ */
-
+/* ANA KART - FLEX YAPI */
 .music-view[data-music-view="ses-kaydi"] .record-main-card {
   position: relative;
-  padding: 80px 60px 80px;
-  min-height: 760px;
-  overflow: visible;
+  padding: 70px 60px 60px;
+  min-height: 850px;
+  overflow: hidden;
   background:
     radial-gradient(circle at top, rgba(120, 82, 255, 0.35), transparent 70%),
     radial-gradient(circle at bottom right, rgba(0, 184, 148, 0.22), transparent 70%),
@@ -729,8 +725,79 @@ textarea:focus {
   align-items: center;
 }
 
-/* ÇEMBER (IDLE) ------------------------------------------- */
+/* ALTTAKİ KOYU KUTU */
+.music-view[data-music-view="ses-kaydi"] .record-bottom-shell {
+  width: 100%;
+  max-width: 980px;
+  margin-top: 160px !important;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 65%),
+    rgba(5, 7, 30, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85);
+  padding: 24px 28px 22px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 24px;
+  position: relative !important;
+}
 
+/* SOL & SAĞ BLOKLAR */
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  display: flex;
+  flex-direction: column;
+  position: relative !important;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-title {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-text,
+.music-view[data-music-view="ses-kaydi"] .record-upload-text,
+.music-view[data-music-view="ses-kaydi"] .record-upload-hint,
+.music-view[data-music-view="ses-kaydi"] .record-hint {
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text-soft);
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-upload-title {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-btn {
+  margin-top: 12px;
+}
+
+/* TIMER */
+.record-wave-row {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.record-timer {
+  min-width: 56px;
+  font-family: "SF Mono", ui-monospace;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(5, 7, 30, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f5f5ff;
+  text-align: center;
+}
+
+/* BÜYÜK ÇEMBER (KAYIT DIŞI HALI) */
 .music-view[data-music-view="ses-kaydi"] .record-circle {
   width: 260px;
   height: 260px;
@@ -752,7 +819,7 @@ textarea:focus {
     0 0 40px rgba(255, 255, 255, 0.14),
     0 0 80px rgba(132, 94, 247, 0.55);
   animation: pulseIdle 2.4s ease-in-out infinite;
-  margin-bottom: 32px;
+  margin-bottom: 70px;
 }
 
 .music-view[data-music-view="ses-kaydi"] .record-circle::after {
@@ -770,235 +837,14 @@ textarea:focus {
   z-index: 3;
   font-size: 54px;
 }
-/* ÇEMBER ALTINDA BUTON ------------------------------------ */
 
-.ses-button-under-circle {
-  margin-top: 40px;          /* Çemberden daha aşağı */
-  margin-bottom: 52px;       /* Alt panelle arada boşluk */
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-/* Normal durumda mor–pembe AIVO butonu */
-.ses-button-under-circle .record-btn {
-  position: relative;
-  padding: 18px 46px;
-  font-size: 17px;
-  border-radius: 999px;
-  letter-spacing: 0.01em;
-  background: linear-gradient(135deg, #6c5ce7, #fd79a8) !important;
-  box-shadow: 0 14px 40px rgba(108, 92, 231, 0.55) !important;
-  animation: recordBtnIdle 2.2s ease-in-out infinite;
-  transform-origin: center;
-}
-
-/* Hover – “hadi bana dokun” efekti */
-.ses-button-under-circle .record-btn:hover {
-  transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 18px 55px rgba(108, 92, 231, 0.8) !important;
-}
-
-/* Kayıt modunda lila/pembe kayıt rengi */
-body.is-recording .ses-button-under-circle .record-btn {
-  background: linear-gradient(135deg, #a66bff, #ff9ff3) !important;
-  box-shadow:
-    0 16px 45px rgba(166, 107, 255, 0.75),
-    0 0 40px rgba(253, 159, 243, 0.9) !important;
-  animation: recordBtnRecording 1s ease-in-out infinite;
-}
-
-
-/* ==========================================================
-   SES KAYDI – ALT PANEL (YAZILAR BÜYÜTÜLMÜŞ + PANEL GENİŞLETİLMİŞ)
-   ========================================================== */
-
-.music-view[data-music-view="ses-kaydi"] .record-bottom-shell {
-  width: 100%;
-  max-width: 1100px;          /* Panel genişledi */
-  border-radius: 26px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 65%),
-    rgba(5, 7, 30, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85);
-
-  padding: 42px 46px 34px;    /* ÜST–YAN–ALT padding büyütüldü */
-  min-height: 260px;          /* Panel aşşağıya doğru büyütüldü */
-
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 36px;                  /* kolon arası boşluk büyütüldü */
-}
-
-/* Sol ve sağ bloklar */
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-/* Başlıklar */
-.music-view[data-music-view="ses-kaydi"] .record-main-title {
-  margin: 0 0 12px;
-  font-size: 22px;            /* 20 → 22 */
-  font-weight: 700;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-upload-title {
-  margin: 0 0 12px;
-  font-size: 17px;            /* 15 → 17 */
-  font-weight: 700;
-}
-
-/* Açıklama yazıları */
-.music-view[data-music-view="ses-kaydi"] 
-.record-main-text,
-.music-view[data-music-view="ses-kaydi"] 
-.record-upload-text,
-.music-view[data-music-view="ses-kaydi"] 
-.record-upload-hint,
-.music-view[data-music-view="ses-kaydi"] 
-.record-hint {
-  margin: 0 0 14px;
-  font-size: 15px;             /* 13 → 15 BÜYÜTÜLDÜ */
-  line-height: 1.55;           /* Daha okunaklı */
-  color: var(--text-soft);
-}
-
-/* Sayaç (00:00) */
-.record-timer {
-  font-size: 14px;             /* 13 → 14 */
-  padding: 6px 12px;
-}
-
-/* Sayaç ---------------------------------------------------- */
-
-.record-wave-row {
-  margin-top: 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.record-timer {
-  min-width: 56px;
-  font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 13px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: rgba(5, 7, 30, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  text-align: center;
-  color: #f5f5ff;
-}
-
-/* KAYIT HALİNDE ÇEMBER ------------------------------------ */
-
-.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
-  background: conic-gradient(
-    from 0deg,
-    #a86bff,
-    #d66bff,
-    #fd79a8,
-    #ffeaa7,
-    #74b9ff,
-    #a29bfe,
-    #a86bff
-  );
-  box-shadow:
-    0 0 45px rgba(168, 107, 255, 0.75),
-    0 0 110px rgba(253, 121, 168, 0.65);
-  animation: pulseRecording 1s ease-in-out infinite;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording::after {
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18), transparent 60%),
-    radial-gradient(circle at bottom, #532e91, #0a0514);
-}
-
-/* ÇEMBER & BUTON ANİMASYONLARI --------------------------- */
-
+/* IDLE ANİMASYON */
 @keyframes pulseIdle {
   0%   { transform: scale(1); }
   30%  { transform: scale(1.05); }
   60%  { transform: scale(1); }
   100% { transform: scale(1); }
 }
-
-@keyframes pulseRecording {
-  0%   { transform: scale(1); }
-  20%  { transform: scale(1.08); }
-  50%  { transform: scale(1.02); }
-  80%  { transform: scale(1.09); }
-  100% { transform: scale(1); }
-}
-
-/* Buton “hadi bana dokun” nefes efekti */
-
-@keyframes recordBtnIdle {
-  0% {
-    transform: translateY(0) scale(1);
-    box-shadow: 0 12px 32px rgba(253, 121, 168, 0.45);
-  }
-  50% {
-    transform: translateY(-1px) scale(1.03);
-    box-shadow: 0 18px 50px rgba(253, 121, 168, 0.75);
-  }
-  100% {
-    transform: translateY(0) scale(1);
-    box-shadow: 0 12px 32px rgba(253, 121, 168, 0.45);
-  }
-}
-
-/* Kayıtta daha hızlı nabız efekti */
-
-@keyframes recordBtnRecording {
-  0%   { transform: translateY(0) scale(1); }
-  30%  { transform: translateY(-2px) scale(1.05); }
-  60%  { transform: translateY(-1px) scale(1.02); }
-  100% { transform: translateY(0) scale(1); }
-}
-
-/* WAVEFORM ------------------------------------------------ */
-
-.record-wave {
-  position: absolute;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(520px, 82%);
-  height: 60px;
-  display: flex;
-  align-items: flex-end;
-  gap: 4px;
-  pointer-events: none;
-  opacity: 0;
-  z-index: 1;
-}
-
-.wave-bar {
-  flex: 1;
-  min-width: 3px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #74b9ff, #a29bfe);
-  opacity: 0.9;
-  transform-origin: bottom center;
-  animation: wavePulse 0.7s ease-in-out infinite alternate;
-  animation-delay: calc(var(--i) * 0.05s);
-}
-
-body.is-recording #recordWave {
-  opacity: 1;
-}
-
-@keyframes wavePulse {
-  from { transform: scaleY(0.2); }
-  to   { transform: scaleY(1); }
-}
-
 
 /* ============================================================
    KAYIT HALİ – LİLA / PEMBE YENİ TEMA
@@ -1675,6 +1521,5 @@ body.is-recording .record-center-btn {
     font-size: 14px;
   }
 }
-
 
 
