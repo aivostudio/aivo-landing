@@ -1086,333 +1086,175 @@ body.is-recording #recordWave {
   transform: translateY(-1px);
 }
 
-/* =========================================
-   KREDİ MODALI – AIVO PAKETLERİ (FULL)
-   ========================================= */
-
+/* =========================================================
+   KREDİ MODALI – GENİŞLETİLMİŞ PREMIUM SÜRÜM
+   ========================================================= */
 .pricing-modal {
   position: fixed;
   inset: 0;
   display: flex;
-  align-items: center;
   justify-content: center;
-  pointer-events: none;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(14px);
+  z-index: 9999;
   opacity: 0;
-  transition: opacity 0.3s ease-out;
-  z-index: 40;
+  pointer-events: none;
+  transition: opacity 0.35s ease-out;
 }
 
 .pricing-modal.is-open {
-  pointer-events: auto;
   opacity: 1;
+  pointer-events: auto;
 }
 
-.pricing-backdrop {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at top, rgba(108, 92, 231, 0.55), transparent 65%),
-    rgba(0, 0, 0, 0.88);
-  backdrop-filter: blur(18px);
-}
-
-/* Ana dialog – geniş ve yüksek, premium görünüm */
-
+/* ==== MODAL DIALOG ==== */
 .pricing-dialog {
-  position: relative;
-  width: 92%;
-  max-width: 1280px;
-  max-height: 90vh;
-  min-height: 380px;
-  background:
-    radial-gradient(circle at top left, rgba(129, 236, 236, 0.12), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(108, 92, 231, 0.6), transparent 65%),
-    #050819;
-  border-radius: 34px;
-  padding: 28px 30px 26px;
-  box-shadow:
-    0 30px 90px rgba(0, 0, 0, 0.95),
-    0 0 0 1px rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  overflow-y: auto;
+  width: 88%;
+  max-width: 1450px;        /* Daha geniş görünüm */
+  background: rgba(12, 15, 40, 0.9);
+  border-radius: 28px;
+  padding: 48px 55px;       /* İç boşluk arttırıldı */
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transform: translateY(20px);
+  transition: transform 0.35s ease-out, opacity 0.35s ease-out;
 }
 
-/* Ortadaki yumuşak glow plate */
-
-.pricing-dialog::before {
-  content: "";
-  position: absolute;
-  inset: auto 7%;
-  bottom: 32%;
-  height: 34%;
-  border-radius: 50px;
-  background: radial-gradient(circle at top, rgba(253, 121, 168, 0.40), transparent 70%);
-  opacity: 0.9;
-  pointer-events: none;
+.pricing-modal.is-open .pricing-dialog {
+  transform: translateY(0);
 }
 
-/* Header */
-
+/* ==== HEADER ==== */
 .pricing-header {
-  position: relative;
-  z-index: 1;
   display: flex;
-  align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 12px;
+  align-items: flex-start;
+  margin-bottom: 38px;
 }
 
 .pricing-header h2 {
+  font-size: 28px;
   margin: 0 0 4px;
-  font-size: 22px;
-  letter-spacing: 0.02em;
-}
-
-.pricing-header p {
-  margin: 0;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-/* Kapat butonu */
-
-.icon-button {
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  padding: 6px 12px;
-  background: rgba(3, 5, 24, 0.9);
-  color: var(--text-soft);
-  font-size: 14px;
-  cursor: pointer;
-  transition: background var(--transition-fast), transform var(--transition-fast),
-    box-shadow var(--transition-fast);
-}
-
-.icon-button:hover {
-  background: rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
-  transform: translateY(-1px);
-}
-
-/* Paket grid’i – kartlar büyütüldü */
-
-.pricing-grid {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 22px;
-  margin-top: 6px;
-}
-
-/* Kart – tek katman; ortadaki daha parlak */
-
-.pricing-card {
-  position: relative;
-  border-radius: 26px;
-  padding: 18px 18px 20px;
-  background:
-    radial-gradient(circle at top left, rgba(72, 52, 212, 0.55), transparent 70%),
-    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.45), transparent 70%),
-    #050818;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.9);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out,
-    background 0.25s ease-out;
-}
-
-.pricing-card.is-popular {
-  background:
-    radial-gradient(circle at top left, rgba(253, 121, 168, 0.80), transparent 68%),
-    radial-gradient(circle at bottom right, rgba(162, 155, 254, 0.75), transparent 75%),
-    #06051a;
-  box-shadow:
-    0 26px 80px rgba(253, 121, 168, 0.8),
-    0 0 0 1px rgba(255, 255, 255, 0.12);
-  transform: translateY(-4px);
-}
-
-/* Hover animasyonu – tüm kartlar */
-
-.pricing-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow:
-    0 32px 90px rgba(0, 0, 0, 0.98),
-    0 0 0 1px rgba(255, 255, 255, 0.16);
-}
-
-/* Kart üst rozet */
-
-.pricing-badge {
-  align-self: flex-start;
-  padding: 4px 12px;
-  border-radius: 999px;
-  font-size: 11px;
-  background: rgba(255, 255, 255, 0.16);
   color: #fff;
 }
 
-.pricing-badge.small {
-  background: rgba(108, 92, 231, 0.7);
+.pricing-header p {
+  font-size: 15px;
+  color: #b9c2ff;
+  margin: 0;
 }
 
-/* Başlık & fiyat */
-
-.pricing-card h3 {
-  margin: 6px 0 2px;
-  font-size: 16px;
-  font-weight: 600;
+.icon-button {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 18px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.25s;
+}
+.icon-button:hover {
+  background: rgba(255, 255, 255, 0.16);
 }
 
-.pricing-price {
-  font-size: 24px;
-  font-weight: 700;
-  margin: 2px 0 4px;
-}
-
-/* Liste – sayfanın rengine göre saydam çentikler */
-
-.pricing-list {
-  list-style: none;
-  padding: 0;
-  margin: 6px 0 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 13px;
-  color: var(--text-soft);
-}
-
-.pricing-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: rgba(5, 9, 40, 0.65); /* sayfanın rengine yakın, saydam pill */
-  backdrop-filter: blur(4px);
-}
-
-.pricing-list li::before {
-  content: "✔";
-  flex-shrink: 0;
-  margin-top: 1px;
-  font-size: 11px;
-  color: #55efc4;
-}
-
-/* Satın Al butonu */
-
-.pricing-card .primary-btn {
-  margin-top: auto;
-  border-radius: 999px;
-  padding-block: 11px;
-  font-size: 13px;
-  background: linear-gradient(135deg, #6c5ce7, #fd79a8);
-}
-
-.pricing-card .primary-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 18px 46px rgba(253, 121, 168, 0.8);
-  filter: brightness(1.06);
-}
-
-/* 3 Bilgi kutusu */
-
-.pricing-benefits {
-  position: relative;
-  z-index: 1;
-  margin-top: 18px;
+/* ==== PAKET KARTLARI ==== */
+.pricing-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  margin-bottom: 45px;   /* Alttaki benefit kartlarıyla mesafe */
+}
+
+.pricing-card {
+  padding: 32px 28px;
+  border-radius: 22px;
+  background: rgba(16, 20, 48, 0.68);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+}
+
+/* Hover animasyonu */
+.pricing-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.65);
+}
+
+/* Öne çıkan kart */
+.pricing-card.is-popular {
+  background: linear-gradient(
+      to bottom right,
+      rgba(255, 136, 210, 0.18),
+      rgba(80, 120, 255, 0.12)
+    ),
+    rgba(16, 20, 48, 0.68);
+  border: 1px solid rgba(255, 136, 210, 0.35);
+}
+
+/* ==== ALT BİLGİ KARTLARI ==== */
+.pricing-benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-bottom: 40px;
 }
 
 .benefit-card {
-  border-radius: 18px;
-  padding: 10px 12px;
-  background: rgba(3, 6, 32, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(6px);
-}
-
-.benefit-title {
-  font-size: 12px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.benefit-text {
-  font-size: 11px;
-  color: var(--text-soft);
-}
-
-/* SSS bölümü */
-
-.faq-section {
-  position: relative;
-  z-index: 1;
-  margin-top: 20px;
-}
-
-.faq-title {
+  padding: 18px 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(18, 22, 52, 0.75);
   font-size: 14px;
-  font-weight: 600;
-  margin: 0 0 8px;
+  color: #d6dcff;
+  transition: 0.25s ease-out;
+}
+.benefit-card:hover {
+  transform: translateY(-6px);
+  background: rgba(18, 22, 52, 0.92);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* ==== FAQ BÖLÜMÜ ==== */
+.faq-title {
+  font-size: 22px;
+  margin-bottom: 18px;
+  color: #fff;
 }
 
 .faq-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px 16px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
 }
 
 .faq-item {
-  border-radius: 16px;
-  padding: 10px 12px;
-  background: rgba(5, 7, 30, 0.96);
+  padding: 20px 24px;
+  border-radius: 18px;
+  background: rgba(18, 22, 52, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: 0.25s ease-out;
+}
+.faq-item:hover {
+  transform: translateY(-5px);
+  background: rgba(18, 22, 52, 0.95);
+  border-color: rgba(255, 255, 255, 0.14);
 }
 
 .faq-question {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 600;
-  margin-bottom: 4px;
+  color: #fff;
+  margin-bottom: 6px;
 }
 
 .faq-answer {
-  font-size: 11px;
-  color: var(--text-soft);
-  margin: 0;
+  font-size: 14px;
+  color: #c6c9e9;
+  line-height: 1.45;
 }
-/* Bilgi kutuları ve SSS için hover / click animasyonu */
-
-.benefit-card,
-.faq-item {
-  transition:
-    transform 0.22s ease-out,
-    box-shadow 0.22s ease-out,
-    border-color 0.22s ease-out,
-    background 0.22s ease-out;
-}
-
-.benefit-card:hover,
-.faq-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.75);
-  border-color: rgba(255, 255, 255, 0.16);
-  background: rgba(10, 15, 55, 0.98);
-}
-
-.benefit-card:active,
-.faq-item:active {
-  transform: translateY(-1px) scale(0.99);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
-}
-
 
 
 
