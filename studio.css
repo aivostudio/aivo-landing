@@ -741,15 +741,18 @@ textarea:focus {
   z-index: 1;
 }
 
-/* Sol / sağ bilgi blokları – kutunun İÇİNDE, alta oturmuş */
+/* Ses Kaydı — Sol / Sağ Blokları Daha Aşağı İndir */
 .music-view[data-music-view="ses-kaydi"] .record-main-left,
 .music-view[data-music-view="ses-kaydi"] .record-main-right {
   position: absolute;
-  bottom: 56px;               /* yazı ve butonlar kutunun içinde */
+  bottom: 20px;    /* önce 56'ydı → 20px yaptık = daha aşağı iner */
   z-index: 2;
   display: flex;
   flex-direction: column;
 }
+
+/* Daha fazla aşağı inmesini istersen örneğin 10px yapabiliriz */
+
 
 .music-view[data-music-view="ses-kaydi"] .record-main-left {
   left: 70px;
