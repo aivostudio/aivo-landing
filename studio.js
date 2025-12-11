@@ -325,3 +325,30 @@ recordBtn.addEventListener("click", () => {
     startRecording();
   }
 });
+// ==== MÜZİK ALT SEKME GEÇİŞLERİ (GELENEKSEL / SES KAYDI / VOKALE GÖRE) ====
+window.addEventListener("DOMContentLoaded", () => {
+  const musicViews = document.querySelectorAll(".music-view");
+  const musicTabButtons = document.querySelectorAll(
+    ".sidebar-sublink[data-music-tab]"
+  );
+
+  if (!musicViews.length || !musicTabButtons.length) return;
+
+  musicTabButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const target = btn.getAttribute("data-music-tab");
+
+      // Sol menüde seçili olan alt butonu güncelle
+      musicTabButtons.forEach((b) => {
+        b.classList.toggle("is-active", b === btn);
+      });
+
+      // Orta panelde doğru görünümü aç / kapat
+      musicViews.forEach((view) => {
+        const viewKey = view.getAttribute("data-music-view");
+        view.classList.toggle("is-active", viewKey === target);
+      });
+    });
+  });
+});
+
