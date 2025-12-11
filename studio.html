@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -127,260 +126,276 @@
             </div>
           </aside>
 
-         <!-- ========== ORTA PANEL (YENİ FULL SÜRÜM) ========== -->
-<section class="main-panel">
-  <!-- ****** GELENEKSEL ****** -->
-  <div class="music-view is-active" data-music-view="geleneksel">
-    <div class="panel-header">
-      <h1 class="panel-title">Müzik Üret</h1>
-      <p class="panel-subtitle">
-        Ritim, vokal, mood ve makam seç – AIVO şarkıyı senin için oluştursun.
-      </p>
-    </div>
+          <!-- ========== ORTA PANEL (TÜM MÜZİK VIEW’LERİ) ========== -->
+          <section class="main-panel">
+            <!-- ****** GELENEKSEL ****** -->
+            <div class="music-view is-active" data-music-view="geleneksel">
+              <div class="panel-header">
+                <h1 class="panel-title">Müzik Üret</h1>
+                <p class="panel-subtitle">
+                  Ritim, vokal, mood ve makam seç – AIVO şarkıyı senin için oluştursun.
+                </p>
+              </div>
 
-    <!-- ÇALIŞMA MODU -->
-    <div class="card">
-      <div class="card-header">
-        <div>
-          <div class="card-title">Çalışma Modu</div>
-          <div class="card-subtitle">
-            İlk kez başlıyorsan Basit modla başla, sonra Gelişmiş’e geç.
-          </div>
-        </div>
-        <div class="mode-toggle">
-          <button class="mode-btn" data-mode-button="basic">Basit Mod</button>
-          <button class="mode-btn is-active" data-mode-button="advanced">
-            Gelişmiş Mod <span class="mode-star" aria-hidden="true">✦</span>
-          </button>
-        </div>
-      </div>
-    </div>
+              <!-- ÇALIŞMA MODU -->
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <div class="card-title">Çalışma Modu</div>
+                    <div class="card-subtitle">
+                      İlk kez başlıyorsan Basit modla başla, sonra Gelişmiş’e geç.
+                    </div>
+                  </div>
+                  <div class="mode-toggle">
+                    <button class="mode-btn" data-mode-button="basic">Basit Mod</button>
+                    <button class="mode-btn is-active" data-mode-button="advanced">
+                      Gelişmiş Mod <span class="mode-star" aria-hidden="true">✦</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
 
-    <!-- ŞARKI FORMU (YENİ SIRALAMA) -->
-    <div class="card">
-      <div class="form-grid">
+              <!-- ŞARKI FORMU (YENİ SIRALAMA) -->
+              <div class="card">
+                <div class="form-grid">
+                  <!-- Şarkı Adı -->
+                  <div class="form-field full">
+                    <label for="songName">Şarkı Adı</label>
+                    <input
+                      type="text"
+                      id="songName"
+                      placeholder="Örn: Kül Bahçesi, Midnight Drive..."
+                    />
+                  </div>
 
-        <!-- Şarkı Adı -->
-        <div class="form-field full">
-          <label for="songName">Şarkı Adı</label>
-          <input type="text" id="songName" placeholder="Örn: Kül Bahçesi, Midnight Drive..." />
-        </div>
+                  <!-- Şarkı Sözleri -->
+                  <div class="form-field full">
+                    <label for="lyrics">Şarkı Sözleri (isteğe bağlı)</label>
+                    <textarea
+                      id="lyrics"
+                      rows="3"
+                      placeholder="Şarkı sözlerini buraya yazın veya boş bırakın..."
+                    ></textarea>
+                  </div>
 
-        <!-- Şarkı Sözleri -->
-        <div class="form-field full">
-          <label for="lyrics">Şarkı Sözleri (isteğe bağlı)</label>
-          <textarea id="lyrics" rows="3" placeholder="Şarkı sözlerini buraya yazın veya boş bırakın..."></textarea>
-        </div>
+                  <!-- Ek Açıklama / Prompt -->
+                  <div class="form-field full">
+                    <label for="prompt">Ek Açıklama / Prompt</label>
+                    <textarea
+                      id="prompt"
+                      rows="3"
+                      placeholder="Müzikte özellikle vurgulamak istediğin detayları yaz..."
+                    ></textarea>
+                  </div>
 
-        <!-- Ek Açıklama / Prompt (YUKARI TAŞINDI) -->
-        <div class="form-field full">
-          <label for="prompt">Ek Açıklama / Prompt</label>
-          <textarea id="prompt" rows="3" placeholder="Müzikte özellikle vurgulamak istediğin detayları yaz..."></textarea>
-        </div>
+                  <!-- Şarkı Açıklaması -->
+                  <div class="form-field full">
+                    <label for="songDesc">Şarkı Açıklaması (max 200 karakter)</label>
+                    <textarea
+                      id="songDesc"
+                      maxlength="200"
+                      rows="2"
+                      placeholder="Şarkının genel havasını kısaca anlat..."
+                    ></textarea>
+                  </div>
 
-        <!-- Şarkı Açıklaması -->
-        <div class="form-field full">
-          <label for="songDesc">Şarkı Açıklaması (max 200 karakter)</label>
-          <textarea id="songDesc" maxlength="200" rows="2" placeholder="Şarkının genel havasını kısaca anlat..."></textarea>
-        </div>
+                  <!-- REFERANS SES YÜKLE -->
+                  <div class="form-field full">
+                    <label>Referans Ses Yükle (opsiyonel)</label>
 
-        <!-- REFERANS SES YÜKLE (YENİ EKLENDİ) -->
-        <div class="form-field full">
-          <label>Referans Ses Yükle (opsiyonel)</label>
+                    <div
+                      class="upload-box"
+                      onclick="document.getElementById('refAudio').click()"
+                    >
+                      <input
+                        type="file"
+                        id="refAudio"
+                        accept=".mp3,.wav,.m4a"
+                        style="display:none"
+                      />
+                      <div>
+                        <strong>Ses dosyası seç veya sürükleyip bırak</strong><br />
+                        <span style="font-size:12px;color:#9aa4d7;"
+                          >MP3, WAV, M4A — maksimum 10MB</span
+                        >
+                      </div>
+                    </div>
+                  </div>
 
-          <div class="upload-box"
-            style="
-              border: 1px dashed rgba(255,255,255,0.25);
-              padding: 18px;
-              border-radius: 14px;
-              text-align: center;
-              background: rgba(10,12,40,0.45);
-              cursor: pointer;
-            "
-          >
-            <input
-              type="file"
-              id="refAudio"
-              accept=".mp3,.wav,.m4a"
-              style="display:none"
-            />
-            <div onclick="document.getElementById('refAudio').click()">
-              <strong>Ses dosyası seç veya sürükleyip bırak</strong><br />
-              <span style="font-size:12px;color:#9aa4d7;">MP3, WAV, M4A — maksimum 10MB</span>
+                  <!-- Mood & Vokal Tipi -->
+                  <div class="form-field half">
+                    <label for="mood">Ruh Hali (Mood)</label>
+                    <select id="mood">
+                      <option value="">Ruh halini seç</option>
+                      <option>Enerjik</option>
+                      <option>Hüzünlü</option>
+                      <option>Romantik</option>
+                      <option>Sakin</option>
+                      <option>Epik</option>
+                    </select>
+                  </div>
+
+                  <div class="form-field half">
+                    <label for="vocalType">Vokal Tipi</label>
+                    <select id="vocalType">
+                      <option value="">Vokal tipini seç</option>
+                      <option>Erkek Vokal (AI)</option>
+                      <option>Kadın Vokal (AI)</option>
+                      <option>Soft / Çocuk Vokal (AI)</option>
+                      <option>Enstrümantal (Vokalsiz)</option>
+                    </select>
+                  </div>
+
+                  <!-- Genre -->
+                  <div class="form-field half">
+                    <label for="genre">Tür (Genre)</label>
+                    <select id="genre">
+                      <option value="">Tür seçin</option>
+                      <option>Türkçe Pop</option>
+                      <option>Anadolu Pop</option>
+                      <option>Arabesk</option>
+                      <option>Deep House</option>
+                      <option>Lo-fi</option>
+                      <option>Trap</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ÜRET BUTONU -->
+              <div class="card">
+                <div class="form-field full">
+                  <button
+                    class="primary-btn full-width"
+                    id="musicGenerateBtn"
+                    style="padding: 18px; font-size: 17px;"
+                  >
+                    🎵 Müzik Üret
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <!-- Mood & Vokal Tipi (AŞAĞI İNDİ) -->
-        <div class="form-field half">
-          <label for="mood">Ruh Hali (Mood)</label>
-          <select id="mood">
-            <option value="">Ruh halini seç</option>
-            <option>Enerjik</option>
-            <option>Hüzünlü</option>
-            <option>Romantik</option>
-            <option>Sakin</option>
-            <option>Epik</option>
-          </select>
-        </div>
+            <!-- ****** SES KAYDI ****** -->
+            <div class="music-view" data-music-view="ses-kaydi">
+              <div class="panel-header">
+                <h1 class="panel-title">Ses Kaydı</h1>
+                <p class="panel-subtitle">
+                  Mikrofonundan ses kaydet ya da hazır ses dosyası yükle; AIVO müziğini buna göre
+                  şekillendirsin.
+                </p>
+              </div>
 
-        <div class="form-field half">
-          <label for="vocalType">Vokal Tipi</label>
-          <select id="vocalType">
-            <option value="">Vokal tipini seç</option>
-            <option>Erkek Vokal (AI)</option>
-            <option>Kadın Vokal (AI)</option>
-            <option>Soft / Çocuk Vokal (AI)</option>
-            <option>Enstrümantal (Vokalsiz)</option>
-          </select>
-        </div>
+              <!-- Üst bilgi kartı -->
+              <div class="card record-intro-card">
+                <div class="record-intro-left">
+                  <h3 class="record-intro-title">Ses Kaydetme Stüdyosu</h3>
+                  <p class="record-intro-text">
+                    Müzik üretiminde kullanmak istediğin vokali veya rehber melodiyi burada
+                    kaydedebilirsin.
+                  </p>
+                  <ul class="record-badges">
+                    <li>🎧 Yüksek kalite kayıt</li>
+                    <li>⏱ Maksimum 120 saniye</li>
+                    <li>🎵 MP3 desteği</li>
+                  </ul>
+                </div>
+                <div class="record-intro-right">
+                  <span class="record-pill">Mikrofon + Dosya Yükleme</span>
+                </div>
+              </div>
 
-        <!-- Genre -->
-        <div class="form-field half">
-          <label for="genre">Tür (Genre)</label>
-          <select id="genre">
-            <option value="">Tür seçin</option>
-            <option>Türkçe Pop</option>
-            <option>Anadolu Pop</option>
-            <option>Arabesk</option>
-            <option>Deep House</option>
-            <option>Lo-fi</option>
-            <option>Trap</option>
-          </select>
-        </div>
-      </div>
-    </div>
+              <!-- Ana kayıt alanı -->
+              <div class="card record-main-card">
+                <!-- Ortadaki daire -->
+                <div class="record-circle">
+                  <div class="record-icon">🎙</div>
+                </div>
 
-    <!-- ÜRET BUTONU (BÜYÜTÜLDÜ) -->
-    <div class="card">
-      <div class="form-field full">
-        <button
-          class="primary-btn full-width"
-          id="musicGenerateBtn"
-          style="padding: 18px; font-size: 17px;"
-        >
-          🎵 Müzik Üret
-        </button>
-      </div>
-    </div>
+                <!-- Sol blok: canlı kayıt -->
+                <div class="record-main-left">
+                  <h3 class="record-main-title">Ses Kaydetmeye Başlayın</h3>
+                  <p class="record-main-text">
+                    Butona tıklayarak kayıt modunu aç. İlk kullanımda tarayıcı mikrofon izni
+                    isteyebilir; “İzin ver” demeyi unutma.
+                  </p>
 
-  </div>
-</section>
-<!-- ========== END ORTA PANEL ========== -->
+                  <div class="record-wave-row">
+                    <div class="record-timer" id="recordTimer">00:00</div>
+                  </div>
 
+                  <button
+                    class="primary-btn record-btn"
+                    id="recordToggleBtn"
+                    type="button"
+                  >
+                    ⏺ Kaydı Başlat
+                  </button>
 
-           <!-- ****** SES KAYDI ****** -->
-<div class="music-view" data-music-view="ses-kaydi">
-  <div class="panel-header">
-    <h1 class="panel-title">Ses Kaydı</h1>
-    <p class="panel-subtitle">
-      Mikrofonundan ses kaydet ya da hazır ses dosyası yükle; AIVO müziğini buna göre şekillendirsin.
-    </p>
-  </div>
+                  <p class="record-hint">
+                    Kayıt tamamlandığında sesi indirip AIVO Müzik Üret ekranında referans olarak
+                    kullanabileceksin.
+                  </p>
+                </div>
 
-  <!-- Üst bilgi kartı -->
-  <div class="card record-intro-card">
-    <div class="record-intro-left">
-      <h3 class="record-intro-title">Ses Kaydetme Stüdyosu</h3>
-      <p class="record-intro-text">
-        Müzik üretiminde kullanmak istediğin vokali veya rehber melodiyi burada kaydedebilirsin.
-      </p>
-      <ul class="record-badges">
-        <li>🎧 Yüksek kalite kayıt</li>
-        <li>⏱ Maksimum 120 saniye</li>
-        <li>🎵 MP3 desteği</li>
-      </ul>
-    </div>
-    <div class="record-intro-right">
-      <span class="record-pill">Mikrofon + Dosya Yükleme</span>
-    </div>
-  </div>
+                <!-- Sağ blok: MP3 yükleme -->
+                <div class="record-main-right">
+                  <h3 class="record-upload-title">MP3 Dosyası Yükle</h3>
+                  <p class="record-upload-text">
+                    Mikrofondan kayıt almak yerine daha önce kaydettiğin bir MP3 ses dosyasını da
+                    kullanabilirsin.
+                  </p>
 
-  <!-- Ana kayıt alanı -->
-  <div class="card record-main-card">
-    <!-- Ortadaki daire -->
-    <div class="record-circle">
-      <div class="record-icon">🎙</div>
-    </div>
+                  <label class="upload-dropzone record-upload-dropzone">
+                    <div class="upload-icon">⬆️</div>
+                    <div class="upload-text">
+                      <strong>Ses dosyası seç veya sürükleyip bırak</strong>
+                      <span>MP3 — maksimum 10MB</span>
+                    </div>
+                    <input
+                      class="upload-input"
+                      type="file"
+                      accept="audio/mpeg,audio/mp3"
+                      id="record-file-input"
+                    />
+                  </label>
 
-    <!-- Sol blok: canlı kayıt -->
-    <div class="record-main-left">
-      <h3 class="record-main-title">Ses Kaydetmeye Başlayın</h3>
-      <p class="record-main-text">
-        Butona tıklayarak kayıt modunu aç. İlk kullanımda tarayıcı mikrofon izni isteyebilir; “İzin ver” demeyi unutma.
-      </p>
+                  <p class="record-upload-hint">
+                    Yüklediğin ses dosyası analiz edilerek ritim, tempo ve vokal karakteri AIVO
+                    üretimine yansıtılır.
+                  </p>
+                </div>
+              </div>
 
-      <div class="record-wave-row">
-        <div class="record-timer" id="recordTimer">00:00</div>
-      </div>
-
-      <button
-        class="primary-btn record-btn"
-        id="recordToggleBtn"
-        type="button"
-      >
-        ⏺ Kaydı Başlat
-      </button>
-
-      <p class="record-hint">
-        Kayıt tamamlandığında sesi indirip AIVO Müzik Üret ekranında referans olarak kullanabileceksin.
-      </p>
-    </div>
-
-    <!-- Sağ blok: MP3 yükleme -->
-    <div class="record-main-right">
-      <h3 class="record-upload-title">MP3 Dosyası Yükle</h3>
-      <p class="record-upload-text">
-        Mikrofondan kayıt almak yerine daha önce kaydettiğin bir MP3 ses dosyasını da kullanabilirsin.
-      </p>
-
-      <label class="upload-dropzone record-upload-dropzone">
-        <div class="upload-icon">⬆️</div>
-        <div class="upload-text">
-          <strong>Ses dosyası seç veya sürükleyip bırak</strong>
-          <span>MP3 — maksimum 10MB</span>
-        </div>
-        <input
-          class="upload-input"
-          type="file"
-          accept="audio/mpeg,audio/mp3"
-          id="record-file-input"
-        />
-      </label>
-
-      <p class="record-upload-hint">
-        Yüklediğin ses dosyası analiz edilerek ritim, tempo ve vokal karakteri AIVO üretimine yansıtılır.
-      </p>
-    </div>
-  </div>
-
-  <!-- Waveform (fake görsel) -->
-  <div class="record-wave" id="recordWave">
-    <div class="wave-bar" style="--i:1"></div>
-    <div class="wave-bar" style="--i:2"></div>
-    <div class="wave-bar" style="--i:3"></div>
-    <div class="wave-bar" style="--i:4"></div>
-    <div class="wave-bar" style="--i:5"></div>
-    <div class="wave-bar" style="--i:6"></div>
-    <div class="wave-bar" style="--i:7"></div>
-    <div class="wave-bar" style="--i:8"></div>
-    <div class="wave-bar" style="--i:9"></div>
-    <div class="wave-bar" style="--i:10"></div>
-  </div>
-</div>
+              <!-- Waveform (fake görsel) -->
+              <div class="record-wave" id="recordWave">
+                <div class="wave-bar" style="--i:1"></div>
+                <div class="wave-bar" style="--i:2"></div>
+                <div class="wave-bar" style="--i:3"></div>
+                <div class="wave-bar" style="--i:4"></div>
+                <div class="wave-bar" style="--i:5"></div>
+                <div class="wave-bar" style="--i:6"></div>
+                <div class="wave-bar" style="--i:7"></div>
+                <div class="wave-bar" style="--i:8"></div>
+                <div class="wave-bar" style="--i:9"></div>
+                <div class="wave-bar" style="--i:10"></div>
+              </div>
+            </div>
 
             <!-- ****** VOKALE GÖRE ****** -->
             <div class="music-view" data-music-view="vokale-gore">
               <div class="panel-header">
                 <h1 class="panel-title">Vokale Göre (Yakında)</h1>
                 <p class="panel-subtitle">
-                  Vokal analizine göre otomatik enstrümantasyon ve miks ayarları burada tasarlanacak.
+                  Vokal analizine göre otomatik enstrümantasyon ve miks ayarları burada
+                  tasarlanacak.
                 </p>
               </div>
 
               <div class="card">
                 <p>
-                  Bu bölüm MVP sonrasında eklenecek. Şimdilik Geleneksel ve Ses Kaydı sekmelerini kullanabilirsin.
+                  Bu bölüm MVP sonrasında eklenecek. Şimdilik Geleneksel ve Ses Kaydı sekmelerini
+                  kullanabilirsin.
                 </p>
               </div>
             </div>
@@ -618,6 +633,7 @@
       </div>
     </main>
   </div>
+
   <!-- ========== KREDİ MODALI – AIVO PAKETLERİ ========== -->
   <div class="pricing-modal" id="pricingModal">
     <div class="pricing-backdrop"></div>
