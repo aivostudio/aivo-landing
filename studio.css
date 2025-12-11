@@ -651,7 +651,7 @@ textarea:focus {
   flex: 1;
 }
 /* =========================================
-   SES KAYDI – LAYOUT & TASARIM (YENİ DÜZEN)
+   SES KAYDI – LAYOUT & TASARIM (SON DÜZEN)
    ========================================= */
 
 .music-view[data-music-view="ses-kaydi"] {
@@ -712,18 +712,12 @@ textarea:focus {
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-/* ANA KART
-   - Ortada disk
-   - En altta geniş kutu
-   - İçinde sol / sağ bloklar */
+/* ANA KART – ortada yuvarlak, en altta uzun kutu */
 .music-view[data-music-view="ses-kaydi"] .record-main-card {
   position: relative;
   margin-top: 0;
-  padding: 220px 60px 80px; /* üst: disk için, alt: kutu + yazılar için */
-  min-height: 650px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  padding: 140px 60px 140px;   /* üst: yuvarlak, alt: kutu + yazılar */
+  min-height: 640px;
   overflow: hidden;
   background:
     radial-gradient(circle at top, rgba(120, 82, 255, 0.35), transparent 70%),
@@ -737,8 +731,8 @@ textarea:focus {
   position: absolute;
   left: 50px;
   right: 50px;
-  bottom: 12px;            /* kartın altına iyice yaklaşsın */
-  height: 240px;
+  bottom: 18px;               /* kutu neredeyse kartın dibinde */
+  height: 260px;              /* kutunun yüksekliği */
   border-radius: 26px;
   background:
     radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 65%),
@@ -748,21 +742,24 @@ textarea:focus {
   z-index: 1;
 }
 
-/* Sol / sağ bilgi blokları – NORMAL akışta, kutunun içinde */
+/* Sol / sağ bilgi blokları – kutunun İÇİNDE, alta oturmuş */
 .music-view[data-music-view="ses-kaydi"] .record-main-left,
 .music-view[data-music-view="ses-kaydi"] .record-main-right {
-  position: relative;
-  z-index: 2;             /* kutunun üstünde */
+  position: absolute;
+  bottom: 52px;               /* yazılar kutunun içine oturur */
+  z-index: 2;
   display: flex;
   flex-direction: column;
 }
 
 .music-view[data-music-view="ses-kaydi"] .record-main-left {
-  width: 45%;
+  left: 70px;
+  width: 42%;
 }
 
 .music-view[data-music-view="ses-kaydi"] .record-main-right {
-  width: 45%;
+  right: 70px;
+  width: 42%;
 }
 
 .music-view[data-music-view="ses-kaydi"] .record-main-title {
@@ -791,7 +788,7 @@ textarea:focus {
   margin-top: 12px;
 }
 
-/* Timer satırı */
+/* Sayaç satırı */
 .record-wave-row {
   margin-top: 12px;
   display: flex;
@@ -811,7 +808,7 @@ textarea:focus {
   color: #f5f5ff;
 }
 
-/* BÜYÜK DAİRE – kartın üst kısmında, ortalanmış */
+/* BÜYÜK DAİRE – kartın üst kısmında ortalı */
 .music-view[data-music-view="ses-kaydi"] .record-circle {
   position: absolute;
   top: 30%;
@@ -867,7 +864,7 @@ textarea:focus {
   100% { transform: translate(-50%, -50%) scale(1); }
 }
 
-/* Kayıt durumda daire */
+/* Kayıt durumunda daire */
 .music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
   background: conic-gradient(
     from 0deg,
@@ -898,7 +895,7 @@ textarea:focus {
   100% { transform: translate(-50%, -50%) scale(1); }
 }
 
-/* Waveform – disk altında */
+/* Waveform – yuvarlağın altında */
 .record-wave {
   position: absolute;
   top: 58%;
@@ -925,7 +922,7 @@ textarea:focus {
   animation-delay: calc(var(--i) * 0.05s);
 }
 
-/* Kayıt sırasında waveform göster */
+/* Kayıt sırasında waveform görünür */
 body.is-recording #recordWave {
   opacity: 1;
 }
