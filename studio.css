@@ -648,7 +648,6 @@ textarea:focus {
   gap: 10px;
   flex: 1;
 }
-
 /* =========================================
    SES KAYDI – LAYOUT & TASARIM (YENİ DÜZEN)
    ========================================= */
@@ -918,6 +917,12 @@ body.is-recording #recordWave {
   from { transform: scaleY(0.2); }
   to   { transform: scaleY(1); }
 }
+
+
+/* =========================================
+   KAPAK / GÖRÜNTÜ SAYFASI (BÖLÜM BAŞI)
+   ========================================= */
+
 
 
 /* =========================================
