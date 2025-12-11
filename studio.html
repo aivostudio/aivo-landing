@@ -277,7 +277,7 @@
             </div>
 
 <!-- ============================================================
-     ******   SES KAYDI (GÜNCEL BLOK)   ******
+     ******   SES KAYDI (GÜNCEL BLOK V2)   ******
      ============================================================ -->
 
 <div class="music-view" data-music-view="ses-kaydi">
@@ -310,7 +310,7 @@
     </div>
   </div>
 
-  <!-- Ana kayıt alanı -->
+  <!-- Ana kayıt alanı (BÜYÜK KART) -->
   <div class="card record-main-card">
 
     <!-- Kayıt çemberi -->
@@ -381,34 +381,35 @@
       </div>
 
     </div>
-  </div>
 
-  <!-- KAYITTAN SONRA ÇIKAN SONUÇ KARTI -->
-  <div class="card record-result-card" id="recordResult" style="display:none;">
-    <div class="record-result-header">
-      <span class="record-result-title">Kaydedilen Ses (MP3)</span>
-      <span class="record-result-duration">
-        Süre: <span id="recordResultTime">00:00</span>
-      </span>
+    <!-- KAYITTAN SONRA ÇIKAN SONUÇ KARTI (AYNI BÜYÜK KARTIN İÇİNDE) -->
+    <div class="record-result-card" id="recordResult" style="display:none;">
+      <div class="record-result-header">
+        <span class="record-result-title">Kaydedilen Ses (MP3)</span>
+        <span class="record-result-duration">
+          Süre: <span id="recordResultTime">00:00</span>
+        </span>
+      </div>
+
+      <div class="record-result-actions">
+        <button class="result-icon-btn play" data-record-action="play" title="Çal">
+          ▶
+        </button>
+        <button class="result-icon-btn download" data-record-action="download" title="İndir">
+          ⭳
+        </button>
+        <button class="result-icon-btn to-music" data-record-action="to-music" title="Müzik Üretime Gönder">
+          ♪
+        </button>
+        <button class="result-icon-btn delete" data-record-action="delete" title="Sil">
+          🗑
+        </button>
+      </div>
     </div>
 
-    <div class="record-result-actions">
-      <button class="result-icon-btn play" data-record-action="play" title="Çal">
-        ▶
-      </button>
-      <button class="result-icon-btn download" data-record-action="download" title="İndir">
-        ⭳
-      </button>
-      <button class="result-icon-btn to-music" data-record-action="to-music" title="Müzik Üretime Gönder">
-        ♪
-      </button>
-      <button class="result-icon-btn delete" data-record-action="delete" title="Sil">
-        🗑
-      </button>
-    </div>
   </div>
 
-  <!-- Büyük waveform (sayfanın ortasında) -->
+  <!-- Büyük waveform (kartın altında, ortada) -->
   <div class="record-wave" id="recordWave">
     <div class="wave-bar" style="--i:1"></div>
     <div class="wave-bar" style="--i:2"></div>
@@ -423,6 +424,7 @@
   </div>
 
 </div>
+
 
 
           
