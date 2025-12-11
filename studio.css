@@ -806,49 +806,68 @@ body.is-recording .ses-button-under-circle .record-btn {
   animation: recordBtnRecording 1s ease-in-out infinite;
 }
 
-/* ALT PANEL (YAZILAR + MP3 YÜKLEME) ---------------------- */
+/* ==========================================================
+   SES KAYDI – ALT PANEL (YAZILAR BÜYÜTÜLMÜŞ + PANEL GENİŞLETİLMİŞ)
+   ========================================================== */
 
 .music-view[data-music-view="ses-kaydi"] .record-bottom-shell {
   width: 100%;
-  max-width: 980px;
+  max-width: 1100px;          /* Panel genişledi */
   border-radius: 26px;
   background:
     radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 65%),
     rgba(5, 7, 30, 0.96);
   border: 1px solid rgba(255, 255, 255, 0.10);
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85);
-  padding: 24px 28px 22px;
+
+  padding: 42px 46px 34px;    /* ÜST–YAN–ALT padding büyütüldü */
+  min-height: 260px;          /* Panel aşşağıya doğru büyütüldü */
+
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 24px;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 36px;                  /* kolon arası boşluk büyütüldü */
 }
 
+/* Sol ve sağ bloklar */
 .music-view[data-music-view="ses-kaydi"] .record-main-left,
 .music-view[data-music-view="ses-kaydi"] .record-main-right {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
+/* Başlıklar */
 .music-view[data-music-view="ses-kaydi"] .record-main-title {
-  margin: 0 0 8px;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-hint,
-.music-view[data-music-view="ses-kaydi"] .record-hint {
-  margin: 0 0 10px;
-  font-size: 13px;
-  line-height: 1.4;
-  color: var(--text-soft);
+  margin: 0 0 12px;
+  font-size: 22px;            /* 20 → 22 */
+  font-weight: 700;
 }
 
 .music-view[data-music-view="ses-kaydi"] .record-upload-title {
-  margin: 0 0 8px;
-  font-size: 15px;
-  font-weight: 600;
+  margin: 0 0 12px;
+  font-size: 17px;            /* 15 → 17 */
+  font-weight: 700;
+}
+
+/* Açıklama yazıları */
+.music-view[data-music-view="ses-kaydi"] 
+.record-main-text,
+.music-view[data-music-view="ses-kaydi"] 
+.record-upload-text,
+.music-view[data-music-view="ses-kaydi"] 
+.record-upload-hint,
+.music-view[data-music-view="ses-kaydi"] 
+.record-hint {
+  margin: 0 0 14px;
+  font-size: 15px;             /* 13 → 15 BÜYÜTÜLDÜ */
+  line-height: 1.55;           /* Daha okunaklı */
+  color: var(--text-soft);
+}
+
+/* Sayaç (00:00) */
+.record-timer {
+  font-size: 14px;             /* 13 → 14 */
+  padding: 6px 12px;
 }
 
 /* Sayaç ---------------------------------------------------- */
