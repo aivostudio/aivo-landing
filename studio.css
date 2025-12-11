@@ -820,13 +820,14 @@ textarea:focus {
 
 /* KOYU ALT KUTU – yuvarlak altında, kartın altına yakın */
 
+/* KOYU ALT KUTU – yuvarlak altında, kartın EN DİBİNE yakın */
 .music-view[data-music-view="ses-kaydi"] .record-main-card::before {
   content: "";
   position: absolute;
   left: 50px;
   right: 50px;
-  bottom: 24px;                 /* 24 → daha da aşağı istersen 16 / 12 yaparsın */
-  height: 240px;
+  bottom: 6px;                 /* 6px: kartın dibine iyice indi */
+  height: 260px;               /* biraz daha yüksek kutu */
   border-radius: 26px;
   background:
     radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 65%),
