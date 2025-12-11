@@ -648,203 +648,111 @@ textarea:focus {
   gap: 10px;
   flex: 1;
 }
-/* =========================================
-   SES KAYDI – LAYOUT & TASARIM (YENİ DÜZEN)
-   ========================================= */
+/* ======================================================
+   AIVO – Ses Kaydı mini efekt + sonuç kartı (override)
+   ====================================================== */
 
-.music-view[data-music-view="ses-kaydi"] {
-  position: relative;
+/* Timer yanındaki mini waveform */
+.music-view[data-music-view="ses-kaydi"] .record-mini-wave {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  margin-left: 10px;
+  height: 18px;
+  opacity: 0.3; /* her zaman hafif görünsün */
+  transition: opacity 0.25s ease-out;
 }
 
-/* ÜST BİLGİ KARTI */
-.music-view[data-music-view="ses-kaydi"] .record-intro-card {
+.music-view[data-music-view="ses-kaydi"] .mini-bar {
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #8e8df5, #74b9ff);
+  transform-origin: bottom center;
+  animation: miniWavePulse 0.6s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * 0.04s);
+}
+
+/* Kayıt sırasında daha parlak olsun */
+.music-view[data-music-view="ses-kaydi"] .record-main-card.is-recording .record-mini-wave {
+  opacity: 1;
+}
+
+@keyframes miniWavePulse {
+  from { transform: scaleY(0.2); }
+  to   { transform: scaleY(1); }
+}
+
+/* KAYIT SONRASI SONUÇ KARTI – 4 BUTONLU */
+.music-view[data-music-view="ses-kaydi"] .record-result-card {
+  margin-top: 20px;
+  padding: 18px 22px;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at top left, rgba(108, 92, 231, 0.12), transparent 60%),
+    rgba(5, 7, 30, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-result-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
-  margin-top: 10px;
-  margin-bottom: 22px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
-    var(--bg-card-soft);
 }
 
-.record-intro-left {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.record-intro-title {
-  margin: 0;
-  font-size: 18px;
+.music-view[data-music-view="ses-kaydi"] .record-result-title {
+  font-size: 16px;
   font-weight: 600;
 }
 
-.record-intro-text {
-  margin: 0;
+.music-view[data-music-view="ses-kaydi"] .record-result-duration {
   font-size: 13px;
   color: var(--text-soft);
 }
 
-.record-badges {
-  list-style: none;
-  margin: 8px 0 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  font-size: 12px;
-  color: var(--text-soft);
-}
-
-.record-pill {
-  display: inline-flex;
-  align-items: center;
-  padding: 7px 14px;
-  border-radius: 999px;
-  font-size: 12px;
-  background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.16), transparent 60%),
-    rgba(10, 10, 40, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-/* ANA KART - FLEX YAPI */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  position: relative;
-  padding: 70px 60px 60px;
-  min-height: 850px;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at top, rgba(120, 82, 255, 0.35), transparent 70%),
-    radial-gradient(circle at bottom right, rgba(0, 184, 148, 0.22), transparent 70%),
-    var(--bg-card);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* ALTTAKİ KOYU KUTU */
-.music-view[data-music-view="ses-kaydi"] .record-bottom-shell {
-  width: 100%;
-  max-width: 980px;
-  margin-top: 160px !important;
-  border-radius: 26px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 65%),
-    rgba(5, 7, 30, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85);
-  padding: 24px 28px 22px;
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 24px;
-  position: relative !important;
-}
-
-/* SOL & SAĞ BLOKLAR */
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
-  display: flex;
-  flex-direction: column;
-  position: relative !important;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-title {
-  margin: 0 0 8px;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-hint,
-.music-view[data-music-view="ses-kaydi"] .record-hint {
-  margin: 0 0 10px;
-  font-size: 13px;
-  line-height: 1.4;
-  color: var(--text-soft);
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-upload-title {
-  margin: 0 0 8px;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-btn {
-  margin-top: 12px;
-}
-
-/* TIMER */
-.record-wave-row {
-  margin-top: 12px;
+.music-view[data-music-view="ses-kaydi"] .record-result-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
-.record-timer {
-  min-width: 56px;
-  font-family: "SF Mono", ui-monospace;
-  font-size: 13px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: rgba(5, 7, 30, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #f5f5ff;
-  text-align: center;
-}
-
-/* BÜYÜK ÇEMBER (KAYIT DIŞI HALI) */
-.music-view[data-music-view="ses-kaydi"] .record-circle {
-  width: 260px;
-  height: 260px;
+.music-view[data-music-view="ses-kaydi"] .result-icon-btn {
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    #ff7675,
-    #fd79a8,
-    #ffeaa7,
-    #55efc4,
-    #74b9ff,
-    #a29bfe,
-    #ff7675
-  );
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow:
-    0 0 40px rgba(255, 255, 255, 0.14),
-    0 0 80px rgba(132, 94, 247, 0.55);
-  animation: pulseIdle 2.4s ease-in-out infinite;
-  margin-bottom: 70px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  transition: transform 0.22s ease-out, box-shadow 0.22s ease-out, filter 0.22s ease-out;
 }
 
-.music-view[data-music-view="ses-kaydi"] .record-circle::after {
-  content: "";
-  position: absolute;
-  inset: 26px;
-  border-radius: inherit;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.14), transparent 60%),
-    radial-gradient(circle at bottom, #3b206b, #05020c);
+/* AIVO renkleri – sert kırmızı yok */
+.music-view[data-music-view="ses-kaydi"] .result-icon-btn.play {
+  background: linear-gradient(135deg, #00b894, #00cec9);
+}
+.music-view[data-music-view="ses-kaydi"] .result-icon-btn.download {
+  background: linear-gradient(135deg, #6c5ce7, #8e8df5);
+}
+.music-view[data-music-view="ses-kaydi"] .result-icon-btn.to-music {
+  background: linear-gradient(135deg, #ffb142, #ff9f43);
+}
+.music-view[data-music-view="ses-kaydi"] .result-icon-btn.delete {
+  background: linear-gradient(135deg, #a66bff, #fd79a8);
 }
 
-.music-view[data-music-view="ses-kaydi"] .record-icon {
-  position: relative;
-  z-index: 3;
-  font-size: 54px;
+.music-view[data-music-view="ses-kaydi"] .result-icon-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+  filter: brightness(1.05);
 }
 
-/* IDLE ANİMASYON */
-@keyframes pulseIdle {
-  0%   { transform: scale(1); }
-  30%  { transform: scale(1.05); }
-  60%  { transform: scale(1); }
-  100% { transform: scale(1); }
-}
 
 /* ============================================================
    KAYIT HALİ – LİLA / PEMBE YENİ TEMA
