@@ -1521,5 +1521,113 @@ body.is-recording .record-center-btn {
     font-size: 14px;
   }
 }
+/* ======================================================
+   SES KAYDI – Kayıt sonrası sonuç kartı + mini waveform
+   ====================================================== */
+
+/* Mini waveform (timer altındaki küçük efekt) */
+.record-mini-wave {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  margin-left: 10px;
+  height: 18px;
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+}
+
+.mini-bar {
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #8e8df5, #74b9ff);
+  transform-origin: bottom center;
+  animation: miniWavePulse 0.6s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * 0.04s);
+}
+
+@keyframes miniWavePulse {
+  from { transform: scaleY(0.2); }
+  to   { transform: scaleY(1); }
+}
+
+/* Kayıt esnasında mini waveform görünür */
+body.is-recording .record-mini-wave {
+  opacity: 1;
+}
+
+/* KAYIT SONRASI SONUÇ KARTI -------------------------------- */
+
+.record-result-card {
+  margin-top: 18px;
+  padding: 18px 22px;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at top left, rgba(108, 92, 231, 0.12), transparent 60%),
+    rgba(5, 7, 30, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.record-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.record-result-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.record-result-duration {
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+/* Dört yuvarlak buton */
+.record-result-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.result-icon-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  transition: transform 0.22s ease-out, box-shadow 0.22s ease-out, filter 0.22s ease-out;
+}
+
+/* AIVO renklerine uygun, sert kırmızı yok */
+.result-icon-btn.play {
+  background: linear-gradient(135deg, #00b894, #00cec9);
+}
+.result-icon-btn.download {
+  background: linear-gradient(135deg, #6c5ce7, #8e8df5);
+}
+.result-icon-btn.to-music {
+  background: linear-gradient(135deg, #ffb142, #ff9f43);
+}
+/* Silme butonu – kırmızı yerine lila/pembe tonlu */
+.result-icon-btn.delete {
+  background: linear-gradient(135deg, #a66bff, #fd79a8);
+}
+
+.result-icon-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+  filter: brightness(1.05);
+}
+
 
 
