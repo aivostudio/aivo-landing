@@ -1814,6 +1814,26 @@ body.is-recording .record-mini-wave {
   margin-bottom: 18px;      /* kartın sayfa altına fazla yaklaşmaması için */
   min-height: 220px;        /* biraz daha kısa alt panel */
 }
+/* =========================================
+   AIVO FIX – Kayıt sonrası kartı gömme
+   ========================================= */
+
+/* Ana kayıt kartını absolute yerleştirme için referans yapıyoruz */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  position: relative;
+  padding-bottom: 210px;  /* altta sonuç kartına yer bırak */
+}
+
+/* Kaydedilen Ses (MP3) kartını butonun altına göm, 
+   alttaki büyük paneli AŞAĞI İTMESİN */
+.music-view[data-music-view="ses-kaydi"] .record-result-wrapper {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + 60px);   /* çember + Kaydı Başlat butonunun hemen altı */
+  transform: translateX(-50%);
+  margin-top: 0;           /* eski margin-top etkisiz kalsın */
+}
+
 
 
 
