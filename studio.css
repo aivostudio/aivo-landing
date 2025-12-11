@@ -1107,7 +1107,7 @@ textarea:focus {
   transform: translateY(-1px);
 }
 /* =========================================
-   KREDİ MODALI
+   K R E D İ   M O D A L I  ( Y E N İ )
    ========================================= */
 
 .pricing-modal {
@@ -1150,6 +1150,8 @@ textarea:focus {
   overflow: hidden;
 }
 
+/* HEADER */
+
 .pricing-header {
   display: flex;
   align-items: flex-start;
@@ -1169,6 +1171,8 @@ textarea:focus {
   color: var(--text-soft);
 }
 
+/* CLOSE BUTTON */
+
 .icon-button {
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.35);
@@ -1183,16 +1187,16 @@ textarea:focus {
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* PRICING GRID */
+/* GRID */
 
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4 paket */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 20px;
-  align-items: stretch; /* tüm kartlar aynı yükseklikte */
+  align-items: stretch;
 }
 
-/* PRICING CARD */
+/* CARD */
 
 .pricing-card {
   background: radial-gradient(circle at top left, rgba(108, 92, 231, 0.25), transparent 60%),
@@ -1205,7 +1209,24 @@ textarea:focus {
   flex-direction: column;
   gap: 8px;
   height: 100%;
+  cursor: pointer;
+  transition:
+    transform 0.25s ease-out,
+    box-shadow 0.25s ease-out,
+    border-color 0.25s ease-out,
+    background 0.25s ease-out;
 }
+
+/* HOVER ANİMASYON – EİTA TARZI */
+.pricing-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.95);
+  border-color: rgba(253, 121, 168, 0.9);
+  background: radial-gradient(circle at top left, rgba(253, 121, 168, 0.3), transparent 60%),
+    rgba(7, 9, 40, 0.98);
+}
+
+/* POPULAR */
 
 .pricing-card.is-popular {
   border-color: rgba(253, 121, 168, 0.9);
@@ -1213,9 +1234,10 @@ textarea:focus {
   transform: translateY(-4px);
 }
 
-/* Badge */
+/* BADGE */
 
-.pricing-badge {
+.pricing-badge,
+.pricing-badge.small {
   align-self: flex-start;
   padding: 4px 10px;
   border-radius: 12px;
@@ -1224,11 +1246,7 @@ textarea:focus {
   color: #fff;
 }
 
-.pricing-badge.small {
-  background: rgba(108, 92, 231, 0.4);
-}
-
-/* Fiyat */
+/* PRICE */
 
 .pricing-price {
   font-size: 30px;
@@ -1236,7 +1254,7 @@ textarea:focus {
   margin: 6px 0 10px;
 }
 
-/* Özellik listesi */
+/* FEATURE LIST */
 
 .pricing-list {
   list-style: none;
@@ -1264,13 +1282,13 @@ textarea:focus {
   color: #4effc9;
 }
 
-/* Buton kartın en altında hizalı olsun */
+/* BUY BUTTON HİZALAMA */
 
 .pricing-card .primary-btn {
   margin-top: auto;
 }
 
-/* Responsive ayar – dar ekranda kolon sayısı azalır */
+/* RESPONSIVE */
 
 @media (max-width: 1200px) {
   .pricing-grid {
