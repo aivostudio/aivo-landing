@@ -1,6 +1,9 @@
+// AIVO STUDIO – STUDIO.JS (FULL CLEAN VERSION)
 
 document.addEventListener("DOMContentLoaded", () => {
-  /* ==== SAYFA (Müzik / Kapak) GEÇİŞLERİ ==== */
+  /* =========================================
+     SAYFA GEÇİŞLERİ (MÜZİK / KAPAK)
+     ========================================= */
   const pages = document.querySelectorAll(".page");
   const pageLinks = document.querySelectorAll("[data-page-link]");
 
@@ -8,8 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
     pages.forEach((p) => {
       p.classList.toggle("is-active", p.dataset.page === target);
     });
-
-    // Sadece sayfayı değiştiriyoruz, aktif butonları burada yönetmiyoruz
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -19,46 +20,67 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!target) return;
       e.preventDefault();
 
-      // 1) Tüm linklerden is-active'i kaldır (Kredi linkleri hariç)
+      // Tüm linklerden is-active'i kaldır (kredi linkleri hariç)
       pageLinks.forEach((l) => {
         if (!l.hasAttribute("data-open-pricing")) {
           l.classList.remove("is-active");
         }
       });
 
-      // 2) Sadece tıklanan linki aktif yap
+      // Tıklanan link aktif
       if (!link.hasAttribute("data-open-pricing")) {
         link.classList.add("is-active");
       }
 
-      // 3) Sayfayı değiştir
       switchPage(target);
     });
   });
 
-  /* ==== SOL MENÜ: MÜZİK ÜRET ALT MENÜ AÇ/KAPA ==== */
-  const submenuToggles = document.querySelectorAll("[data-submenu-toggle]");
+  /* =========================================
+     SOL MENÜ – MÜZİK ALT SEKME GEÇİŞLERİ
+     (Geleneksel / Ses Kaydı / Vokale Göre)
+     ========================================= */
+  const musicViews = document.querySelectorAll(".music-view");
+  const musicTabButtons = document.querySelectorAll(
+    ".sidebar-sublink[data-music-tab]"
+  );
 
-  submenuToggles.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const key = btn.getAttribute("data-submenu-toggle");
-      const submenu = document.querySelector(`[data-submenu="${key}"]`);
-      if (!submenu) return;
-
-      submenu.classList.toggle("is-open");
-      btn.classList.toggle("is-open");
+  function switchMusicView(targetKey) {
+    musicViews.forEach((view) => {
+      const key = view.getAttribute("data-music-view");
+      view.classList.toggle("is-active", key === targetKey);
     });
-  });
+  }
 
-  /* ==== MOD SWITCH (BASİT / GELİŞMİŞ) ==== */
+  if (musicViews.length && musicTabButtons.length) {
+    musicTabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-music-tab");
+        if (!target) return;
+
+        // Sol menü aktif buton
+        musicTabButtons.forEach((b) => {
+          b.classList.toggle("is-active", b === btn);
+        });
+
+        // Orta panel görünümü
+        switchMusicView(target);
+      });
+    });
+
+    // Varsayılan: geleneksel
+    switchMusicView("geleneksel");
+  }
+
+  /* =========================================
+     ÇALIŞMA MODU (BASİT / GELİŞMİŞ)
+     ========================================= */
   const body = document.body;
   const modeButtons = document.querySelectorAll("[data-mode-button]");
   const advancedSections = document.querySelectorAll(
     "[data-visible-in='advanced']"
   );
-  const basicSections = document.querySelectorAll(
-    "[data-visible-in='basic']"
-  );
+  const basicSections = document.querySelectorAll("[data-visible-in='basic']");
 
   function updateMode(mode) {
     body.setAttribute("data-mode", mode);
@@ -68,11 +90,13 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.classList.toggle("is-active", btnMode === mode);
     });
 
+    // Gelişmiş alanları göster/gizle
     advancedSections.forEach((el) => {
       if (mode === "basic") el.classList.add("hidden");
       else el.classList.remove("hidden");
     });
 
+    // Basic alanlar (varsa) için
     basicSections.forEach((el) => {
       if (mode === "basic") el.classList.remove("hidden");
       else el.classList.add("hidden");
@@ -82,6 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
   modeButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const mode = btn.getAttribute("data-mode-button");
+      if (!mode) return;
       updateMode(mode);
     });
   });
@@ -89,7 +114,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Varsayılan: Gelişmiş Mod
   updateMode("advanced");
 
-  /* ==== PRICING MODAL / KREDİ AL ==== */
+  /* =========================================
+     KREDİ MODALI (PRICING)
+     ========================================= */
   const pricingModal = document.getElementById("pricingModal");
   const creditsButton = document.getElementById("creditsButton");
   const closePricing = document.getElementById("closePricing");
@@ -106,7 +133,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (creditsButton) {
-    creditsButton.addEventListener("click", openPricing);
+    creditsButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      openPricing();
+    });
   }
 
   openPricingLinks.forEach((el) => {
@@ -117,15 +147,29 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   if (closePricing) {
-    closePricing.addEventListener("click", closePricingModal);
+    closePricing.addEventListener("click", (e) => {
+      e.preventDefault();
+      closePricingModal();
+    });
   }
 
   if (pricingModal) {
     const backdrop = pricingModal.querySelector(".pricing-backdrop");
-    if (backdrop) backdrop.addEventListener("click", closePricingModal);
+    if (backdrop) {
+      backdrop.addEventListener("click", closePricingModal);
+    }
+
+    // ESC ile kapatma
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && pricingModal.classList.contains("is-open")) {
+        closePricingModal();
+      }
+    });
   }
 
-  /* ==== MÜZİK ÜRET BUTONU (UI FEEDBACK) ==== */
+  /* =========================================
+     MÜZİK ÜRET BUTONU – UI LOADING
+     ========================================= */
   const musicGenerateBtn = document.getElementById("musicGenerateBtn");
   if (musicGenerateBtn) {
     musicGenerateBtn.addEventListener("click", () => {
@@ -142,7 +186,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ==== KAPAK ÜRET BUTONU (UI FEEDBACK) ==== */
+  /* =========================================
+     KAPAK ÜRET BUTONU – UI LOADING
+     ========================================= */
   const coverGenerateBtn = document.getElementById("coverGenerateBtn");
   if (coverGenerateBtn) {
     coverGenerateBtn.addEventListener("click", () => {
@@ -158,197 +204,90 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 1400);
     });
   }
-});
-// ==== MÜZİK ALT SEKME GEÇİŞLERİ (GELENEKSEL / SES KAYDI / VOKALE GÖRE) ====
-window.addEventListener("DOMContentLoaded", () => {
-  const musicViews = document.querySelectorAll(".music-view");
-  const musicTabButtons = document.querySelectorAll(".sidebar-sublink[data-music-tab]");
 
-  if (!musicViews.length || !musicTabButtons.length) return;
+  /* =========================================
+     SES KAYDI – GÖRSEL KAYIT DURUMU
+     (Circle + Waveform + Süre)
+     ========================================= */
+  const sesView = document.querySelector('.music-view[data-music-view="ses-kaydi"]');
+  if (sesView) {
+    const mainCard = sesView.querySelector(".record-main-card");
+    const circle = sesView.querySelector(".record-circle");
+    const button = sesView.querySelector(".record-btn");
+    const title = sesView.querySelector(".record-main-title");
+    const timerEl = sesView.querySelector(".record-timer");
+    const bodyEl = document.body;
 
-  musicTabButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const target = btn.getAttribute("data-music-tab");
+    let isRecording = false;
+    let timerInterval = null;
+    let startTime = 0;
 
-      // Sol menüde seçili olan alt butonu güncelle
-      musicTabButtons.forEach((b) => {
-        b.classList.toggle("is-active", b === btn);
-      });
-
-      // Orta panelde doğru görünümü aç / kapat
-      musicViews.forEach((view) => {
-        const viewKey = view.getAttribute("data-music-view");
-        view.classList.toggle("is-active", viewKey === target);
-      });
-    });
-  });
-});
-// === SES KAYDI – KAYIT BUTONU ANİMASYONU ===
-(function () {
-  const recordBtn = document.querySelector('.record-btn');
-  const recordCircle = document.querySelector('.record-circle');
-
-  if (!recordBtn || !recordCircle) return;
-
-  let isRecording = false;
-
-  recordBtn.addEventListener('click', () => {
-    isRecording = !isRecording;
-
-    recordCircle.classList.toggle('is-recording', isRecording);
-    recordBtn.textContent = isRecording ? '⏹ Kaydı Durdur' : '⏺ Kaydı Başlat';
-  });
-})();
-// ======================================
-// SES KAYDI – Görsel kayıt durumu + waveform + süre
-// ======================================
-(function () {
-  const view = document.querySelector('.music-view[data-music-view="ses-kaydi"]');
-  if (!view) return;
-
-  const mainCard = view.querySelector('.record-main-card');
-  const circle   = view.querySelector('.record-circle');
-  const button   = view.querySelector('.record-btn');
-  const title    = view.querySelector('.record-main-title');
-  const timerEl  = view.querySelector('.record-timer');
-
-  if (!mainCard || (!circle && !button)) return;
-
-  let isRecording = false;
-  let timerInterval = null;
-  let startTime = 0;
-
-  function formatTime(ms) {
-    const totalSec = Math.floor(ms / 1000);
-    const min = String(Math.floor(totalSec / 60)).padStart(2, "0");
-    const sec = String(totalSec % 60).padStart(2, "0");
-    return `${min}:${sec}`;
-  }
-
-  function startTimer() {
-    if (!timerEl) return;
-    startTime = Date.now();
-    timerEl.textContent = "00:00";
-
-    timerInterval = setInterval(() => {
-      const diff = Date.now() - startTime;
-      timerEl.textContent = formatTime(diff);
-    }, 200);
-  }
-
-  function stopTimer() {
-    if (timerInterval) {
-      clearInterval(timerInterval);
-      timerInterval = null;
+    function formatTime(ms) {
+      const totalSec = Math.floor(ms / 1000);
+      const min = String(Math.floor(totalSec / 60)).padStart(2, "0");
+      const sec = String(totalSec % 60).padStart(2, "0");
+      return `${min}:${sec}`;
     }
-  }
 
-  function toggleRecordingVisual() {
-    isRecording = !isRecording;
+    function startTimer() {
+      if (!timerEl) return;
+      startTime = Date.now();
+      timerEl.textContent = "00:00";
+
+      timerInterval = setInterval(() => {
+        const diff = Date.now() - startTime;
+        timerEl.textContent = formatTime(diff);
+      }, 200);
+    }
+
+    function stopTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    function toggleRecordingVisual() {
+      isRecording = !isRecording;
+
+      if (circle) {
+        circle.classList.toggle("is-recording", isRecording);
+      }
+      if (mainCard) {
+        mainCard.classList.toggle("is-recording", isRecording);
+      }
+      if (title) {
+        title.textContent = isRecording
+          ? "Kayıt Devam Ediyor"
+          : "Ses Kaydetmeye Başlayın";
+      }
+      if (button) {
+        button.textContent = isRecording
+          ? "⏹ Kaydı Durdur"
+          : "⏺ Kaydı Başlat";
+      }
+
+      // body class → waveform animasyonu için
+      if (isRecording) {
+        bodyEl.classList.add("is-recording");
+        startTimer();
+      } else {
+        bodyEl.classList.remove("is-recording");
+        stopTimer();
+      }
+    }
 
     if (circle) {
-      circle.classList.toggle("is-recording", isRecording);
-    }
-
-    mainCard.classList.toggle("is-recording", isRecording);
-
-    if (title) {
-      title.textContent = isRecording
-        ? "Kayıt Devam Ediyor"
-        : "Ses Kaydetmeye Başlayın";
+      circle.style.cursor = "pointer";
+      circle.addEventListener("click", toggleRecordingVisual);
     }
 
     if (button) {
-      button.textContent = isRecording
-        ? "⏹ Kaydı Durdur"
-        : "⏺ Kaydı Başlat";
-    }
-
-    if (isRecording) {
-      startTimer();
-    } else {
-      stopTimer();
+      button.addEventListener("click", toggleRecordingVisual);
     }
   }
 
-  if (circle) {
-    circle.style.cursor = "pointer";
-    circle.addEventListener("click", toggleRecordingVisual);
-  }
-
-  if (button) {
-    button.addEventListener("click", toggleRecordingVisual);
-  }
-})();
-const body = document.body;
-const recordBtn = document.getElementById("recordToggleBtn");
-const timerEl = document.getElementById("recordTimer");
-
-let isRecording = false;
-let recordInterval = null;
-let seconds = 0;
-
-function startRecording() {
-  // ... senin mevcut mikrofon başlatma kodların ...
-
-  isRecording = true;
-  body.classList.add("is-recording");
-  recordBtn.textContent = "⏹ Kaydı Durdur";
-  seconds = 0;
-  timerEl.textContent = "00:00";
-
-  recordInterval = setInterval(() => {
-    seconds++;
-    const m = String(Math.floor(seconds / 60)).padStart(2, "0");
-    const s = String(seconds % 60).padStart(2, "0");
-    timerEl.textContent = `${m}:${s}`;
-  }, 1000);
-}
-
-function stopRecording() {
-  // ... senin mevcut kayıt durdurma kodların ...
-
-  isRecording = false;
-  body.classList.remove("is-recording");
-  recordBtn.textContent = "⏺ Kaydı Başlat";
-
-  if (recordInterval) {
-    clearInterval(recordInterval);
-    recordInterval = null;
-  }
-}
-
-recordBtn.addEventListener("click", () => {
-  if (isRecording) {
-    stopRecording();
-  } else {
-    startRecording();
-  }
+  // Burada gerçek mikrofon / MediaRecorder yok.
+  // Sadece görsel kayıt simülasyonu yapıyoruz. Gerçek kayıt için
+  // ileride navigator.mediaDevices.getUserMedia + MediaRecorder eklenebilir.
 });
-// ==== MÜZİK ALT SEKME GEÇİŞLERİ (GELENEKSEL / SES KAYDI / VOKALE GÖRE) ====
-window.addEventListener("DOMContentLoaded", () => {
-  const musicViews = document.querySelectorAll(".music-view");
-  const musicTabButtons = document.querySelectorAll(
-    ".sidebar-sublink[data-music-tab]"
-  );
-
-  if (!musicViews.length || !musicTabButtons.length) return;
-
-  musicTabButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const target = btn.getAttribute("data-music-tab");
-
-      // Sol menüde seçili olan alt butonu güncelle
-      musicTabButtons.forEach((b) => {
-        b.classList.toggle("is-active", b === btn);
-      });
-
-      // Orta panelde doğru görünümü aç / kapat
-      musicViews.forEach((view) => {
-        const viewKey = view.getAttribute("data-music-view");
-        view.classList.toggle("is-active", viewKey === target);
-      });
-    });
-  });
-});
-
