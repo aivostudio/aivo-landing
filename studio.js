@@ -205,9 +205,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* =========================================
-     SES KAYDI – GÖRSEL KAYIT DURUMU
-     (Circle + Waveform + Süre)
+   /* =========================================
+     SES KAYDI – GÖRSEL KAYIT + MODAL + SONUÇ
      ========================================= */
   const sesView = document.querySelector('.music-view[data-music-view="ses-kaydi"]');
   if (sesView) {
@@ -218,9 +217,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const timerEl = sesView.querySelector(".record-timer");
     const bodyEl = document.body;
 
+    // Yeni elemanlar
+    const sessionPanel = sesView.querySelector(".record-session-panel");
+    const sessionTimerEl = sesView.querySelector("#recordSessionTimer");
+    const sessionStopBtn = sesView.querySelector("[data-session-stop]");
+    const sessionCancelBtn = sesView.querySelector("[data-session-cancel]");
+    const resultCard = sesView.querySelector(".record-result-card");
+    const resultDurationEl = sesView.querySelector("#record-result-duration");
+
     let isRecording = false;
     let timerInterval = null;
     let startTime = 0;
+    let lastDurationMs = 0;
 
     function formatTime(ms) {
       const totalSec = Math.floor(ms / 1000);
@@ -230,13 +238,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function startTimer() {
-      if (!timerEl) return;
       startTime = Date.now();
-      timerEl.textContent = "00:00";
+      if (timerEl) timerEl.textContent = "00:00";
+      if (sessionTimerEl) sessionTimerEl.textContent = "00:00";
 
       timerInterval = setInterval(() => {
         const diff = Date.now() - startTime;
-        timerEl.textContent = formatTime(diff);
+        const formatted = formatTime(diff);
+        if (timerEl) timerEl.textContent = formatted;
+        if (sessionTimerEl) sessionTimerEl.textContent = formatted;
       }, 200);
     }
 
@@ -244,6 +254,9 @@ document.addEventListener("DOMContentLoaded", () => {
       if (timerInterval) {
         clearInterval(timerInterval);
         timerInterval = null;
+      }
+      if (startTime) {
+        lastDurationMs = Date.now() - startTime;
       }
     }
 
@@ -270,24 +283,63 @@ document.addEventListener("DOMContentLoaded", () => {
       // body class → waveform animasyonu için
       if (isRecording) {
         bodyEl.classList.add("is-recording");
+
+        // Modal aç
+        if (sessionPanel) {
+          sessionPanel.classList.add("is-open");
+        }
+        // Eski sonucu gizle
+        if (resultCard) {
+          resultCard.classList.remove("is-visible");
+        }
+
         startTimer();
       } else {
         bodyEl.classList.remove("is-recording");
         stopTimer();
+
+        // Modal kapat
+        if (sessionPanel) {
+          sessionPanel.classList.remove("is-open");
+        }
+
+        // Süreyi sonuç kartına yaz
+        if (resultCard) {
+          resultCard.classList.add("is-visible");
+        }
+        if (resultDurationEl && lastDurationMs > 0) {
+          resultDurationEl.textContent = formatTime(lastDurationMs);
+        }
       }
     }
 
+    // Çembere tıklayınca
     if (circle) {
       circle.style.cursor = "pointer";
       circle.addEventListener("click", toggleRecordingVisual);
     }
 
+    // Ana butona tıklayınca
     if (button) {
       button.addEventListener("click", toggleRecordingVisual);
     }
+
+    // Modal içindeki "Kaydı Durdur"
+    if (sessionStopBtn) {
+      sessionStopBtn.addEventListener("click", toggleRecordingVisual);
+    }
+
+    // Modal içindeki "İptal" – kaydı sonlandır, sonucu gösterme
+    if (sessionCancelBtn) {
+      sessionCancelBtn.addEventListener("click", () => {
+        if (isRecording) {
+          toggleRecordingVisual();
+        }
+        if (resultCard) {
+          resultCard.classList.remove("is-visible");
+        }
+      });
+    }
   }
 
-  // Burada gerçek mikrofon / MediaRecorder yok.
-  // Sadece görsel kayıt simülasyonu yapıyoruz. Gerçek kayıt için
-  // ileride navigator.mediaDevices.getUserMedia + MediaRecorder eklenebilir.
 });
