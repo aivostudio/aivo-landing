@@ -277,7 +277,7 @@
             </div>
 
 <!-- ============================================================
-     ******   SES KAYDI (YENİ TAM BLOK)   ******
+     ******   SES KAYDI (GÜNCEL BLOK)   ******
      ============================================================ -->
 
 <div class="music-view" data-music-view="ses-kaydi">
@@ -315,15 +315,14 @@
 
     <!-- Kayıt çemberi -->
     <div class="record-circle">
-        <div class="record-icon">🎙</div>
+      <div class="record-icon">🎙</div>
     </div>
 
-    <!-- BUTON – Yeni eklenen bölüm -->
+    <!-- ÇEMBER ALTINDA BUTON -->
     <div class="ses-button-under-circle">
       <button class="primary-btn record-btn" id="recordToggleBtn" type="button">
-  ⏺ Kaydı Başlat
-</button>
-
+        ⏺ Kaydı Başlat
+      </button>
     </div>
 
     <!-- Alt kayıt paneli -->
@@ -338,6 +337,15 @@
 
         <div class="record-wave-row">
           <div class="record-timer" id="recordTimer">00:00</div>
+
+          <!-- Küçük efekt (mini waveform) -->
+          <div class="record-mini-wave" id="recordMiniWave">
+            <span class="mini-bar" style="--i:1"></span>
+            <span class="mini-bar" style="--i:2"></span>
+            <span class="mini-bar" style="--i:3"></span>
+            <span class="mini-bar" style="--i:4"></span>
+            <span class="mini-bar" style="--i:5"></span>
+          </div>
         </div>
 
         <p class="record-hint">
@@ -375,7 +383,32 @@
     </div>
   </div>
 
-  <!-- Waveform (fake) -->
+  <!-- KAYITTAN SONRA ÇIKAN SONUÇ KARTI -->
+  <div class="card record-result-card" id="recordResult" style="display:none;">
+    <div class="record-result-header">
+      <span class="record-result-title">Kaydedilen Ses (MP3)</span>
+      <span class="record-result-duration">
+        Süre: <span id="recordResultTime">00:00</span>
+      </span>
+    </div>
+
+    <div class="record-result-actions">
+      <button class="result-icon-btn play" data-record-action="play" title="Çal">
+        ▶
+      </button>
+      <button class="result-icon-btn download" data-record-action="download" title="İndir">
+        ⭳
+      </button>
+      <button class="result-icon-btn to-music" data-record-action="to-music" title="Müzik Üretime Gönder">
+        ♪
+      </button>
+      <button class="result-icon-btn delete" data-record-action="delete" title="Sil">
+        🗑
+      </button>
+    </div>
+  </div>
+
+  <!-- Büyük waveform (sayfanın ortasında) -->
   <div class="record-wave" id="recordWave">
     <div class="wave-bar" style="--i:1"></div>
     <div class="wave-bar" style="--i:2"></div>
@@ -390,8 +423,6 @@
   </div>
 
 </div>
-
-<!-- ============================================================ -->
 
 
           
