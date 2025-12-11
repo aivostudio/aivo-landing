@@ -276,9 +276,8 @@
               </div>
             </div>
 
-          <!-- ****** SES KAYDI ****** -->
+<!-- ****** SES KAYDI ****** -->
 <div class="music-view" data-music-view="ses-kaydi">
-  
   <!-- Başlık -->
   <div class="panel-header">
     <h1 class="panel-title">Ses Kaydı</h1>
@@ -308,60 +307,68 @@
   <!-- ANA KART -->
   <div class="card record-main-card">
 
-    <!-- ORTADAKİ BÜYÜK DAİRE -->
+    <!-- ORTADAKİ BÜYÜK ÇEMBER -->
     <div class="record-circle">
       <div class="record-icon">🎙</div>
     </div>
 
-    <!-- ÇEMBER ALTINA YENİ ALAN – KAYDI BAŞLAT BUTONU -->
+    <!-- ÇEMBERİN ALTINDAKİ BUTON -->
     <div class="ses-button-under-circle">
-      <button class="record-btn" id="recordToggleBtn">⏺ Kaydı Başlat</button>
+      <button class="primary-btn record-btn" id="recordToggleBtn">⏺ Kaydı Başlat</button>
     </div>
 
-    <!-- Alt bilgi alanı -->
-    <div class="record-main-left">
-      <h3 class="record-main-title">Ses Kaydetmeye Başlayın</h3>
-      <p class="record-main-text">
-        Butona tıklayarak kayıt modunu aç. İlk kullanımda tarayıcı mikrofon izni isteyebilir; “İzin ver” demeyi unutma.
-      </p>
+    <!-- ALTTAKİ KOYU KUTU (YAZILAR + MP3 YÜKLEME) -->
+    <div class="record-bottom-shell">
+      <!-- Sol blok: kayıt açıklaması -->
+      <div class="record-main-left">
+        <h3 class="record-main-title">Ses Kaydetmeye Başlayın</h3>
+        <p class="record-main-text">
+          Butona tıklayarak kayıt modunu aç. İlk kullanımda tarayıcı mikrofon izni isteyebilir;
+          “İzin ver” demeyi unutma.
+        </p>
 
-      <div class="record-wave-row">
-        <div class="record-timer" id="recordTimer">00:00</div>
+        <div class="record-wave-row">
+          <div class="record-timer" id="recordTimer">00:00</div>
+        </div>
+
+        <p class="record-hint">
+          Kayıt tamamlandığında sesi indirip AIVO Müzik Üret ekranında referans olarak
+          kullanabileceksin.
+        </p>
       </div>
 
-      <p class="record-hint">
-        Kayıt tamamlandığında sesi indirip AIVO Müzik Üret ekranında referans olarak kullanabileceksin.
-      </p>
-    </div>
+      <!-- Sağ blok: MP3 yükleme -->
+      <div class="record-main-right">
+        <h3 class="record-upload-title">MP3 Dosyası Yükle</h3>
+        <p class="record-upload-text">
+          Mikrofondan kayıt almak yerine daha önce kaydettiğin bir MP3 ses dosyasını da
+          kullanabilirsin.
+        </p>
 
-    <div class="record-main-right">
-      <h3 class="record-upload-title">MP3 Dosyası Yükle</h3>
-      <p class="record-upload-text">
-        Mikrofondan kayıt almak yerine daha önce kaydettiğin bir MP3 ses dosyasını da kullanabilirsin.
-      </p>
+        <label class="upload-dropzone record-upload-dropzone">
+          <div class="upload-icon">⬆️</div>
+          <div class="upload-text">
+            <strong>Ses dosyası seç veya sürükleyip bırak</strong>
+            <span>MP3 — maksimum 10MB</span>
+          </div>
+          <input
+            class="upload-input"
+            type="file"
+            accept="audio/mpeg,audio/mp3"
+            id="record-file-input"
+          />
+        </label>
 
-      <label class="upload-dropzone record-upload-dropzone">
-        <div class="upload-icon">⬆️</div>
-        <div class="upload-text">
-          <strong>Ses dosyası seç veya sürükleyip bırak</strong>
-          <span>MP3 — maksimum 10MB</span>
-        </div>
-        <input
-          class="upload-input"
-          type="file"
-          accept="audio/mpeg,audio/mp3"
-          id="record-file-input"
-        />
-      </label>
+        <p class="record-upload-hint">
+          Yüklediğin ses dosyası analiz edilerek ritim, tempo ve vokal karakteri AIVO
+          üretimine yansıtılır.
+        </p>
+      </div>
+    </div> <!-- /record-bottom-shell -->
 
-      <p class="record-upload-hint">
-        Yüklediğin ses dosyası analiz edilerek ritim, tempo ve vokal karakteri AIVO üretimine yansıtılır.
-      </p>
-    </div>
+  </div> <!-- /record-main-card -->
 
-  </div>
-
-  <!-- Waveform (animasyon) -->
+  <!-- WAVEFORM (animasyon) -->
   <div class="record-wave" id="recordWave">
     <div class="wave-bar" style="--i:1"></div>
     <div class="wave-bar" style="--i:2"></div>
@@ -376,6 +383,7 @@
   </div>
 
 </div>
+
 
 
           
