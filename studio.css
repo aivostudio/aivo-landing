@@ -772,12 +772,42 @@ textarea:focus {
 /* ÇEMBER ALTINDA BUTON ------------------------------------ */
 
 .ses-button-under-circle {
-  margin-top: 16px;
-  margin-bottom: 40px;
+  margin-top: 30px;          /* ÇEMBERDEN BİR TIK DAHA AŞAĞIDA */
+  margin-bottom: 46px;
   display: flex;
   justify-content: center;
   width: 100%;
 }
+
+/* Normal durumda mor–pembe AIVO butonu */
+.ses-button-under-circle .record-btn {
+  position: relative;
+  padding: 18px 46px;
+  font-size: 17px;
+  border-radius: 999px;
+  letter-spacing: 0.01em;
+  background: linear-gradient(135deg, #6c5ce7, #fd79a8);
+  box-shadow: 0 14px 40px rgba(108, 92, 231, 0.55);
+  animation: recordBtnIdle 2.2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Hover – “hadi bana dokun” efekti */
+.ses-button-under-circle .record-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 18px 55px rgba(108, 92, 231, 0.8);
+}
+
+/* KAYIT MODU – daha lila/pembe, turunculuk yok */
+body.is-recording .ses-button-under-circle .record-btn {
+  background: linear-gradient(135deg, #a66bff, #ff9ff3);
+  box-shadow:
+    0 16px 45px rgba(166, 107, 255, 0.75),
+    0 0 40px rgba(253, 159, 243, 0.9);
+  animation: recordBtnRecording 1s ease-in-out infinite;
+}
+
+
 
 /* Burada primary-btn’in üstüne ekstra stil ve animasyon ekliyoruz */
 .ses-button-under-circle .record-btn {
