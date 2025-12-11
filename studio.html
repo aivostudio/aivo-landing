@@ -589,67 +589,77 @@
   </div>
 
   <!-- PRICING FULLSCREEN OVERLAY -->
-  <div class="pricing-modal" id="pricingModal">
-    <div class="pricing-backdrop"></div>
-    <div class="pricing-dialog">
-      <div class="pricing-header">
-        <div>
-          <h2>Kredi Paketleri</h2>
-          <p>
-            AIVO’da daha fazla müzik ve kapak üretmek için ihtiyacına uygun kredi paketini seç.
-          </p>
-        </div>
-        <button class="icon-button" id="closePricing" aria-label="Kapat">
-          ✕
-        </button>
+<div class="pricing-modal" id="pricingModal">
+  <div class="pricing-backdrop"></div>
+  <div class="pricing-dialog">
+    <div class="pricing-header">
+      <div>
+        <h2>AIVO Paketleri (Önerilen)</h2>
+        <p>
+          İhtiyacına göre kredi satın al; her kredi ile 1 tam şarkı ve kapağını üretebilirsin.
+        </p>
       </div>
+      <button class="icon-button" id="closePricing" aria-label="Kapat">
+        ✕
+      </button>
+    </div>
 
-      <div class="pricing-grid">
-        <article class="pricing-card">
-          <div class="pricing-badge small">Başlangıç</div>
-          <h3>Ekonomik Paket</h3>
-          <div class="pricing-price">349₺</div>
-          <ul class="pricing-list">
-            <li>50 kredi • 100 şarkı</li>
-            <li>Yüksek kalite üretim</li>
-            <li>Email destek</li>
-            <li>Kapak üretimi</li>
-            <li>Kişisel kullanım</li>
-          </ul>
-          <button class="primary-btn full-width">Satın Al</button>
-        </article>
+    <div class="pricing-grid">
+      <!-- 1) BAŞLANGIÇ PAKETİ -->
+      <article class="pricing-card">
+        <div class="pricing-badge small">Başlangıç</div>
+        <h3>Başlangıç Paketi</h3>
+        <div class="pricing-price">199₺</div>
+        <ul class="pricing-list">
+          <li>25 kredi • ~25 şarkı</li>
+          <li>Yüksek kalite müzik üretimi</li>
+          <li>E-posta destek</li>
+          <li>Kişisel kullanım</li>
+        </ul>
+        <button class="primary-btn full-width">Satın Al</button>
+      </article>
 
-        <article class="pricing-card is-popular">
-          <div class="pricing-badge">En Popüler</div>
-          <h3>Temel Kredi Paketi</h3>
-          <div class="pricing-price">599₺</div>
-          <ul class="pricing-list">
-            <li>100 kredi • 200 şarkı</li>
-            <li>Öncelikli destek</li>
-            <li>Gelişmiş özellikler</li>
-            <li>Ticari kullanım</li>
-            <li>Kapak + video üretimi</li>
-          </ul>
-          <button class="primary-btn full-width">Satın Al</button>
-        </article>
+      <!-- 2) STANDART PAKET (EN ÇOK TERCIH EDILEN) -->
+      <article class="pricing-card is-popular">
+        <div class="pricing-badge">En Çok Tercih Edilen</div>
+        <h3>Standart Paket</h3>
+        <div class="pricing-price">399₺</div>
+        <ul class="pricing-list">
+          <li>60 kredi • ~60 şarkı</li>
+          <li>Yüksek kalite müzik + kapak üretimi</li>
+          <li>Öncelikli destek</li>
+          <li>Ticari kullanım hakkı</li>
+        </ul>
+        <button class="primary-btn full-width">Satın Al</button>
+      </article>
 
-        <article class="pricing-card">
-          <div class="pricing-badge small">Stüdyo</div>
-          <h3>Studio Paketi</h3>
-          <div class="pricing-price">2899₺</div>
-          <ul class="pricing-list">
-            <li>500 kredi • 1000 şarkı</li>
-            <li>Premium kalite</li>
-            <li>7/24 öncelikli destek</li>
-            <li>AIVO Studio sınırsız kullanım</li>
-            <li>Takım / ajans lisansı</li>
-          </ul>
-          <button class="primary-btn full-width">Satın Al</button>
-        </article>
-      </div>
+      <!-- 3) PRO PAKET -->
+      <article class="pricing-card">
+        <div class="pricing-badge small">Pro</div>
+        <h3>Pro Paket</h3>
+        <div class="pricing-price">899₺</div>
+        <ul class="pricing-list">
+          <li>150 kredi • ~150 şarkı</li>
+          <li>Premium kalite müzik + kapak</li>
+          <li>Kapak + kısa video üretimi</li>
+          <li>Geniş ticari kullanım</li>
+        </ul>
+        <button class="primary-btn full-width">Satın Al</button>
+      </article>
+
+      <!-- 4) MEGA PAKET -->
+      <article class="pricing-card">
+        <div class="pricing-badge small">Mega</div>
+        <h3>Mega Paket</h3>
+        <div class="pricing-price">2.999₺</div>
+        <ul class="pricing-list">
+          <li>500 kredi • ~500 şarkı</li>
+          <li>Stüdyo / ajans lisansı</li>
+          <li>Geniş AIVO Studio kullanım hakkı</li>
+          <li>7/24 öncelikli destek</li>
+        </ul>
+        <button class="primary-btn full-width">Satın Al</button>
+      </article>
     </div>
   </div>
-
-  <script src="studio.js"></script>
-</body>
-</html>
+</div>
