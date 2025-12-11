@@ -1106,7 +1106,6 @@ textarea:focus {
 .page-btn:hover {
   transform: translateY(-1px);
 }
-
 /* =========================================
    KREDİ MODALI
    ========================================= */
@@ -1185,12 +1184,15 @@ textarea:focus {
 }
 
 /* PRICING GRID */
+
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr)); /* 3 → 4 yapıldı */
+  grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4 paket */
   gap: 20px;
+  align-items: stretch; /* tüm kartlar aynı yükseklikte */
 }
 
+/* PRICING CARD */
 
 .pricing-card {
   background: radial-gradient(circle at top left, rgba(108, 92, 231, 0.25), transparent 60%),
@@ -1202,6 +1204,7 @@ textarea:focus {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  height: 100%;
 }
 
 .pricing-card.is-popular {
@@ -1210,10 +1213,12 @@ textarea:focus {
   transform: translateY(-4px);
 }
 
+/* Badge */
+
 .pricing-badge {
   align-self: flex-start;
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: 12px;
   font-size: 11px;
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
@@ -1223,18 +1228,31 @@ textarea:focus {
   background: rgba(108, 92, 231, 0.4);
 }
 
+/* Fiyat */
+
 .pricing-price {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 700;
-  margin: 2px 0 4px;
+  margin: 6px 0 10px;
 }
 
-/* PRICING LIST – YEŞİL TİKLER */
-.pricing-list li {
-  position: relative;
-  padding-left: 18px;           /* tik için iç boşluk */
+/* Özellik listesi */
+
+.pricing-list {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   font-size: 13px;
   color: var(--text-soft);
+}
+
+.pricing-list li {
+  position: relative;
+  padding-left: 18px;
+  line-height: 1.4;
 }
 
 .pricing-list li::before {
@@ -1242,17 +1260,30 @@ textarea:focus {
   position: absolute;
   left: 0;
   top: 0;
-  transform: translateY(2px);
-  font-size: 11px;
-  color: #55efc4;               /* yeşil tik rengi */
-  opacity: 0.95;
+  font-size: 14px;
+  color: #4effc9;
 }
 
+/* Buton kartın en altında hizalı olsun */
 
-/* buton kartın en altında olsun */
 .pricing-card .primary-btn {
   margin-top: auto;
 }
+
+/* Responsive ayar – dar ekranda kolon sayısı azalır */
+
+@media (max-width: 1200px) {
+  .pricing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .pricing-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 
 /* =========================================
    RESPONSIVE
