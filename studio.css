@@ -1184,11 +1184,13 @@ textarea:focus {
   background: rgba(255, 255, 255, 0.08);
 }
 
+/* PRICING GRID */
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(4, minmax(0, 1fr)); /* 3 → 4 yapıldı */
+  gap: 20px;
 }
+
 
 .pricing-card {
   background: radial-gradient(circle at top left, rgba(108, 92, 231, 0.25), transparent 60%),
