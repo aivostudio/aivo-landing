@@ -919,8 +919,7 @@ body.is-recording .ses-button-under-circle .record-btn {
   flex-direction: column;
   gap: 14px;
   max-width: 520px;
-  margin-left: auto;
-  margin-right: auto;
+  align-self: center;
 }
 
 .music-view[data-music-view="ses-kaydi"] .record-result-header {
@@ -962,8 +961,7 @@ body.is-recording .ses-button-under-circle .record-btn {
   transition: transform 0.22s ease-out, box-shadow 0.22s ease-out, filter 0.22s ease-out;
 }
 
-/* AIVO renk paleti */
-
+/* AIVO renk paleti – yeşil / turuncu yok */
 .music-view[data-music-view="ses-kaydi"] .result-icon-btn.play {
   background: linear-gradient(135deg, #00a8ff, #74b9ff);
 }
@@ -983,7 +981,7 @@ body.is-recording .ses-button-under-circle .record-btn {
   filter: brightness(1.05);
 }
 
-/* WAVEFORM – büyük animasyon (alt kısım) ----------------- */
+/* Alt büyük waveform (sadece görsel) --------------------- */
 
 .record-wave {
   position: absolute;
@@ -1013,6 +1011,25 @@ body.is-recording .ses-button-under-circle .record-btn {
 
 body.is-recording #recordWave {
   opacity: 1;
+}
+
+/* Kayıt halindeki çember ------------------------------- */
+
+.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
+  background: conic-gradient(
+    from 0deg,
+    #a86bff,
+    #d66bff,
+    #fd79a8,
+    #ffeaa7,
+    #74b9ff,
+    #a29bfe,
+    #a86bff
+  );
+  box-shadow:
+    0 0 45px rgba(168, 107, 255, 0.75),
+    0 0 110px rgba(253, 121, 168, 0.65);
+  animation: pulseRecording 1s ease-in-out infinite;
 }
 
 /* Animasyonlar ------------------------------------------ */
@@ -1063,6 +1080,7 @@ body.is-recording #recordWave {
   from { transform: scaleY(0.2); }
   to   { transform: scaleY(1); }
 }
+
 
 
 
