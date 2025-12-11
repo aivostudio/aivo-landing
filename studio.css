@@ -721,12 +721,12 @@ textarea:focus {
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-/* ANA SAHNE KARTI – YÜKSEK + EN ALTA GENİŞ KUTU İÇİN ALAN */
+/* ANA SAHNE KARTI – DAHA UZUN, KUTU DAHA AŞAĞIDA */
 .music-view[data-music-view="ses-kaydi"] .record-main-card {
   position: relative;
   margin-top: 0;
-  padding: 120px 60px 90px; /* üstte disk, altta kutu için pay */
-  min-height: 560px;        /* kartı uzattık -> kutu en altta */
+  padding: 140px 60px 150px; /* üstte disk, altta kutu için daha fazla boşluk */
+  min-height: 650px;        /* kartı uzattık → alt kutu daha aşağı iner */
   overflow: hidden;
   background:
     radial-gradient(circle at top, rgba(120, 82, 255, 0.35), transparent 70%),
@@ -738,10 +738,10 @@ textarea:focus {
 .music-view[data-music-view="ses-kaydi"] .record-main-card::before {
   content: "";
   position: absolute;
-  left: 40px;
-  right: 40px;
-  bottom: 40px;
-  height: 200px;
+  left: 50px;
+  right: 50px;
+  bottom: 36px;             /* biraz daha aşağı */
+  height: 220px;
   border-radius: 26px;
   background:
     radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 65%),
@@ -751,11 +751,11 @@ textarea:focus {
   z-index: 1;
 }
 
-/* Sol ve sağ bilgi blokları – bu alt kutunun İÇİNE oturuyor */
+/* Sol ve sağ bilgi blokları – alt kutunun İÇİNE oturuyor */
 .music-view[data-music-view="ses-kaydi"] .record-main-left,
 .music-view[data-music-view="ses-kaydi"] .record-main-right {
   position: absolute;
-  bottom: 58px;            /* alt kutunun içine hizala */
+  bottom: 58px;             /* kutu içine hizala */
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -763,16 +763,16 @@ textarea:focus {
 
 .music-view[data-music-view="ses-kaydi"] .record-main-left {
   left: 70px;
-  width: 42%;
+  width: 44%;
 }
 
 .music-view[data-music-view="ses-kaydi"] .record-main-right {
   right: 70px;
-  width: 42%;
+  width: 44%;
 }
 
 .music-view[data-music-view="ses-kaydi"] .record-main-title {
-  margin: 0 0 6px;
+  margin: 0 0 8px;
   font-size: 20px;
   font-weight: 600;
 }
@@ -783,6 +783,7 @@ textarea:focus {
 .music-view[data-music-view="ses-kaydi"] .record-hint {
   margin: 0 0 10px;
   font-size: 13px;
+  line-height: 1.4;
   color: var(--text-soft);
 }
 
@@ -799,10 +800,10 @@ textarea:focus {
 /* BÜYÜK RENKLİ DAİRE – KARTIN ORTA ÜSTÜNDE, KUTUDAN AYRI */
 .music-view[data-music-view="ses-kaydi"] .record-circle {
   position: absolute;
-  top: 30%;                 /* daha yukarı */
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 260px;             /* küçülttük */
+  width: 260px;
   height: 260px;
   border-radius: 50%;
   background: conic-gradient(
