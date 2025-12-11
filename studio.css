@@ -1087,7 +1087,7 @@ body.is-recording #recordWave {
 }
 
 /* =========================================
-   KREDİ MODALI – AIVO PAKETLERİ
+   KREDİ MODALI – AIVO PAKETLERİ (YENİ STİL)
    ========================================= */
 
 .pricing-modal {
@@ -1110,37 +1110,62 @@ body.is-recording #recordWave {
 .pricing-backdrop {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at top, rgba(108, 92, 231, 0.45), transparent 65%),
-    rgba(0, 0, 0, 0.82);
-  backdrop-filter: blur(14px);
+  background:
+    radial-gradient(circle at top, rgba(108, 92, 231, 0.55), transparent 65%),
+    rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(18px);
 }
+
+/* Ana dialog */
 
 .pricing-dialog {
   position: relative;
-  width: 95%;
-  max-width: 1100px;
+  width: 96%;
+  max-width: 1180px;
   max-height: 88vh;
-  background: radial-gradient(circle at top left, rgba(108, 92, 231, 0.4), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.3), transparent 60%),
+  background:
+    radial-gradient(circle at top left, rgba(129, 236, 236, 0.12), transparent 60%),
+    radial-gradient(circle at bottom right, rgba(108, 92, 231, 0.55), transparent 65%),
     #050819;
-  border-radius: 30px;
-  padding: 24px 26px 26px;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95);
+  border-radius: 32px;
+  padding: 24px 26px 24px;
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
   overflow: hidden;
 }
 
+/* Ortadaki yumuşak glow plate */
+
+.pricing-dialog::before {
+  content: "";
+  position: absolute;
+  inset: auto 8%;
+  bottom: 16px;
+  height: 34%;
+  border-radius: 45px;
+  background: radial-gradient(circle at top, rgba(253, 121, 168, 0.35), transparent 70%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* Header */
+
 .pricing-header {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
 .pricing-header h2 {
   margin: 0 0 4px;
   font-size: 22px;
+  letter-spacing: 0.02em;
 }
 
 .pricing-header p {
@@ -1149,55 +1174,95 @@ body.is-recording #recordWave {
   color: var(--text-soft);
 }
 
+/* Kapat butonu */
+
 .icon-button {
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.35);
-  padding: 6px 10px;
-  background: rgba(0, 0, 0, 0.4);
+  padding: 6px 12px;
+  background: rgba(3, 5, 24, 0.9);
   color: var(--text-soft);
   font-size: 14px;
   cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .icon-button:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
+  transform: translateY(-1px);
 }
 
+/* Paket grid’i */
+
 .pricing-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 18px;
 }
 
+/* Kart – dış kabuk */
+
 .pricing-card {
-  background: radial-gradient(circle at top left, rgba(108, 92, 231, 0.25), transparent 60%),
-    rgba(7, 9, 34, 0.98);
-  border-radius: 22px;
+  position: relative;
+  border-radius: 26px;
+  padding: 1px; /* dış glow için */
+  background: radial-gradient(circle at top left, rgba(108, 92, 231, 0.45), transparent 70%);
+  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out,
+    background 0.25s ease-out;
+}
+
+/* İç kart */
+
+.pricing-card-inner {
+  height: 100%;
+  border-radius: 24px;
   padding: 16px 16px 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85);
+  background:
+    radial-gradient(circle at top left, rgba(41, 128, 185, 0.35), transparent 70%),
+    radial-gradient(circle at bottom right, rgba(72, 52, 212, 0.7), transparent 70%),
+    #050818;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.9);
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
+/* En popüler kart */
+
 .pricing-card.is-popular {
-  border-color: rgba(253, 121, 168, 0.9);
-  box-shadow: 0 22px 60px rgba(253, 121, 168, 0.6);
-  transform: translateY(-4px);
+  background: linear-gradient(135deg, #fd79a8, #a55eea);
+  transform: translateY(-3px);
+  box-shadow:
+    0 24px 70px rgba(253, 121, 168, 0.75),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
 }
+
+/* Hover animasyonu – tüm kartlar */
+
+.pricing-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+/* Kart içi başlık vs. */
 
 .pricing-badge {
   align-self: flex-start;
   padding: 4px 10px;
   border-radius: 999px;
   font-size: 11px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.16);
   color: #fff;
 }
 
 .pricing-badge.small {
-  background: rgba(108, 92, 231, 0.4);
+  background: rgba(108, 92, 231, 0.7);
 }
 
 .pricing-price {
@@ -1217,10 +1282,36 @@ body.is-recording #recordWave {
   color: var(--text-soft);
 }
 
-/* buton kartın en altında */
+.pricing-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.pricing-list li::before {
+  content: "✔";
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-size: 11px;
+  color: #55efc4;
+}
+
+/* Buton kartın altında dursun + hover */
+
 .pricing-card .primary-btn {
   margin-top: auto;
+  border-radius: 999px;
+  padding-block: 11px;
+  font-size: 13px;
+  background: linear-gradient(135deg, #6c5ce7, #fd79a8);
 }
+
+.pricing-card .primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(253, 121, 168, 0.7);
+  filter: brightness(1.05);
+}
+
 
 /* =========================================
    RESPONSIVE
