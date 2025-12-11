@@ -1856,4 +1856,93 @@ body.is-recording .record-mini-wave {
   margin-bottom: 0 !important;           /* ekstra boşluk bırakma */
   min-height: 220px !important;          /* daha kompakt panel */
 }
+/* =========================================================
+   AIVO – KAYDEDİLEN SES KARTI (SAYFAYI UZATMA)
+   ========================================================= */
+
+/* Kayıt sonrası kartı main-card içine sabitle */
+.music-view[data-music-view="ses-kaydi"] .record-main-card {
+  position: relative; /* absolute eleman için referans */
+}
+
+/* Wrapper: dairenin altına, panelin üstüne oturur */
+.music-view[data-music-view="ses-kaydi"] .record-result-wrapper {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 62%;                 /* Kartın dikey konumu – gerekirse 60 / 64 yapabilirsin */
+  margin-top: 0;
+  z-index: 4;
+}
+
+/* Kartın kendisi – daha kompakt */
+.music-view[data-music-view="ses-kaydi"] .record-result-card {
+  padding: 6px 18px 10px;
+  border-radius: 16px;
+  background: rgba(8, 10, 32, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75);
+}
+
+/* Başlık ve süre satırı */
+.music-view[data-music-view="ses-kaydi"] .record-result-header {
+  font-size: 12px;
+  color: #f5f5ff;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-result-header span {
+  font-size: 11px;
+  color: #c8d0ff;
+}
+
+/* İkon satırı – daha küçük daireler */
+.music-view[data-music-view="ses-kaydi"] .record-result-actions {
+  margin-top: 6px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-result-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  font-size: 17px;
+  color: #ffffff;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6);
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, filter 0.2s ease-out;
+}
+
+/* AIVO renk paleti – play / indir / nota / çöp */
+.music-view[data-music-view="ses-kaydi"] .record-result-btn.play {
+  background: linear-gradient(135deg, #6c5ce7, #00cec9);
+}
+.music-view[data-music-view="ses-kaydi"] .record-result-btn.download {
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+}
+.music-view[data-music-view="ses-kaydi"] .record-result-btn.to-music {
+  background: linear-gradient(135deg, #fd79a8, #ffeaa7);
+}
+.music-view[data-music-view="ses-kaydi"] .record-result-btn.delete {
+  background: linear-gradient(135deg, #ff7675, #fd79a8);
+}
+
+/* Hover efekti */
+.music-view[data-music-view="ses-kaydi"] .record-result-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+  filter: brightness(1.05);
+}
+
+/* Daha dar ekranlar için kartı biraz aşağı çek */
+@media (max-width: 1200px) {
+  .music-view[data-music-view="ses-kaydi"] .record-result-wrapper {
+    top: 66%;
+  }
+}
 
