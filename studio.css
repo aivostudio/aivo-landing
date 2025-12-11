@@ -650,9 +650,8 @@ textarea:focus {
   gap: 10px;
   flex: 1;
 }
-
 /* =========================================
-   SES KAYDI – LAYOUT & TASARIM (YENİ)
+   SES KAYDI – LAYOUT & TASARIM (YENİ DÜZEN)
    ========================================= */
 
 .music-view[data-music-view="ses-kaydi"] {
@@ -660,7 +659,6 @@ textarea:focus {
 }
 
 /* Üst bilgi kartı */
-
 .music-view[data-music-view="ses-kaydi"] .record-intro-card {
   display: flex;
   align-items: center;
@@ -714,13 +712,18 @@ textarea:focus {
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-/* Ana kart – kartı uzatıyoruz ki alt kutu aşağı insin */
-
+/* ANA KART
+   - Ortada disk
+   - En altta geniş kutu
+   - İçinde sol / sağ bloklar */
 .music-view[data-music-view="ses-kaydi"] .record-main-card {
   position: relative;
   margin-top: 0;
-  padding: 140px 60px 220px;        /* üstte disk + altta kutu için boşluk */
-  min-height: 780px;                /* kartın yüksekliği */
+  padding: 220px 60px 80px; /* üst: disk için, alt: kutu + yazılar için */
+  min-height: 650px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
   overflow: hidden;
   background:
     radial-gradient(circle at top, rgba(120, 82, 255, 0.35), transparent 70%),
@@ -728,8 +731,87 @@ textarea:focus {
     var(--bg-card);
 }
 
-/* Ortadaki daire */
+/* KOYU ALT KUTU – kartın DİBİNE yakın */
+.music-view[data-music-view="ses-kaydi"] .record-main-card::before {
+  content: "";
+  position: absolute;
+  left: 50px;
+  right: 50px;
+  bottom: 12px;            /* kartın altına iyice yaklaşsın */
+  height: 240px;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 65%),
+    rgba(5, 7, 30, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85);
+  z-index: 1;
+}
 
+/* Sol / sağ bilgi blokları – NORMAL akışta, kutunun içinde */
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  position: relative;
+  z-index: 2;             /* kutunun üstünde */
+  display: flex;
+  flex-direction: column;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-left {
+  width: 45%;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  width: 45%;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-title {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-text,
+.music-view[data-music-view="ses-kaydi"] .record-upload-text,
+.music-view[data-music-view="ses-kaydi"] .record-upload-hint,
+.music-view[data-music-view="ses-kaydi"] .record-hint {
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text-soft);
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-upload-title {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-btn {
+  margin-top: 12px;
+}
+
+/* Timer satırı */
+.record-wave-row {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.record-timer {
+  min-width: 56px;
+  font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(5, 7, 30, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
+  color: #f5f5ff;
+}
+
+/* BÜYÜK DAİRE – kartın üst kısmında, ortalanmış */
 .music-view[data-music-view="ses-kaydi"] .record-circle {
   position: absolute;
   top: 30%;
@@ -778,7 +860,6 @@ textarea:focus {
 }
 
 /* Idle animasyon */
-
 @keyframes pulseIdle {
   0%   { transform: translate(-50%, -50%) scale(1); }
   30%  { transform: translate(-50%, -50%) scale(1.05); }
@@ -786,8 +867,7 @@ textarea:focus {
   100% { transform: translate(-50%, -50%) scale(1); }
 }
 
-/* Kayıtta daire */
-
+/* Kayıt durumda daire */
 .music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
   background: conic-gradient(
     from 0deg,
@@ -818,95 +898,7 @@ textarea:focus {
   100% { transform: translate(-50%, -50%) scale(1); }
 }
 
-/* KOYU ALT KUTU – yuvarlak altında, kartın altına yakın */
-
-/* KOYU ALT KUTU – yuvarlak altında, kartın EN DİBİNE yakın */
-.music-view[data-music-view="ses-kaydi"] .record-main-card::before {
-  content: "";
-  position: absolute;
-  left: 50px;
-  right: 50px;
-  bottom: 6px;                 /* 6px: kartın dibine iyice indi */
-  height: 260px;               /* biraz daha yüksek kutu */
-  border-radius: 26px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 65%),
-    rgba(5, 7, 30, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85);
-  z-index: 1;
-}
-
-/* Sol / sağ metin sütunları – kutunun içinde */
-
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
-  position: absolute;
-  bottom: 44px;                /* yazıları kutunun içine yerleştirir */
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-left {
-  left: 70px;
-  width: 44%;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-right {
-  right: 70px;
-  width: 44%;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-title {
-  margin: 0 0 8px;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-main-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-hint,
-.music-view[data-music-view="ses-kaydi"] .record-hint {
-  margin: 0 0 10px;
-  font-size: 13px;
-  line-height: 1.4;
-  color: var(--text-soft);
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-upload-title {
-  margin: 0 0 8px;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-btn {
-  margin-top: 12px;
-}
-
-/* Timer satırı */
-
-.record-wave-row {
-  margin-top: 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.record-timer {
-  min-width: 56px;
-  font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 13px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: rgba(5, 7, 30, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  text-align: center;
-  color: #f5f5ff;
-}
-
-/* Waveform – dairenin altında */
-
+/* Waveform – disk altında */
 .record-wave {
   position: absolute;
   top: 58%;
@@ -934,19 +926,15 @@ textarea:focus {
 }
 
 /* Kayıt sırasında waveform göster */
-
 body.is-recording #recordWave {
   opacity: 1;
 }
 
 @keyframes wavePulse {
-  from {
-    transform: scaleY(0.2);
-  }
-  to {
-    transform: scaleY(1);
-  }
+  from { transform: scaleY(0.2); }
+  to   { transform: scaleY(1);   }
 }
+
 
 /* =========================================
    KAPAK / GÖRSEL SAYFASI
