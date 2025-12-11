@@ -1963,4 +1963,17 @@ body.is-recording .record-wave {
   transform: translateY(-3px);
   box-shadow: 0 18px 55px rgba(253, 121, 168, 0.7);
 }
+/* Şarkı detayı alanlarını biraz büyüt – sayfa nefes alsın */
+#songName {
+  padding: 12px 14px;
+  font-size: 14px;
+}
+
+#lyrics,
+#songDesc,
+#prompt {
+  min-height: 100px;
+  line-height: 1.5;
+}
+
 
