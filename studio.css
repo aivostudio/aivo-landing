@@ -659,8 +659,12 @@ textarea:focus {
 }
 
 /* =========================================
-   SES KAYDI – LAYOUT & TASARIM
+   SES KAYDI – LAYOUT & TASARIM (YENİ FULL)
    ========================================= */
+
+.music-view[data-music-view="ses-kaydi"] {
+  position: relative; /* waveform ve kartlar için sabit referans */
+}
 
 .music-view[data-music-view="ses-kaydi"] .record-intro-card {
   display: flex;
@@ -910,6 +914,7 @@ body.is-recording #recordWave {
     transform: scaleY(1);
   }
 }
+
 
 /* =========================================
    KAPAK / GÖRSEL SAYFASI
