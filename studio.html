@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -202,48 +203,67 @@
                   <!-- REFERANS SES YÜKLE -->
                   <div class="form-field full">
                     <label>Referans Ses Yükle (opsiyonel)</label>
-                    <label class="upload-box" for="recordMp3">
+
+                    <div
+                      class="upload-box"
+                      onclick="document.getElementById('refAudio').click()"
+                    >
                       <input
                         type="file"
-                        id="recordMp3"
+                        id="refAudio"
                         accept=".mp3,.wav,.m4a"
-                        class="file-input-hidden"
+                        style="display:none"
                       />
                       <div>
-                        <strong>Ses dosyasını seç veya sürükleyip bırak</strong><br />
+                        <strong>Ses dosyası seç veya sürükleyip bırak</strong><br />
                         <span style="font-size:12px;color:#9aa4d7;"
                           >MP3, WAV, M4A — maksimum 10MB</span
                         >
                       </div>
-                    </label>
+                    </div>
                   </div>
 
-                  <!-- Mood & Vokal Tipi -->
-                  <div class="form-field half" data-visible-in="advanced">
-                    <label for="mood">Ruh Hali (Mood)</label>
-                    <select id="mood">
-                      <option value="">Ruh halini seç</option>
-                      <option>Enerjik</option>
-                      <option>Hüzünlü</option>
-                      <option>Romantik</option>
-                      <option>Sakin</option>
-                      <option>Epik</option>
-                    </select>
-                  </div>
+                 <!-- Mood & Vokal Tipi -->
+<div class="form-field half" data-visible-in="advanced">
+  <label for="mood">Ruh Hali (Mood)</label>
+  <select id="mood">
+    <option value="">Ruh halini seç</option>
+    <option>Enerjik</option>
+    <option>Hüzünlü</option>
+    <option>Romantik</option>
+    <option>Sakin</option>
+    <option>Epik</option>
+  </select>
+</div>
 
-                  <div class="form-field half" data-visible-in="advanced">
-                    <label for="vocalType">Vokal Tipi</label>
-                    <select id="vocalType">
-                      <option value="">Vokal tipini seç</option>
-                      <option>Erkek Vokal (AI)</option>
-                      <option>Kadın Vokal (AI)</option>
-                      <option>Soft / Çocuk Vokal (AI)</option>
-                      <option>Enstrümantal (Vokalsiz)</option>
-                    </select>
-                  </div>
+<div class="form-field half" data-visible-in="advanced">
+  <label for="vocalType">Vokal Tipi</label>
+  <select id="vocalType">
+    <option value="">Vokal tipini seç</option>
+    <option>Erkek Vokal (AI)</option>
+    <option>Kadın Vokal (AI)</option>
+    <option>Soft / Çocuk Vokal (AI)</option>
+    <option>Enstrümantal (Vokalsiz)</option>
+  </select>
+</div>
+
+<!-- Genre -->
+<div class="form-field half" data-visible-in="advanced">
+  <label for="genre">Tür (Genre)</label>
+  <select id="genre">
+    <option value="">Tür seçin</option>
+    <option>Türkçe Pop</option>
+    <option>Anadolu Pop</option>
+    <option>Arabesk</option>
+    <option>Deep House</option>
+    <option>Lo-fi</option>
+    <option>Trap</option>
+  </select>
+</div>
+
 
                   <!-- Genre -->
-                  <div class="form-field half" data-visible-in="advanced">
+                  <div class="form-field half">
                     <label for="genre">Tür (Genre)</label>
                     <select id="genre">
                       <option value="">Tür seçin</option>
@@ -271,10 +291,507 @@
                 </div>
               </div>
             </div>
+
+           <div class="music-view" data-music-view="ses-kaydi">
+
+  <!-- ÜST BİLGİ -->
+  <div class="card record-intro-card">
+    <div class="record-intro-left">
+      <h3 class="record-intro-title">Ses Kaydı</h3>
+      <p class="record-intro-text">
+        Mikrofonundan ses kaydet ya da hazır ses dosyası yükle; AIVO müziğini buna göre şekillendirir.
+      </p>
+    </div>
+  </div>
+
+  <!-- ANA KART -->
+  <div class="card record-main-card">
+
+    <!-- ORTA – ÇEMBER -->
+    <div class="record-circle">
+      <span class="record-icon">🎙️</span>
+    </div>
+
+    <!-- ÇEMBER ALTINDA BUTON -->
+    <div class="ses-button-under-circle">
+      <button class="primary-btn record-btn">⏺ Kaydı Başlat</button>
+    </div>
+
+    <!-- ALT BÜYÜK WAVEFORM (SADECE GÖRSEL) -->
+    <div class="record-wave" id="recordWave">
+      <div class="wave-bar" style="--i:1"></div>
+      <div class="wave-bar" style="--i:2"></div>
+      <div class="wave-bar" style="--i:3"></div>
+      <div class="wave-bar" style="--i:4"></div>
+      <div class="wave-bar" style="--i:5"></div>
+      <div class="wave-bar" style="--i:6"></div>
+      <div class="wave-bar" style="--i:7"></div>
+      <div class="wave-bar" style="--i:8"></div>
+      <div class="wave-bar" style="--i:9"></div>
+      <div class="wave-bar" style="--i:10"></div>
+      <div class="wave-bar" style="--i:11"></div>
+      <div class="wave-bar" style="--i:12"></div>
+    </div>
+
+    <!-- KAYIT SONUCU KARTI -->
+    <div class="record-result-card" id="recordResult" style="display:none;">
+      <div class="record-result-header">
+        <span class="record-result-title">Kayıt Tamamlandı</span>
+        <span class="record-result-duration" id="recordResultTime">00:00</span>
+      </div>
+
+      <div class="record-result-actions">
+        <button class="result-icon-btn play" data-record-action="play">▶</button>
+        <button class="result-icon-btn download" data-record-action="download">⬇</button>
+        <button class="result-icon-btn to-music" data-record-action="to-music">🎵</button>
+        <button class="result-icon-btn delete" data-record-action="delete">✖</button>
+      </div>
+    </div>
+
+    <!-- ALT PANEL -->
+    <div class="record-bottom-shell">
+
+      <!-- SOL BLOK -->
+      <div class="record-main-left">
+
+        <h3 class="record-main-title">Ses Kaydetmeye Başlayın</h3>
+
+        <p class="record-main-text">
+          Butona tıklayarak kayıt modunu aç. İlk kullanımda tarayıcı mikrofon izni isteyebilir;
+          “İzin ver” demeyi unutma.
+        </p>
+
+        <!-- SAYAÇ + NEON -->
+        <div class="record-timer-wrap">
+          <div class="record-timer" id="recordTimer">00:00</div>
+
+          <div class="record-neon-pulse">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+        <p class="record-hint">
+          Kayıt tamamlandığında sesi indirip AIVO Müzik Üret ekranında
+          referans olarak kullanabilirsin.
+        </p>
+
+      </div>
+
+      <!-- SAĞ BLOK -->
+      <div class="record-main-right">
+
+        <h4 class="record-upload-title">MP3 Dosyası Yükle</h4>
+
+        <p class="record-upload-text">
+          Mikrofondan kayıt almak yerine daha önce kaydettiğin bir MP3 dosyasını da kullanabilirsin.
+        </p>
+
+        <div class="upload-box">
+          <strong>Ses dosyası seç veya sürükleyip bırak</strong>
+          <p class="record-upload-hint">Maksimum 10 MB</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+            <!-- ****** VOKALE GÖRE ****** -->
+            <div class="music-view" data-music-view="vokale-gore">
+              <div class="panel-header">
+                <h1 class="panel-title">Vokale Göre (Yakında)</h1>
+                <p class="panel-subtitle">
+                  Vokal analizine göre otomatik enstrümantasyon ve miks ayarları burada
+                  tasarlanacak.
+                </p>
+              </div>
+
+              <div class="card">
+                <p>
+                  Bu bölüm MVP sonrasında eklenecek. Şimdilik Geleneksel ve Ses Kaydı sekmelerini
+                  kullanabilirsin.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ========== SAĞ PANEL ========== -->
+          <aside class="right-panel">
+            <div class="card right-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Son Üretilen Müzikler</div>
+                  <div class="card-subtitle">Ürettiklerin burada listelenecek.</div>
+                </div>
+              </div>
+              <div class="empty-state">
+                <div class="empty-icon">🎶</div>
+                <div class="empty-title">Henüz müzik üretmedin.</div>
+                <div class="empty-text">
+                  Soldaki formu doldurup “Müzik Üret” butonuna basarak başla.
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <!-- ========== KAPAK / GÖRÜNTÜ SAYFASI ========== -->
+      <div class="page page-cover" data-page="cover">
+        <div class="layout">
+          <!-- Sol panel -->
+          <aside class="sidebar">
+            <div class="sidebar-section">
+              <div class="sidebar-title">Paneller</div>
+              <button class="sidebar-link" data-page-link="music">
+                <span>Müzik Üret</span>
+              </button>
+              <button class="sidebar-link is-active" data-page-link="cover">
+                <span>Kapak Üret</span>
+              </button>
+              <button class="sidebar-link" data-page-link="music">
+                <span>Ürettiklerim</span>
+              </button>
+              <button class="sidebar-link" data-page-link="music">
+                <span>AIVO Studio</span>
+              </button>
+              <button class="sidebar-link" data-open-pricing>
+                <span>Kredi / Faturalarım</span>
+              </button>
+              <button class="sidebar-link" data-page-link="music">
+                <span>Ayarlar</span>
+              </button>
+              <button class="sidebar-link sidebar-link-danger" data-page-link="music">
+                <span>Çıkış Yap</span>
+              </button>
+            </div>
+
+            <div class="sidebar-section hint-card">
+              <div class="sidebar-title">İpucu</div>
+              <p class="hint-text">
+                Suno ve Eita gibi; kapak stilini, renklerini ve oranını seç,
+                gerisini AIVO halletsin.
+              </p>
+            </div>
+          </aside>
+
+          <!-- Kapak ana alan -->
+          <section class="cover-main">
+            <div class="panel-header">
+              <h1 class="panel-title">Kapak / Görsel Üret</h1>
+              <p class="panel-subtitle">
+                Spotify, Apple Music ve YouTube için kapaklarını AI ile tasarla.
+              </p>
+            </div>
+
+            <div class="cover-grid">
+              <!-- Sol: yeni görüntü -->
+              <div class="card cover-left">
+                <div class="card-header">
+                  <div>
+                    <div class="card-title">Yeni Görüntü</div>
+                    <div class="card-subtitle">
+                      Kapak açıklamasını ve stilini seç, gerisini AIVO’ya bırak.
+                    </div>
+                  </div>
+                  <span class="badge-beta">BETA</span>
+                </div>
+
+                <div class="form-grid cover-form-grid">
+                  <div class="form-field full">
+                    <label for="coverPrompt">Görüntü Açıklaması</label>
+                    <textarea
+                      id="coverPrompt"
+                      rows="3"
+                      maxlength="700"
+                      placeholder="Oluşturmak istediğin görüntüyü detaylı anlat...
+Örn: Gece vakti neon ışıklar altında mor ve mavi tonlarda, enerjik Türkçe pop vibe'lı bir sahne..."
+                    ></textarea>
+                  </div>
+
+                  <div class="form-field full">
+                    <label>Stil Seçenekleri</label>
+                    <div class="style-grid">
+                      <button class="style-pill is-active">Gerçekçi</button>
+                      <button class="style-pill">Sanatsal</button>
+                      <button class="style-pill">Çizgi Film</button>
+                      <button class="style-pill">Soyut</button>
+                      <button class="style-pill">Fotoğrafik</button>
+                      <button class="style-pill">Anime</button>
+                    </div>
+                  </div>
+
+                  <div class="form-field half">
+                    <label for="coverCount">Görüntü Sayısı</label>
+                    <select id="coverCount">
+                      <option>1 Görüntü</option>
+                      <option>2 Görüntü</option>
+                      <option>4 Görüntü</option>
+                    </select>
+                  </div>
+
+                  <div class="form-field half">
+                    <label for="coverRatio">En / Boy Oranı</label>
+                    <select id="coverRatio">
+                      <option>Kare (1:1)</option>
+                      <option>Dikey (9:16)</option>
+                      <option>Yatay (16:9)</option>
+                    </select>
+                  </div>
+
+                  <div class="form-field full advanced-box">
+                    <div class="advanced-header">
+                      <span>AIVO Kapak Motoru</span>
+                      <span class="advanced-credit">Gerekli Kredi: <strong>6</strong></span>
+                    </div>
+                    <p class="advanced-desc">
+                      6 kredi ile 1 kapak üretilir. Stili ve çözünürlüğü artırmak daha fazla kredi tüketebilir.
+                    </p>
+                  </div>
+
+                  <div class="form-field full">
+                    <label>Kapak Yazıları</label>
+                    <div class="cover-text-grid">
+                      <div class="form-field">
+                        <label for="coverTextTop">Üst Yazı</label>
+                        <input
+                          type="text"
+                          id="coverTextTop"
+                          placeholder="Örn: Harun Erkezen"
+                        />
+                      </div>
+                      <div class="form-field">
+                        <label for="coverTextBottom">Alt Yazı</label>
+                        <input
+                          type="text"
+                          id="coverTextBottom"
+                          placeholder="Örn: Kül Bahçesi"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-field full">
+                    <button class="primary-btn full-width" id="coverGenerateBtn">
+                      🖼️ Kapak Üret
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sağ: galeri -->
+              <div class="cover-right">
+                <div class="card cover-gallery-card">
+                  <div class="card-header">
+                    <div>
+                      <div class="card-title">Görsel Galeriniz</div>
+                      <div class="card-subtitle">
+                        Ürettiğin kapaklar burada listelenecek.
+                      </div>
+                    </div>
+                    <select class="gallery-filter">
+                      <option>Tümü</option>
+                      <option>Spotify</option>
+                      <option>YouTube</option>
+                      <option>Instagram</option>
+                    </select>
+                  </div>
+
+                  <div class="gallery-grid">
+                    <div class="gallery-card">
+                      <div class="gallery-thumb fake-thumb thumb-1"></div>
+                      <div class="gallery-info">
+                        <div class="gallery-title">Göl</div>
+                        <div class="gallery-meta">Spotify Kapak • 1:1</div>
+                      </div>
+                    </div>
+
+                    <div class="gallery-card">
+                      <div class="gallery-thumb fake-thumb thumb-2"></div>
+                      <div class="gallery-info">
+                        <div class="gallery-title"></div>
+                        <div class="gallery-meta">YouTube Cover • 16:9</div>
+                      </div>
+                    </div>
+
+                    <div class="gallery-card">
+                      <div class="gallery-thumb fake-thumb thumb-3"></div>
+                      <div class="gallery-info">
+                        <div class="gallery-title">Tepeleri</div>
+                        <div class="gallery-meta">Apple Music • 1:1</div>
+                      </div>
+                    </div>
+
+                    <div class="gallery-card">
+                      <div class="gallery-thumb fake-thumb thumb-4"></div>
+                      <div class="gallery-info">
+                        <div class="gallery-title">Fiesta – Karayip Renkleri</div>
+                        <div class="gallery-meta">Instagram • 4:5</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="gallery-footer">
+                    <div class="gallery-pagination">
+                      <button class="page-btn is-active">1</button>
+                      <button class="page-btn">2</button>
+                      <button class="page-btn">Sonraki</button>
+                    </div>
+                    <div class="gallery-count">15 toplam görüntü • Sayfa 1 / 2</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
         </div>
       </div>
     </main>
+  </div>
+
+  <!-- ========== KREDİ MODALI – AIVO PAKETLERİ ========== -->
+  <div class="pricing-modal" id="pricingModal">
+    <div class="pricing-backdrop"></div>
+
+    <div class="pricing-dialog">
+      <!-- Üst başlık alanı -->
+      <div class="pricing-header">
+        <div>
+          <h2>AIVO Paketleri (Önerilen)</h2>
+          <p>
+            AIVO’da müzik, kapak ve görsel üretmek için sana en uygun kredi paketini seç.
+          </p>
+        </div>
+        <button class="icon-button" id="closePricing" aria-label="Kapat">
+          ✕
+        </button>
+      </div>
+
+      <!-- Paket kartları -->
+      <div class="pricing-grid">
+        <!-- Başlangıç -->
+        <article class="pricing-card">
+          <span class="pricing-badge small">Başlangıç Paketi</span>
+          <h3>Yeni Kullanıcı</h3>
+          <div class="pricing-price">199₺</div>
+          <ul class="pricing-list">
+            <li>25 Kredi • ~25 Şarkı</li>
+            <li>Temel kalite müzik üretimi</li>
+            <li>Standart kapak üretimi</li>
+            <li>Kişisel projeler için ideal</li>
+          </ul>
+          <button class="primary-btn full-width">Satın Al</button>
+        </article>
+
+        <!-- Standart (En Popüler) -->
+        <article class="pricing-card is-popular">
+          <span class="pricing-badge">En Çok Tercih Edilen</span>
+          <h3>Standart Paket</h3>
+          <div class="pricing-price">399₺</div>
+          <ul class="pricing-list">
+            <li>60 Kredi • ~60 Şarkı</li>
+            <li>Daha hızlı üretim süresi</li>
+            <li>Kapak + müzik kombinasyonu</li>
+            <li>Yayın platformlarına hazır çıktı</li>
+          </ul>
+          <button class="primary-btn full-width">Satın Al</button>
+        </article>
+
+        <!-- Pro -->
+        <article class="pricing-card">
+          <span class="pricing-badge small">Pro Paket</span>
+          <h3>Yaratıcı Üretici</h3>
+          <div class="pricing-price">899₺</div>
+          <ul class="pricing-list">
+            <li>150 Kredi • ~150 Şarkı</li>
+            <li>Öncelikli destek</li>
+            <li>Ticari kullanım hakkı</li>
+            <li>Gelişmiş mix & kapak özellikleri</li>
+          </ul>
+          <button class="primary-btn full-width">Satın Al</button>
+        </article>
+
+        <!-- Mega -->
+        <article class="pricing-card">
+          <span class="pricing-badge small">Mega Paket</span>
+          <h3>Stüdyo / Ajans</h3>
+          <div class="pricing-price">2.999₺</div>
+          <ul class="pricing-list">
+            <li>500 Kredi • ~500 Şarkı</li>
+            <li>Takım / Ajans kullanımı</li>
+            <li>Toplu proje desteği</li>
+            <li>Özel hesap yöneticisi (yakında)</li>
+          </ul>
+          <button class="primary-btn full-width">Satın Al</button>
+        </article>
+      </div>
+
+      <!-- 3 Bilgi Kutusu (Kredi devri, güvenli ödeme, aktivasyon) -->
+      <div class="pricing-benefits">
+        <div class="benefit-card">
+          <div class="benefit-title">Kredi Devredilir</div>
+          <div class="benefit-text">
+            Kullanmadığın krediler bir sonraki aya devredilir, boşa gitmez.
+          </div>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-title">Güvenli Ödeme</div>
+          <div class="benefit-text">
+            Ödemeler SSL ile şifrelenir; Stripe / iyzico entegrasyonu ile güvenle tahsil edilir.
+          </div>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-title">Anında Aktivasyon</div>
+          <div class="benefit-text">
+            Ödeme onaylandığında kredilerin birkaç saniye içinde hesabına yüklenir.
+          </div>
+        </div>
+      </div>
+
+      <!-- SSS Bölümü -->
+      <section class="faq-section">
+        <h3 class="faq-title">Sık Sorulan Sorular</h3>
+        <div class="faq-grid">
+          <article class="faq-item">
+            <h4 class="faq-question">Krediler nasıl çalışır?</h4>
+            <p class="faq-answer">
+              Her müzik veya kapak üretimi belirli bir kredi tüketir. Örneğin 1 standart
+              müzik üretimi 1 kredi, kapak + müzik kombinasyonu ise paket ayarlarına göre
+              2 kredi tüketebilir.
+            </p>
+          </article>
+
+          <article class="faq-item">
+            <h4 class="faq-question">Hangi ödeme yöntemlerini kullanabilirim?</h4>
+            <p class="faq-answer">
+              Kredi kartı ve banka kartı ile ödeme desteklenecektir. Ödemeler Stripe / iyzico
+              altyapısı üzerinden güvenli şekilde işlenecektir.
+            </p>
+          </article>
+
+          <article class="faq-item">
+            <h4 class="faq-question">Kredilerimin süresi var mı?</h4>
+            <p class="faq-answer">
+              Krediler belirli bir son kullanma tarihi olmadan hesabında tutulur; dönemsel
+              kampanyalar hariç, kullanılmayan krediler silinmez.
+            </p>
+          </article>
+
+          <article class="faq-item">
+            <h4 class="faq-question">İade alabilir miyim?</h4>
+            <p class="faq-answer">
+              Henüz kullanılmamış krediler için, yasal şartlara uygun şekilde destek ekibimiz
+              üzerinden iade talebi oluşturabilirsin.
+            </p>
+          </article>
+        </div>
+      </section>
+    </div>
   </div>
 
   <script src="studio.js"></script>
