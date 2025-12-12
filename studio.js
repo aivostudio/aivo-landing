@@ -207,9 +207,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* =========================================
+   /* =========================================
      SES KAYDI – GÖRSEL KAYIT DURUMU
-     (Circle + Timer + Sonuç Kartı)
+     (Circle + Timer + Sonuç Kartı + MP3 Upload FIX)
      ========================================= */
   const sesView = document.querySelector('.music-view[data-music-view="ses-kaydi"]');
   if (sesView) {
@@ -240,9 +240,10 @@ document.addEventListener("DOMContentLoaded", () => {
       return `${min}:${sec}`;
     }
 
+    // DISPLAY yerine class ile görünürlük (sayfa zıplamasını azaltır)
     function setResultVisible(visible) {
       if (!resultCard) return;
-      resultCard.style.display = visible ? "flex" : "none";
+      resultCard.classList.toggle("is-visible", !!visible);
     }
 
     function startTimer() {
@@ -303,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
       applyUIRecordingState(!isRecording);
     }
 
-    // Başlangıç: sonuç kartı gizli kalsın
+    // Başlangıç: sonuç kartı gizli
     setResultVisible(false);
 
     if (circle) {
@@ -341,14 +342,84 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
+    // ===== MP3 UPLOAD – KESİN FIX (ID bağımsız) =====
+    (() => {
+      const right = sesView.querySelector(".record-main-right");
+      if (!right) return;
+
+      const box =
+        right.querySelector("#mp3UploadBox") ||
+        right.querySelector(".upload-box");
+
+      if (!box) return;
+
+      let input =
+        right.querySelector("#mp3Upload") ||
+        right.querySelector('input[type="file"][data-role="mp3-upload"]');
+
+      if (!input) {
+        input = document.createElement("input");
+        input.type = "file";
+        input.accept = ".mp3,.wav,.m4a";
+        input.style.display = "none";
+        input.setAttribute("data-role", "mp3-upload");
+        right.appendChild(input);
+      }
+
+      const textEl =
+        right.querySelector("#mp3UploadText") ||
+        box.querySelector("strong");
+
+      box.style.pointerEvents = "auto";
+      box.style.cursor = "pointer";
+
+      box.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        input.click();
+      });
+
+      input.addEventListener("change", () => {
+        const file = input.files && input.files[0];
+        if (textEl) {
+          textEl.textContent = file
+            ? `Seçildi: ${file.name}`
+            : "Ses dosyası seç veya sürükleyip bırak";
+        }
+      });
+
+      box.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        box.classList.add("is-dragover");
+      });
+
+      box.addEventListener("dragleave", () => {
+        box.classList.remove("is-dragover");
+      });
+
+      box.addEventListener("drop", (e) => {
+        e.preventDefault();
+        box.classList.remove("is-dragover");
+
+        const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+        if (!file) return;
+
+        try {
+          const dt = new DataTransfer();
+          dt.items.add(file);
+          input.files = dt.files;
+        } catch {}
+
+        if (textEl) textEl.textContent = `Seçildi: ${file.name}`;
+      });
+    })();
+
     // Dışarıdan (sekme değişimi) resetlemek için controller
     recordController = {
       forceStopAndReset() {
         if (isRecording) {
-          // kayıt açıksa kapat
           applyUIRecordingState(false);
         } else {
-          // kayıt kapalıysa temiz bir reset
           document.body.classList.remove("is-recording");
           if (circle) circle.classList.remove("is-recording");
           if (mainCard) mainCard.classList.remove("is-recording");
@@ -366,8 +437,3 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     };
   }
-
-  // Not: Şu anda gerçek mikrofon / MediaRecorder yok.
-  // Sadece görsel kayıt simülasyonu yapıyoruz. Gerçek kayıt için
-  // ileride navigator.mediaDevices.getUserMedia + MediaRecorder eklenebilir.
-});
