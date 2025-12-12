@@ -915,111 +915,194 @@ input:focus, select:focus, textarea:focus{
   .music-view[data-music-view="ses-kaydi"] #recordResult.record-result-card{ top:500px; }
 }
 /* =========================================
-   SES KAYDI – MERKEZ SAHNEYİ GERİ GETİR (OVERRIDE)
-   Bunu studio.css EN ALTINA yapıştır
+   SES KAYDI – TEK TEMİZ RESET + DRAWER
+   (EN ALTINA YAPIŞTIR)
    ========================================= */
 
-/* 1) Ana kart: merkez hizalama + üst boşluk */
 .music-view[data-music-view="ses-kaydi"] .record-main-card{
-  position: relative !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: flex-start !important;
+  position:relative;
+  overflow:hidden;
 
-  padding-top: 60px !important;   /* yuvarlağa yer aç */
-  overflow: hidden !important;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+
+  padding:70px 60px 120px;  /* üst sahne + alt panel */
+  min-height:760px;
 }
 
-/* 2) Eğer HTML’de .record-center varsa: tam merkeze al */
+/* Merkez sahne: yuvarlak + buton */
 .music-view[data-music-view="ses-kaydi"] .record-center{
-  width: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  margin-top: 10px !important;
-  margin-bottom: 20px !important;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  z-index:5;
 }
 
-/* 3) Yuvarlak mikrofonu ZORLA görünür yap */
+/* Yuvarlak kesinlikle merkezde kalsın */
 .music-view[data-music-view="ses-kaydi"] .record-circle{
-  display: flex !important;
-  width: 260px !important;
-  height: 260px !important;
-  border-radius: 50% !important;
-  margin: 0 auto 16px !important;
-  position: relative !important;
-  z-index: 10 !important;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  margin:0 auto;
 
-  background: conic-gradient(from 0deg,#ff7675,#fd79a8,#ffeaa7,#55efc4,#74b9ff,#a29bfe,#ff7675) !important;
-  box-shadow: 0 0 40px rgba(255,255,255,0.14), 0 0 80px rgba(132,94,247,0.55) !important;
+  background:conic-gradient(from 0deg,#ff7675,#fd79a8,#ffeaa7,#55efc4,#74b9ff,#a29bfe,#ff7675);
+  box-shadow:0 0 40px rgba(255,255,255,0.14), 0 0 80px rgba(132,94,247,0.55);
 }
 
 /* İç disk */
 .music-view[data-music-view="ses-kaydi"] .record-circle::after{
-  content:"" !important;
-  position:absolute !important;
-  inset:26px !important;
-  border-radius:inherit !important;
+  content:"";
+  position:absolute;
+  inset:26px;
+  border-radius:inherit;
   background:
     radial-gradient(circle at 30% 30%, rgba(255,255,255,0.14), transparent 60%),
-    radial-gradient(circle at bottom, #3b206b, #05020c) !important;
+    radial-gradient(circle at bottom, #3b206b, #05020c);
+  z-index:0;
 }
 
-/* Mikrofon ikonunu öne al */
+/* KRİTİK: Mikrofon ikonu asla dışarı taşmasın */
 .music-view[data-music-view="ses-kaydi"] .record-icon{
-  position: relative !important;
-  z-index: 11 !important;
-  font-size: 54px !important;
+  position:relative !important;
+  top:auto !important;
+  left:auto !important;
+  right:auto !important;
+  bottom:auto !important;
+  transform:none !important;
+
+  z-index:2;
+  font-size:54px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-/* 4) Butonu yuvarlağın altına ORTALA */
+/* Buton */
 .music-view[data-music-view="ses-kaydi"] .ses-button-under-circle{
-  width: 100% !important;
-  display: flex !important;
-  justify-content: center !important;
-  margin: 8px 0 0 !important;
-  position: relative !important;
-  z-index: 12 !important;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  margin:0;
+  z-index:6;
 }
 
-.music-view[data-music-view="ses-kaydi"] .ses-button-under-circle .record-btn{
-  padding: 18px 46px !important;
-  border-radius: 999px !important;
-}
-
-/* 5) Alt panel (bilgilendirme kartı) yuvarlağın altına gelsin */
+/* ALT PANEL: kart görünümü + yazıları toparla */
 .music-view[data-music-view="ses-kaydi"] .record-bottom-shell{
-  width: 100% !important;
-  max-width: 1100px !important;
-  margin-top: 26px !important;     /* yuvarlağın altında düzgün dursun */
-  z-index: 2 !important;
+  width:100%;
+  max-width:1100px;
+  margin-top:140px;          /* drawer için yer açıyoruz => yazıların üstüne binmez */
+  position:relative;
+  z-index:2;
+
+  border-radius:26px;
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,0.04), transparent 65%),
+    rgba(5,7,30,0.96);
+  border:1px solid rgba(255,255,255,0.10);
+  box-shadow:0 18px 50px rgba(0,0,0,0.85);
+
+  padding:42px 46px 34px;
+  min-height:260px;
+
+  display:grid;
+  grid-template-columns:1.15fr 1fr;
+  gap:36px;
 }
 
-/* 6) 4 ikon çekmecesi: BUTONUN HEMEN ALTINA sabitle */
+/* Metinler kartın içinde “temiz” dursun */
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right{
+  position:relative;
+  z-index:3;
+}
+
+/* DRAWER: butonun altında, alt panelin üstünde – ama üstüne binmez */
 .music-view[data-music-view="ses-kaydi"] .record-result-layer{
-  position: absolute !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-
-  /* Butonun altı: yuvarlak(260) + aralıklar ≈ 340-420 */
-  top: 410px !important;
-
-  width: min(640px, 92%) !important;
-  z-index: 80 !important;
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  top:420px;                 /* yuvarlak + buton sonrası */
+  width:min(640px, 92%);
+  z-index:10;
 }
 
-/* Çekmece kartı: üstte dursun, alttaki kutunun “içinde” görünmesin */
+.music-view[data-music-view="ses-kaydi"] #recordResult{
+  display:none;
+}
+.music-view[data-music-view="ses-kaydi"] #recordResult.is-visible{
+  display:flex;
+}
+
+/* Drawer görünüm */
 .music-view[data-music-view="ses-kaydi"] #recordResult.record-result-card{
-  position: relative !important;
-  margin: 0 !important;
+  margin:0;
+  padding:16px 18px;
+  border-radius:18px;
+
+  background:
+    radial-gradient(circle at 20% 0%, rgba(166,107,255,0.22), transparent 55%),
+    radial-gradient(circle at 80% 0%, rgba(253,121,168,0.16), transparent 55%),
+    rgba(5,7,30,0.92);
+
+  border:1px solid rgba(255,255,255,0.10);
+  box-shadow:0 22px 70px rgba(0,0,0,0.65);
+
+  display:flex;
+  flex-direction:column;
+  gap:14px;
 }
 
-/* Mobilde top ayarı (yuvarlak daha yukarı kayar) */
+/* 4 ikon: lila uyumlu */
+.music-view[data-music-view="ses-kaydi"] .record-result-actions{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+}
+
+.music-view[data-music-view="ses-kaydi"] .result-icon-btn{
+  width:52px;
+  height:52px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.14);
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.14), transparent 55%),
+    linear-gradient(135deg, rgba(166,107,255,0.85), rgba(253,121,168,0.55));
+  color:#fff;
+  font-size:20px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 18px 55px rgba(0,0,0,0.60);
+  transition:transform .18s ease, filter .18s ease, box-shadow .18s ease;
+}
+.music-view[data-music-view="ses-kaydi"] .result-icon-btn:hover{
+  transform:translateY(-2px) scale(1.04);
+  filter:brightness(1.05);
+  box-shadow:0 22px 70px rgba(0,0,0,0.75);
+}
+
+/* Mobil düzen */
 @media (max-width: 860px){
+  .music-view[data-music-view="ses-kaydi"] .record-main-card{
+    padding:56px 18px 100px;
+  }
+  .music-view[data-music-view="ses-kaydi"] .record-bottom-shell{
+    grid-template-columns:1fr;
+    padding:26px 22px 22px;
+    margin-top:150px;
+  }
   .music-view[data-music-view="ses-kaydi"] .record-result-layer{
-    top: 380px !important;
+    top:400px;
   }
 }
-
