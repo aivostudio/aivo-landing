@@ -1305,3 +1305,83 @@ body.is-recording .record-neon-pulse{
 }
 /* JS (Basit/Gelişmiş) görünürlük helper */
 .hidden { display: none !important; }
+
+/* =========================================
+   VOKALE GÖRE – EITA BENZERİ EKRAN
+   ========================================= */
+.vocale-header{
+  text-align: center;
+  padding: 10px 0 6px;
+}
+
+.vocale-icon{
+  font-size: 26px;
+  opacity: 0.95;
+  margin-bottom: 6px;
+}
+
+.vocale-card{
+  max-width: 980px;
+  width: 100%;
+  align-self: center;
+  padding: 26px 26px 22px;
+}
+
+.vocale-card-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.vocale-upload{
+  padding: 0;
+}
+
+.vocale-upload-inner{
+  min-height: 180px;
+  border-radius: 14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap: 14px;
+  padding: 22px;
+}
+
+.vocale-upload-icon{
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(245,245,255,0.92);
+  font-weight: 800;
+}
+
+.vocale-upload-text{
+  text-align:center;
+}
+
+.vocale-upload-head{
+  font-size: 14px;
+  font-weight: 650;
+  color: rgba(245,245,255,0.95);
+  margin-bottom: 4px;
+}
+
+.vocale-upload-sub{
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.vocale-footnote{
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--text-soft);
+  line-height: 1.55;
+}
