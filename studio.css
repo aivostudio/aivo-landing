@@ -486,9 +486,9 @@ input:focus, select:focus, textarea:focus{
 /* Ana kart */
 .music-view[data-music-view="ses-kaydi"] .record-main-card{
   position:relative;
-  padding:80px 60px 120px;     /* alt dalga + absolute kart için boşluk */
+  padding:80px 60px 120px;
   min-height:760px;
-  overflow:hidden;             /* sayfa uzamasını keser */
+  overflow:hidden;
   background:
     radial-gradient(circle at top, rgba(120,82,255,0.35), transparent 70%),
     radial-gradient(circle at bottom right, rgba(0,184,148,0.22), transparent 70%),
@@ -533,11 +533,6 @@ input:focus, select:focus, textarea:focus{
   box-shadow:0 0 45px rgba(168,107,255,0.75), 0 0 110px rgba(253,121,168,0.65);
   animation:pulseRecording 1s ease-in-out infinite;
 }
-.music-view[data-music-view="ses-kaydi"] .record-circle.is-recording::after{
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 60%),
-    radial-gradient(circle at bottom, #532e91, #0a0514);
-}
 
 /* Buton */
 .ses-button-under-circle{
@@ -547,125 +542,52 @@ input:focus, select:focus, textarea:focus{
   justify-content:center;
   width:100%;
 }
-.ses-button-under-circle .record-btn{
-  padding:18px 46px;
-  font-size:17px;
-  border-radius:999px;
-  letter-spacing:0.01em;
-  background:linear-gradient(135deg,#6c5ce7,#fd79a8) !important;
-  box-shadow:0 14px 40px rgba(108,92,231,0.55) !important;
-  animation:recordBtnIdle 2.2s ease-in-out infinite;
-  transform-origin:center;
-}
-.ses-button-under-circle .record-btn:hover{
-  transform:translateY(-2px) scale(1.04);
-  box-shadow:0 18px 55px rgba(108,92,231,0.8) !important;
-}
-body.is-recording .ses-button-under-circle .record-btn{
-  background:linear-gradient(135deg,#a66bff,#ff9ff3) !important;
-  box-shadow:0 16px 45px rgba(166,107,255,0.75), 0 0 40px rgba(253,159,243,0.9) !important;
-  animation:recordBtnRecording 1s ease-in-out infinite;
-}
 
-/* Sonuç kartı: AKIŞ DIŞI (sayfayı uzatmaz) */
-#recordResult{ display:none; }
-#recordResult.is-visible{ display:flex; }
-
-.music-view[data-music-view="ses-kaydi"] #recordResult.record-result-card{
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  top:470px;
-  width:min(520px, 92%);
-  margin:0 !important;
-  padding:16px 20px;
-  border-radius:18px;
-  background:radial-gradient(circle at top left, rgba(108,92,231,0.18), transparent 60%), rgba(5,7,30,0.96);
-  border:1px solid rgba(255,255,255,0.06);
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-  z-index:30;
-}
-.record-result-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  font-size:13px;
-  color:#f5f5ff;
-}
-.record-result-title{ font-weight:600; }
-.record-result-duration{ font-size:12px; color:var(--text-soft); }
-.record-result-actions{ display:flex; align-items:center; gap:12px; }
-
-.result-icon-btn{
-  width:46px;
-  height:46px;
-  border-radius:50%;
-  border:none;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:20px;
-  color:#fff;
-  box-shadow:0 14px 40px rgba(0,0,0,0.7);
-  transition:transform 0.2s ease-out, box-shadow 0.2s ease-out, filter 0.2s ease-out;
-}
-.result-icon-btn.play{ background:linear-gradient(135deg,#4b7bec,#74b9ff); }
-.result-icon-btn.download{ background:linear-gradient(135deg,#6c5ce7,#a55eea); }
-.result-icon-btn.to-music{ background:linear-gradient(135deg,#fd79a8,#ffeaa7); }
-.result-icon-btn.delete{ background:linear-gradient(135deg,#ff7675,#fd79a8); }
-.result-icon-btn:hover{
-  transform:translateY(-2px) scale(1.05);
-  box-shadow:0 20px 55px rgba(0,0,0,0.9);
-  filter:brightness(1.05);
-}
-
-/* Alt panel */
-.music-view[data-music-view="ses-kaydi"] .record-bottom-shell{
-  width:100%;
-  max-width:1100px;
-  border-radius:26px;
-  background:radial-gradient(circle at top left, rgba(255,255,255,0.04), transparent 65%), rgba(5,7,30,0.96);
-  border:1px solid rgba(255,255,255,0.10);
-  box-shadow:0 18px 50px rgba(0,0,0,0.85);
-  padding:42px 46px 34px;
-  min-height:260px;
-  display:grid;
-  grid-template-columns:1.15fr 1fr;
-  gap:36px;
-  margin-top:42px;
-}
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.music-view[data-music-view="ses-kaydi"] .record-main-title{ margin:0 0 12px; font-size:22px; font-weight:700; }
-.music-view[data-music-view="ses-kaydi"] .record-upload-title{ margin:0 0 12px; font-size:17px; font-weight:700; }
-
-.music-view[data-music-view="ses-kaydi"] .record-main-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-text,
-.music-view[data-music-view="ses-kaydi"] .record-upload-hint,
-.music-view[data-music-view="ses-kaydi"] .record-hint{
-  margin:0 0 14px;
-  font-size:15px;
-  line-height:1.55;
-  color:var(--text-soft);
-}
-
-/* Sayaç + mini wave */
+/* Sayaç + mini wave + KALP ATIŞI */
 .record-wave-row{
   margin-top:12px;
   display:flex;
   align-items:center;
   gap:10px;
+  position:relative;
+  padding-bottom:14px;
 }
+
+.record-wave-row::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:180px;
+  height:10px;
+  background:
+    linear-gradient(90deg,
+      transparent 0%,
+      transparent 12%,
+      rgba(253,121,168,0.9) 14%,
+      transparent 16%,
+      transparent 28%,
+      rgba(253,121,168,0.9) 30%,
+      transparent 32%,
+      transparent 46%,
+      rgba(253,121,168,0.9) 48%,
+      transparent 50%,
+      transparent 100%);
+  background-size:200px 10px;
+  opacity:0.35;
+  border-radius:999px;
+  animation:ekgMove 1.2s linear infinite;
+}
+
+body.is-recording .record-wave-row::after{
+  opacity:0.9;
+  filter:drop-shadow(0 0 12px rgba(253,121,168,0.55));
+  animation:ekgMove 0.55s linear infinite, ekgBeat 0.9s ease-in-out infinite;
+}
+
 .record-timer{
   min-width:56px;
-  font-family:"SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family:"SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
   font-size:13px;
   padding:4px 10px;
   border-radius:999px;
@@ -674,6 +596,7 @@ body.is-recording .ses-button-under-circle .record-btn{
   text-align:center;
   color:#f5f5ff;
 }
+
 .record-mini-wave{
   display:flex;
   align-items:flex-end;
@@ -681,44 +604,26 @@ body.is-recording .ses-button-under-circle .record-btn{
   height:16px;
   opacity:0.45;
 }
+
 .record-mini-wave .mini-bar{
   width:3px;
   border-radius:999px;
   background:linear-gradient(180deg,#74b9ff,#a29bfe);
   transform-origin:bottom;
   animation:miniWave 0.7s ease-in-out infinite alternate;
-  animation-delay:calc(var(--i) * 0.05s);
 }
+
 body.is-recording .record-mini-wave{ opacity:1; }
 
-/* Büyük waveform */
-.record-wave{
-  position:absolute;
-  bottom:32px;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(520px,82%);
-  height:60px;
-  display:flex;
-  align-items:flex-end;
-  gap:4px;
-  pointer-events:none;
-  opacity:0;
-  z-index:1;
-}
-.wave-bar{
-  flex:1;
-  min-width:3px;
-  border-radius:999px;
-  background:linear-gradient(180deg,#74b9ff,#a29bfe);
-  opacity:0.9;
-  transform-origin:bottom center;
-  animation:wavePulse 0.7s ease-in-out infinite alternate;
-  animation-delay:calc(var(--i) * 0.05s);
-}
-body.is-recording #recordWave{ opacity:1; }
-
 /* ANİMASYONLAR */
+@keyframes ekgMove{
+  from{ background-position:0 0; }
+  to{ background-position:200px 0; }
+}
+@keyframes ekgBeat{
+  0%,100%{ transform:scaleY(1); }
+  50%{ transform:scaleY(1.4); }
+}
 @keyframes pulseIdle{
   0%{ transform:scale(1); }
   30%{ transform:scale(1.05); }
@@ -732,25 +637,11 @@ body.is-recording #recordWave{ opacity:1; }
   80%{ transform:scale(1.09); }
   100%{ transform:scale(1); }
 }
-@keyframes recordBtnIdle{
-  0%{ transform:translateY(0) scale(1); box-shadow:0 12px 32px rgba(253,121,168,0.45); }
-  50%{ transform:translateY(-1px) scale(1.03); box-shadow:0 18px 50px rgba(253,121,168,0.75); }
-  100%{ transform:translateY(0) scale(1); box-shadow:0 12px 32px rgba(253,121,168,0.45); }
-}
-@keyframes recordBtnRecording{
-  0%{ transform:translateY(0) scale(1); }
-  30%{ transform:translateY(-2px) scale(1.05); }
-  60%{ transform:translateY(-1px) scale(1.02); }
-  100%{ transform:translateY(0) scale(1); }
-}
-@keyframes wavePulse{
-  from{ transform:scaleY(0.2); }
-  to{ transform:scaleY(1); }
-}
 @keyframes miniWave{
   from{ transform:scaleY(0.3); }
   to{ transform:scaleY(1); }
 }
+
 
 /* =========================================
    KAPAK / GÖRSEL SAYFASI
