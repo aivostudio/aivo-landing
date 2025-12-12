@@ -1,1271 +1,437 @@
-/* ================================
-   AIVO STUDIO – STUDIO.CSS (FULL)
-   ================================ */
+/* =========================================================
+   AIVO STUDIO – FULL CLEAN CSS
+   ========================================================= */
 
-/* ---- GENEL RESET & DEĞİŞKENLER ---- */
-
+/* Reset */
 *,
 *::before,
 *::after { box-sizing: border-box; }
 
 :root{
-  --bg:#050816;
-  --bg-elevated:#070b1d;
-  --bg-card:#0d1024;
-  --bg-card-soft:#121632;
-  --accent:#6c5ce7;
-  --accent-soft:#8e8df5;
-  --accent-strong:#ff9f43;
-  --text:#f5f5ff;
-  --text-soft:#9aa4d7;
-  --border-subtle:rgba(255,255,255,0.06);
-  --radius-lg:18px;
-  --radius-xl:22px;
-  --shadow-soft:0 18px 45px rgba(0,0,0,0.65);
-  --transition-fast:0.2s ease-out;
-  --transition-med:0.3s ease-out;
+  --bg: #050816;
+  --bg-elevated: #070b1d;
+  --bg-card: #0d1024;
+  --bg-card-soft: #121632;
+
+  --text: #f5f5ff;
+  --text-soft: #9aa4d7;
+
+  --accent: #6c5ce7;
+  --accent2: #fd79a8;
+
+  --border: rgba(255,255,255,0.10);
+  --border-soft: rgba(255,255,255,0.06);
+
+  --radius-lg: 18px;
+  --radius-xl: 22px;
+
+  --shadow: 0 18px 45px rgba(0,0,0,0.65);
+  --shadow-strong: 0 22px 70px rgba(0,0,0,0.70);
+
+  --t: .22s ease;
 }
 
-html,body{
-  margin:0;
-  padding:0;
-  min-height:100vh;
-  background:radial-gradient(circle at top left,#222b4b 0,#050816 45%,#02030a 100%);
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif;
-  color:var(--text);
+html, body{
+  height: 100%;
+  margin: 0;
+  background: radial-gradient(circle at 20% 0%, rgba(108,92,231,0.26), transparent 55%),
+              radial-gradient(circle at 80% 10%, rgba(253,121,168,0.18), transparent 60%),
+              var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
 }
 
-.hidden{ display:none !important; }
-
-/* ---- APP SHELL ---- */
-.app-shell{
-  width:100%;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  background:
-    radial-gradient(circle at top right, rgba(108,92,231,0.18), transparent 45%),
-    radial-gradient(circle at bottom left, rgba(9,132,227,0.16), transparent 50%),
-    rgba(3,6,24,0.96);
-  box-shadow:0 0 0 1px rgba(255,255,255,0.03), var(--shadow-soft);
-  overflow:hidden;
-}
-
-/* ---- TOPBAR ---- */
+/* Topbar */
 .topbar{
+  position: sticky;
+  top: 0;
+  z-index: 50;
   display:flex;
   align-items:center;
-  padding:12px 24px;
-  border-bottom:1px solid rgba(255,255,255,0.05);
-  background:linear-gradient(90deg, rgba(23,32,78,0.96), rgba(10,16,52,0.96));
+  justify-content:space-between;
+  gap: 16px;
+  padding: 12px 18px;
+  background: rgba(8, 10, 30, 0.75);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
-.topbar-left{ display:flex; align-items:center; gap:16px; }
-.logo{ display:flex; align-items:center; gap:10px; }
-.logo-img{ height:26px; width:auto; }
-.logo-text{ font-weight:600; letter-spacing:0.04em; font-size:15px; }
-
-.topnav{
-  display:flex;
-  flex:1;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
+.brand{ display:flex; align-items:center; gap:10px; }
+.brand-mark{
+  width: 22px; height: 22px;
+  display:grid; place-items:center;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.12);
 }
+.brand-text{ font-weight: 700; letter-spacing: .2px; }
 
+.topnav{ display:flex; flex-wrap:wrap; gap: 8px; }
 .topnav-link{
-  position:relative;
-  padding:6px 11px;
-  font-size:13px;
-  color:var(--text-soft);
   text-decoration:none;
-  border-radius:999px;
-  transition:color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+  color: var(--text-soft);
+  padding: 8px 10px;
+  border-radius: 999px;
+  transition: background var(--t), color var(--t);
 }
-.topnav-link:hover{
-  color:var(--text);
-  background:rgba(255,255,255,0.06);
-  transform:translateY(-1px);
-}
-.topnav-link.is-active{
-  color:#fff;
-  background:linear-gradient(135deg,#6c5ce7,#a55eea);
+.topnav-link:hover{ background: rgba(255,255,255,0.06); color: var(--text); }
+.topnav-link.is-active{ background: rgba(108,92,231,0.22); color: var(--text); }
+
+.topbar-right{ display:flex; align-items:center; gap:10px; }
+
+.pill{
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.10);
+  color: var(--text);
 }
 
-.topbar-right{ display:flex; align-items:center; gap:8px; }
-
-.credits-pill{
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,0.12);
-  background:radial-gradient(circle at 20% 0, rgba(255,234,167,0.4), transparent 60%), rgba(9,10,40,0.9);
-  color:var(--text);
-  padding:6px 12px;
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  font-size:12px;
-  cursor:pointer;
-  transition:transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+.ghost-btn, .primary-btn{
+  border: none;
+  cursor: pointer;
+  border-radius: 999px;
+  padding: 9px 14px;
+  font-weight: 600;
 }
-.credits-pill:hover{
-  transform:translateY(-1px);
-  box-shadow:0 12px 30px rgba(0,0,0,0.5);
-  border-color:rgba(255,255,255,0.2);
+.ghost-btn{
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.10);
 }
-.credits-label{ opacity:.8; }
-.credits-value{ font-weight:600; font-size:13px; }
+.ghost-btn:hover{ background: rgba(255,255,255,0.10); }
 
-.top-btn{
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,0.18);
-  padding:6px 12px;
-  font-size:12px;
-  background:transparent;
-  color:var(--text);
-  cursor:pointer;
-  transition:background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+.primary-btn{
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  box-shadow: 0 14px 40px rgba(108,92,231,0.40);
 }
-.top-btn.ghost:hover{ background:rgba(255,255,255,0.08); transform:translateY(-1px); }
-.top-btn.primary{
-  background:linear-gradient(135deg,#6c5ce7,#fd79a8);
-  border-color:transparent;
-  font-weight:500;
+.primary-btn:hover{ filter: brightness(1.05); }
+.primary-btn.big{
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 18px;
 }
-.top-btn.primary:hover{ box-shadow:0 10px 30px rgba(253,121,168,0.5); transform:translateY(-1px); }
 
-/* ---- PAGE WRAPPER ---- */
-.main-pages{ position:relative; flex:1; }
-.page{ display:none; }
-.page.is-active{ display:block; }
-
-/* ---- LAYOUT GRID ---- */
+/* Layout */
 .layout{
   display:grid;
-  grid-template-columns:250px minmax(0, 1.7fr) 320px;
-  gap:14px;
-  padding:18px 20px 22px;
-  min-height:calc(100vh - 64px);
-}
-.page-cover .layout{ grid-template-columns:250px minmax(0, 1fr); }
-
-/* ---- LEFT SIDEBAR ---- */
-.sidebar{
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-  height:100%;
+  grid-template-columns: 280px 1fr 320px;
+  gap: 18px;
+  padding: 18px;
+  align-items: start;
 }
 
-.sidebar-section{
-  background:rgba(5,7,30,0.96);
-  border-radius:var(--radius-lg);
-  padding:22px 22px 18px;
-  border:1px solid var(--border-subtle);
-  box-shadow:0 14px 36px rgba(0,0,0,0.6);
-}
-
-.sidebar-title{
-  font-size:12px;
-  text-transform:uppercase;
-  letter-spacing:0.22em;
-  color:var(--text-soft);
-  margin-bottom:14px;
-  font-weight:600;
-}
-
-.sidebar-group{ margin-bottom:10px; }
-
-.sidebar-link-main{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:9px 4px;
-  font-size:15px;
-  font-weight:700;
-  color:var(--text-soft);
-  cursor:pointer;
-  border-radius:10px;
-  transition:color var(--transition-fast);
-  background:transparent;
-  border:none;
-  width:100%;
-}
-.sidebar-link-main.is-open{ color:#fff; }
-
-.sidebar-arrow{
-  font-size:10px;
-  opacity:0.8;
-  transition:transform 0.2s ease-out;
-}
-.sidebar-link-main.is-open .sidebar-arrow{ transform:rotate(180deg); }
-
-.sidebar-submenu{
-  margin-top:6px;
-  padding-left:6px;
-  display:none;
-  flex-direction:column;
-  gap:4px;
-}
-.sidebar-submenu.is-open{ display:flex; }
-
-.sidebar-sublink{
-  width:100%;
-  border:none;
-  outline:none;
-  border-radius:12px;
-  padding:9px 13px;
-  font-size:14px;
-  background:transparent;
-  color:var(--text-soft);
-  text-align:left;
-  cursor:pointer;
-  transition:background 0.2s ease-out, color 0.2s ease-out, transform 0.2s ease-out;
-}
-.sidebar-sublink:hover{
-  background:rgba(255,255,255,0.06);
-  color:var(--text);
-  transform:translateY(-1px);
-}
-.sidebar-sublink.is-active{
-  background:rgba(108,92,231,0.35);
-  color:#fff;
-  font-weight:600;
-}
-
-.sidebar-link{
-  width:100%;
-  border:none;
-  outline:none;
-  margin-bottom:6px;
-  border-radius:12px;
-  padding:10px 14px;
-  font-size:14px;
-  background:transparent;
-  color:var(--text-soft);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  cursor:pointer;
-  font-weight:500;
-  transition:background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
-}
-.sidebar-link:last-child{ margin-bottom:0; }
-.sidebar-link:hover{
-  background:rgba(255,255,255,0.06);
-  color:var(--text);
-  transform:translateY(-1px);
-}
-.sidebar-link.is-active{
-  background:radial-gradient(circle at 0 0, rgba(255,255,255,0.12), transparent 55%),
-    linear-gradient(135deg,#6c5ce7,#0984e3);
-  color:#fff;
-}
-.sidebar-link-danger{ color:#ff7675; }
-
-.preset-chip-row{ display:flex; flex-wrap:wrap; gap:6px; }
-.preset-chip{
-  padding:4px 9px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,0.1);
-  background:rgba(255,255,255,0.02);
-  font-size:11px;
-  color:var(--text-soft);
-  cursor:pointer;
-  transition:background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
-}
-.preset-chip:hover{
-  background:rgba(108,92,231,0.32);
-  color:#fff;
-  border-color:rgba(255,255,255,0.18);
-  transform:translateY(-1px);
-}
-
-.hint-card{
-  background:radial-gradient(circle at 0 0, rgba(108,92,231,0.35), transparent 65%), rgba(5,7,30,0.98);
-}
-.hint-text{ margin:0; font-size:12px; color:var(--text-soft); }
-.sidebar-section.hint-card{ flex:1; display:flex; flex-direction:column; justify-content:space-between; }
-
-/* ---- MAIN PANEL + COVER MAIN ---- */
-.main-panel, .cover-main{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  min-height:0;
-}
-.panel-header{ margin-bottom:4px; }
-.panel-title{ font-size:22px; margin:0 0 4px; }
-.panel-subtitle{ margin:0; font-size:13px; color:var(--text-soft); }
-
-/* ---- CARD ---- */
-.card{
-  background:
-    radial-gradient(circle at top left, rgba(108,92,231,0.22), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(9,132,227,0.15), transparent 60%),
-    var(--bg-card);
-  border-radius:var(--radius-xl);
-  padding:14px 16px;
-  border:1px solid var(--border-subtle);
-  box-shadow:0 16px 40px rgba(0,0,0,0.7);
-}
-.card-header{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
-.card-title{ font-size:15px; font-weight:600; }
-.card-subtitle{ font-size:12px; color:var(--text-soft); }
-
-/* ---- MODE TOGGLE ---- */
-.mode-toggle{
-  display:inline-flex;
-  padding:5px;
-  border-radius:999px;
-  background:rgba(7,9,40,0.9);
-  border:1px solid rgba(255,255,255,0.12);
-}
-.mode-btn{
-  border:none;
-  padding:9px 22px;
-  border-radius:999px;
-  font-size:13px;
-  color:var(--text-soft);
-  background:transparent;
-  cursor:pointer;
-  transition:background var(--transition-med), color var(--transition-med), box-shadow var(--transition-med), transform var(--transition-med);
-}
-.mode-btn.is-active{
-  background:linear-gradient(135deg,#6c5ce7,#a55eea);
-  color:#fff;
-  box-shadow:0 10px 28px rgba(108,92,231,0.6);
-  transform:translateY(-1px);
-}
-
-body[data-mode="basic"] .card{
-  background:
-    radial-gradient(circle at top left, rgba(99,205,218,0.18), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(72,219,251,0.12), transparent 60%),
-    var(--bg-card-soft);
-  transition:background 0.35s ease-out;
-}
-body[data-mode="advanced"] .card{
-  background:
-    radial-gradient(circle at top left, rgba(123,44,191,0.3), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(0,184,148,0.16), transparent 60%),
-    var(--bg-card);
-  transition:background 0.35s ease-out;
-}
-
-/* ---- FORMLAR ---- */
-.form-grid{
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0, 1fr));
-  gap:12px 18px;
-}
-.form-field{ display:flex; flex-direction:column; gap:6px; font-size:13px; }
-.form-field.full{ grid-column:1 / -1; }
-label{ font-size:12px; color:var(--text-soft); }
-
-input[type="text"], input[type="number"], select, textarea{
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.12);
-  background:rgba(5,6,26,0.95);
-  color:var(--text);
-  padding:9px 11px;
-  font-size:13px;
-  outline:none;
-  transition:border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
-  resize:vertical;
-}
-textarea{ min-height:70px; }
-input:focus, select:focus, textarea:focus{
-  border-color:rgba(108,92,231,0.9);
-  box-shadow:0 0 0 1px rgba(108,92,231,0.6);
-  transform:translateY(-1px);
-}
-
-.upload-box{
-  border:1px dashed rgba(255,255,255,0.25);
-  padding:18px;
-  border-radius:14px;
-  text-align:center;
-  background:rgba(10,12,40,0.45);
-  cursor:pointer;
-  transition:border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
-}
-.upload-box:hover{
-  border-color:rgba(255,255,255,0.45);
-  background:rgba(15,19,60,0.9);
-  box-shadow:0 14px 32px rgba(0,0,0,0.75);
-  transform:translateY(-1px);
-}
-
-/* BUTONLAR */
-.primary-btn{
-  border-radius:12px;
-  border:none;
-  padding:12px 16px;
-  font-size:14px;
-  font-weight:600;
-  background:linear-gradient(135deg,#6c5ce7,#fd79a8);
-  color:#fff;
-  cursor:pointer;
-  transition:transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
-}
-.primary-btn:hover{
-  transform:translateY(-1px);
-  box-shadow:0 16px 40px rgba(253,121,168,0.6);
-  filter:brightness(1.05);
-}
-.main-panel #musicGenerateBtn{ padding:18px 20px; font-size:17px; }
-.full-width{ width:100%; }
-
-/* ---- RIGHT PANEL ---- */
-.right-panel{ display:flex; flex-direction:column; height:100%; }
-.right-card{ flex:1; display:flex; flex-direction:column; }
-.empty-state{
-  border-radius:18px;
-  border:1px dashed rgba(255,255,255,0.2);
-  background:radial-gradient(circle at top, rgba(108,92,231,0.25), transparent 65%), rgba(7,9,34,0.95);
-  padding:28px 18px;
-  text-align:center;
-  margin-top:14px;
-}
-.empty-icon{ font-size:24px; margin-bottom:8px; }
-.empty-title{ font-size:14px; font-weight:600; margin-bottom:4px; }
-.empty-text{ font-size:12px; color:var(--text-soft); }
-
-/* =========================================
-   MÜZİK VIEWS
-   ========================================= */
-.music-view{ display:none; }
-.music-view.is-active{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  flex:1;
-}
-
-/* =========================================
-   SES KAYDI – FIX PACK (DRAWER + TOPARLAMA)
-   Bunu studio.css en altına yapıştır
-   ========================================= */
-
-/* record-main-card içinde yerleşim stabilize */
-.music-view[data-music-view="ses-kaydi"] .record-main-card{
-  position:relative;
-  overflow:hidden;
-}
-
-/* STOP butonunun altına drawer gelecek (HTML’de recordToggleBtn var) */
-.music-view[data-music-view="ses-kaydi"] #recordToggleBtn{
-  position:relative;
-  z-index:5;
-}
-
-/* Drawer katmanı: butonun hemen altına sabitlenir */
-.music-view[data-music-view="ses-kaydi"] .record-result-layer{
-  position:absolute;
-  left:50%;
-  top:360px;                 /* daire + buton altı. Gerekirse 340–390 oynat */
-  transform:translateX(-50%);
-  width:min(640px, 92%);
-  z-index:50;
-  pointer-events:none;       /* gizliyken tıklama almasın */
-}
-
-/* Kart: “far” gibi açılan çekmece */
-.music-view[data-music-view="ses-kaydi"] #recordResult.record-result-card{
-  pointer-events:auto;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-
-  margin:0;
-  padding:16px 18px;
-  border-radius:18px;
-
-  background:
-    radial-gradient(circle at 20% 0%, rgba(166,107,255,0.22), transparent 55%),
-    radial-gradient(circle at 80% 0%, rgba(253,121,168,0.16), transparent 55%),
-    rgba(5,7,30,0.92);
-
-  border:1px solid rgba(255,255,255,0.10);
-  box-shadow:0 22px 70px rgba(0,0,0,0.65);
-
-  /* Kapalı hali */
-  opacity:0;
-  transform:translateY(-14px) scale(0.98);
-  filter:blur(6px);
-  max-height:0;
-  overflow:hidden;
-
-  transition:
-    opacity .25s ease,
-    transform .25s ease,
-    filter .25s ease,
-    max-height .35s ease;
-}
-
-/* Görünür olduğunda “yukarı açılma” */
-.music-view[data-music-view="ses-kaydi"] #recordResult.is-visible{
-  opacity:1;
-  transform:translateY(0) scale(1);
-  filter:blur(0);
-  max-height:220px; /* içerik sığsın */
-}
-
-/* “Spor araba far” hissi: 2 ışık şeridi */
-.music-view[data-music-view="ses-kaydi"] #recordResult::before,
-.music-view[data-music-view="ses-kaydi"] #recordResult::after{
-  content:"";
-  position:absolute;
-  left:16px;
-  right:16px;
-  height:2px;
-  border-radius:999px;
-  opacity:0;
-  transform:translateY(10px);
-}
-
-.music-view[data-music-view="ses-kaydi"] #recordResult::before{
-  top:10px;
-  background:linear-gradient(90deg, transparent, rgba(166,107,255,0.85), transparent);
-}
-.music-view[data-music-view="ses-kaydi"] #recordResult::after{
-  top:16px;
-  background:linear-gradient(90deg, transparent, rgba(253,121,168,0.60), transparent);
-}
-
-/* Görününce ışıklar yukarı “açılıyor” */
-.music-view[data-music-view="ses-kaydi"] #recordResult.is-visible::before{
-  opacity:1;
-  transform:translateY(0);
-  animation:headlightSweep 0.6s ease-out both;
-}
-.music-view[data-music-view="ses-kaydi"] #recordResult.is-visible::after{
-  opacity:1;
-  transform:translateY(0);
-  animation:headlightSweep 0.8s ease-out both;
-}
-
-@keyframes headlightSweep{
-  0%{ transform:translateY(10px); filter:blur(6px); }
-  100%{ transform:translateY(0); filter:blur(0); }
-}
-
-/* Header hizalama */
-.music-view[data-music-view="ses-kaydi"] .record-result-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  font-size:13px;
-  color:#f5f5ff;
-}
-.music-view[data-music-view="ses-kaydi"] .record-result-duration{
-  color:var(--text-soft);
-  font-size:12px;
-}
-
-/* 4 ikon: lila uyumlu, net ve büyük */
-.music-view[data-music-view="ses-kaydi"] .record-result-actions{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
-}
-
-.music-view[data-music-view="ses-kaydi"] .result-icon-btn{
-  width:52px;
-  height:52px;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,0.14);
-  background:
-    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.14), transparent 55%),
-    linear-gradient(135deg, rgba(166,107,255,0.85), rgba(253,121,168,0.55));
-  color:#fff;
-  font-size:20px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 18px 55px rgba(0,0,0,0.60);
-  transition:transform .18s ease, filter .18s ease, box-shadow .18s ease;
-}
-
-.music-view[data-music-view="ses-kaydi"] .result-icon-btn:hover{
-  transform:translateY(-2px) scale(1.04);
-  filter:brightness(1.05);
-  box-shadow:0 22px 70px rgba(0,0,0,0.75);
-}
-
-/* =========================================
-   Bilgi yazıları “dağılmasın” diye
-   record-bottom-shell kartını zorla uygula
-   ========================================= */
-
-/* Bazı durumda selector tutmuyor diye genel güçlendirme */
-.record-bottom-shell{
-  width:100%;
-  max-width:1100px;
-  border-radius:26px;
-  background:
-    radial-gradient(circle at top left, rgba(255,255,255,0.04), transparent 65%),
-    rgba(5,7,30,0.96);
-  border:1px solid rgba(255,255,255,0.10);
-  box-shadow:0 18px 50px rgba(0,0,0,0.85);
-
-  padding:42px 46px 34px;
-  min-height:260px;
-
-  display:grid;
-  grid-template-columns:1.15fr 1fr;
-  gap:36px;
-
-  margin-top:34px;
-}
-
-/* Mobilde taşma olmasın */
-@media (max-width: 860px){
-  .record-bottom-shell{
-    grid-template-columns:1fr;
-    padding:26px 22px 22px;
-  }
-}
-
-
-
-/* =========================================
-   KAPAK / GÖRSEL SAYFASI
-   ========================================= */
-.cover-main{ gap:16px; }
-.cover-grid{
-  display:grid;
-  grid-template-columns:minmax(0,1.25fr) minmax(0,1.4fr);
-  gap:16px;
-}
-.cover-form-grid{
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0, 1fr));
-  gap:12px 18px;
-}
-.cover-left .card-header{ align-items:flex-start; }
-.badge-beta{
-  padding:4px 10px;
-  border-radius:999px;
-  font-size:11px;
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.14);
-}
-.style-grid{ display:flex; flex-wrap:wrap; gap:6px; }
-.style-pill{
-  padding:5px 10px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,0.16);
-  background:rgba(255,255,255,0.02);
-  font-size:11px;
-  color:var(--text-soft);
-  cursor:pointer;
-  transition:background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
-}
-.style-pill.is-active, .style-pill:hover{
-  background:rgba(108,92,231,0.45);
-  border-color:rgba(255,255,255,0.25);
-  color:#fff;
-  transform:translateY(-1px);
-}
-.advanced-box{
-  background:rgba(7,9,34,0.95);
-  border-radius:14px;
-  padding:10px 12px;
-  border:1px dashed rgba(255,255,255,0.16);
-}
-.advanced-header{ display:flex; align-items:center; justify-content:space-between; font-size:12px; }
-.advanced-credit{ font-size:11px; }
-.advanced-desc{ margin:6px 0 0; font-size:11px; color:var(--text-soft); }
-.cover-text-grid{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; }
-
-.cover-right{ display:flex; flex-direction:column; }
-.cover-gallery-card{ height:100%; display:flex; flex-direction:column; }
-.gallery-filter{
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,0.18);
-  padding:6px 10px;
-  background:rgba(0,0,0,0.35);
-  color:var(--text-soft);
-  font-size:12px;
-}
-.gallery-grid{
-  margin-top:14px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.gallery-card{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:8px 10px;
-  border-radius:14px;
-  background:rgba(5,7,30,0.9);
-  border:1px solid rgba(255,255,255,0.06);
-}
-.gallery-thumb{
-  width:52px;
-  height:52px;
-  border-radius:12px;
-  background:radial-gradient(circle at top left,#6c5ce7,#22a6b3);
-}
-.fake-thumb.thumb-1{ background-image:linear-gradient(135deg,#6c5ce7,#00cec9); }
-.fake-thumb.thumb-2{ background-image:linear-gradient(135deg,#ff7675,#fd79a8); }
-.fake-thumb.thumb-3{ background-image:linear-gradient(135deg,#00b894,#0984e3); }
-.fake-thumb.thumb-4{ background-image:linear-gradient(135deg,#ffeaa7,#fab1a0); }
-.gallery-info{ display:flex; flex-direction:column; gap:2px; }
-.gallery-title{ font-size:13px; font-weight:500; }
-.gallery-meta{ font-size:11px; color:var(--text-soft); }
-.gallery-footer{
-  margin-top:auto;
-  padding-top:12px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  font-size:11px;
-  color:var(--text-soft);
-}
-.gallery-pagination{ display:inline-flex; gap:6px; }
-.page-btn{
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,0.22);
-  background:rgba(0,0,0,0.4);
-  color:var(--text-soft);
-  padding:4px 9px;
-  font-size:11px;
-  cursor:pointer;
-  transition:background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
-}
-.page-btn.is-active{ background:linear-gradient(135deg,#6c5ce7,#a55eea); color:#fff; }
-.page-btn:hover{ transform:translateY(-1px); }
-
-/* =========================================
-   KREDİ MODALI
-   ========================================= */
-.pricing-modal{
-  position:fixed;
-  inset:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity 0.35s ease-out;
-  z-index:9999;
-}
-.pricing-modal.is-open{ opacity:1; pointer-events:auto; }
-.pricing-backdrop{
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle at top, rgba(108,92,231,0.55), transparent 65%), rgba(0,0,0,0.88);
-  backdrop-filter:blur(18px);
-}
-.pricing-dialog{
-  position:relative;
-  width:88%;
-  max-width:1450px;
-  max-height:90vh;
-  background:rgba(12,15,40,0.94);
-  border-radius:28px;
-  padding:40px 50px 32px;
-  box-shadow:0 32px 90px rgba(0,0,0,0.9);
-  border:1px solid rgba(255,255,255,0.06);
-  overflow-y:auto;
-  transform:translateY(20px);
-  transition:transform 0.35s ease-out;
-}
-.pricing-modal.is-open .pricing-dialog{ transform:translateY(0); }
-
-.pricing-header{
-  position:relative;
-  z-index:1;
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:16px;
-  margin-bottom:30px;
-}
-.pricing-header h2{ margin:0 0 4px; font-size:26px; color:#fff; }
-.pricing-header p{ margin:0; font-size:14px; color:#b9c2ff; }
-
-.icon-button{
-  background:rgba(255,255,255,0.08);
-  border:none;
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  font-size:18px;
-  color:#fff;
-  cursor:pointer;
-  transition:background 0.25s, transform 0.25s, box-shadow 0.25s;
-}
-.icon-button:hover{
-  background:rgba(255,255,255,0.16);
-  box-shadow:0 10px 24px rgba(0,0,0,0.7);
-  transform:translateY(-1px);
-}
-
-.pricing-grid{
-  position:relative;
-  z-index:1;
-  display:grid;
-  grid-template-columns:repeat(4, 1fr);
-  gap:32px;
-  margin-bottom:55px;
-}
-.pricing-card{
-  padding:42px 34px;
-  border-radius:26px;
-  background:rgba(16,20,48,0.72);
-  box-shadow:0 28px 85px rgba(0,0,0,0.55);
-  border:1px solid rgba(255,255,255,0.06);
-  transition:transform 0.25s ease-out, box-shadow 0.25s ease-out;
-  min-height:360px;
-  display:flex;
-  flex-direction:column;
-}
-.pricing-card:hover{ transform:translateY(-10px); box-shadow:0 36px 100px rgba(0,0,0,0.65); }
-.pricing-card.is-popular{
-  background:linear-gradient(to bottom right, rgba(255,136,210,0.25), rgba(80,120,255,0.18)), rgba(16,20,48,0.8);
-  border:1px solid rgba(255,136,210,0.45);
-}
-.pricing-badge{
-  align-self:flex-start;
-  padding:4px 12px;
-  border-radius:999px;
-  font-size:11px;
-  background:rgba(255,255,255,0.16);
-  color:#fff;
-  margin-bottom:10px;
-}
-.pricing-badge.small{ background:rgba(108,92,231,0.7); }
-.pricing-card h3{ font-size:21px; margin:0 0 14px; }
-.pricing-price{ font-size:28px; font-weight:700; margin:0 0 18px; }
-.pricing-list{
-  margin:0 0 20px;
-  padding:0;
-  list-style:none;
-  color:#d6dcff;
-}
-.pricing-list li{ font-size:15px; margin-bottom:8px; }
-.pricing-card .primary-btn{ margin-top:auto; height:48px; font-size:16px; }
-
-.pricing-benefits{
-  position:relative;
-  z-index:1;
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:16px;
-  margin-bottom:45px;
-}
-.benefit-card{
-  padding:14px 18px;
-  border-radius:14px;
-  background:rgba(18,22,52,0.72);
-  font-size:13px;
-  color:#d6dcff;
-  min-height:62px;
-  border:1px solid rgba(255,255,255,0.06);
-  transition:0.25s ease-out;
-}
-.benefit-card:hover{
-  transform:translateY(-3px);
-  background:rgba(18,22,52,0.9);
-  border-color:rgba(255,255,255,0.12);
-}
-
-.faq-title{ font-size:20px; margin:0 0 18px; color:#fff; }
-.faq-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; }
-.faq-item{
-  padding:18px 22px;
-  border-radius:16px;
-  background:rgba(16,18,42,0.72);
-  font-size:14px;
-  color:#e2e6ff;
-  border:1px solid rgba(255,255,255,0.05);
-  transition:0.25s ease-out;
-}
-.faq-item:hover{
-  transform:translateY(-4px);
-  background:rgba(16,18,42,0.92);
-  border-color:rgba(255,255,255,0.14);
-}
-.faq-question{ font-size:15px; font-weight:600; margin:0 0 6px; color:#fff; }
-.faq-answer{ font-size:14px; margin:0; color:#c6c9e9; }
-
-/* RESPONSIVE */
-@media (max-width:1200px){
-  .layout{ grid-template-columns:230px minmax(0, 1.6fr); }
+@media (max-width: 1180px){
+  .layout{ grid-template-columns: 280px 1fr; }
   .right-panel{ display:none; }
-  .pricing-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); }
 }
-@media (max-width:992px){
-  .layout{ grid-template-columns:minmax(0,1fr); }
-  .sidebar{ display:none; }
-  .topnav{ display:none; }
-  .page-cover .layout{ grid-template-columns:minmax(0,1fr); }
-  .pricing-grid{ grid-template-columns:minmax(0,1fr); }
+@media (max-width: 880px){
+  .layout{ grid-template-columns: 1fr; }
+  .leftbar{ display:none; }
 }
-@media (max-width:768px){
-  .cover-grid{ grid-template-columns:minmax(0,1fr); }
-  .music-view[data-music-view="ses-kaydi"] #recordResult.record-result-card{ top:500px; }
+
+/* Cards */
+.card{
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255,255,255,0.06), transparent 55%),
+    rgba(10, 12, 36, 0.75);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow);
 }
-/* =========================================
-   SES KAYDI – TEK TEMİZ RESET + DRAWER
-   (EN ALTINA YAPIŞTIR)
-   ========================================= */
+
+.muted{ color: var(--text-soft); line-height: 1.55; }
+
+/* Left */
+.leftbar{ display:flex; flex-direction:column; gap: 14px; }
+.side-card{ padding: 14px; }
+
+.side-title{
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(245,245,255,0.70);
+  margin-bottom: 10px;
+}
+
+.side-group{ display:flex; flex-direction:column; gap: 8px; margin-top: 8px; }
+.side-group-title{ font-weight: 800; margin-top: 4px; }
+
+.side-link{
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--text);
+  cursor: pointer;
+  transition: background var(--t), transform var(--t);
+}
+.side-link:hover{ background: rgba(255,255,255,0.06); transform: translateY(-1px); }
+.side-link.is-active{ background: rgba(108,92,231,0.22); }
+.side-link.danger{ color: #ffb4b4; }
+
+.chips{ display:flex; flex-wrap:wrap; gap: 8px; }
+.chip{
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.05);
+  color: var(--text-soft);
+  font-size: 12px;
+}
+
+/* Main */
+.main-panel{ display:flex; flex-direction:column; gap: 16px; }
+.panel-header{ margin-bottom: 10px; }
+.panel-title{ margin: 0; font-size: 26px; }
+.panel-subtitle{ margin: 6px 0 0; color: var(--text-soft); }
+
+.music-view{ display:none; }
+.music-view.is-active{ display:block; }
+
+/* Form */
+.form-card{ padding: 16px; }
+.row{ display:flex; gap: 12px; margin-bottom: 12px; }
+.row.two > .field{ flex:1; }
+.field{ width: 100%; }
+
+.label{ display:block; font-size: 12px; color: rgba(245,245,255,0.80); margin-bottom: 6px; }
+.input, .textarea, .select{
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(5,7,30,0.55);
+  color: var(--text);
+  padding: 12px 12px;
+  outline: none;
+}
+.textarea{ resize: vertical; }
+
+/* Right panel – sabit (uzamasın) */
+.right-panel{ align-self: start; }
+.right-card{ padding: 14px; height: auto; min-height: 0; }
+.right-title{ font-weight: 800; font-size: 16px; }
+.right-subtitle{ color: var(--text-soft); font-size: 12px; margin-top: 4px; }
+
+.empty-box{
+  margin-top: 12px;
+  border: 1px dashed rgba(255,255,255,0.18);
+  border-radius: 18px;
+  padding: 18px;
+  text-align: center;
+  background: rgba(0,0,0,0.12);
+}
+.empty-emoji{ font-size: 22px; opacity: .9; }
+.empty-title{ margin-top: 8px; font-weight: 800; }
+.empty-text{ margin-top: 6px; color: var(--text-soft); font-size: 12px; line-height: 1.5; }
+
+/* =========================================================
+   SES KAYDI – STABLE UI
+   ========================================================= */
 
 .music-view[data-music-view="ses-kaydi"] .record-main-card{
-  position:relative;
-  overflow:hidden;
+  position: relative;
+  overflow: hidden;
+  padding: 58px 54px 80px;
+  background:
+    radial-gradient(circle at top, rgba(120,82,255,0.35), transparent 70%),
+    radial-gradient(circle at bottom right, rgba(0,184,148,0.18), transparent 70%),
+    rgba(10, 12, 36, 0.75);
+}
 
+.record-center{
+  width: 100%;
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:flex-start;
-
-  padding:70px 60px 120px;  /* üst sahne + alt panel */
-  min-height:760px;
+  gap: 14px;
+  z-index: 5;
+  position: relative;
 }
 
-/* Merkez sahne: yuvarlak + buton */
-.music-view[data-music-view="ses-kaydi"] .record-center{
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:14px;
-  z-index:5;
-}
-
-/* Yuvarlak kesinlikle merkezde kalsın */
-.music-view[data-music-view="ses-kaydi"] .record-circle{
-  width:260px;
-  height:260px;
-  border-radius:50%;
+.record-circle{
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
   display:flex;
   align-items:center;
   justify-content:center;
-  position:relative;
-  margin:0 auto;
-
-  background:conic-gradient(from 0deg,#ff7675,#fd79a8,#ffeaa7,#55efc4,#74b9ff,#a29bfe,#ff7675);
-  box-shadow:0 0 40px rgba(255,255,255,0.14), 0 0 80px rgba(132,94,247,0.55);
+  position: relative;
+  background: conic-gradient(from 0deg,#ff7675,#fd79a8,#ffeaa7,#55efc4,#74b9ff,#a29bfe,#ff7675);
+  box-shadow: 0 0 40px rgba(255,255,255,0.14), 0 0 80px rgba(132,94,247,0.55);
 }
-
-/* İç disk */
-.music-view[data-music-view="ses-kaydi"] .record-circle::after{
+.record-circle::after{
   content:"";
   position:absolute;
-  inset:26px;
-  border-radius:inherit;
+  inset: 26px;
+  border-radius: inherit;
   background:
     radial-gradient(circle at 30% 30%, rgba(255,255,255,0.14), transparent 60%),
     radial-gradient(circle at bottom, #3b206b, #05020c);
-  z-index:0;
 }
 
-/* KRİTİK: Mikrofon ikonu asla dışarı taşmasın */
-.music-view[data-music-view="ses-kaydi"] .record-icon{
-  position:relative !important;
-  top:auto !important;
-  left:auto !important;
-  right:auto !important;
-  bottom:auto !important;
-  transform:none !important;
-
-  z-index:2;
-  font-size:54px;
-  line-height:1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.record-icon{
+  position: relative;
+  z-index: 2;
+  font-size: 52px;
+  transform: none;
 }
 
-/* Buton */
-.music-view[data-music-view="ses-kaydi"] .ses-button-under-circle{
-  width:100%;
-  display:flex;
-  justify-content:center;
-  margin:0;
-  z-index:6;
+.ses-button-under-circle{ width:100%; display:flex; justify-content:center; }
+.record-btn{ padding: 14px 26px; }
+
+/* Drawer */
+.record-result-layer{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 390px;
+  width: min(640px, 92%);
+  z-index: 10;
+  pointer-events: none;
 }
 
-/* ALT PANEL: kart görünümü + yazıları toparla */
-.music-view[data-music-view="ses-kaydi"] .record-bottom-shell{
-  width:100%;
-  max-width:1100px;
-  margin-top:140px;          /* drawer için yer açıyoruz => yazıların üstüne binmez */
-  position:relative;
-  z-index:2;
-
-  border-radius:26px;
-  background:
-    radial-gradient(circle at top left, rgba(255,255,255,0.04), transparent 65%),
-    rgba(5,7,30,0.96);
-  border:1px solid rgba(255,255,255,0.10);
-  box-shadow:0 18px 50px rgba(0,0,0,0.85);
-
-  padding:42px 46px 34px;
-  min-height:260px;
-
-  display:grid;
-  grid-template-columns:1.15fr 1fr;
-  gap:36px;
+#recordResult{
+  display: flex; /* JS kontrol ediyorsa display none yapabilir; burada stabil dursun */
+  flex-direction: column;
+  gap: 14px;
+  pointer-events: auto;
 }
 
-/* Metinler kartın içinde “temiz” dursun */
-.music-view[data-music-view="ses-kaydi"] .record-main-left,
-.music-view[data-music-view="ses-kaydi"] .record-main-right{
-  position:relative;
-  z-index:3;
-}
-
-/* DRAWER: butonun altında, alt panelin üstünde – ama üstüne binmez */
-.music-view[data-music-view="ses-kaydi"] .record-result-layer{
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  top:420px;                 /* yuvarlak + buton sonrası */
-  width:min(640px, 92%);
-  z-index:10;
-}
-
-.music-view[data-music-view="ses-kaydi"] #recordResult{
-  display:none;
-}
-.music-view[data-music-view="ses-kaydi"] #recordResult.is-visible{
-  display:flex;
-}
-
-/* Drawer görünüm */
-.music-view[data-music-view="ses-kaydi"] #recordResult.record-result-card{
-  margin:0;
-  padding:16px 18px;
-  border-radius:18px;
-
+.record-result-card{
+  padding: 14px 16px;
+  border-radius: 18px;
   background:
     radial-gradient(circle at 20% 0%, rgba(166,107,255,0.22), transparent 55%),
-    radial-gradient(circle at 80% 0%, rgba(253,121,168,0.16), transparent 55%),
-    rgba(5,7,30,0.92);
-
-  border:1px solid rgba(255,255,255,0.10);
-  box-shadow:0 22px 70px rgba(0,0,0,0.65);
-
-  display:flex;
-  flex-direction:column;
-  gap:14px;
+    radial-gradient(circle at 80% 0%, rgba(253,121,168,0.14), transparent 55%),
+    rgba(5,7,30,0.78);
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: var(--shadow-strong);
 }
 
-/* 4 ikon: lila uyumlu */
-.music-view[data-music-view="ses-kaydi"] .record-result-actions{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-}
-
-.music-view[data-music-view="ses-kaydi"] .result-icon-btn{
-  width:52px;
-  height:52px;
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,0.14);
-  background:
-    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.14), transparent 55%),
-    linear-gradient(135deg, rgba(166,107,255,0.85), rgba(253,121,168,0.55));
-  color:#fff;
-  font-size:20px;
-  cursor:pointer;
+.record-result-header{
   display:flex;
   align-items:center;
-  justify-content:center;
-  box-shadow:0 18px 55px rgba(0,0,0,0.60);
-  transition:transform .18s ease, filter .18s ease, box-shadow .18s ease;
+  justify-content:space-between;
+  font-size: 13px;
 }
-.music-view[data-music-view="ses-kaydi"] .result-icon-btn:hover{
-  transform:translateY(-2px) scale(1.04);
-  filter:brightness(1.05);
-  box-shadow:0 22px 70px rgba(0,0,0,0.75);
-}
+.record-result-title{ font-weight: 800; }
+.record-result-duration{ color: var(--text-soft); font-size: 12px; }
 
-/* Mobil düzen */
-@media (max-width: 860px){
-  .music-view[data-music-view="ses-kaydi"] .record-main-card{
-    padding:56px 18px 100px;
-  }
-  .music-view[data-music-view="ses-kaydi"] .record-bottom-shell{
-    grid-template-columns:1fr;
-    padding:26px 22px 22px;
-    margin-top:150px;
-  }
-  .music-view[data-music-view="ses-kaydi"] .record-result-layer{
-    top:400px;
-  }
-}
-/* =========================================
-   SES KAYDI – İKON BUTONLARI (CAM + GLOW)
-   ========================================= */
-
-.music-view[data-music-view="ses-kaydi"] .result-icon-btn{
-  width:52px;
-  height:52px;
-  border-radius:50%;              /* TAM YUVARLAK */
-  border:none;                    /* ÇERÇEVEYİ KALDIR */
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 60%),
-    rgba(255,255,255,0.08);       /* CAM HİSSİ */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  color:#fff;
-  font-size:20px;
-
+.record-result-actions{
   display:flex;
-  align-items:center;
   justify-content:center;
-
-  box-shadow:
-    0 0 0 rgba(0,0,0,0);           /* NORMALDE GÖLGE YOK */
-
-  transition:
-    transform .18s ease,
-    box-shadow .18s ease,
-    background .18s ease;
+  gap: 12px;
+  margin-top: 6px;
 }
 
-/* Hover = sadece IŞIK */
-.music-view[data-music-view="ses-kaydi"] .result-icon-btn:hover{
-  transform:translateY(-2px) scale(1.08);
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 60%),
-    rgba(166,107,255,0.22);
-
-  box-shadow:
-    0 0 0 6px rgba(166,107,255,0.18),
-    0 0 24px rgba(166,107,255,0.55);
-}
-
-/* Aktif (basılı) */
-.music-view[data-music-view="ses-kaydi"] .result-icon-btn:active{
-  transform:scale(0.96);
-}
-/* =========================================
-   SES KAYDI – İKON BUTONLARI (CAM + GLOW)
-   ========================================= */
-
-.music-view[data-music-view="ses-kaydi"] .result-icon-btn{
-  width:52px;
-  height:52px;
-  border-radius:50%;
-  border:none;
+/* Cam ikonlar */
+.music-view[data-music-view="ses-kaydi"] #recordResult .result-icon-btn{
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
   background:
     radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 60%),
     rgba(255,255,255,0.08);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-
-  color:#fff;
-  font-size:20px;
-
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
   display:flex;
   align-items:center;
   justify-content:center;
-
-  box-shadow:none;
-
-  transition:
-    transform .18s ease,
-    box-shadow .18s ease,
-    background .18s ease;
+  transition: transform var(--t), box-shadow var(--t), background var(--t);
 }
-
-.music-view[data-music-view="ses-kaydi"] .result-icon-btn:hover{
-  transform:translateY(-2px) scale(1.08);
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 60%),
-    rgba(166,107,255,0.22);
-
-  box-shadow:
-    0 0 0 6px rgba(166,107,255,0.18),
-    0 0 24px rgba(166,107,255,0.55);
-}
-
-.music-view[data-music-view="ses-kaydi"] .result-icon-btn:active{
-  transform:scale(0.96);
-}
-/* =========================================
-   SES KAYDI – SON DÜZELTME (İKON + YÜKSEKLİK)
-   Bunu studio.css EN ALTINA yapıştır
-   ========================================= */
-
-/* 1) Sayfanın gereksiz uzamasını azalt */
-.music-view[data-music-view="ses-kaydi"] .record-main-card{
-  min-height: 0 !important;                 /* 760px gibi zorlamayı iptal et */
-  padding-bottom: 80px !important;          /* 120px çok boşluk bırakıyordu */
-}
-
-/* Drawer için açtığımız boşluğu küçült (sayfa uzamasının ana kaynağı buydu) */
-.music-view[data-music-view="ses-kaydi"] .record-bottom-shell{
-  margin-top: 110px !important;             /* 140px -> 110px */
-}
-
-/* Drawer’ı biraz yukarı al ki boşluk gerekməsin */
-.music-view[data-music-view="ses-kaydi"] .record-result-layer{
-  top: 400px !important;                    /* 420px -> 400px */
-}
-
-/* 2) İkonlar: cam + glow kesin uygula (spesifik + !important) */
-.music-view[data-music-view="ses-kaydi"] #recordResult .result-icon-btn{
-  width: 52px !important;
-  height: 52px !important;
-
-  border-radius: 50% !important;
-  border: none !important;
-
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 60%),
-    rgba(255,255,255,0.08) !important;
-
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
-
-  box-shadow: none !important;
-  color: #fff !important;
-  font-size: 20px !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  transition: transform .18s ease, box-shadow .18s ease, background .18s ease !important;
-}
-
 .music-view[data-music-view="ses-kaydi"] #recordResult .result-icon-btn:hover{
-  transform: translateY(-2px) scale(1.08) !important;
-
+  transform: translateY(-2px) scale(1.08);
   background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 60%),
-    rgba(166,107,255,0.22) !important;
-
-  box-shadow:
-    0 0 0 6px rgba(166,107,255,0.18),
-    0 0 24px rgba(166,107,255,0.55) !important;
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.30), transparent 60%),
+    rgba(166,107,255,0.18);
+  box-shadow: 0 0 0 6px rgba(166,107,255,0.14), 0 0 24px rgba(166,107,255,0.45);
 }
 
-.music-view[data-music-view="ses-kaydi"] #recordResult .result-icon-btn:active{
-  transform: scale(0.96) !important;
-}
-/* SES KAYDI – üst kutu kaldırıldıktan sonra boşlukları toparla */
-.music-view[data-music-view="ses-kaydi"] .panel-header{
-  margin-bottom: 10px !important;
+/* Alt panel */
+.record-bottom-shell{
+  width: 100%;
+  max-width: 980px;
+  margin: 170px auto 0; /* drawer için yer */
+  border-radius: 26px;
+  background: rgba(5,7,30,0.50);
+  border: 1px solid rgba(255,255,255,0.10);
+  padding: 28px 28px 22px;
+  display:grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 26px;
 }
 
-.music-view[data-music-view="ses-kaydi"] .record-main-card{
-  margin-top: 10px !important;
-  padding-top: 50px !important;
+.record-main-title{ margin:0 0 10px; font-size: 20px; }
+.record-upload-title{ margin:0 0 10px; font-size: 16px; }
+
+.record-main-text,
+.record-upload-text,
+.record-upload-hint,
+.record-hint{
+  margin: 0 0 12px;
+  color: var(--text-soft);
+  line-height: 1.55;
+  font-size: 14px;
 }
 
+.record-wave-row{ display:flex; align-items:center; gap: 10px; margin-top: 10px; }
+
+.record-timer{
+  min-width: 62px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 13px;
+  background: rgba(5,7,30,0.55);
+  border: 1px solid rgba(255,255,255,0.12);
+  text-align:center;
+}
+
+.record-mini-wave{ display:flex; align-items:flex-end; gap: 3px; height: 16px; opacity: .65; }
+.mini-bar{
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg,#74b9ff,#a29bfe);
+  transform-origin: bottom;
+  animation: miniWave .7s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * 0.06s);
+}
+
+@keyframes miniWave{
+  from{ transform: scaleY(0.25); }
+  to{ transform: scaleY(1); }
+}
+
+/* Upload */
+.upload-dropzone{
+  display:flex;
+  align-items:center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  border: 1px dashed rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.10);
+  cursor: pointer;
+}
+.upload-icon{ opacity: .85; }
+.upload-text strong{ display:block; }
+.upload-text span{ display:block; margin-top: 2px; color: var(--text-soft); font-size: 12px; }
+.upload-input{ display:none; }
+
+@media (max-width: 900px){
+  .record-main-card{ padding: 44px 16px 70px; }
+  .record-result-layer{ top: 380px; }
+  .record-bottom-shell{
+    grid-template-columns: 1fr;
+    margin-top: 180px;
+    padding: 22px 18px 18px;
+  }
+}
