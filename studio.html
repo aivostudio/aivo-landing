@@ -373,48 +373,47 @@
       </div>
 
       <!-- ****** VOKALE GÖRE ****** -->
-      <div class="music-view" data-music-view="vokale-gore">
-        <div class="panel-header vocale-header">
-          <div class="vocale-icon">🎵</div>
-          <h1 class="panel-title">Vokale Göre Müzik Üret</h1>
-          <p class="panel-subtitle">
-            Vokal kaydınıza uygun enstrümantal müzik oluşturun.
-          </p>
-        </div>
+<div class="music-view" data-music-view="vokale-gore">
 
-        <div class="card vocale-card">
-          <div class="vocale-card-title">Ses Dosyası Yükle</div>
+  <!-- HERO -->
+  <div class="panel-header vokal-hero">
+    <div class="vokal-hero-icon">🎵</div>
+    <h1 class="panel-title">Vokale Göre Müzik Üret</h1>
+    <p class="panel-subtitle">
+      Vokal kaydınıza uygun enstrümantal müzik oluşturun.
+    </p>
 
-          <div
-            class="upload-box vocale-upload"
-            onclick="document.getElementById('vocaleAudio').click()"
-          >
-            <input
-              type="file"
-              id="vocaleAudio"
-              accept=".mp3,.wav,.m4a"
-              style="display:none"
-            />
+    <!-- Başlık altı efekt -->
+    <div class="vokal-glow-line" aria-hidden="true"></div>
+  </div>
 
-            <div class="vocale-upload-inner">
-              <div class="vocale-upload-icon">⬆</div>
-              <div class="vocale-upload-text">
-                <div class="vocale-upload-head">Ses dosyası yüklemek için tıklayın</div>
-                <div class="vocale-upload-sub">
-                  MP3, WAV veya M4A (Maksimum 10MB)
-                </div>
-              </div>
-            </div>
-          </div>
+  <!-- UPLOAD CARD -->
+  <div class="card vokal-upload-card">
+    <div class="vokal-upload-title">Ses Dosyası Yükle</div>
 
-          <div class="vocale-footnote">
-            Not: Şimdilik yükleme arayüzü. Bir sonraki adımda “vokal analizi + enstrümantal üretim”
-            akışını ekleyeceğiz.
-          </div>
+    <div class="upload-box vokal-upload-box">
+      <div class="vokal-upload-center">
+        <div class="vokal-upload-badge" aria-hidden="true">⬆</div>
+
+        <div class="vokal-upload-texts">
+          <div class="vokal-upload-main">Ses dosyası yüklemek için tıklayın</div>
+          <div class="vokal-upload-sub">MP3, WAV veya M4A (Maksimum 10MB)</div>
         </div>
       </div>
+    </div>
 
-    </section>
+    <p class="vokal-note">
+      Not: Şimdilik yükleme arayüzü. Bir sonraki adımda “vokal analizi + enstrümantal üretim” akışını ekleyeceğiz.
+    </p>
+
+    <!-- AIVO watermark -->
+    <div class="vokal-watermark" aria-hidden="true">
+      <img src="aivo-logo1.png" alt="" />
+    </div>
+  </div>
+
+</div>
+
 
     <!-- ========== SAĞ PANEL ========== -->
     <aside class="right-panel">
