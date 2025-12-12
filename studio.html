@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="studio.css" />
 </head>
+
 <body data-mode="advanced">
   <div class="app-shell">
     <!-- ================= TOPBAR ================= -->
@@ -57,7 +58,7 @@
                   class="sidebar-link-main is-open"
                   data-submenu-toggle="music"
                 >
-                  <span>🎵 Müzik Üret</span>
+                  <span>🎵 Müzik & Video</span>
                   <span class="sidebar-arrow">▾</span>
                 </button>
 
@@ -67,21 +68,23 @@
                     class="sidebar-sublink is-active"
                     data-music-tab="geleneksel"
                   >
-                    Geleneksel
+                    🎼 Geleneksel
                   </button>
+
                   <button
                     type="button"
                     class="sidebar-sublink"
                     data-music-tab="ses-kaydi"
                   >
-                    Ses Kaydı
+                    🎙️ Ses Kaydı
                   </button>
+
                   <button
                     type="button"
                     class="sidebar-sublink"
-                    data-music-tab="vokale-gore"
+                    data-music-tab="ai-video"
                   >
-                    Vokale Göre
+                    🎬 AI Video Üretimi
                   </button>
                 </div>
               </div>
@@ -120,20 +123,20 @@
             <div class="sidebar-section hint-card">
               <div class="sidebar-title">İpucu</div>
               <p class="hint-text">
-                Önce şarkının duygusunu ve temposunu seç. Presetlerden biriyle başla,
-                kalan ayarları AIVO senin için doldursun.
+                AIVO’da önce konsepti belirle. Müzik, kapak ve videoyu aynı “vibe” ile üretirsen
+                içeriklerin çok daha profesyonel görünür.
               </p>
             </div>
           </aside>
 
-          <!-- ========== ORTA PANEL (TÜM MÜZİK VIEW’LERİ) ========== -->
+          <!-- ========== ORTA PANEL (MÜZİK + VIDEO VIEW’LERİ) ========== -->
           <section class="main-panel">
             <!-- ****** GELENEKSEL ****** -->
             <div class="music-view is-active" data-music-view="geleneksel">
               <div class="panel-header">
                 <h1 class="panel-title">Müzik Üret</h1>
                 <p class="panel-subtitle">
-                  Ritim, vokal, mood ve makam seç – AIVO şarkıyı senin için oluştursun.
+                  Ritim, vokal, mood ve tür seç – AIVO şarkıyı senin için oluştursun.
                 </p>
               </div>
 
@@ -155,7 +158,7 @@
                 </div>
               </div>
 
-              <!-- ŞARKI FORMU (YENİ SIRALAMA) -->
+              <!-- ŞARKI FORMU -->
               <div class="card">
                 <div class="form-grid">
                   <!-- Şarkı Adı -->
@@ -203,10 +206,7 @@
                   <div class="form-field full">
                     <label>Referans Ses Yükle (opsiyonel)</label>
 
-                    <div
-                      class="upload-box"
-                      onclick="document.getElementById('refAudio').click()"
-                    >
+                    <div class="upload-box" onclick="document.getElementById('refAudio').click()">
                       <input
                         type="file"
                         id="refAudio"
@@ -215,54 +215,37 @@
                       />
                       <div>
                         <strong>Ses dosyası seç veya sürükleyip bırak</strong><br />
-                        <span style="font-size:12px;color:#9aa4d7;"
-                          >MP3, WAV, M4A — maksimum 10MB</span
-                        >
+                        <span style="font-size:12px;color:#9aa4d7;">MP3, WAV, M4A — maksimum 10MB</span>
                       </div>
                     </div>
                   </div>
 
-                 <!-- Mood & Vokal Tipi -->
-<div class="form-field half" data-visible-in="advanced">
-  <label for="mood">Ruh Hali (Mood)</label>
-  <select id="mood">
-    <option value="">Ruh halini seç</option>
-    <option>Enerjik</option>
-    <option>Hüzünlü</option>
-    <option>Romantik</option>
-    <option>Sakin</option>
-    <option>Epik</option>
-  </select>
-</div>
+                  <!-- Mood & Vokal Tipi -->
+                  <div class="form-field half" data-visible-in="advanced">
+                    <label for="mood">Ruh Hali (Mood)</label>
+                    <select id="mood">
+                      <option value="">Ruh halini seç</option>
+                      <option>Enerjik</option>
+                      <option>Hüzünlü</option>
+                      <option>Romantik</option>
+                      <option>Sakin</option>
+                      <option>Epik</option>
+                    </select>
+                  </div>
 
-<div class="form-field half" data-visible-in="advanced">
-  <label for="vocalType">Vokal Tipi</label>
-  <select id="vocalType">
-    <option value="">Vokal tipini seç</option>
-    <option>Erkek Vokal (AI)</option>
-    <option>Kadın Vokal (AI)</option>
-    <option>Soft / Çocuk Vokal (AI)</option>
-    <option>Enstrümantal (Vokalsiz)</option>
-  </select>
-</div>
+                  <div class="form-field half" data-visible-in="advanced">
+                    <label for="vocalType">Vokal Tipi</label>
+                    <select id="vocalType">
+                      <option value="">Vokal tipini seç</option>
+                      <option>Erkek Vokal (AI)</option>
+                      <option>Kadın Vokal (AI)</option>
+                      <option>Soft / Çocuk Vokal (AI)</option>
+                      <option>Enstrümantal (Vokalsiz)</option>
+                    </select>
+                  </div>
 
-<!-- Genre -->
-<div class="form-field half" data-visible-in="advanced">
-  <label for="genre">Tür (Genre)</label>
-  <select id="genre">
-    <option value="">Tür seçin</option>
-    <option>Türkçe Pop</option>
-    <option>Anadolu Pop</option>
-    <option>Arabesk</option>
-    <option>Deep House</option>
-    <option>Lo-fi</option>
-    <option>Trap</option>
-  </select>
-</div>
-
-
-                  <!-- Genre -->
-                  <div class="form-field half">
+                  <!-- Genre (tek) -->
+                  <div class="form-field half" data-visible-in="advanced">
                     <label for="genre">Tür (Genre)</label>
                     <select id="genre">
                       <option value="">Tür seçin</option>
@@ -274,163 +257,301 @@
                       <option>Trap</option>
                     </select>
                   </div>
+
+                  <div class="form-field half" data-visible-in="advanced"></div>
                 </div>
               </div>
 
               <!-- ÜRET BUTONU -->
               <div class="card">
                 <div class="form-field full">
-                  <button
-                    class="primary-btn full-width"
-                    id="musicGenerateBtn"
-                    style="padding: 18px; font-size: 17px;"
-                  >
+                  <button class="primary-btn full-width" id="musicGenerateBtn" style="padding: 18px; font-size: 17px;">
                     🎵 Müzik Üret
                   </button>
                 </div>
               </div>
             </div>
 
-           <div class="music-view" data-music-view="ses-kaydi">
+            <!-- ****** SES KAYDI ****** -->
+            <div class="music-view" data-music-view="ses-kaydi">
 
-  <!-- ÜST BİLGİ -->
-  <div class="card record-intro-card">
-    <div class="record-intro-left">
-      <h3 class="record-intro-title">Ses Kaydı</h3>
-      <p class="record-intro-text">
-        Mikrofonundan ses kaydet ya da hazır ses dosyası yükle; AIVO müziğini buna göre şekillendirir.
-      </p>
-    </div>
-  </div>
+              <!-- ÜST BİLGİ (CSS’de kapalı; istersen açarız) -->
+              <div class="card record-intro-card">
+                <div class="record-intro-left">
+                  <h3 class="record-intro-title">Ses Kaydı</h3>
+                  <p class="record-intro-text">
+                    Mikrofonundan ses kaydet ya da hazır ses dosyası yükle; AIVO müziğini buna göre şekillendirir.
+                  </p>
+                </div>
+              </div>
 
-  <!-- ANA KART -->
-  <div class="card record-main-card">
+              <!-- ANA KART -->
+              <div class="card record-main-card">
 
-    <!-- ORTA – ÇEMBER -->
-    <div class="record-circle">
-      <span class="record-icon">🎙️</span>
-    </div>
+                <!-- ORTA – ÇEMBER -->
+                <div class="record-circle">
+                  <span class="record-icon">🎙️</span>
+                </div>
 
-    <!-- ÇEMBER ALTINDA BUTON -->
-    <div class="ses-button-under-circle">
-      <button class="primary-btn record-btn">⏺ Kaydı Başlat</button>
-    </div>
+                <!-- ÇEMBER ALTINDA BUTON -->
+                <div class="ses-button-under-circle">
+                  <button class="primary-btn record-btn">⏺ Kaydı Başlat</button>
+                </div>
 
-    <!-- ALT BÜYÜK WAVEFORM (SADECE GÖRSEL) -->
-    <div class="record-wave" id="recordWave">
-      <div class="wave-bar" style="--i:1"></div>
-      <div class="wave-bar" style="--i:2"></div>
-      <div class="wave-bar" style="--i:3"></div>
-      <div class="wave-bar" style="--i:4"></div>
-      <div class="wave-bar" style="--i:5"></div>
-      <div class="wave-bar" style="--i:6"></div>
-      <div class="wave-bar" style="--i:7"></div>
-      <div class="wave-bar" style="--i:8"></div>
-      <div class="wave-bar" style="--i:9"></div>
-      <div class="wave-bar" style="--i:10"></div>
-      <div class="wave-bar" style="--i:11"></div>
-      <div class="wave-bar" style="--i:12"></div>
-    </div>
+                <!-- ALT BÜYÜK WAVEFORM -->
+                <div class="record-wave" id="recordWave">
+                  <div class="wave-bar" style="--i:1"></div>
+                  <div class="wave-bar" style="--i:2"></div>
+                  <div class="wave-bar" style="--i:3"></div>
+                  <div class="wave-bar" style="--i:4"></div>
+                  <div class="wave-bar" style="--i:5"></div>
+                  <div class="wave-bar" style="--i:6"></div>
+                  <div class="wave-bar" style="--i:7"></div>
+                  <div class="wave-bar" style="--i:8"></div>
+                  <div class="wave-bar" style="--i:9"></div>
+                  <div class="wave-bar" style="--i:10"></div>
+                  <div class="wave-bar" style="--i:11"></div>
+                  <div class="wave-bar" style="--i:12"></div>
+                </div>
 
-    <!-- KAYIT SONUCU KARTI -->
-    <div class="record-result-card" id="recordResult" style="display:none;">
-      <div class="record-result-header">
-        <span class="record-result-title">Kayıt Tamamlandı</span>
-        <span class="record-result-duration" id="recordResultTime">00:00</span>
-      </div>
+                <!-- KAYIT SONUCU KARTI -->
+                <div class="record-result-card" id="recordResult" style="display:none;">
+                  <div class="record-result-header">
+                    <span class="record-result-title">Kayıt Tamamlandı</span>
+                    <span class="record-result-duration" id="recordResultTime">00:00</span>
+                  </div>
 
-      <div class="record-result-actions">
-        <button class="result-icon-btn play" data-record-action="play">▶</button>
-        <button class="result-icon-btn download" data-record-action="download">⬇</button>
-        <button class="result-icon-btn to-music" data-record-action="to-music">🎵</button>
-        <button class="result-icon-btn delete" data-record-action="delete">✖</button>
-      </div>
-    </div>
+                  <div class="record-result-actions">
+                    <button class="result-icon-btn play" data-record-action="play">▶</button>
+                    <button class="result-icon-btn download" data-record-action="download">⬇</button>
+                    <button class="result-icon-btn to-music" data-record-action="to-music">🎵</button>
+                    <button class="result-icon-btn delete" data-record-action="delete">✖</button>
+                  </div>
+                </div>
 
-    <!-- ALT PANEL -->
-    <div class="record-bottom-shell">
+                <!-- ALT PANEL -->
+                <div class="record-bottom-shell">
+                  <!-- SOL BLOK -->
+                  <div class="record-main-left">
+                    <h3 class="record-main-title">Ses Kaydetmeye Başlayın</h3>
 
-      <!-- SOL BLOK -->
-      <div class="record-main-left">
+                    <p class="record-main-text">
+                      Butona tıklayarak kayıt modunu aç. İlk kullanımda tarayıcı mikrofon izni isteyebilir;
+                      “İzin ver” demeyi unutma.
+                    </p>
 
-        <h3 class="record-main-title">Ses Kaydetmeye Başlayın</h3>
+                    <!-- SAYAÇ + NEON -->
+                    <div class="record-timer-wrap">
+                      <div class="record-timer" id="recordTimer">00:00</div>
 
-        <p class="record-main-text">
-          Butona tıklayarak kayıt modunu aç. İlk kullanımda tarayıcı mikrofon izni isteyebilir;
-          “İzin ver” demeyi unutma.
-        </p>
+                      <div class="record-neon-pulse">
+                        <span></span><span></span><span></span><span></span>
+                      </div>
+                    </div>
 
-        <!-- SAYAÇ + NEON -->
-        <div class="record-timer-wrap">
-          <div class="record-timer" id="recordTimer">00:00</div>
+                    <p class="record-hint">
+                      Kayıt tamamlandığında sesi indirip AIVO Müzik Üret ekranında
+                      referans olarak kullanabilirsin.
+                    </p>
+                  </div>
 
-          <div class="record-neon-pulse">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
+                  <!-- SAĞ BLOK -->
+                  <div class="record-main-right">
+                    <h4 class="record-upload-title">MP3 Dosyası Yükle</h4>
 
-        <p class="record-hint">
-          Kayıt tamamlandığında sesi indirip AIVO Müzik Üret ekranında
-          referans olarak kullanabilirsin.
-        </p>
+                    <p class="record-upload-text">
+                      Mikrofondan kayıt almak yerine daha önce kaydettiğin bir MP3 dosyasını da kullanabilirsin.
+                    </p>
 
-      </div>
+                    <input type="file" id="recordMp3Input" accept=".mp3,.wav,.m4a" style="display:none" />
+                    <label class="upload-box record-upload-box" for="recordMp3Input">
+                      <strong>Ses dosyası seç veya sürükleyip bırak</strong>
+                      <p class="record-upload-hint">MP3 / WAV / M4A • Maksimum 10 MB</p>
+                    </label>
+                  </div>
+                </div><!-- /record-bottom-shell -->
+              </div><!-- /record-main-card -->
+            </div><!-- /music-view ses-kaydi -->
 
-     <!-- SAĞ BLOK -->
-<div class="record-main-right">
-
-  <h4 class="record-upload-title">MP3 Dosyası Yükle</h4>
-
-  <p class="record-upload-text">
-    Mikrofondan kayıt almak yerine daha önce kaydettiğin bir MP3 dosyasını da kullanabilirsin.
-  </p>
-
-  <!-- MP3 UPLOAD (TIKLAYINCA DOSYA SEÇ AÇAR) -->
-  <input
-    type="file"
-    id="recordMp3Input"
-    accept=".mp3,.wav,.m4a"
-    style="display:none"
-  />
-
-  <label class="upload-box record-upload-box" for="recordMp3Input">
-    <strong>Ses dosyası seç veya sürükleyip bırak</strong>
-    <p class="record-upload-hint">MP3 / WAV / M4A • Maksimum 10 MB</p>
-  </label>
-
-</div>
-
-</div>
-</div>
-
-</div>
-
-
-            <!-- ****** VOKALE GÖRE ****** -->
-            <div class="music-view" data-music-view="vokale-gore">
+            <!-- ****** AI VIDEO ÜRETİMİ (YENİ) ****** -->
+            <div class="music-view" data-music-view="ai-video">
               <div class="panel-header">
-                <h1 class="panel-title">Vokale Göre (Yakında)</h1>
+                <h1 class="panel-title">AI Video Üretimi</h1>
                 <p class="panel-subtitle">
-                  Vokal analizine göre otomatik enstrümantasyon ve miks ayarları burada
-                  tasarlanacak.
+                  Yazıdan veya görselden video üret. AIVO vibe’ını koruyarak sahne sahne akış oluşturur.
                 </p>
               </div>
 
-              <div class="card">
-                <p>
-                  Bu bölüm MVP sonrasında eklenecek. Şimdilik Geleneksel ve Ses Kaydı sekmelerini
-                  kullanabilirsin.
-                </p>
+              <!-- Video mod seçimi -->
+              <div class="card video-mode-card">
+                <div class="video-mode-top">
+                  <div class="video-mode-tabs" role="tablist" aria-label="Video üretim modu">
+                    <button class="video-tab is-active" type="button" data-video-tab="text">
+                      ✍️ Yazı → Video
+                    </button>
+                    <button class="video-tab" type="button" data-video-tab="image">
+                      🖼️ Resim → Video
+                    </button>
+                  </div>
+
+                  <div class="video-credit-chip">
+                    <span class="video-credit-label">Tahmini Kredi</span>
+                    <strong class="video-credit-value" id="videoCreditValue">15</strong>
+                  </div>
+                </div>
+
+                <!-- TEXT -> VIDEO -->
+                <div class="video-pane is-active" data-video-pane="text">
+                  <div class="video-form">
+                    <div class="form-field full">
+                      <label for="videoPrompt">Video Açıklaması</label>
+                      <textarea
+                        id="videoPrompt"
+                        rows="5"
+                        maxlength="1000"
+                        placeholder="Video açıklaması (max 1000 karakter)...
+Örn: Pembe, mor ve mavi neon ışıklarla dolu modern bir şehir. Kamera yavaşça yürüyen bir karakteri takip ediyor. Hafif sis, sinematik bokeh, premium estetik..."
+                      ></textarea>
+                      <div class="char-counter"><span id="videoPromptCount">0</span>/1000</div>
+                    </div>
+
+                    <div class="video-options">
+                      <div class="video-opt">
+                        <span class="opt-dot"></span>
+                        <label for="videoDuration">Süre</label>
+                        <select id="videoDuration">
+                          <option value="8" selected>8 Saniye (15 kredi)</option>
+                          <option value="16">16 Saniye (28 kredi)</option>
+                          <option value="30">30 Saniye (49 kredi)</option>
+                        </select>
+                      </div>
+
+                      <div class="video-opt">
+                        <span class="opt-dot"></span>
+                        <label for="videoResolution">Çözünürlük</label>
+                        <select id="videoResolution">
+                          <option value="720" selected>720p HD</option>
+                          <option value="1080">1080p FHD</option>
+                        </select>
+                      </div>
+
+                      <div class="video-opt fullrow">
+                        <span class="opt-dot"></span>
+                        <label for="videoRatio">En / Boy Oranı</label>
+                        <select id="videoRatio">
+                          <option value="16:9" selected>Geniş (16:9)</option>
+                          <option value="9:16">Dikey (9:16)</option>
+                          <option value="1:1">Kare (1:1)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="video-audio-row">
+                      <div class="video-audio-left">
+                        <div class="audio-title">Ses Üretimi</div>
+                        <div class="audio-sub">Kapalıysa ~%33 daha az kredi harcar</div>
+                      </div>
+
+                      <button class="toggle-switch is-on" type="button" id="videoAudioToggle" aria-pressed="true">
+                        <span class="toggle-knob"></span>
+                      </button>
+                    </div>
+
+                    <button class="primary-btn full-width video-generate-btn" id="videoGenerateBtn">
+                      🎬 Video Oluştur (<span id="videoGenerateCredit">15</span> Kredi)
+                    </button>
+                  </div>
+                </div>
+
+                <!-- IMAGE -> VIDEO -->
+                <div class="video-pane" data-video-pane="image">
+                  <div class="video-form">
+                    <div class="form-field full">
+                      <label>Resim Yükle</label>
+
+                      <input type="file" id="videoImageInput" accept=".png,.jpg,.jpeg" style="display:none" />
+                      <label class="upload-box video-upload" for="videoImageInput" id="videoImageLabel">
+                        <div class="video-upload-inner">
+                          <div class="video-upload-icon">🖼️</div>
+                          <div>
+                            <strong>Resmi yüklemek için tıkla</strong>
+                            <div class="video-upload-sub">PNG, JPG, JPEG (max 8MB)</div>
+                          </div>
+                        </div>
+                      </label>
+
+                      <div class="video-file-meta" id="videoImageMeta" style="display:none;">
+                        <div class="meta-pill" id="videoImageName">dosya.png</div>
+                        <button class="meta-remove" type="button" id="videoImageRemove">Kaldır</button>
+                      </div>
+                    </div>
+
+                    <div class="form-field full">
+                      <label for="videoImagePrompt">Video Açıklaması (Resmin nasıl canlanacağını yaz)</label>
+                      <textarea
+                        id="videoImagePrompt"
+                        rows="4"
+                        maxlength="1000"
+                        placeholder="Örn: Kamera hafifçe zoom in. Neon ışıklar parlıyor. Karakterin saçları rüzgârda dalgalanıyor. Sinematik, premium, yumuşak ışık..."
+                      ></textarea>
+                      <div class="char-counter"><span id="videoImagePromptCount">0</span>/1000</div>
+                    </div>
+
+                    <div class="video-options">
+                      <div class="video-opt">
+                        <span class="opt-dot"></span>
+                        <label for="videoDuration2">Süre</label>
+                        <select id="videoDuration2">
+                          <option value="8" selected>8 Saniye (15 kredi)</option>
+                          <option value="16">16 Saniye (28 kredi)</option>
+                          <option value="30">30 Saniye (49 kredi)</option>
+                        </select>
+                      </div>
+
+                      <div class="video-opt">
+                        <span class="opt-dot"></span>
+                        <label for="videoResolution2">Çözünürlük</label>
+                        <select id="videoResolution2">
+                          <option value="720" selected>720p HD</option>
+                          <option value="1080">1080p FHD</option>
+                        </select>
+                      </div>
+
+                      <div class="video-opt fullrow">
+                        <span class="opt-dot"></span>
+                        <label for="videoRatio2">En / Boy Oranı</label>
+                        <select id="videoRatio2">
+                          <option value="16:9" selected>Geniş (16:9)</option>
+                          <option value="9:16">Dikey (9:16)</option>
+                          <option value="1:1">Kare (1:1)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="video-audio-row">
+                      <div class="video-audio-left">
+                        <div class="audio-title">Ses Üretimi</div>
+                        <div class="audio-sub">Kapalıysa ~%33 daha az kredi harcar</div>
+                      </div>
+
+                      <button class="toggle-switch is-on" type="button" id="videoAudioToggle2" aria-pressed="true">
+                        <span class="toggle-knob"></span>
+                      </button>
+                    </div>
+
+                    <button class="primary-btn full-width video-generate-btn" id="videoGenerateBtn2">
+                      🎬 Video Oluştur (<span id="videoGenerateCredit2">15</span> Kredi)
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
+            </div><!-- /music-view ai-video -->
           </section>
 
           <!-- ========== SAĞ PANEL ========== -->
           <aside class="right-panel">
-            <div class="card right-card">
+            <!-- MÜZİK / GENEL -->
+            <div class="card right-card" id="rightMusicCard">
               <div class="card-header">
                 <div>
                   <div class="card-title">Son Üretilen Müzikler</div>
@@ -445,6 +566,61 @@
                 </div>
               </div>
             </div>
+
+            <!-- VIDEO LIST -->
+            <div class="card right-card" id="rightVideoCard" style="display:none;">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Videolarım</div>
+                  <div class="card-subtitle">Oluşturduğun videolar burada listelenecek.</div>
+                </div>
+                <select class="gallery-filter" id="videoFilter">
+                  <option value="all">Tümü</option>
+                  <option value="done">Tamamlandı</option>
+                  <option value="processing">İşleniyor</option>
+                </select>
+              </div>
+
+              <div class="video-list" id="videoList">
+                <!-- Örnek kartlar (UI demo) -->
+                <article class="video-item" data-status="done">
+                  <div class="video-thumb">
+                    <span class="video-status done">✔ Tamamlandı</span>
+                    <div class="video-play">▶</div>
+                  </div>
+                  <div class="video-meta">
+                    <div class="video-title">Neon şehir yürüyüşü…</div>
+                    <div class="video-sub">1080p • 8sn • 16:9</div>
+                    <div class="video-actions">
+                      <button class="mini-btn">İndir</button>
+                      <button class="mini-btn danger">Sil</button>
+                      <button class="mini-btn ghost">Toplulukta Paylaş</button>
+                    </div>
+                  </div>
+                </article>
+
+                <article class="video-item" data-status="processing">
+                  <div class="video-thumb">
+                    <span class="video-status processing">⏳ İşleniyor</span>
+                    <div class="video-play">⏳</div>
+                  </div>
+                  <div class="video-meta">
+                    <div class="video-title">Resimden video: pastel bahçe…</div>
+                    <div class="video-sub">720p • 8sn • 9:16</div>
+                    <div class="video-actions">
+                      <button class="mini-btn ghost">Detay</button>
+                      <button class="mini-btn danger">İptal</button>
+                    </div>
+                  </div>
+                </article>
+              </div>
+
+              <div class="video-right-foot">
+                <div class="video-right-hint">
+                  Video üretimi tamamlanınca “İndir” aktif olur. Yakında: sıra önceliği ve toplu üretim.
+                </div>
+              </div>
+            </div>
           </aside>
         </div>
       </div>
@@ -456,34 +632,19 @@
           <aside class="sidebar">
             <div class="sidebar-section">
               <div class="sidebar-title">Paneller</div>
-              <button class="sidebar-link" data-page-link="music">
-                <span>Müzik Üret</span>
-              </button>
-              <button class="sidebar-link is-active" data-page-link="cover">
-                <span>Kapak Üret</span>
-              </button>
-              <button class="sidebar-link" data-page-link="music">
-                <span>Ürettiklerim</span>
-              </button>
-              <button class="sidebar-link" data-page-link="music">
-                <span>AIVO Studio</span>
-              </button>
-              <button class="sidebar-link" data-open-pricing>
-                <span>Kredi / Faturalarım</span>
-              </button>
-              <button class="sidebar-link" data-page-link="music">
-                <span>Ayarlar</span>
-              </button>
-              <button class="sidebar-link sidebar-link-danger" data-page-link="music">
-                <span>Çıkış Yap</span>
-              </button>
+              <button class="sidebar-link" data-page-link="music"><span>Müzik Üret</span></button>
+              <button class="sidebar-link is-active" data-page-link="cover"><span>Kapak Üret</span></button>
+              <button class="sidebar-link" data-page-link="music"><span>Ürettiklerim</span></button>
+              <button class="sidebar-link" data-page-link="music"><span>AIVO Studio</span></button>
+              <button class="sidebar-link" data-open-pricing><span>Kredi / Faturalarım</span></button>
+              <button class="sidebar-link" data-page-link="music"><span>Ayarlar</span></button>
+              <button class="sidebar-link sidebar-link-danger" data-page-link="music"><span>Çıkış Yap</span></button>
             </div>
 
             <div class="sidebar-section hint-card">
               <div class="sidebar-title">İpucu</div>
               <p class="hint-text">
-                Suno ve Eita gibi; kapak stilini, renklerini ve oranını seç,
-                gerisini AIVO halletsin.
+                Suno ve Eita gibi; kapak stilini, renklerini ve oranını seç, gerisini AIVO halletsin.
               </p>
             </div>
           </aside>
@@ -492,9 +653,7 @@
           <section class="cover-main">
             <div class="panel-header">
               <h1 class="panel-title">Kapak / Görsel Üret</h1>
-              <p class="panel-subtitle">
-                Spotify, Apple Music ve YouTube için kapaklarını AI ile tasarla.
-              </p>
+              <p class="panel-subtitle">Spotify, Apple Music ve YouTube için kapaklarını AI ile tasarla.</p>
             </div>
 
             <div class="cover-grid">
@@ -503,9 +662,7 @@
                 <div class="card-header">
                   <div>
                     <div class="card-title">Yeni Görüntü</div>
-                    <div class="card-subtitle">
-                      Kapak açıklamasını ve stilini seç, gerisini AIVO’ya bırak.
-                    </div>
+                    <div class="card-subtitle">Kapak açıklamasını ve stilini seç, gerisini AIVO’ya bırak.</div>
                   </div>
                   <span class="badge-beta">BETA</span>
                 </div>
@@ -525,12 +682,12 @@
                   <div class="form-field full">
                     <label>Stil Seçenekleri</label>
                     <div class="style-grid">
-                      <button class="style-pill is-active">Gerçekçi</button>
-                      <button class="style-pill">Sanatsal</button>
-                      <button class="style-pill">Çizgi Film</button>
-                      <button class="style-pill">Soyut</button>
-                      <button class="style-pill">Fotoğrafik</button>
-                      <button class="style-pill">Anime</button>
+                      <button class="style-pill is-active" type="button">Gerçekçi</button>
+                      <button class="style-pill" type="button">Sanatsal</button>
+                      <button class="style-pill" type="button">Çizgi Film</button>
+                      <button class="style-pill" type="button">Soyut</button>
+                      <button class="style-pill" type="button">Fotoğrafik</button>
+                      <button class="style-pill" type="button">Anime</button>
                     </div>
                   </div>
 
@@ -567,27 +724,17 @@
                     <div class="cover-text-grid">
                       <div class="form-field">
                         <label for="coverTextTop">Üst Yazı</label>
-                        <input
-                          type="text"
-                          id="coverTextTop"
-                          placeholder="Örn: Harun Erkezen"
-                        />
+                        <input type="text" id="coverTextTop" placeholder="Örn: Harun Erkezen" />
                       </div>
                       <div class="form-field">
                         <label for="coverTextBottom">Alt Yazı</label>
-                        <input
-                          type="text"
-                          id="coverTextBottom"
-                          placeholder="Örn: Kül Bahçesi"
-                        />
+                        <input type="text" id="coverTextBottom" placeholder="Örn: Kül Bahçesi" />
                       </div>
                     </div>
                   </div>
 
                   <div class="form-field full">
-                    <button class="primary-btn full-width" id="coverGenerateBtn">
-                      🖼️ Kapak Üret
-                    </button>
+                    <button class="primary-btn full-width" id="coverGenerateBtn">🖼️ Kapak Üret</button>
                   </div>
                 </div>
               </div>
@@ -598,9 +745,7 @@
                   <div class="card-header">
                     <div>
                       <div class="card-title">Görsel Galeriniz</div>
-                      <div class="card-subtitle">
-                        Ürettiğin kapaklar burada listelenecek.
-                      </div>
+                      <div class="card-subtitle">Ürettiğin kapaklar burada listelenecek.</div>
                     </div>
                     <select class="gallery-filter">
                       <option>Tümü</option>
@@ -646,9 +791,9 @@
 
                   <div class="gallery-footer">
                     <div class="gallery-pagination">
-                      <button class="page-btn is-active">1</button>
-                      <button class="page-btn">2</button>
-                      <button class="page-btn">Sonraki</button>
+                      <button class="page-btn is-active" type="button">1</button>
+                      <button class="page-btn" type="button">2</button>
+                      <button class="page-btn" type="button">Sonraki</button>
                     </div>
                     <div class="gallery-count">15 toplam görüntü • Sayfa 1 / 2</div>
                   </div>
@@ -666,85 +811,72 @@
     <div class="pricing-backdrop"></div>
 
     <div class="pricing-dialog">
-      <!-- Üst başlık alanı -->
       <div class="pricing-header">
         <div>
           <h2>AIVO Paketleri (Önerilen)</h2>
-          <p>
-            AIVO’da müzik, kapak ve görsel üretmek için sana en uygun kredi paketini seç.
-          </p>
+          <p>AIVO’da müzik, kapak ve video üretmek için sana en uygun kredi paketini seç.</p>
         </div>
-        <button class="icon-button" id="closePricing" aria-label="Kapat">
-          ✕
-        </button>
+        <button class="icon-button" id="closePricing" aria-label="Kapat">✕</button>
       </div>
 
-      <!-- Paket kartları -->
       <div class="pricing-grid">
-        <!-- Başlangıç -->
         <article class="pricing-card">
           <span class="pricing-badge small">Başlangıç Paketi</span>
           <h3>Yeni Kullanıcı</h3>
           <div class="pricing-price">199₺</div>
           <ul class="pricing-list">
-            <li>25 Kredi • ~25 Şarkı</li>
-            <li>Temel kalite müzik üretimi</li>
-            <li>Standart kapak üretimi</li>
+            <li>25 Kredi • ~25 Üretim</li>
+            <li>Temel kalite</li>
+            <li>Standart kapak</li>
             <li>Kişisel projeler için ideal</li>
           </ul>
-          <button class="primary-btn full-width">Satın Al</button>
+          <button class="primary-btn full-width" type="button">Satın Al</button>
         </article>
 
-        <!-- Standart (En Popüler) -->
         <article class="pricing-card is-popular">
           <span class="pricing-badge">En Çok Tercih Edilen</span>
           <h3>Standart Paket</h3>
           <div class="pricing-price">399₺</div>
           <ul class="pricing-list">
-            <li>60 Kredi • ~60 Şarkı</li>
-            <li>Daha hızlı üretim süresi</li>
-            <li>Kapak + müzik kombinasyonu</li>
+            <li>60 Kredi • ~60 Üretim</li>
+            <li>Daha hızlı üretim</li>
+            <li>Kapak + müzik kombosu</li>
             <li>Yayın platformlarına hazır çıktı</li>
           </ul>
-          <button class="primary-btn full-width">Satın Al</button>
+          <button class="primary-btn full-width" type="button">Satın Al</button>
         </article>
 
-        <!-- Pro -->
         <article class="pricing-card">
           <span class="pricing-badge small">Pro Paket</span>
           <h3>Yaratıcı Üretici</h3>
           <div class="pricing-price">899₺</div>
           <ul class="pricing-list">
-            <li>150 Kredi • ~150 Şarkı</li>
+            <li>150 Kredi • ~150 Üretim</li>
             <li>Öncelikli destek</li>
-            <li>Ticari kullanım hakkı</li>
-            <li>Gelişmiş mix & kapak özellikleri</li>
+            <li>Ticari kullanım</li>
+            <li>Gelişmiş kalite seçenekleri</li>
           </ul>
-          <button class="primary-btn full-width">Satın Al</button>
+          <button class="primary-btn full-width" type="button">Satın Al</button>
         </article>
 
-        <!-- Mega -->
         <article class="pricing-card">
           <span class="pricing-badge small">Mega Paket</span>
           <h3>Stüdyo / Ajans</h3>
           <div class="pricing-price">2.999₺</div>
           <ul class="pricing-list">
-            <li>500 Kredi • ~500 Şarkı</li>
+            <li>500 Kredi • ~500 Üretim</li>
             <li>Takım / Ajans kullanımı</li>
             <li>Toplu proje desteği</li>
             <li>Özel hesap yöneticisi (yakında)</li>
           </ul>
-          <button class="primary-btn full-width">Satın Al</button>
+          <button class="primary-btn full-width" type="button">Satın Al</button>
         </article>
       </div>
 
-      <!-- 3 Bilgi Kutusu (Kredi devri, güvenli ödeme, aktivasyon) -->
       <div class="pricing-benefits">
         <div class="benefit-card">
           <div class="benefit-title">Kredi Devredilir</div>
-          <div class="benefit-text">
-            Kullanmadığın krediler bir sonraki aya devredilir, boşa gitmez.
-          </div>
+          <div class="benefit-text">Kullanmadığın krediler bir sonraki aya devredilir, boşa gitmez.</div>
         </div>
         <div class="benefit-card">
           <div class="benefit-title">Güvenli Ödeme</div>
@@ -754,46 +886,40 @@
         </div>
         <div class="benefit-card">
           <div class="benefit-title">Anında Aktivasyon</div>
-          <div class="benefit-text">
-            Ödeme onaylandığında kredilerin birkaç saniye içinde hesabına yüklenir.
-          </div>
+          <div class="benefit-text">Ödeme onaylandığında kredilerin birkaç saniye içinde hesabına yüklenir.</div>
         </div>
       </div>
 
-      <!-- SSS Bölümü -->
       <section class="faq-section">
         <h3 class="faq-title">Sık Sorulan Sorular</h3>
         <div class="faq-grid">
           <article class="faq-item">
             <h4 class="faq-question">Krediler nasıl çalışır?</h4>
             <p class="faq-answer">
-              Her müzik veya kapak üretimi belirli bir kredi tüketir. Örneğin 1 standart
-              müzik üretimi 1 kredi, kapak + müzik kombinasyonu ise paket ayarlarına göre
-              2 kredi tüketebilir.
+              Her üretim belirli bir kredi tüketir. Süre/çözünürlük arttıkça kredi tüketimi artar.
             </p>
           </article>
 
           <article class="faq-item">
             <h4 class="faq-question">Hangi ödeme yöntemlerini kullanabilirim?</h4>
             <p class="faq-answer">
-              Kredi kartı ve banka kartı ile ödeme desteklenecektir. Ödemeler Stripe / iyzico
-              altyapısı üzerinden güvenli şekilde işlenecektir.
+              Kredi kartı ve banka kartı ile ödeme desteklenecektir. Ödemeler Stripe / iyzico altyapısı üzerinden
+              işlenecektir.
             </p>
           </article>
 
           <article class="faq-item">
             <h4 class="faq-question">Kredilerimin süresi var mı?</h4>
             <p class="faq-answer">
-              Krediler belirli bir son kullanma tarihi olmadan hesabında tutulur; dönemsel
-              kampanyalar hariç, kullanılmayan krediler silinmez.
+              Krediler belirli bir son kullanma tarihi olmadan hesabında tutulur; kullanılmayan krediler silinmez.
             </p>
           </article>
 
           <article class="faq-item">
             <h4 class="faq-question">İade alabilir miyim?</h4>
             <p class="faq-answer">
-              Henüz kullanılmamış krediler için, yasal şartlara uygun şekilde destek ekibimiz
-              üzerinden iade talebi oluşturabilirsin.
+              Henüz kullanılmamış krediler için, yasal şartlara uygun şekilde destek ekibimiz üzerinden iade talebi
+              oluşturabilirsin.
             </p>
           </article>
         </div>
