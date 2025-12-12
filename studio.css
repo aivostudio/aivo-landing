@@ -1437,3 +1437,34 @@ body.is-recording .record-neon-pulse{ opacity:1; }
   border-color: rgba(255,118,117,0.25);
 }
 .output-btn.danger:hover{ background: rgba(255,118,117,0.22); }
+/* =========================================================
+   OUTPUT CARD – SQUARE + SMALL (OVERRIDE)
+   ========================================================= */
+.right-output-list{
+  gap:12px;
+}
+
+/* Kartlar sağ panel genişliğini aşmasın */
+.output-card{
+  border-radius:18px;
+}
+
+/* Preview kare ve küçük */
+.output-preview{
+  height:auto !important;
+  aspect-ratio: 1 / 1;          /* KARE */
+  max-height: 220px;            /* DAHA KÜÇÜK */
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+/* Play ortada kalsın */
+.output-play{
+  width:56px;
+  height:56px;
+  font-size:20px;
+}
+
+/* Aksiyonlar tek satır + “Büyüt” butonu için yer */
+.output-actions{
+  grid-template-columns: 1fr 1fr 1fr 44px;  /* İndir / İzle / Büyüt / Sil */
+}
