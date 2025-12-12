@@ -413,28 +413,36 @@
             </div>
 
 
-          <!-- ========== SAĞ PANEL ========== -->
-          <aside class="right-panel">
-            <div class="card right-card">
-              <div class="card-header">
-                <div>
-                  <div class="card-title">Son Üretilenler</div>
-                  <div class="card-subtitle">Müzik / Video çıktıları burada listelenecek.</div>
-                </div>
-              </div>
+        <!-- ========== SAĞ PANEL ========== -->
+<aside class="right-panel">
+  <div class="card right-card">
 
-              <div class="empty-state">
-                <div class="empty-icon">✨</div>
-                <div class="empty-title">Henüz içerik üretmedin.</div>
-                <div class="empty-text">
-                  Soldaki sekmelerden üretim yapınca burada göreceksin.
-                </div>
-              </div>
-            </div>
-          </aside>
-
+    <div class="card-header">
+      <div>
+        <div class="card-title">Son Üretilenler</div>
+        <div class="card-subtitle">
+          Müzik / Video çıktıları burada listelenecek.
         </div>
       </div>
+    </div>
+
+    <!-- BOŞ DURUM -->
+    <div class="right-empty-state" id="rightEmptyState">
+      <div class="empty-icon">✨</div>
+      <div class="empty-title">Henüz içerik üretmedin.</div>
+      <div class="empty-text">
+        Soldaki sekmelerden üretim yapınca burada göreceksin.
+      </div>
+    </div>
+
+    <!-- ÇIKTI LİSTESİ (ALTA DOĞRU AKAR) -->
+    <div class="right-output-list" id="rightOutputList">
+      <!-- JS buraya video kartlarını ekleyecek -->
+    </div>
+
+  </div>
+</aside>
+
 
       <!-- ========== KAPAK SAYFASI ========== -->
       <div class="page page-cover" data-page="cover">
