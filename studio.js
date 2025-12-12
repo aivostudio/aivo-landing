@@ -1,4 +1,4 @@
-// AIVO STUDIO – STUDIO.JS (FULL CLEAN + STABLE + VIDEO OUTPUT RIGHT COLUMN)
+// AIVO STUDIO – STUDIO.JS (FULL CLEAN + STABLE + OUTPUT SCOPES + VIDEO CARDS)
 
 document.addEventListener("DOMContentLoaded", () => {
   /* =========================================
@@ -8,9 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const pageLinks = document.querySelectorAll("[data-page-link]");
 
   function switchPage(target) {
-    pages.forEach((p) => {
-      p.classList.toggle("is-active", p.dataset.page === target);
-    });
+    pages.forEach((p) => p.classList.toggle("is-active", p.dataset.page === target));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -23,8 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
       pageLinks.forEach((l) => {
         if (!l.hasAttribute("data-open-pricing")) l.classList.remove("is-active");
       });
-
       if (!link.hasAttribute("data-open-pricing")) link.classList.add("is-active");
+
       switchPage(target);
     });
   });
@@ -36,7 +34,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const musicViews = document.querySelectorAll(".music-view");
   const musicTabButtons = document.querySelectorAll(".sidebar-sublink[data-music-tab]");
 
+  // Outputs: video vs music scope
+  const videoOutputsScope = document.getElementById("videoOutputsScope");
+  const musicOutputsScope = document.getElementById("musicOutputsScope");
+
   let recordController = null;
+
+  function setOutputScope(scope) {
+    if (videoOutputsScope) videoOutputsScope.classList.toggle("is-active", scope === "video");
+    if (musicOutputsScope) musicOutputsScope.classList.toggle("is-active", scope === "music");
+  }
 
   function switchMusicView(targetKey) {
     musicViews.forEach((view) => {
@@ -44,9 +51,12 @@ document.addEventListener("DOMContentLoaded", () => {
       view.classList.toggle("is-active", key === targetKey);
     });
 
-    if (recordController && targetKey !== "ses-kaydi") {
-      recordController.forceStopAndReset();
-    }
+    // Ses kaydı dışına çıkınca reset
+    if (recordController && targetKey !== "ses-kaydi") recordController.forceStopAndReset();
+
+    // Sağ panelde: Geleneksel => müzik, AI Video => video, Ses kaydı => müzik (istersen none yapabiliriz)
+    if (targetKey === "ai-video") setOutputScope("video");
+    else setOutputScope("music");
   }
 
   if (musicViews.length && musicTabButtons.length) {
@@ -139,14 +149,270 @@ document.addEventListener("DOMContentLoaded", () => {
     if (backdrop) backdrop.addEventListener("click", closePricingModal);
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && pricingModal.classList.contains("is-open")) {
-        closePricingModal();
-      }
+      if (e.key === "Escape" && pricingModal.classList.contains("is-open")) closePricingModal();
     });
   }
 
   /* =========================================
-     MÜZİK ÜRET BUTONU – UI LOADING
+     OUTPUT LIST HELPERS (Video / Music)
+     ========================================= */
+  const videoList = document.getElementById("videoOutputList");
+  const videoEmpty = document.getElementById("videoEmpty");
+
+  const musicList = document.getElementById("musicOutputList");
+  const musicEmpty = document.getElementById("musicEmpty");
+
+  function setEmptyVisible(emptyEl, visible) {
+    if (!emptyEl) return;
+    emptyEl.style.display = visible ? "block" : "none";
+  }
+
+  function createBtn(label, onClick) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "top-btn ghost";
+    b.textContent = label;
+    b.style.borderRadius = "12px";
+    b.style.padding = "10px 12px";
+    b.style.fontSize = "13px";
+    b.addEventListener("click", onClick);
+    return b;
+  }
+
+  /* =========================================
+     VIDEO PLAYER MODAL
+     ========================================= */
+  const playerModal = document.getElementById("playerModal");
+  const playerBackdrop = document.getElementById("playerBackdrop");
+  const closePlayer = document.getElementById("closePlayer");
+  const playerTitle = document.getElementById("playerTitle");
+  const playerMeta = document.getElementById("playerMeta");
+  const playerVideo = document.getElementById("playerVideo");
+
+  function openPlayer({ title, meta, src }) {
+    if (!playerModal) return;
+    if (playerTitle) playerTitle.textContent = title || "Video";
+    if (playerMeta) playerMeta.textContent = meta || "Önizleme";
+
+    // Placeholder: gerçek video url API’den gelecek
+    if (playerVideo) {
+      playerVideo.pause();
+      playerVideo.removeAttribute("src");
+      if (src) playerVideo.src = src;
+      playerVideo.load();
+    }
+
+    playerModal.classList.add("is-open");
+  }
+
+  function closePlayerModal() {
+    if (!playerModal) return;
+    playerModal.classList.remove("is-open");
+    if (playerVideo) {
+      playerVideo.pause();
+    }
+  }
+
+  if (playerBackdrop) playerBackdrop.addEventListener("click", closePlayerModal);
+  if (closePlayer) closePlayer.addEventListener("click", closePlayerModal);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && playerModal && playerModal.classList.contains("is-open")) {
+      closePlayerModal();
+    }
+  });
+
+  /* =========================================
+     VIDEO CARD (küçük/kare + play + butonlar)
+     ========================================= */
+  function addVideoCard({
+    title,
+    kind, // "Yazıdan Video" / "Resimden Video"
+    resolution,
+    durationSec,
+    ratio,
+    credits,
+    hasAudio,
+  }) {
+    if (!videoList) return;
+
+    setEmptyVisible(videoEmpty, false);
+
+    const card = document.createElement("div");
+    card.className = "card";
+    card.style.padding = "14px";
+    card.style.borderRadius = "18px";
+
+    // header row
+    const head = document.createElement("div");
+    head.style.display = "flex";
+    head.style.alignItems = "center";
+    head.style.justifyContent = "space-between";
+    head.style.gap = "10px";
+    head.style.marginBottom = "10px";
+
+    const left = document.createElement("div");
+    left.style.display = "flex";
+    left.style.alignItems = "center";
+    left.style.gap = "8px";
+
+    const dot = document.createElement("div");
+    dot.style.width = "8px";
+    dot.style.height = "8px";
+    dot.style.borderRadius = "50%";
+    dot.style.background = "rgba(85, 239, 196, 0.95)";
+
+    const status = document.createElement("div");
+    status.textContent = "Tamamlandı";
+    status.style.fontSize = "12px";
+    status.style.color = "rgba(245,245,255,0.9)";
+    status.style.opacity = "0.9";
+
+    left.appendChild(dot);
+    left.appendChild(status);
+
+    const meta = document.createElement("div");
+    meta.style.fontSize = "12px";
+    meta.style.color = "rgba(154,164,215,0.95)";
+    meta.textContent = `${resolution} • ${durationSec}s • ${credits} kredi${hasAudio ? " • ses" : ""}`;
+
+    head.appendChild(left);
+    head.appendChild(meta);
+
+    // square thumbnail
+    const thumbWrap = document.createElement("div");
+    thumbWrap.style.position = "relative";
+    thumbWrap.style.width = "100%";
+    thumbWrap.style.maxWidth = "320px";
+    thumbWrap.style.aspectRatio = "1 / 1"; // kare görünüm
+    thumbWrap.style.margin = "0 auto";
+    thumbWrap.style.borderRadius = "16px";
+    thumbWrap.style.overflow = "hidden";
+    thumbWrap.style.border = "1px solid rgba(255,255,255,0.08)";
+    thumbWrap.style.background =
+      "radial-gradient(circle at top left, rgba(108,92,231,0.35), transparent 55%), rgba(0,0,0,0.35)";
+
+    const play = document.createElement("button");
+    play.type = "button";
+    play.textContent = "▶";
+    play.style.position = "absolute";
+    play.style.left = "50%";
+    play.style.top = "50%";
+    play.style.transform = "translate(-50%,-50%)";
+    play.style.width = "58px";
+    play.style.height = "58px";
+    play.style.borderRadius = "50%";
+    play.style.border = "none";
+    play.style.cursor = "pointer";
+    play.style.fontSize = "18px";
+    play.style.color = "#fff";
+    play.style.background = "rgba(0,0,0,0.45)";
+    play.style.boxShadow = "0 18px 40px rgba(0,0,0,0.6)";
+
+    play.addEventListener("click", () => {
+      openPlayer({
+        title: title,
+        meta: `${kind} • ${resolution} • ${durationSec}s • ${ratio}`,
+        src: "", // API’den gerçek video url
+      });
+    });
+
+    thumbWrap.appendChild(play);
+
+    // title block
+    const titleEl = document.createElement("div");
+    titleEl.style.marginTop = "12px";
+    titleEl.style.fontSize = "14px";
+    titleEl.style.fontWeight = "600";
+    titleEl.style.color = "rgba(245,245,255,0.95)";
+    titleEl.textContent = title;
+
+    const subEl = document.createElement("div");
+    subEl.style.marginTop = "4px";
+    subEl.style.fontSize = "12px";
+    subEl.style.color = "rgba(154,164,215,0.95)";
+    subEl.textContent = `${kind} • ${ratio}`;
+
+    // actions row
+    const actions = document.createElement("div");
+    actions.style.display = "grid";
+    actions.style.gridTemplateColumns = "1fr 1fr 1fr 46px";
+    actions.style.gap = "10px";
+    actions.style.marginTop = "12px";
+
+    const btnDownload = createBtn("İndir", () => console.log("Download (placeholder)"));
+    const btnWatch = createBtn("İzle", () => {
+      openPlayer({
+        title: title,
+        meta: `${kind} • ${resolution} • ${durationSec}s • ${ratio}`,
+        src: "",
+      });
+    });
+    const btnBig = createBtn("Büyüt", () => {
+      openPlayer({
+        title: title,
+        meta: `${kind} • ${resolution} • ${durationSec}s • ${ratio}`,
+        src: "",
+      });
+    });
+
+    const btnDel = document.createElement("button");
+    btnDel.type = "button";
+    btnDel.textContent = "🗑";
+    btnDel.className = "top-btn ghost";
+    btnDel.style.borderRadius = "12px";
+    btnDel.style.width = "46px";
+    btnDel.style.padding = "10px 0";
+    btnDel.addEventListener("click", () => {
+      card.remove();
+      if (videoList.querySelectorAll(".card").length === 0) setEmptyVisible(videoEmpty, true);
+    });
+
+    actions.appendChild(btnDownload);
+    actions.appendChild(btnWatch);
+    actions.appendChild(btnBig);
+    actions.appendChild(btnDel);
+
+    card.appendChild(head);
+    card.appendChild(thumbWrap);
+    card.appendChild(titleEl);
+    card.appendChild(subEl);
+    card.appendChild(actions);
+
+    videoList.prepend(card);
+  }
+
+  function addMusicCard({ title }) {
+    if (!musicList) return;
+
+    setEmptyVisible(musicEmpty, false);
+
+    const card = document.createElement("div");
+    card.className = "card";
+    card.style.padding = "14px";
+    card.style.borderRadius = "18px";
+
+    const t = document.createElement("div");
+    t.style.fontSize = "14px";
+    t.style.fontWeight = "600";
+    t.textContent = title || "Yeni Müzik";
+
+    const a = document.createElement("div");
+    a.style.marginTop = "10px";
+    a.style.display = "flex";
+    a.style.gap = "10px";
+
+    a.appendChild(createBtn("İndir", () => console.log("Music download placeholder")));
+    a.appendChild(createBtn("Dinle", () => console.log("Music play placeholder")));
+
+    card.appendChild(t);
+    card.appendChild(a);
+
+    musicList.prepend(card);
+  }
+
+  /* =========================================
+     MÜZİK ÜRET BUTONU – UI LOADING + OUTPUT
      ========================================= */
   const musicGenerateBtn = document.getElementById("musicGenerateBtn");
   if (musicGenerateBtn) {
@@ -160,6 +426,9 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         musicGenerateBtn.classList.remove("is-loading");
         musicGenerateBtn.textContent = originalText;
+
+        // örnek çıktı
+        addMusicCard({ title: "🎵 Üretilen Müzik (örnek)" });
         console.log("Müzik üretim isteği burada API'ye gidecek.");
       }, 1200);
     });
@@ -193,8 +462,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const mainCard = sesView.querySelector(".record-main-card");
     const circle = sesView.querySelector(".record-circle");
     const button = sesView.querySelector(".record-btn");
-    const title = sesView.querySelector(".record-main-title");
-    const timerEl = sesView.querySelector(".record-timer");
+    const timerEl = sesView.querySelector("#recordTimer");
 
     const resultCard = sesView.querySelector("#recordResult");
     const resultTimeEl = sesView.querySelector("#recordResultTime");
@@ -248,9 +516,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (circle) circle.classList.toggle("is-recording", isRecording);
       if (mainCard) mainCard.classList.toggle("is-recording", isRecording);
 
-      if (title) title.textContent = isRecording ? "Kayıt Devam Ediyor" : "Ses Kaydetmeye Başlayın";
-      if (button) button.textContent = isRecording ? "⏹ Kaydı Durdur" : "⏺ Kaydı Başlat";
-
       document.body.classList.toggle("is-recording", isRecording);
 
       if (isRecording) {
@@ -258,7 +523,6 @@ document.addEventListener("DOMContentLoaded", () => {
         startTimer();
       } else {
         stopTimer();
-
         if (lastDurationMs >= 500 && resultTimeEl) {
           resultTimeEl.textContent = formatTime(lastDurationMs);
           setResultVisible(true);
@@ -297,8 +561,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.classList.remove("is-recording");
         if (circle) circle.classList.remove("is-recording");
         if (mainCard) mainCard.classList.remove("is-recording");
-        if (title) title.textContent = "Ses Kaydetmeye Başlayın";
-        if (button) button.textContent = "⏺ Kaydı Başlat";
         if (timerEl) timerEl.textContent = "00:00";
         setResultVisible(false);
 
@@ -312,7 +574,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================================
-     AI VIDEO – TAB + COUNTER + COST + OUTPUT LIST
+     AI VIDEO – TAB + COUNTER + CREDIT LOGIC
      ========================================= */
   const videoTabs = document.querySelectorAll(".video-tab[data-video-tab]");
   const videoViews = document.querySelectorAll(".video-view[data-video-view]");
@@ -335,9 +597,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const counter = document.getElementById(counterId);
     if (!textarea || !counter) return;
 
-    const update = () => {
-      counter.textContent = `${textarea.value.length} / ${max}`;
-    };
+    const update = () => (counter.textContent = `${textarea.value.length} / ${max}`);
     textarea.addEventListener("input", update);
     update();
   }
@@ -345,242 +605,88 @@ document.addEventListener("DOMContentLoaded", () => {
   bindCounter("videoPrompt", "videoPromptCounter", 1000);
   bindCounter("videoImagePrompt", "videoImagePromptCounter", 500);
 
-  // COST
-  const BASE_COST = 15;
-  const AUDIO_EXTRA = 3;
+  // Credits: base 15 + audio +3
+  const audioToggle = document.getElementById("audioToggle");
+  const videoCreditBadge = document.getElementById("videoCreditBadge");
+  const videoImageCreditBadge = document.getElementById("videoImageCreditBadge");
+  const audioPricingText = document.getElementById("audioPricingText");
 
-  const audioToggle = document.getElementById("videoAudioToggle");
-  const costBadges = document.querySelectorAll("[data-video-cost-badge]");
-  const hintEl = document.getElementById("videoCostHint");
+  const btnText = document.getElementById("videoGenerateTextBtn");
+  const btnImage = document.getElementById("videoGenerateImageBtn");
 
-  function getCurrentVideoCost() {
-    const audioOn = !!audioToggle?.checked;
-    return audioOn ? BASE_COST + AUDIO_EXTRA : BASE_COST;
+  const videoDuration = document.getElementById("videoDuration");
+  const videoResolution = document.getElementById("videoResolution");
+  const videoRatio = document.getElementById("videoRatio");
+
+  function currentVideoCredits() {
+    const base = 15;
+    const extra = audioToggle && audioToggle.checked ? 3 : 0;
+    return base + extra;
   }
 
-  function updateVideoCostUI() {
-    const cost = getCurrentVideoCost();
-    costBadges.forEach((b) => (b.textContent = `${cost} Kredi`));
+  function refreshVideoCreditsUI() {
+    const c = currentVideoCredits();
+    if (videoCreditBadge) videoCreditBadge.textContent = `${c} Kredi`;
+    if (videoImageCreditBadge) videoImageCreditBadge.textContent = `${c} Kredi`;
 
-    const tBtn = document.getElementById("videoGenerateTextBtn");
-    const iBtn = document.getElementById("videoGenerateImageBtn");
-    if (tBtn) tBtn.textContent = `🎬 Video Oluştur (${cost} Kredi)`;
-    if (iBtn) iBtn.textContent = `🎞 Video Oluştur (${cost} Kredi)`;
+    if (btnText) btnText.textContent = `🎬 Video Oluştur (${c} Kredi)`;
+    if (btnImage) btnImage.textContent = `🎞 Video Oluştur (${c} Kredi)`;
 
-    if (hintEl) hintEl.textContent = `Baz ücret: ${BASE_COST} kredi • Ses açıkken +${AUDIO_EXTRA} kredi`;
+    if (audioPricingText) {
+      audioPricingText.textContent = `Baz ücret: 15 kredi • Ses açıkken +3 kredi (Şu an: ${c} kredi)`;
+    }
   }
 
   if (audioToggle) {
-    audioToggle.addEventListener("change", updateVideoCostUI);
+    audioToggle.addEventListener("change", refreshVideoCreditsUI);
   }
-  updateVideoCostUI();
+  refreshVideoCreditsUI();
 
-  // OUTPUT LIST (RIGHT PANEL)
-  const rightEmptyState = document.getElementById("rightEmptyState");
-  const rightOutputList = document.getElementById("rightOutputList");
-
-  function setRightEmptyVisible(visible) {
-    if (!rightEmptyState) return;
-    rightEmptyState.style.display = visible ? "block" : "none";
-  }
-
-  // MODAL (BÜYÜT)
-  function ensureModal() {
-    let modal = document.getElementById("videoModal");
-    if (modal) return modal;
-
-    modal = document.createElement("div");
-    modal.id = "videoModal";
-    modal.style.cssText = `
-      position:fixed; inset:0; display:none; align-items:center; justify-content:center;
-      z-index:99999;
-    `;
-    modal.innerHTML = `
-      <div class="vm-backdrop" style="position:absolute; inset:0; background:rgba(0,0,0,.75); backdrop-filter: blur(10px);"></div>
-      <div class="vm-dialog" style="position:relative; width:min(900px,92vw); background:rgba(12,15,40,.96);
-        border:1px solid rgba(255,255,255,.10); border-radius:22px; box-shadow:0 35px 90px rgba(0,0,0,.85);
-        overflow:hidden;">
-        <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid rgba(255,255,255,.08);">
-          <div style="font-weight:700;">Video Önizleme</div>
-          <button id="vmClose" type="button" style="width:38px; height:38px; border-radius:50%;
-            border:none; cursor:pointer; background:rgba(255,255,255,.10); color:#fff; font-size:18px;">✕</button>
-        </div>
-        <div style="padding:16px;">
-          <div id="vmTitle" style="font-weight:700; margin-bottom:8px;"></div>
-          <div id="vmDesc" style="opacity:.75; font-size:13px; margin-bottom:14px;"></div>
-          <div style="aspect-ratio:16/9; border-radius:16px; background:rgba(255,255,255,.06);
-            display:flex; align-items:center; justify-content:center;">
-            <div style="opacity:.75;">(Gerçek video gelince buraya video tag bağlanacak)</div>
-          </div>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(modal);
-
-    modal.querySelector(".vm-backdrop").addEventListener("click", () => (modal.style.display = "none"));
-    modal.querySelector("#vmClose").addEventListener("click", () => (modal.style.display = "none"));
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") modal.style.display = "none";
-    });
-
-    return modal;
-  }
-
-  function openVideoModal(title, desc) {
-    const modal = ensureModal();
-    modal.querySelector("#vmTitle").textContent = title || "Video";
-    modal.querySelector("#vmDesc").textContent = desc || "";
-    modal.style.display = "flex";
-  }
-
-  function createOutputCard({ title, desc, meta }) {
-    const card = document.createElement("div");
-    card.className = "output-card";
-    card.style.cssText = `
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,0.06);
-      background: rgba(5,7,30,0.92);
-      overflow:hidden;
-      margin-top:12px;
-    `;
-
-    card.innerHTML = `
-      <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 12px 10px;">
-        <div style="display:flex; align-items:center; gap:10px;">
-          <span style="width:9px; height:9px; border-radius:50%; background:#2ecc71; box-shadow:0 0 12px rgba(46,204,113,.6);"></span>
-          <strong style="font-size:13px;">Tamamlandı</strong>
-        </div>
-        <div style="font-size:11px; opacity:.7;">${meta || ""}</div>
-      </div>
-
-      <div class="output-preview" style="
-        aspect-ratio:1/1;
-        background: radial-gradient(circle at top left, rgba(108,92,231,.28), transparent 60%),
-                    radial-gradient(circle at bottom right, rgba(253,121,168,.22), transparent 65%),
-                    rgba(0,0,0,.35);
-        display:flex; align-items:center; justify-content:center;
-      ">
-        <button class="output-play" type="button" style="
-          width:56px; height:56px; border-radius:50%;
-          border:none; cursor:pointer;
-          background: rgba(255,255,255,.10);
-          color:#fff; font-size:20px;
-          box-shadow: 0 18px 55px rgba(0,0,0,.65);
-        ">▶</button>
-      </div>
-
-      <div style="padding:10px 12px 12px;">
-        <div style="font-weight:700; font-size:12px; margin-bottom:6px; line-height:1.25;">
-          ${title || "Video"}
-        </div>
-        <div style="font-size:12px; opacity:.75; line-height:1.35; margin-bottom:10px;">
-          ${desc || ""}
-        </div>
-
-        <div class="output-actions" style="
-          display:grid;
-          grid-template-columns: 1fr 1fr 1fr 44px;
-          gap:10px;
-          align-items:center;
-        ">
-          <button class="output-btn dl" type="button" style="
-            border:none; cursor:pointer; border-radius:12px; padding:10px 10px;
-            background: rgba(116,185,255,.18); color:#fff; font-weight:700; font-size:12px;
-          ">İndir</button>
-
-          <button class="output-btn watch" type="button" style="
-            border:none; cursor:pointer; border-radius:12px; padding:10px 10px;
-            background: rgba(108,92,231,.20); color:#fff; font-weight:700; font-size:12px;
-          ">İzle</button>
-
-          <button class="output-btn expand" type="button" style="
-            border:none; cursor:pointer; border-radius:12px; padding:10px 10px;
-            background: rgba(253,121,168,.18); color:#fff; font-weight:700; font-size:12px;
-          ">Büyüt</button>
-
-          <button class="output-btn del" type="button" style="
-            width:44px; height:44px;
-            border:none; cursor:pointer; border-radius:12px;
-            background: rgba(255,118,117,.18); color:#fff; font-weight:900;
-          ">🗑</button>
-        </div>
-      </div>
-    `;
-
-    // EVENTS
-    card.querySelector(".output-play")?.addEventListener("click", () => openVideoModal(title, desc));
-    card.querySelector(".output-btn.watch")?.addEventListener("click", () => openVideoModal(title, desc));
-    card.querySelector(".output-btn.expand")?.addEventListener("click", () => openVideoModal(title, desc));
-
-    card.querySelector(".output-btn.dl")?.addEventListener("click", () => {
-      console.log("İndir (placeholder) – gerçek video URL gelince indirilecek.");
-    });
-
-    card.querySelector(".output-btn.del")?.addEventListener("click", () => {
-      card.remove();
-      if (rightOutputList && rightOutputList.children.length === 0) setRightEmptyVisible(true);
-    });
-
-    return card;
-  }
-
-  function addVideoToRightList({ title, desc, meta }) {
-    if (!rightOutputList) return;
-    setRightEmptyVisible(false);
-
-    const card = createOutputCard({ title, desc, meta });
-    rightOutputList.prepend(card);
-  }
-
-  function attachVideoGenerate(btnId, getTitleDescFn) {
-    const btn = document.getElementById(btnId);
+  function attachVideoCreate(btn, kindLabel) {
     if (!btn) return;
 
     btn.addEventListener("click", () => {
       if (btn.classList.contains("is-loading")) return;
 
-      const cost = getCurrentVideoCost();
-      const { title, desc } = getTitleDescFn();
-
       const original = btn.textContent;
       btn.classList.add("is-loading");
-      btn.textContent = "Video Oluşturuluyor...";
+      btn.textContent = "Oluşturuluyor...";
+
+      const durationSec = videoDuration ? Number(videoDuration.value) : 8;
+      const resolution = videoResolution ? videoResolution.value : "720p";
+      const ratio = videoRatio ? videoRatio.value : "16:9";
+      const credits = currentVideoCredits();
+      const hasAudio = !!(audioToggle && audioToggle.checked);
 
       setTimeout(() => {
         btn.classList.remove("is-loading");
         btn.textContent = original;
 
-        // ✅ OUTPUT (placeholder)
-        addVideoToRightList({
-          title: title || "Yeni Video",
-          desc: desc || "—",
-          meta: `1080p • ${cost} kredi`,
+        const title =
+          kindLabel === "Yazıdan Video"
+            ? "Yazıdan Video (örnek)"
+            : "Resimden Video (örnek)";
+
+        addVideoCard({
+          title,
+          kind: kindLabel,
+          resolution,
+          durationSec,
+          ratio,
+          credits,
+          hasAudio,
         });
 
+        // AI video sekmesindeyken sağ panel mutlaka video kalsın
+        setOutputScope("video");
+
         console.log("AI Video isteği burada API'ye gidecek.");
-      }, 900);
+      }, 1200);
     });
   }
 
-  attachVideoGenerate("videoGenerateTextBtn", () => {
-    const t = document.getElementById("videoPrompt");
-    const val = (t?.value || "").trim();
-    return {
-      title: val ? val.slice(0, 52) : "Yazıdan Video",
-      desc: val ? val.slice(0, 120) : "Prompt girilmedi.",
-    };
-  });
-
-  attachVideoGenerate("videoGenerateImageBtn", () => {
-    const t = document.getElementById("videoImagePrompt");
-    const val = (t?.value || "").trim();
-    const img = document.getElementById("videoImageInput");
-    const imgName = img?.files?.[0]?.name ? `(${img.files[0].name})` : "(resim seçilmedi)";
-    return {
-      title: `Resimden Video ${imgName}`,
-      desc: val ? val.slice(0, 120) : "Opsiyonel prompt yok.",
-    };
-  });
+  attachVideoCreate(btnText, "Yazıdan Video");
+  attachVideoCreate(btnImage, "Resimden Video");
 
   const imageInput = document.getElementById("videoImageInput");
   if (imageInput) {
@@ -589,7 +695,4 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Seçilen görsel:", imageInput.files[0].name);
     });
   }
-
-  // initial empty state
-  if (rightOutputList && rightOutputList.children.length === 0) setRightEmptyVisible(true);
 });
