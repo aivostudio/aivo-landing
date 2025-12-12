@@ -1,4 +1,4 @@
-// AIVO STUDIO – STUDIO.JS (FULL CLEAN + STABLE)
+// AIVO STUDIO – STUDIO.JS (FULL CLEAN + STABLE + VIDEO CREDIT TOGGLE + RIGHT OUTPUTS)
 
 document.addEventListener("DOMContentLoaded", () => {
   /* =========================================
@@ -312,7 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================================
-     AI VIDEO – TAB + COUNTER + BUTTONS
+     AI VIDEO – TAB
      ========================================= */
   const videoTabs = document.querySelectorAll(".video-tab[data-video-tab]");
   const videoViews = document.querySelectorAll(".video-view[data-video-view]");
@@ -330,6 +330,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  /* =========================================
+     AI VIDEO – COUNTERS
+     ========================================= */
   function bindCounter(textareaId, counterId, max) {
     const textarea = document.getElementById(textareaId);
     const counter = document.getElementById(counterId);
@@ -345,8 +348,131 @@ document.addEventListener("DOMContentLoaded", () => {
   bindCounter("videoPrompt", "videoPromptCounter", 1000);
   bindCounter("videoImagePrompt", "videoImagePromptCounter", 500);
 
-  function attachLoading(btnId, loadingText) {
-    const btn = document.getElementById(btnId);
+  /* =========================================
+     VIDEO KREDİ – SES ÜRETİMİ TOGGLE
+     Base: 15
+     Ses açıkken +3 => 18
+     ========================================= */
+  const VIDEO_BASE = 15;
+  const VIDEO_SOUND_EXTRA = 3;
+
+  const soundToggle = document.getElementById("videoSoundToggle");
+  const baseEl = document.getElementById("videoBaseCredit");
+  const extraEl = document.getElementById("videoSoundExtra");
+
+  const badgeText = document.getElementById("videoBadgeText");
+  const badgeImage = document.getElementById("videoBadgeImage");
+
+  const btnText = document.getElementById("videoGenerateTextBtn");
+  const btnImage = document.getElementById("videoGenerateImageBtn");
+
+  function getVideoCredit() {
+    const soundOn = !!(soundToggle && soundToggle.checked);
+    return VIDEO_BASE + (soundOn ? VIDEO_SOUND_EXTRA : 0);
+  }
+
+  function syncVideoCreditUI() {
+    const credit = getVideoCredit();
+
+    if (baseEl) baseEl.textContent = String(VIDEO_BASE);
+    if (extraEl) extraEl.textContent = String(VIDEO_SOUND_EXTRA);
+
+    if (badgeText) badgeText.textContent = `${credit} Kredi`;
+    if (badgeImage) badgeImage.textContent = `${credit} Kredi`;
+
+    if (btnText) btnText.textContent = `🎬 Video Oluştur (${credit} Kredi)`;
+    if (btnImage) btnImage.textContent = `🎞 Video Oluştur (${credit} Kredi)`;
+  }
+
+  if (soundToggle) {
+    soundToggle.addEventListener("change", syncVideoCreditUI);
+  }
+  syncVideoCreditUI();
+
+  /* =========================================
+     VIDEO – SEÇİLEN DOSYA CHIP
+     ========================================= */
+  const imageInput = document.getElementById("videoImageInput");
+  const selectedWrap = document.getElementById("videoSelectedFile");
+  const selectedName = document.getElementById("videoSelectedFileName");
+
+  if (imageInput) {
+    imageInput.addEventListener("change", () => {
+      if (!imageInput.files || !imageInput.files[0]) {
+        if (selectedWrap) selectedWrap.style.display = "none";
+        return;
+      }
+      if (selectedName) selectedName.textContent = imageInput.files[0].name;
+      if (selectedWrap) selectedWrap.style.display = "block";
+    });
+  }
+
+  /* =========================================
+     SAĞ PANEL – ÇIKTI EKLEME (EITA MANTIĞI)
+     ========================================= */
+  const rightEmpty = document.getElementById("rightEmptyState");
+  const rightList = document.getElementById("rightOutputList");
+
+  function ensureRightPanelReady() {
+    return !!rightList;
+  }
+
+  function truncate(text, max = 60) {
+    if (!text) return "";
+    const t = String(text).trim();
+    if (t.length <= max) return t;
+    return t.slice(0, max - 1) + "…";
+  }
+
+  function addVideoOutputCard({ title, desc, resolution = "720p", creditUsed }) {
+    if (!ensureRightPanelReady()) return;
+
+    if (rightEmpty) rightEmpty.style.display = "none";
+
+    const card = document.createElement("div");
+    card.className = "output-card";
+
+    card.innerHTML = `
+      <div class="output-top">
+        <div class="output-status">
+          <span class="status-dot"></span>
+          <span>Tamamlandı</span>
+        </div>
+        <div class="output-meta">${resolution} • ${creditUsed} kredi</div>
+      </div>
+
+      <div class="output-preview">
+        <button class="output-play" type="button" aria-label="Oynat">▶</button>
+      </div>
+
+      <div class="output-title">${title}</div>
+      <div class="output-desc">${desc}</div>
+
+      <div class="output-actions">
+        <button class="output-btn" type="button" data-act="download">İndir</button>
+        <button class="output-btn" type="button" data-act="share">Paylaş</button>
+        <button class="output-btn danger" type="button" data-act="delete">Sil</button>
+      </div>
+    `;
+
+    const play = card.querySelector(".output-play");
+    const download = card.querySelector('[data-act="download"]');
+    const share = card.querySelector('[data-act="share"]');
+    const del = card.querySelector('[data-act="delete"]');
+
+    if (play) play.addEventListener("click", () => console.log("Play (placeholder)"));
+    if (download) download.addEventListener("click", () => console.log("Download (placeholder)"));
+    if (share) share.addEventListener("click", () => console.log("Share (placeholder)"));
+    if (del) del.addEventListener("click", () => card.remove());
+
+    // En üste ekle (en yeni en üstte)
+    rightList.prepend(card);
+  }
+
+  /* =========================================
+     VIDEO BUTONLARI – LOADING + SAĞ PANELE EKLE
+     ========================================= */
+  function attachVideoGenerate(btn, getPayload) {
     if (!btn) return;
 
     btn.addEventListener("click", () => {
@@ -354,24 +480,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const original = btn.textContent;
       btn.classList.add("is-loading");
-      btn.textContent = loadingText;
+      btn.textContent = "⏳ Oluşturuluyor...";
 
       setTimeout(() => {
         btn.classList.remove("is-loading");
         btn.textContent = original;
-        console.log("AI Video isteği burada API'ye gidecek.");
+
+        const payload = getPayload();
+        addVideoOutputCard(payload);
+
+        console.log("AI Video isteği burada API'ye gidecek.", payload);
       }, 1400);
     });
   }
 
-  attachLoading("videoGenerateTextBtn", "🎬 Video Oluşturuluyor...");
-  attachLoading("videoGenerateImageBtn", "🎞 Video Oluşturuluyor...");
+  attachVideoGenerate(btnText, () => {
+    const credit = getVideoCredit();
+    const prompt = document.getElementById("videoPrompt")?.value || "";
+    return {
+      title: truncate(prompt, 42) || "Yazıdan Video",
+      desc: truncate(prompt, 90) || "Prompt boştu (örnek çıktı).",
+      resolution: "720p",
+      creditUsed: credit,
+    };
+  });
 
-  const imageInput = document.getElementById("videoImageInput");
-  if (imageInput) {
-    imageInput.addEventListener("change", () => {
-      if (!imageInput.files || !imageInput.files[0]) return;
-      console.log("Seçilen görsel:", imageInput.files[0].name);
-    });
-  }
+  attachVideoGenerate(btnImage, () => {
+    const credit = getVideoCredit();
+    const prompt = document.getElementById("videoImagePrompt")?.value || "";
+    const fileName = imageInput?.files?.[0]?.name || "";
+    const combined = [fileName ? `Dosya: ${fileName}` : "", prompt].filter(Boolean).join(" • ");
+
+    return {
+      title: truncate(fileName ? fileName : "Resimden Video", 42),
+      desc: truncate(combined || "Resim seçilmedi (örnek çıktı).", 90),
+      resolution: "720p",
+      creditUsed: credit,
+    };
+  });
 });
