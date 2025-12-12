@@ -1,4 +1,5 @@
 
+
 /* ================================
    AIVO STUDIO – STUDIO.CSS (CLEAN FULL)
    ================================ */
@@ -1306,26 +1307,3 @@ body.is-recording .record-neon-pulse{
 }
 /* JS (Basit/Gelişmiş) görünürlük helper */
 .hidden { display: none !important; }
-/* REFERANS SES YÜKLE (Yeni ekleme) */
-.upload-box {
-  border: 1px dashed rgba(255, 255, 255, 0.25);
-  padding: 18px;
-  border-radius: 14px;
-  text-align: center;
-  background: rgba(10, 12, 40, 0.45);
-  cursor: pointer;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast),
-    background var(--transition-fast), transform var(--transition-fast);
-}
-
-.upload-box:hover {
-  border-color: rgba(255, 255, 255, 0.45);
-  background: rgba(15, 19, 60, 0.9);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.75);
-  transform: translateY(-1px);
-}
-
-.file-input-hidden {
-  display: none;
-}
-
