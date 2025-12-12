@@ -312,7 +312,7 @@
               </div>
             </div>
 
-            <!-- ****** AI VIDEO ÜRET ****** -->
+                       <!-- ****** AI VIDEO ÜRET ****** -->
             <div class="music-view" data-music-view="ai-video">
               <div class="panel-header">
                 <h1 class="panel-title">AI Video Üret</h1>
@@ -326,6 +326,31 @@
                 <button class="video-tab" type="button" data-video-tab="image">Resimden Video</button>
               </div>
 
+              <!-- SES ÜRETİMİ TOGGLE (GLOBAL) -->
+              <div class="card video-audio-card">
+                <div class="video-audio-row">
+                  <div class="video-audio-left">
+                    <div class="video-audio-title">Ses Üretimi</div>
+                    <div class="video-audio-sub">
+                      Kapalıysa daha az kredi harcarsın. Açarsan videoya AI ses eklenir.
+                    </div>
+                  </div>
+
+                  <label class="switch">
+                    <input type="checkbox" id="videoSoundToggle" />
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="video-audio-meta">
+                  <span class="meta-dot"></span>
+                  <span class="video-audio-meta-text">
+                    Baz ücret: <strong><span id="videoBaseCredit">15</span></strong> kredi •
+                    Ses açıkken +<strong><span id="videoSoundExtra">3</span></strong> kredi
+                  </span>
+                </div>
+              </div>
+
               <!-- TEXT -> VIDEO -->
               <div class="video-view is-active" data-video-view="text">
                 <div class="card">
@@ -334,7 +359,7 @@
                       <div class="card-title">Video Açıklaması</div>
                       <div class="card-subtitle">Max 1000 karakter</div>
                     </div>
-                    <div class="badge-beta">15 Kredi</div>
+                    <div class="badge-beta" id="videoBadgeText">15 Kredi</div>
                   </div>
 
                   <div class="video-prompt-wrapper">
@@ -359,7 +384,7 @@
                       <div class="card-title">Resim Yükle</div>
                       <div class="card-subtitle">PNG / JPG – Max 10MB</div>
                     </div>
-                    <div class="badge-beta">25 Kredi</div>
+                    <div class="badge-beta" id="videoBadgeImage">15 Kredi</div>
                   </div>
 
                   <div class="upload-box" onclick="document.getElementById('videoImageInput').click()">
@@ -377,13 +402,16 @@
                   </div>
 
                   <button class="primary-btn big-video-btn full-width" id="videoGenerateImageBtn" type="button">
-                    🎞 Video Oluştur (25 Kredi)
+                    🎞 Video Oluştur (15 Kredi)
                   </button>
+
+                  <div class="video-selected-file" id="videoSelectedFile" style="display:none;">
+                    <span class="file-chip">🖼️ <span id="videoSelectedFileName">dosya</span></span>
+                  </div>
                 </div>
               </div>
             </div>
 
-          </section>
 
           <!-- ========== SAĞ PANEL ========== -->
           <aside class="right-panel">
