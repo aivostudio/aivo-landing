@@ -24,6 +24,7 @@
         <a href="#" class="topnav-link" data-page-link="music">Dashboard</a>
         <a href="#" class="topnav-link" data-page-link="music">Ürettiklerim</a>
         <a href="#" class="topnav-link" data-page-link="music">Müzik Üret</a>
+        <!-- ✅ FIX: Kapak Üret kesinlikle cover -->
         <a href="#" class="topnav-link" data-page-link="cover">Kapak Üret</a>
         <a href="#" class="topnav-link" data-open-pricing>Kredi Al</a>
         <a href="#" class="topnav-link" data-page-link="music">Faturalarım</a>
@@ -172,7 +173,6 @@
                   <!-- Referans ses -->
                   <div class="form-field full">
                     <label>Referans Ses Yükle (opsiyonel)</label>
-
                     <div class="upload-box" onclick="document.getElementById('refAudio').click()">
                       <input type="file" id="refAudio" accept=".mp3,.wav,.m4a" hidden />
                       <div>
@@ -309,46 +309,39 @@
                     </label>
                   </div>
                 </div>
+
               </div>
             </div>
 
-                       <!-- ****** AI VIDEO ÜRET ****** -->
+            <!-- ****** AI VIDEO ÜRET ****** -->
             <div class="music-view" data-music-view="ai-video">
               <div class="panel-header">
                 <h1 class="panel-title">AI Video Üret</h1>
-                <p class="panel-subtitle">
-                  Yazıdan veya görselden sinematik videolar oluştur.
-                </p>
+                <p class="panel-subtitle">Yazıdan veya görselden sinematik videolar oluştur.</p>
+              </div>
+
+              <!-- ✅ Ses Üretimi (Tek Toggle, iki tab için de geçerli) -->
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <div class="card-title">Ses Üretimi</div>
+                    <div class="card-subtitle">
+                      Kapalıysa daha az kredi harcarsın. Açarsan videoya AI ses eklenir.
+                      <br />
+                      <span id="videoCostHint">Baz ücret: 15 kredi • Ses açıkken +3 kredi</span>
+                    </div>
+                  </div>
+
+                  <label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
+                    <input id="videoAudioToggle" type="checkbox" style="width:18px; height:18px;" />
+                    <span style="opacity:.8;">Aç/Kapa</span>
+                  </label>
+                </div>
               </div>
 
               <div class="video-tabs">
                 <button class="video-tab is-active" type="button" data-video-tab="text">Yazıdan Video</button>
                 <button class="video-tab" type="button" data-video-tab="image">Resimden Video</button>
-              </div>
-
-              <!-- SES ÜRETİMİ TOGGLE (GLOBAL) -->
-              <div class="card video-audio-card">
-                <div class="video-audio-row">
-                  <div class="video-audio-left">
-                    <div class="video-audio-title">Ses Üretimi</div>
-                    <div class="video-audio-sub">
-                      Kapalıysa daha az kredi harcarsın. Açarsan videoya AI ses eklenir.
-                    </div>
-                  </div>
-
-                  <label class="switch">
-                    <input type="checkbox" id="videoSoundToggle" />
-                    <span class="slider"></span>
-                  </label>
-                </div>
-
-                <div class="video-audio-meta">
-                  <span class="meta-dot"></span>
-                  <span class="video-audio-meta-text">
-                    Baz ücret: <strong><span id="videoBaseCredit">15</span></strong> kredi •
-                    Ses açıkken +<strong><span id="videoSoundExtra">3</span></strong> kredi
-                  </span>
-                </div>
               </div>
 
               <!-- TEXT -> VIDEO -->
@@ -359,7 +352,7 @@
                       <div class="card-title">Video Açıklaması</div>
                       <div class="card-subtitle">Max 1000 karakter</div>
                     </div>
-                    <div class="badge-beta" id="videoBadgeText">15 Kredi</div>
+                    <div class="badge-beta" data-video-cost-badge>15 Kredi</div>
                   </div>
 
                   <div class="video-prompt-wrapper">
@@ -384,7 +377,7 @@
                       <div class="card-title">Resim Yükle</div>
                       <div class="card-subtitle">PNG / JPG – Max 10MB</div>
                     </div>
-                    <div class="badge-beta" id="videoBadgeImage">15 Kredi</div>
+                    <div class="badge-beta" data-video-cost-badge>15 Kredi</div>
                   </div>
 
                   <div class="upload-box" onclick="document.getElementById('videoImageInput').click()">
@@ -404,38 +397,34 @@
                   <button class="primary-btn big-video-btn full-width" id="videoGenerateImageBtn" type="button">
                     🎞 Video Oluştur (15 Kredi)
                   </button>
-
-                  <div class="video-selected-file" id="videoSelectedFile" style="display:none;">
-                    <span class="file-chip">🖼️ <span id="videoSelectedFileName">dosya</span></span>
-                  </div>
                 </div>
               </div>
             </div>
 
+          </section>
 
- <!-- ========== SAĞ PANEL ========== -->
-<aside class="right-panel">
-  <div class="card right-card">
-    <div class="card-header">
-      <div>
-        <div class="card-title">Oluşturulan Videolar</div>
-        <div class="card-subtitle">Ürettiğin videolar burada küçük kartlar halinde listelenecek.</div>
+          <!-- ✅ SAĞ PANEL (Mutlaka main-panel DIŞINDA, layout içinde 3. sütun) -->
+          <aside class="right-panel">
+            <div class="card right-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Oluşturulan Videolar</div>
+                  <div class="card-subtitle">Ürettiğin videolar burada küçük kartlar halinde listelenecek.</div>
+                </div>
+              </div>
+
+              <div class="empty-state" id="rightEmptyState">
+                <div class="empty-icon">🎥</div>
+                <div class="empty-title">Henüz video yok</div>
+                <div class="empty-text">Ürettiğin videolar burada görünecek</div>
+              </div>
+
+              <div class="right-output-list" id="rightOutputList"></div>
+            </div>
+          </aside>
+
+        </div>
       </div>
-    </div>
-
-    <!-- BOŞ DURUM -->
-    <div class="empty-state" id="rightEmptyState">
-      <div class="empty-icon">🎥</div>
-      <div class="empty-title">Henüz video yok</div>
-      <div class="empty-text">Ürettiğin videolar burada görünecek</div>
-    </div>
-
-    <!-- LİSTE -->
-    <div class="right-output-list" id="rightOutputList"></div>
-  </div>
-</aside>
-
-
 
       <!-- ========== KAPAK SAYFASI ========== -->
       <div class="page page-cover" data-page="cover">
