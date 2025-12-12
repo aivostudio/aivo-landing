@@ -1,4 +1,4 @@
-// AIVO STUDIO – STUDIO.JS (FULL CLEAN + STABLE + VIDEO CREDIT TOGGLE + RIGHT OUTPUTS)
+// AIVO STUDIO – STUDIO.JS (FULL CLEAN + STABLE + VIDEO OUTPUT RIGHT COLUMN)
 
 document.addEventListener("DOMContentLoaded", () => {
   /* =========================================
@@ -312,7 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================================
-     AI VIDEO – TAB
+     AI VIDEO – TAB + COUNTER + COST + OUTPUT LIST
      ========================================= */
   const videoTabs = document.querySelectorAll(".video-tab[data-video-tab]");
   const videoViews = document.querySelectorAll(".video-view[data-video-view]");
@@ -330,9 +330,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* =========================================
-     AI VIDEO – COUNTERS
-     ========================================= */
   function bindCounter(textareaId, counterId, max) {
     const textarea = document.getElementById(textareaId);
     const counter = document.getElementById(counterId);
@@ -348,369 +345,251 @@ document.addEventListener("DOMContentLoaded", () => {
   bindCounter("videoPrompt", "videoPromptCounter", 1000);
   bindCounter("videoImagePrompt", "videoImagePromptCounter", 500);
 
-  /* =========================================
-     VIDEO KREDİ – SES ÜRETİMİ TOGGLE
-     Base: 15
-     Ses açıkken +3 => 18
-     ========================================= */
-  const VIDEO_BASE = 15;
-  const VIDEO_SOUND_EXTRA = 3;
+  // COST
+  const BASE_COST = 15;
+  const AUDIO_EXTRA = 3;
 
-  const soundToggle = document.getElementById("videoSoundToggle");
-  const baseEl = document.getElementById("videoBaseCredit");
-  const extraEl = document.getElementById("videoSoundExtra");
+  const audioToggle = document.getElementById("videoAudioToggle");
+  const costBadges = document.querySelectorAll("[data-video-cost-badge]");
+  const hintEl = document.getElementById("videoCostHint");
 
-  const badgeText = document.getElementById("videoBadgeText");
-  const badgeImage = document.getElementById("videoBadgeImage");
-
-  const btnText = document.getElementById("videoGenerateTextBtn");
-  const btnImage = document.getElementById("videoGenerateImageBtn");
-
-  function getVideoCredit() {
-    const soundOn = !!(soundToggle && soundToggle.checked);
-    return VIDEO_BASE + (soundOn ? VIDEO_SOUND_EXTRA : 0);
+  function getCurrentVideoCost() {
+    const audioOn = !!audioToggle?.checked;
+    return audioOn ? BASE_COST + AUDIO_EXTRA : BASE_COST;
   }
 
-  function syncVideoCreditUI() {
-    const credit = getVideoCredit();
+  function updateVideoCostUI() {
+    const cost = getCurrentVideoCost();
+    costBadges.forEach((b) => (b.textContent = `${cost} Kredi`));
 
-    if (baseEl) baseEl.textContent = String(VIDEO_BASE);
-    if (extraEl) extraEl.textContent = String(VIDEO_SOUND_EXTRA);
+    const tBtn = document.getElementById("videoGenerateTextBtn");
+    const iBtn = document.getElementById("videoGenerateImageBtn");
+    if (tBtn) tBtn.textContent = `🎬 Video Oluştur (${cost} Kredi)`;
+    if (iBtn) iBtn.textContent = `🎞 Video Oluştur (${cost} Kredi)`;
 
-    if (badgeText) badgeText.textContent = `${credit} Kredi`;
-    if (badgeImage) badgeImage.textContent = `${credit} Kredi`;
-
-    if (btnText) btnText.textContent = `🎬 Video Oluştur (${credit} Kredi)`;
-    if (btnImage) btnImage.textContent = `🎞 Video Oluştur (${credit} Kredi)`;
+    if (hintEl) hintEl.textContent = `Baz ücret: ${BASE_COST} kredi • Ses açıkken +${AUDIO_EXTRA} kredi`;
   }
 
-  if (soundToggle) {
-    soundToggle.addEventListener("change", syncVideoCreditUI);
+  if (audioToggle) {
+    audioToggle.addEventListener("change", updateVideoCostUI);
   }
-  syncVideoCreditUI();
+  updateVideoCostUI();
 
-  /* =========================================
-     VIDEO – SEÇİLEN DOSYA CHIP
-     ========================================= */
-  const imageInput = document.getElementById("videoImageInput");
-  const selectedWrap = document.getElementById("videoSelectedFile");
-  const selectedName = document.getElementById("videoSelectedFileName");
+  // OUTPUT LIST (RIGHT PANEL)
+  const rightEmptyState = document.getElementById("rightEmptyState");
+  const rightOutputList = document.getElementById("rightOutputList");
 
-  if (imageInput) {
-    imageInput.addEventListener("change", () => {
-      if (!imageInput.files || !imageInput.files[0]) {
-        if (selectedWrap) selectedWrap.style.display = "none";
-        return;
-      }
-      if (selectedName) selectedName.textContent = imageInput.files[0].name;
-      if (selectedWrap) selectedWrap.style.display = "block";
+  function setRightEmptyVisible(visible) {
+    if (!rightEmptyState) return;
+    rightEmptyState.style.display = visible ? "block" : "none";
+  }
+
+  // MODAL (BÜYÜT)
+  function ensureModal() {
+    let modal = document.getElementById("videoModal");
+    if (modal) return modal;
+
+    modal = document.createElement("div");
+    modal.id = "videoModal";
+    modal.style.cssText = `
+      position:fixed; inset:0; display:none; align-items:center; justify-content:center;
+      z-index:99999;
+    `;
+    modal.innerHTML = `
+      <div class="vm-backdrop" style="position:absolute; inset:0; background:rgba(0,0,0,.75); backdrop-filter: blur(10px);"></div>
+      <div class="vm-dialog" style="position:relative; width:min(900px,92vw); background:rgba(12,15,40,.96);
+        border:1px solid rgba(255,255,255,.10); border-radius:22px; box-shadow:0 35px 90px rgba(0,0,0,.85);
+        overflow:hidden;">
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid rgba(255,255,255,.08);">
+          <div style="font-weight:700;">Video Önizleme</div>
+          <button id="vmClose" type="button" style="width:38px; height:38px; border-radius:50%;
+            border:none; cursor:pointer; background:rgba(255,255,255,.10); color:#fff; font-size:18px;">✕</button>
+        </div>
+        <div style="padding:16px;">
+          <div id="vmTitle" style="font-weight:700; margin-bottom:8px;"></div>
+          <div id="vmDesc" style="opacity:.75; font-size:13px; margin-bottom:14px;"></div>
+          <div style="aspect-ratio:16/9; border-radius:16px; background:rgba(255,255,255,.06);
+            display:flex; align-items:center; justify-content:center;">
+            <div style="opacity:.75;">(Gerçek video gelince buraya video tag bağlanacak)</div>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    modal.querySelector(".vm-backdrop").addEventListener("click", () => (modal.style.display = "none"));
+    modal.querySelector("#vmClose").addEventListener("click", () => (modal.style.display = "none"));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") modal.style.display = "none";
     });
+
+    return modal;
   }
 
-  /* =========================================
-     SAĞ PANEL – ÇIKTI EKLEME (EITA MANTIĞI)
-     ========================================= */
-  const rightEmpty = document.getElementById("rightEmptyState");
-  const rightList = document.getElementById("rightOutputList");
-
-  function ensureRightPanelReady() {
-    return !!rightList;
+  function openVideoModal(title, desc) {
+    const modal = ensureModal();
+    modal.querySelector("#vmTitle").textContent = title || "Video";
+    modal.querySelector("#vmDesc").textContent = desc || "";
+    modal.style.display = "flex";
   }
 
-  function truncate(text, max = 60) {
-    if (!text) return "";
-    const t = String(text).trim();
-    if (t.length <= max) return t;
-    return t.slice(0, max - 1) + "…";
-  }
-
-  function addVideoOutputCard({ title, desc, resolution = "720p", creditUsed }) {
-    if (!ensureRightPanelReady()) return;
-
-    if (rightEmpty) rightEmpty.style.display = "none";
-
+  function createOutputCard({ title, desc, meta }) {
     const card = document.createElement("div");
     card.className = "output-card";
+    card.style.cssText = `
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,0.06);
+      background: rgba(5,7,30,0.92);
+      overflow:hidden;
+      margin-top:12px;
+    `;
 
     card.innerHTML = `
-      <div class="output-top">
-        <div class="output-status">
-          <span class="status-dot"></span>
-          <span>Tamamlandı</span>
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 12px 10px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="width:9px; height:9px; border-radius:50%; background:#2ecc71; box-shadow:0 0 12px rgba(46,204,113,.6);"></span>
+          <strong style="font-size:13px;">Tamamlandı</strong>
         </div>
-        <div class="output-meta">${resolution} • ${creditUsed} kredi</div>
+        <div style="font-size:11px; opacity:.7;">${meta || ""}</div>
       </div>
 
-      <div class="output-preview">
-        <button class="output-play" type="button" aria-label="Oynat">▶</button>
+      <div class="output-preview" style="
+        aspect-ratio:1/1;
+        background: radial-gradient(circle at top left, rgba(108,92,231,.28), transparent 60%),
+                    radial-gradient(circle at bottom right, rgba(253,121,168,.22), transparent 65%),
+                    rgba(0,0,0,.35);
+        display:flex; align-items:center; justify-content:center;
+      ">
+        <button class="output-play" type="button" style="
+          width:56px; height:56px; border-radius:50%;
+          border:none; cursor:pointer;
+          background: rgba(255,255,255,.10);
+          color:#fff; font-size:20px;
+          box-shadow: 0 18px 55px rgba(0,0,0,.65);
+        ">▶</button>
       </div>
 
-      <div class="output-title">${title}</div>
-      <div class="output-desc">${desc}</div>
+      <div style="padding:10px 12px 12px;">
+        <div style="font-weight:700; font-size:12px; margin-bottom:6px; line-height:1.25;">
+          ${title || "Video"}
+        </div>
+        <div style="font-size:12px; opacity:.75; line-height:1.35; margin-bottom:10px;">
+          ${desc || ""}
+        </div>
 
-      <div class="output-actions">
-        <button class="output-btn" type="button" data-act="download">İndir</button>
-        <button class="output-btn" type="button" data-act="share">Paylaş</button>
-        <button class="output-btn danger" type="button" data-act="delete">Sil</button>
+        <div class="output-actions" style="
+          display:grid;
+          grid-template-columns: 1fr 1fr 1fr 44px;
+          gap:10px;
+          align-items:center;
+        ">
+          <button class="output-btn dl" type="button" style="
+            border:none; cursor:pointer; border-radius:12px; padding:10px 10px;
+            background: rgba(116,185,255,.18); color:#fff; font-weight:700; font-size:12px;
+          ">İndir</button>
+
+          <button class="output-btn watch" type="button" style="
+            border:none; cursor:pointer; border-radius:12px; padding:10px 10px;
+            background: rgba(108,92,231,.20); color:#fff; font-weight:700; font-size:12px;
+          ">İzle</button>
+
+          <button class="output-btn expand" type="button" style="
+            border:none; cursor:pointer; border-radius:12px; padding:10px 10px;
+            background: rgba(253,121,168,.18); color:#fff; font-weight:700; font-size:12px;
+          ">Büyüt</button>
+
+          <button class="output-btn del" type="button" style="
+            width:44px; height:44px;
+            border:none; cursor:pointer; border-radius:12px;
+            background: rgba(255,118,117,.18); color:#fff; font-weight:900;
+          ">🗑</button>
+        </div>
       </div>
     `;
 
-    const play = card.querySelector(".output-play");
-    const download = card.querySelector('[data-act="download"]');
-    const share = card.querySelector('[data-act="share"]');
-    const del = card.querySelector('[data-act="delete"]');
+    // EVENTS
+    card.querySelector(".output-play")?.addEventListener("click", () => openVideoModal(title, desc));
+    card.querySelector(".output-btn.watch")?.addEventListener("click", () => openVideoModal(title, desc));
+    card.querySelector(".output-btn.expand")?.addEventListener("click", () => openVideoModal(title, desc));
 
-    if (play) play.addEventListener("click", () => console.log("Play (placeholder)"));
-    if (download) download.addEventListener("click", () => console.log("Download (placeholder)"));
-    if (share) share.addEventListener("click", () => console.log("Share (placeholder)"));
-    if (del) del.addEventListener("click", () => card.remove());
+    card.querySelector(".output-btn.dl")?.addEventListener("click", () => {
+      console.log("İndir (placeholder) – gerçek video URL gelince indirilecek.");
+    });
 
-    // En üste ekle (en yeni en üstte)
-    rightList.prepend(card);
+    card.querySelector(".output-btn.del")?.addEventListener("click", () => {
+      card.remove();
+      if (rightOutputList && rightOutputList.children.length === 0) setRightEmptyVisible(true);
+    });
+
+    return card;
   }
 
-  /* =========================================
-     VIDEO BUTONLARI – LOADING + SAĞ PANELE EKLE
-     ========================================= */
-  function attachVideoGenerate(btn, getPayload) {
+  function addVideoToRightList({ title, desc, meta }) {
+    if (!rightOutputList) return;
+    setRightEmptyVisible(false);
+
+    const card = createOutputCard({ title, desc, meta });
+    rightOutputList.prepend(card);
+  }
+
+  function attachVideoGenerate(btnId, getTitleDescFn) {
+    const btn = document.getElementById(btnId);
     if (!btn) return;
 
     btn.addEventListener("click", () => {
       if (btn.classList.contains("is-loading")) return;
 
+      const cost = getCurrentVideoCost();
+      const { title, desc } = getTitleDescFn();
+
       const original = btn.textContent;
       btn.classList.add("is-loading");
-      btn.textContent = "⏳ Oluşturuluyor...";
+      btn.textContent = "Video Oluşturuluyor...";
 
       setTimeout(() => {
         btn.classList.remove("is-loading");
         btn.textContent = original;
 
-        const payload = getPayload();
-        addVideoOutputCard(payload);
+        // ✅ OUTPUT (placeholder)
+        addVideoToRightList({
+          title: title || "Yeni Video",
+          desc: desc || "—",
+          meta: `1080p • ${cost} kredi`,
+        });
 
-        console.log("AI Video isteği burada API'ye gidecek.", payload);
-      }, 1400);
+        console.log("AI Video isteği burada API'ye gidecek.");
+      }, 900);
     });
   }
 
-  attachVideoGenerate(btnText, () => {
-    const credit = getVideoCredit();
-    const prompt = document.getElementById("videoPrompt")?.value || "";
+  attachVideoGenerate("videoGenerateTextBtn", () => {
+    const t = document.getElementById("videoPrompt");
+    const val = (t?.value || "").trim();
     return {
-      title: truncate(prompt, 42) || "Yazıdan Video",
-      desc: truncate(prompt, 90) || "Prompt boştu (örnek çıktı).",
-      resolution: "720p",
-      creditUsed: credit,
+      title: val ? val.slice(0, 52) : "Yazıdan Video",
+      desc: val ? val.slice(0, 120) : "Prompt girilmedi.",
     };
   });
 
-  attachVideoGenerate(btnImage, () => {
-    const credit = getVideoCredit();
-    const prompt = document.getElementById("videoImagePrompt")?.value || "";
-    const fileName = imageInput?.files?.[0]?.name || "";
-    const combined = [fileName ? `Dosya: ${fileName}` : "", prompt].filter(Boolean).join(" • ");
-
+  attachVideoGenerate("videoGenerateImageBtn", () => {
+    const t = document.getElementById("videoImagePrompt");
+    const val = (t?.value || "").trim();
+    const img = document.getElementById("videoImageInput");
+    const imgName = img?.files?.[0]?.name ? `(${img.files[0].name})` : "(resim seçilmedi)";
     return {
-      title: truncate(fileName ? fileName : "Resimden Video", 42),
-      desc: truncate(combined || "Resim seçilmedi (örnek çıktı).", 90),
-      resolution: "720p",
-      creditUsed: credit,
+      title: `Resimden Video ${imgName}`,
+      desc: val ? val.slice(0, 120) : "Opsiyonel prompt yok.",
     };
   });
+
+  const imageInput = document.getElementById("videoImageInput");
+  if (imageInput) {
+    imageInput.addEventListener("change", () => {
+      if (!imageInput.files || !imageInput.files[0]) return;
+      console.log("Seçilen görsel:", imageInput.files[0].name);
+    });
+  }
+
+  // initial empty state
+  if (rightOutputList && rightOutputList.children.length === 0) setRightEmptyVisible(true);
 });
-/* =========================================================
-   AIVO – VIDEO ÇIKTI KARTLARI (SAĞ PANEL FIX)
-   ========================================================= */
-
-const rightOutputList = document.getElementById("rightOutputList");
-const rightEmptyState = document.getElementById("rightEmptyState");
-
-/* Video kartı oluştur */
-function addVideoOutputCard({
-  title = "Yeni Video",
-  resolution = "1080p",
-  credit = "15 kredi"
-}) {
-  if (!rightOutputList) return;
-
-  if (rightEmptyState) rightEmptyState.style.display = "none";
-
-  const card = document.createElement("div");
-  card.className = "output-card";
-
-  card.innerHTML = `
-    <div class="output-top">
-      <div class="output-status">
-        <span class="status-dot"></span>
-        Tamamlandı
-      </div>
-      <div class="output-meta">${resolution} • ${credit}</div>
-    </div>
-
-    <div class="output-preview">
-      <button class="output-play">▶</button>
-    </div>
-
-    <div class="output-title">${title}</div>
-
-    <div class="output-actions">
-      <button class="output-btn">⬇ İndir</button>
-      <button class="output-btn">🔍 İzle</button>
-      <button class="output-btn danger">🗑 Sil</button>
-    </div>
-  `;
-
-  rightOutputList.prepend(card);
-}
-
-/* =========================================================
-   VIDEO OLUŞTUR BUTONLARI – BÜYÜK RENDER ENGELİ
-   ========================================================= */
-
-function bindVideoGenerate(btnId) {
-  const btn = document.getElementById(btnId);
-  if (!btn) return;
-
-  btn.addEventListener("click", () => {
-    if (btn.classList.contains("is-loading")) return;
-
-    btn.classList.add("is-loading");
-    const original = btn.textContent;
-    btn.textContent = "⏳ Video Oluşturuluyor...";
-
-    setTimeout(() => {
-      btn.classList.remove("is-loading");
-      btn.textContent = original;
-
-      addVideoOutputCard({
-        title: "Pembe, mor ve mavi neon ışıkların dans ettiği sahne",
-        resolution: "1080p",
-        credit: btn.textContent.includes("18") ? "18 kredi" : "15 kredi"
-      });
-
-      console.log("Video üretildi (mock)");
-    }, 1400);
-  });
-}
-
-bindVideoGenerate("videoGenerateTextBtn");
-bindVideoGenerate("videoGenerateImageBtn");
-
-/* =========================================================
-   SAYFA GEÇİŞİ – KAPAK ÜRET FIX
-   ========================================================= */
-
-document.querySelectorAll("[data-page-link]").forEach(link => {
-  link.addEventListener("click", e => {
-    const target = link.dataset.pageLink;
-    if (!target) return;
-
-    const page = document.querySelector(`.page[data-page="${target}"]`);
-    if (!page) {
-      console.warn("Sayfa bulunamadı:", target);
-      return;
-    }
-
-    document.querySelectorAll(".page").forEach(p =>
-      p.classList.remove("is-active")
-    );
-    page.classList.add("is-active");
-  });
-});
-/* =========================================================
-   VIDEO OUTPUT – RIGHT PANEL (SMALL CARDS ONLY)
-   ========================================================= */
-
-(function () {
-  const list = document.getElementById("rightOutputList");
-  const empty = document.getElementById("rightEmptyState");
-
-  // Eğer ID'ler yoksa, hiçbir şey çalışmaz. Bu yüzden net log atalım.
-  if (!list) {
-    console.warn("[AIVO] rightOutputList bulunamadı. Sağ panel HTML bloğunu ID'lerle güncelle.");
-    return;
-  }
-
-  function truncate(t, n) {
-    const s = (t || "").trim();
-    if (!s) return "";
-    return s.length > n ? s.slice(0, n - 1) + "…" : s;
-  }
-
-  function currentCreditFromButton(btn) {
-    // Buton text: "Video Oluştur (15 Kredi)" gibi
-    const m = (btn?.textContent || "").match(/(\d+)\s*Kredi/i);
-    return m ? `${m[1]} kredi` : "15 kredi";
-  }
-
-  function addCard({ title, desc, resolution = "1080p", credit = "15 kredi" }) {
-    if (empty) empty.style.display = "none";
-
-    const card = document.createElement("div");
-    card.className = "output-card";
-    card.innerHTML = `
-      <div class="output-top">
-        <div class="output-status"><span class="status-dot"></span><span>Tamamlandı</span></div>
-        <div class="output-meta">${resolution} • ${credit}</div>
-      </div>
-
-      <div class="output-preview">
-        <button class="output-play" type="button" aria-label="Oynat">▶</button>
-      </div>
-
-      <div class="output-title">${title}</div>
-      <div class="output-desc">${desc}</div>
-
-      <div class="output-actions">
-        <button class="output-btn" type="button">İndir</button>
-        <button class="output-btn" type="button">İzle</button>
-        <button class="output-btn danger" type="button">🗑</button>
-      </div>
-    `;
-
-    card.querySelector(".output-play")?.addEventListener("click", () => console.log("Play (placeholder)"));
-    card.querySelector(".output-btn.danger")?.addEventListener("click", () => {
-      card.remove();
-      if (empty && list.children.length === 0) empty.style.display = "block";
-    });
-
-    list.prepend(card);
-  }
-
-  function bind(btnId, getTitleDesc) {
-    const btn = document.getElementById(btnId);
-    if (!btn) return;
-
-    btn.addEventListener("click", () => {
-      // Senin sisteminde zaten loading var; ona karışmıyoruz.
-      const { title, desc } = getTitleDesc();
-      addCard({
-        title: truncate(title || "Yeni Video", 48),
-        desc: truncate(desc || "Çıktı hazır (mock).", 90),
-        resolution: "1080p",
-        credit: currentCreditFromButton(btn),
-      });
-    });
-  }
-
-  bind("videoGenerateTextBtn", () => {
-    const p = document.getElementById("videoPrompt")?.value || "";
-    return {
-      title: p || "Yazıdan Video",
-      desc: p || "Prompt boş (örnek çıktı).",
-    };
-  });
-
-  bind("videoGenerateImageBtn", () => {
-    const p = document.getElementById("videoImagePrompt")?.value || "";
-    const f = document.getElementById("videoImageInput")?.files?.[0]?.name || "";
-    return {
-      title: f ? `Resim: ${f}` : "Resimden Video",
-      desc: [f, p].filter(Boolean).join(" • ") || "Resim seçilmedi (örnek çıktı).",
-    };
-  });
-
-  console.log("[AIVO] Right panel video cards aktif.");
-})();
-
