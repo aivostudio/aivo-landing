@@ -1502,3 +1502,23 @@ body.is-recording .record-neon-pulse{
   height: 28px;
   width: auto;
 }
+/* =========================================
+   VOKALE GÖRE – HERO LINE (minik efekt)
+   (studio.css en altına ekle)
+   ========================================= */
+.vocal-hero-line{
+  width: min(520px, 72%);
+  height: 2px;
+  margin: 14px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(108,92,231,0),
+    rgba(253,121,168,0.9),
+    rgba(162,155,254,0.9),
+    rgba(108,92,231,0)
+  );
+  opacity: .55;
+  filter: drop-shadow(0 0 12px rgba(253,121,168,.35));
+}
+
