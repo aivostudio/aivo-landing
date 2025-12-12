@@ -381,134 +381,196 @@
               </div><!-- /record-main-card -->
             </div><!-- /music-view ses-kaydi -->
 
-            <!-- ****** ✅ AI VIDEO ÜRET (YENİ) ****** -->
-            <div class="music-view" data-music-view="ai-video">
-              <div class="panel-header">
-                <h1 class="panel-title">AI Video Üret</h1>
-                <p class="panel-subtitle">
-                  Eita benzeri akış: Yazıdan veya resimden video üret. AIVO’nun neon motoruyla sinematik sonuç al.
-                </p>
-              </div>
+            <!-- ===================================== -->
+<!-- AIVO – AI VIDEO ÜRET -->
+<!-- ===================================== -->
 
-              <!-- Tabs -->
-              <div class="video-tabs">
-                <button class="video-tab is-active" data-aivideo-tab="text">✍️ Yazı → Video</button>
-                <button class="video-tab" data-aivideo-tab="image">🖼 Resim → Video</button>
-              </div>
+<div class="page page-video is-active" data-page="video">
+  <div class="layout">
 
-              <!-- Text → Video -->
-              <div class="video-view is-active" data-aivideo-view="text">
-                <div class="card">
-                  <label for="videoPrompt">Video Açıklaması</label>
-                  <textarea id="videoPrompt" rows="4" maxlength="1000"
-                    placeholder="Örn: Gece şehir manzarasında neon ışıklar, sinematik kamera hareketi, mor-mavi tonlar, hafif sis, 8 saniyelik dinamik sahne..."></textarea>
-                </div>
+    <!-- SOL SIDEBAR (zaten var, dokunma) -->
 
-                <div class="card form-grid">
-                  <div class="form-field half">
-                    <label for="videoDuration">Süre</label>
-                    <select id="videoDuration">
-                      <option value="8">8 saniye (15 kredi)</option>
-                      <option value="16">16 saniye (25 kredi)</option>
-                    </select>
-                  </div>
+    <!-- ORTA PANEL -->
+    <section class="main-panel video-panel">
 
-                  <div class="form-field half">
-                    <label for="videoRes">Çözünürlük</label>
-                    <select id="videoRes">
-                      <option value="720">720p HD</option>
-                      <option value="1080">1080p Full HD</option>
-                    </select>
-                  </div>
+      <div class="panel-header">
+        <h1 class="panel-title">AI Video Üret</h1>
+        <p class="panel-subtitle">
+          Yazıdan veya görselden sinematik videolar oluştur.
+        </p>
+      </div>
 
-                  <div class="form-field half">
-                    <label for="videoRatio">En / Boy</label>
-                    <select id="videoRatio">
-                      <option value="16:9">16:9 (YouTube)</option>
-                      <option value="9:16">9:16 (Reels/TikTok)</option>
-                      <option value="1:1">1:1 (Square)</option>
-                    </select>
-                  </div>
+      <!-- ============================= -->
+      <!-- VIDEO TAB BAR -->
+      <!-- ============================= -->
+      <div class="video-tabs">
+        <button
+          class="video-tab is-active"
+          data-video-tab="text"
+        >
+          Yazıdan Video
+        </button>
 
-                  <div class="form-field half">
-                    <label for="videoMotion">Kamera / Hareket</label>
-                    <select id="videoMotion">
-                      <option value="cinematic">Sinematik (smooth)</option>
-                      <option value="dynamic">Dinamik (enerjik)</option>
-                      <option value="static">Statik (minimal)</option>
-                    </select>
-                  </div>
+        <button
+          class="video-tab"
+          data-video-tab="image"
+        >
+          Resimden Video
+        </button>
+      </div>
 
-                  <div class="form-field full">
-                    <label for="videoStyle">Stil</label>
-                    <select id="videoStyle">
-                      <option>Gerçekçi</option>
-                      <option>Cyberpunk Neon</option>
-                      <option>Anime</option>
-                      <option>Sanatsal</option>
-                      <option>3D</option>
-                    </select>
-                  </div>
-                </div>
+      <!-- ============================= -->
+      <!-- YAZIDAN VIDEO -->
+      <!-- ============================= -->
+      <div
+        class="video-view is-active"
+        data-video-view="text"
+      >
 
-                <button class="primary-btn full-width big-video-btn" id="videoGenerateTextBtn">
-                  🎬 Video Oluştur (15 Kredi)
-                </button>
-              </div>
+        <div class="card">
 
-              <!-- Image → Video -->
-              <div class="video-view" data-aivideo-view="image">
-                <div class="card">
-                  <label>Resim Yükle (PNG/JPG)</label>
-
-                  <input type="file" id="videoImageInput" accept=".png,.jpg,.jpeg,.webp" style="display:none" />
-                  <label class="upload-box" for="videoImageInput">
-                    <strong>Resim seç veya sürükleyip bırak</strong>
-                    <p style="margin:8px 0 0; font-size:12px; color:#9aa4d7;">Max 8MB • PNG / JPG / WEBP</p>
-                  </label>
-                </div>
-
-                <div class="card">
-                  <label for="videoImagePrompt">Resim Nasıl Canlansın?</label>
-                  <textarea id="videoImagePrompt" rows="3" maxlength="700"
-                    placeholder="Örn: Kamera yavaşça yaklaşsın, neon parlamalar artsın, hafif duman efekti ve ışık geçişleri olsun..."></textarea>
-                </div>
-
-                <div class="card form-grid">
-                  <div class="form-field half">
-                    <label for="videoImageDuration">Süre</label>
-                    <select id="videoImageDuration">
-                      <option value="8">8 saniye (15 kredi)</option>
-                      <option value="16">16 saniye (25 kredi)</option>
-                    </select>
-                  </div>
-
-                  <div class="form-field half">
-                    <label for="videoImageRes">Çözünürlük</label>
-                    <select id="videoImageRes">
-                      <option value="720">720p HD</option>
-                      <option value="1080">1080p Full HD</option>
-                    </select>
-                  </div>
-
-                  <div class="form-field full">
-                    <label for="videoImageMotion">Hareket</label>
-                    <select id="videoImageMotion">
-                      <option value="parallax">Parallax</option>
-                      <option value="zoom">Zoom In/Out</option>
-                      <option value="pan">Pan (sağa/sola)</option>
-                      <option value="orbit">Orbit (dönüş)</option>
-                    </select>
-                  </div>
-                </div>
-
-                <button class="primary-btn full-width big-video-btn" id="videoGenerateImageBtn">
-                  🎬 Video Oluştur (15 Kredi)
-                </button>
+          <div class="card-header">
+            <div>
+              <div class="card-title">Video Açıklaması</div>
+              <div class="card-subtitle">
+                Sahneyi, atmosferi ve kamera hareketlerini tarif et
               </div>
             </div>
 
-          </section>
+            <div class="badge-beta">
+              15 Kredi
+            </div>
+          </div>
+
+          <!-- PROMPT -->
+          <div class="video-prompt-wrapper">
+
+            <div class="video-prompt-tip">
+              Örnek: Gece neon ışıklarıyla dolu cyberpunk şehir, yavaş kamera
+              hareketi, mor-mavi tonlar, sinematik atmosfer.
+            </div>
+
+            <textarea
+              id="videoPrompt"
+              maxlength="1000"
+              placeholder="Video açıklaması (max 1000 karakter)..."
+            ></textarea>
+
+            <div
+              class="video-prompt-counter"
+              id="videoPromptCounter"
+            >
+              0 / 1000
+            </div>
+
+          </div>
+
+          <button
+            class="primary-btn big-video-btn full-width"
+            id="videoGenerateTextBtn"
+          >
+            🎬 Videoyu Oluştur
+          </button>
+
+        </div>
+      </div>
+
+      <!-- ============================= -->
+      <!-- RESİMDEN VIDEO -->
+      <!-- ============================= -->
+      <div
+        class="video-view"
+        data-video-view="image"
+      >
+
+        <div class="card">
+
+          <div class="card-header">
+            <div>
+              <div class="card-title">Görsel Yükle</div>
+              <div class="card-subtitle">
+                Bir görsel seç ve videoya dönüştür
+              </div>
+            </div>
+
+            <div class="badge-beta">
+              25 Kredi
+            </div>
+          </div>
+
+          <!-- UPLOAD -->
+          <div
+            class="upload-box"
+            onclick="document.getElementById('videoImageInput').click()"
+          >
+            <strong>Görsel Seç veya Sürükle</strong>
+            <p class="record-upload-hint">
+              JPG / PNG – Maks. 10MB
+            </p>
+
+            <input
+              type="file"
+              id="videoImageInput"
+              accept="image/*"
+              hidden
+            />
+          </div>
+
+          <!-- ANİMASYON / CANLANDIRMA PROMPT -->
+          <div class="video-prompt-wrapper">
+
+            <div class="video-prompt-tip">
+              Örnek: Kamera yavaşça ileri hareket etsin, arka planda
+              hafif sis ve ışık parlamaları olsun.
+            </div>
+
+            <textarea
+              id="videoImagePrompt"
+              maxlength="500"
+              placeholder="Görsel nasıl canlansın? (opsiyonel)"
+            ></textarea>
+
+            <div
+              class="video-prompt-counter"
+              id="videoImagePromptCounter"
+            >
+              0 / 500
+            </div>
+
+          </div>
+
+          <button
+            class="primary-btn big-video-btn full-width"
+            id="videoGenerateImageBtn"
+          >
+            🎞 Videoyu Oluştur
+          </button>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SAĞ PANEL -->
+    <aside class="right-panel">
+
+      <div class="card right-card">
+        <div class="card-title">Oluşturulan Videolar</div>
+
+        <div class="empty-state">
+          <div class="empty-icon">🎥</div>
+          <div class="empty-title">Henüz video yok</div>
+          <div class="empty-text">
+            Ürettiğin videolar burada görünecek
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+</div>
+
 
           <!-- ========== SAĞ PANEL ========== -->
           <aside class="right-panel">
