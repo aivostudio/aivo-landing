@@ -1,137 +1,155 @@
-// ======================================================
-// AIVO STUDIO – STUDIO.JS (FULL / STABLE)
-// ======================================================
+// AIVO STUDIO – STUDIO.JS (FULL CLEAN + STABLE)
 
 document.addEventListener("DOMContentLoaded", () => {
-
-  /* ======================================================
-     PAGE SWITCH (music / video / cover)
-  ====================================================== */
+  /* =========================================
+     SAYFA GEÇİŞLERİ (MÜZİK / KAPAK)
+     ========================================= */
   const pages = document.querySelectorAll(".page");
   const pageLinks = document.querySelectorAll("[data-page-link]");
 
   function switchPage(target) {
-    pages.forEach(p => {
+    pages.forEach((p) => {
       p.classList.toggle("is-active", p.dataset.page === target);
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  pageLinks.forEach(link => {
-    link.addEventListener("click", e => {
+  pageLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
       const target = link.getAttribute("data-page-link");
       if (!target) return;
       e.preventDefault();
 
-      pageLinks.forEach(l => l.classList.remove("is-active"));
-      link.classList.add("is-active");
+      // Tüm linklerden is-active'i kaldır (kredi linkleri hariç)
+      pageLinks.forEach((l) => {
+        if (!l.hasAttribute("data-open-pricing")) {
+          l.classList.remove("is-active");
+        }
+      });
+
+      // Tıklanan link aktif
+      if (!link.hasAttribute("data-open-pricing")) {
+        link.classList.add("is-active");
+      }
 
       switchPage(target);
     });
   });
 
-  /* ======================================================
-     VIDEO TABS (Text → Video / Image → Video)
-  ====================================================== */
-  const videoTabs = document.querySelectorAll("[data-video-tab]");
-  const videoViews = document.querySelectorAll("[data-video-view]");
+  /* =========================================
+     SOL MENÜ – MÜZİK ALT SEKME GEÇİŞLERİ
+     (Geleneksel / Ses Kaydı / Vokale Göre)
+     ========================================= */
+  const musicViews = document.querySelectorAll(".music-view");
+  const musicTabButtons = document.querySelectorAll(".sidebar-sublink[data-music-tab]");
 
-  function switchVideoTab(target) {
-    videoTabs.forEach(tab => {
-      tab.classList.toggle(
-        "is-active",
-        tab.getAttribute("data-video-tab") === target
-      );
+  // Ses Kaydı Controller (sekme değişiminde resetlemek için)
+  let recordController = null;
+
+  function switchMusicView(targetKey) {
+    musicViews.forEach((view) => {
+      const key = view.getAttribute("data-music-view");
+      view.classList.toggle("is-active", key === targetKey);
     });
 
-    videoViews.forEach(view => {
-      view.classList.toggle(
-        "is-active",
-        view.getAttribute("data-video-view") === target
-      );
-    });
+    // Ses Kaydı dışına çıkınca kayıt açıksa zorla kapat + resetle
+    if (recordController && targetKey !== "ses-kaydi") {
+      recordController.forceStopAndReset();
+    }
   }
 
-  if (videoTabs.length && videoViews.length) {
-    videoTabs.forEach(tab => {
-      tab.addEventListener("click", () => {
-        const target = tab.getAttribute("data-video-tab");
-        if (target) switchVideoTab(target);
+  if (musicViews.length && musicTabButtons.length) {
+    musicTabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-music-tab");
+        if (!target) return;
+
+        // Sol menü aktif buton
+        musicTabButtons.forEach((b) => {
+          b.classList.toggle("is-active", b === btn);
+        });
+
+        // Orta panel görünümü
+        switchMusicView(target);
       });
     });
 
-    // default
-    switchVideoTab("text");
+    // Varsayılan: geleneksel
+    switchMusicView("geleneksel");
   }
 
-  /* ======================================================
-     BASIC / ADVANCED MODE (future ready)
-  ====================================================== */
+  /* =========================================
+     ÇALIŞMA MODU (BASİT / GELİŞMİŞ)
+     ========================================= */
   const body = document.body;
   const modeButtons = document.querySelectorAll("[data-mode-button]");
-  const advancedOnly = document.querySelectorAll("[data-visible-in='advanced']");
-  const basicOnly = document.querySelectorAll("[data-visible-in='basic']");
+  const advancedSections = document.querySelectorAll("[data-visible-in='advanced']");
+  const basicSections = document.querySelectorAll("[data-visible-in='basic']");
 
   function updateMode(mode) {
     body.setAttribute("data-mode", mode);
 
-    modeButtons.forEach(btn => {
-      btn.classList.toggle(
-        "is-active",
-        btn.getAttribute("data-mode-button") === mode
-      );
+    modeButtons.forEach((btn) => {
+      const btnMode = btn.getAttribute("data-mode-button");
+      btn.classList.toggle("is-active", btnMode === mode);
     });
 
-    advancedOnly.forEach(el => {
-      el.style.display = mode === "basic" ? "none" : "";
+    advancedSections.forEach((el) => {
+      if (mode === "basic") el.classList.add("hidden");
+      else el.classList.remove("hidden");
     });
 
-    basicOnly.forEach(el => {
-      el.style.display = mode === "basic" ? "" : "none";
+    basicSections.forEach((el) => {
+      if (mode === "basic") el.classList.remove("hidden");
+      else el.classList.add("hidden");
     });
   }
 
-  modeButtons.forEach(btn => {
+  modeButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const mode = btn.getAttribute("data-mode-button");
-      if (mode) updateMode(mode);
+      if (!mode) return;
+      updateMode(mode);
     });
   });
 
+  // Varsayılan: Gelişmiş
   updateMode("advanced");
 
-  /* ======================================================
-     PRICING MODAL
-  ====================================================== */
+  /* =========================================
+     KREDİ MODALI (PRICING)
+     ========================================= */
   const pricingModal = document.getElementById("pricingModal");
   const creditsButton = document.getElementById("creditsButton");
-  const pricingLinks = document.querySelectorAll("[data-open-pricing]");
   const closePricing = document.getElementById("closePricing");
+  const openPricingLinks = document.querySelectorAll("[data-open-pricing]");
 
   function openPricing() {
-    if (pricingModal) pricingModal.classList.add("is-open");
+    if (!pricingModal) return;
+    pricingModal.classList.add("is-open");
   }
 
   function closePricingModal() {
-    if (pricingModal) pricingModal.classList.remove("is-open");
+    if (!pricingModal) return;
+    pricingModal.classList.remove("is-open");
   }
 
   if (creditsButton) {
-    creditsButton.addEventListener("click", e => {
+    creditsButton.addEventListener("click", (e) => {
       e.preventDefault();
       openPricing();
     });
   }
 
-  pricingLinks.forEach(l => {
-    l.addEventListener("click", e => {
+  openPricingLinks.forEach((el) => {
+    el.addEventListener("click", (e) => {
       e.preventDefault();
       openPricing();
     });
   });
 
   if (closePricing) {
-    closePricing.addEventListener("click", e => {
+    closePricing.addEventListener("click", (e) => {
       e.preventDefault();
       closePricingModal();
     });
@@ -141,32 +159,214 @@ document.addEventListener("DOMContentLoaded", () => {
     const backdrop = pricingModal.querySelector(".pricing-backdrop");
     if (backdrop) backdrop.addEventListener("click", closePricingModal);
 
-    document.addEventListener("keydown", e => {
+    document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && pricingModal.classList.contains("is-open")) {
         closePricingModal();
       }
     });
   }
 
-  /* ======================================================
-     VIDEO GENERATE BUTTON (UI ONLY)
-  ====================================================== */
-  const videoButtons = document.querySelectorAll(".big-video-btn");
+  /* =========================================
+     MÜZİK ÜRET BUTONU – UI LOADING
+     ========================================= */
+  const musicGenerateBtn = document.getElementById("musicGenerateBtn");
+  if (musicGenerateBtn) {
+    musicGenerateBtn.addEventListener("click", () => {
+      if (musicGenerateBtn.classList.contains("is-loading")) return;
 
-  videoButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      if (btn.classList.contains("is-loading")) return;
-
-      const originalText = btn.textContent;
-      btn.classList.add("is-loading");
-      btn.textContent = "⏳ Video Oluşturuluyor...";
+      const originalText = musicGenerateBtn.textContent;
+      musicGenerateBtn.classList.add("is-loading");
+      musicGenerateBtn.textContent = "Üretiliyor...";
 
       setTimeout(() => {
-        btn.classList.remove("is-loading");
-        btn.textContent = originalText;
-        console.log("Video üretim isteği (API burada bağlanacak)");
-      }, 1600);
+        musicGenerateBtn.classList.remove("is-loading");
+        musicGenerateBtn.textContent = originalText;
+        console.log("Müzik üretim isteği burada API'ye gidecek.");
+      }, 1200);
     });
-  });
+  }
 
+  /* =========================================
+     KAPAK ÜRET BUTONU – UI LOADING
+     ========================================= */
+  const coverGenerateBtn = document.getElementById("coverGenerateBtn");
+  if (coverGenerateBtn) {
+    coverGenerateBtn.addEventListener("click", () => {
+      if (coverGenerateBtn.classList.contains("is-loading")) return;
+
+      const originalText = coverGenerateBtn.textContent;
+      coverGenerateBtn.classList.add("is-loading");
+      coverGenerateBtn.textContent = "Kapak üretiliyor...";
+
+      setTimeout(() => {
+        coverGenerateBtn.classList.remove("is-loading");
+        coverGenerateBtn.textContent = originalText;
+        console.log("Kapak üretim isteği burada görsel AI API'ye gidecek.");
+      }, 1400);
+    });
+  }
+
+  /* =========================================
+     SES KAYDI – GÖRSEL KAYIT DURUMU
+     (Circle + Timer + Sonuç Kartı)
+     ========================================= */
+  const sesView = document.querySelector('.music-view[data-music-view="ses-kaydi"]');
+  if (sesView) {
+    const mainCard = sesView.querySelector(".record-main-card");
+    const circle = sesView.querySelector(".record-circle");
+    const button = sesView.querySelector(".record-btn");
+    const title = sesView.querySelector(".record-main-title");
+    const timerEl = sesView.querySelector(".record-timer");
+
+    const resultCard = sesView.querySelector("#recordResult");
+    const resultTimeEl = sesView.querySelector("#recordResultTime");
+
+    // Sonuç kartındaki butonlar
+    const playBtn = sesView.querySelector('[data-record-action="play"]');
+    const downloadBtn = sesView.querySelector('[data-record-action="download"]');
+    const toMusicBtn = sesView.querySelector('[data-record-action="to-music"]');
+    const deleteBtn = sesView.querySelector('[data-record-action="delete"]');
+
+    let isRecording = false;
+    let timerInterval = null;
+    let startTime = 0;
+    let lastDurationMs = 0;
+
+    function formatTime(ms) {
+      const totalSec = Math.floor(ms / 1000);
+      const min = String(Math.floor(totalSec / 60)).padStart(2, "0");
+      const sec = String(totalSec % 60).padStart(2, "0");
+      return `${min}:${sec}`;
+    }
+
+    function setResultVisible(visible) {
+      if (!resultCard) return;
+      resultCard.style.display = visible ? "flex" : "none";
+    }
+
+    function startTimer() {
+      if (!timerEl) return;
+
+      startTime = Date.now();
+      timerEl.textContent = "00:00";
+
+      if (timerInterval) clearInterval(timerInterval);
+
+      timerInterval = setInterval(() => {
+        const diff = Date.now() - startTime;
+        timerEl.textContent = formatTime(diff);
+      }, 200);
+    }
+
+    function stopTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      lastDurationMs = startTime ? (Date.now() - startTime) : 0;
+      startTime = 0;
+    }
+
+    function applyUIRecordingState(active) {
+      isRecording = active;
+
+      if (circle) circle.classList.toggle("is-recording", isRecording);
+      if (mainCard) mainCard.classList.toggle("is-recording", isRecording);
+
+      if (title) {
+        title.textContent = isRecording ? "Kayıt Devam Ediyor" : "Ses Kaydetmeye Başlayın";
+      }
+      if (button) {
+        button.textContent = isRecording ? "⏹ Kaydı Durdur" : "⏺ Kaydı Başlat";
+      }
+
+      document.body.classList.toggle("is-recording", isRecording);
+
+      if (isRecording) {
+        setResultVisible(false);
+        startTimer();
+      } else {
+        stopTimer();
+
+        // 0.5 saniyeden kısa kayıtları göstermeyelim
+        if (lastDurationMs >= 500 && resultTimeEl) {
+          resultTimeEl.textContent = formatTime(lastDurationMs);
+          setResultVisible(true);
+        } else {
+          setResultVisible(false);
+        }
+      }
+    }
+
+    function toggleRecording() {
+      applyUIRecordingState(!isRecording);
+    }
+
+    // Başlangıç: sonuç kartı gizli kalsın
+    setResultVisible(false);
+
+    if (circle) {
+      circle.style.cursor = "pointer";
+      circle.addEventListener("click", toggleRecording);
+    }
+
+    if (button) {
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleRecording();
+      });
+    }
+
+    // Sonuç kartı butonları (placeholder)
+    if (playBtn) {
+      playBtn.addEventListener("click", () => {
+        console.log("Kayıtlı sesi çal (buraya audio player gelecek).");
+      });
+    }
+    if (downloadBtn) {
+      downloadBtn.addEventListener("click", () => {
+        console.log("Kayıtlı sesi indir (buraya download logic gelecek).");
+      });
+    }
+    if (toMusicBtn) {
+      toMusicBtn.addEventListener("click", () => {
+        console.log("Kayıtlı sesi Müzik Üret formuna gönder (ileride).");
+      });
+    }
+    if (deleteBtn) {
+      deleteBtn.addEventListener("click", () => {
+        console.log("Kaydı sil (ileride).");
+        setResultVisible(false);
+      });
+    }
+
+    // Dışarıdan (sekme değişimi) resetlemek için controller
+    recordController = {
+      forceStopAndReset() {
+        if (isRecording) {
+          // kayıt açıksa kapat
+          applyUIRecordingState(false);
+        } else {
+          // kayıt kapalıysa temiz bir reset
+          document.body.classList.remove("is-recording");
+          if (circle) circle.classList.remove("is-recording");
+          if (mainCard) mainCard.classList.remove("is-recording");
+          if (title) title.textContent = "Ses Kaydetmeye Başlayın";
+          if (button) button.textContent = "⏺ Kaydı Başlat";
+          if (timerEl) timerEl.textContent = "00:00";
+          setResultVisible(false);
+
+          if (timerInterval) clearInterval(timerInterval);
+          timerInterval = null;
+          startTime = 0;
+          lastDurationMs = 0;
+          isRecording = false;
+        }
+      },
+    };
+  }
+
+  // Not: Şu anda gerçek mikrofon / MediaRecorder yok.
+  // Sadece görsel kayıt simülasyonu yapıyoruz. Gerçek kayıt için
+  // ileride navigator.mediaDevices.getUserMedia + MediaRecorder eklenebilir.
 });
