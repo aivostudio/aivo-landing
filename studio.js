@@ -293,3 +293,104 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
+/* ======================================================
+   AIVO – AI VIDEO (JS EK BLOK)  ✅ EN ALTA EKLE
+   ====================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+  /* =============================
+     VIDEO TAB SWITCH (TEXT / IMAGE)
+     ============================= */
+  const videoTabs = document.querySelectorAll(".video-tab[data-video-tab]");
+  const videoViews = document.querySelectorAll(".video-view[data-video-view]");
+  const creditBadges = document.querySelectorAll(".badge-beta");
+
+  function switchVideoTab(target) {
+    videoTabs.forEach((tab) => {
+      tab.classList.toggle("is-active", tab.dataset.videoTab === target);
+    });
+
+    videoViews.forEach((view) => {
+      view.classList.toggle("is-active", view.dataset.videoView === target);
+    });
+
+    // Kredi etiketlerini garanti altına al
+    creditBadges.forEach((badge) => {
+      if (target === "text" && badge.textContent.includes("Kredi")) {
+        if (badge.closest('[data-video-view="text"]')) badge.textContent = "15 Kredi";
+      }
+      if (target === "image" && badge.textContent.includes("Kredi")) {
+        if (badge.closest('[data-video-view="image"]')) badge.textContent = "25 Kredi";
+      }
+    });
+  }
+
+  videoTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const target = tab.dataset.videoTab;
+      if (!target) return;
+      switchVideoTab(target);
+    });
+  });
+
+  /* =============================
+     PROMPT KARAKTER SAYAÇLARI
+     ============================= */
+  function bindCounter(textareaId, counterId, max) {
+    const textarea = document.getElementById(textareaId);
+    const counter = document.getElementById(counterId);
+    if (!textarea || !counter) return;
+
+    const update = () => {
+      const len = textarea.value.length;
+      counter.textContent = `${len} / ${max}`;
+    };
+
+    textarea.addEventListener("input", update);
+    update();
+  }
+
+  // Yazıdan video (1000)
+  bindCounter("videoPrompt", "videoPromptCounter", 1000);
+
+  // Resimden video – canlandırma promptu (500)
+  bindCounter("videoImagePrompt", "videoImagePromptCounter", 500);
+
+  /* =============================
+     GENERATE BUTONLARI (UI LOADING)
+     ============================= */
+  const textBtn = document.getElementById("videoGenerateTextBtn");
+  const imageBtn = document.getElementById("videoGenerateImageBtn");
+
+  function attachLoading(btn, text) {
+    if (!btn) return;
+    btn.addEventListener("click", () => {
+      if (btn.classList.contains("is-loading")) return;
+
+      const original = btn.textContent;
+      btn.classList.add("is-loading");
+      btn.textContent = text;
+
+      setTimeout(() => {
+        btn.classList.remove("is-loading");
+        btn.textContent = original;
+        console.log("AI Video isteği API'ye gönderilecek.");
+      }, 1400);
+    });
+  }
+
+  attachLoading(textBtn, "🎬 Video Oluşturuluyor...");
+  attachLoading(imageBtn, "🎞 Video Oluşturuluyor...");
+
+  /* =============================
+     IMAGE INPUT – GÖRSEL SEÇİM KONTROL
+     ============================= */
+  const imageInput = document.getElementById("videoImageInput");
+  if (imageInput) {
+    imageInput.addEventListener("change", () => {
+      if (!imageInput.files || !imageInput.files[0]) return;
+      console.log("Seçilen görsel:", imageInput.files[0].name);
+    });
+  }
+});
+
