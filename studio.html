@@ -409,24 +409,106 @@
 </div>
 
 
-            <!-- ****** VOKALE GÖRE ****** -->
-            <div class="music-view" data-music-view="vokale-gore">
-              <div class="panel-header">
-                <h1 class="panel-title">Vokale Göre (Yakında)</h1>
-                <p class="panel-subtitle">
-                  Vokal analizine göre otomatik enstrümantasyon ve miks ayarları burada
-                  tasarlanacak.
-                </p>
-              </div>
+           <!-- ****** AI VIDEO ÜRETİMİ ****** -->
+<div class="music-view" data-music-view="video-uret">
+  <div class="panel-header">
+    <h1 class="panel-title">AI Video Üret</h1>
+    <p class="panel-subtitle">
+      Yazıdan videoya veya görselden videoya üret. Orta seviye, hızlı ve pratik akış.
+    </p>
+  </div>
 
-              <div class="card">
-                <p>
-                  Bu bölüm MVP sonrasında eklenecek. Şimdilik Geleneksel ve Ses Kaydı sekmelerini
-                  kullanabilirsin.
-                </p>
-              </div>
-            </div>
-          </section>
+  <!-- ÜST TAB: Yazı→Video / Resim→Video -->
+  <div class="card video-tabs-card">
+    <div class="video-tabs">
+      <button type="button" class="video-tab is-active" data-video-tab="text">
+        ✍️ Yazı → Video
+      </button>
+      <button type="button" class="video-tab" data-video-tab="image">
+        🖼️ Resim → Video
+      </button>
+    </div>
+  </div>
+
+  <!-- FORM KARTI -->
+  <div class="card video-form-card">
+    <div class="video-form">
+
+      <!-- IMAGE UPLOAD (sadece Resim→Video’da görünür) -->
+      <div class="video-image-box hidden" data-video-visible="image">
+        <div class="video-upload-title">Resim Yükle</div>
+
+        <input type="file" id="videoImageInput" accept=".png,.jpg,.jpeg,.webp" hidden />
+
+        <label class="video-dropzone" for="videoImageInput">
+          <div class="dz-icon">🖼️</div>
+          <div class="dz-title">Resim yüklemek için tıklayın</div>
+          <div class="dz-sub">PNG, JPG, JPEG, WEBP (Max 8MB)</div>
+        </label>
+      </div>
+
+      <!-- Prompt -->
+      <div class="form-field full">
+        <label for="videoPrompt">Video Açıklaması</label>
+        <textarea
+          id="videoPrompt"
+          rows="4"
+          maxlength="1000"
+          placeholder="Örn: Pembe-mor neon ışıkların aktığı modern bir sahne, slow motion kamera, sinematik atmosfer..."
+        ></textarea>
+        <div class="video-char-counter"><span id="videoCharNow">0</span>/1000</div>
+      </div>
+
+      <!-- Ayarlar -->
+      <div class="video-settings-grid">
+        <div class="form-field">
+          <label for="videoDuration">Süre</label>
+          <select id="videoDuration">
+            <option value="4">4 Saniye</option>
+            <option value="8" selected>8 Saniye</option>
+            <option value="12">12 Saniye</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="videoResolution">Çözünürlük</label>
+          <select id="videoResolution">
+            <option value="720p" selected>720p HD</option>
+            <option value="1080p">1080p</option>
+          </select>
+        </div>
+
+        <div class="form-field full">
+          <label for="videoAspect">En / Boy Oranı</label>
+          <select id="videoAspect">
+            <option value="16:9" selected>Geniş (16:9)</option>
+            <option value="9:16">Dikey (9:16)</option>
+            <option value="1:1">Kare (1:1)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Ses Üretimi Toggle -->
+      <div class="video-audio-row">
+        <div>
+          <div class="video-audio-title">Ses Üretimi</div>
+          <div class="video-audio-sub">Kapalıysa daha az kredi harcar</div>
+        </div>
+
+        <button type="button" class="toggle" id="videoAudioToggle" aria-pressed="true">
+          <span class="toggle-dot"></span>
+        </button>
+      </div>
+
+      <!-- ÜRET BUTONU -->
+      <button class="primary-btn full-width" id="videoGenerateBtn">
+        ✨ Video Oluştur (15 Kredi)
+      </button>
+
+    </div>
+  </div>
+</div>
+
 
           <!-- ========== SAĞ PANEL ========== -->
           <aside class="right-panel">
