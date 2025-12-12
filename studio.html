@@ -127,101 +127,106 @@
             </div>
           </aside>
 
-          <!-- ========== ORTA PANEL (TÜM MÜZİK VIEW’LERİ) ========== -->
-          <section class="main-panel">
-            <!-- ****** GELENEKSEL ****** -->
-            <div class="music-view is-active" data-music-view="geleneksel">
-              <div class="panel-header">
-                <h1 class="panel-title">Müzik Üret</h1>
-                <p class="panel-subtitle">
-                  Ritim, vokal, mood ve makam seç – AIVO şarkıyı senin için oluştursun.
-                </p>
-              </div>
+         <!-- ========== ORTA PANEL (TÜM MÜZİK VIEW’LERİ) ========== -->
+<section class="main-panel">
 
-              <!-- ÇALIŞMA MODU -->
-              <div class="card">
-                <div class="card-header">
-                  <div>
-                    <div class="card-title">Çalışma Modu</div>
-                    <div class="card-subtitle">
-                      İlk kez başlıyorsan Basit modla başla, sonra Gelişmiş’e geç.
-                    </div>
-                  </div>
-                  <div class="mode-toggle">
-                    <button class="mode-btn" data-mode-button="basic">Basit Mod</button>
-                    <button class="mode-btn is-active" data-mode-button="advanced">
-                      Gelişmiş Mod <span class="mode-star" aria-hidden="true">✦</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
+  <!-- ****** GELENEKSEL ****** -->
+  <div class="music-view is-active" data-music-view="geleneksel">
+    <div class="panel-header">
+      <h1 class="panel-title">Müzik Üret</h1>
+      <p class="panel-subtitle">
+        Ritim, vokal, mood ve makam seç – AIVO şarkıyı senin için oluştursun.
+      </p>
+    </div>
 
-              <!-- ŞARKI FORMU (YENİ SIRALAMA) -->
-              <div class="card">
-                <div class="form-grid">
-                  <!-- Şarkı Adı -->
-                  <div class="form-field full">
-                    <label for="songName">Şarkı Adı</label>
-                    <input
-                      type="text"
-                      id="songName"
-                      placeholder="Örn: Kül Bahçesi, Midnight Drive..."
-                    />
-                  </div>
+    <!-- ÇALIŞMA MODU -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Çalışma Modu</div>
+          <div class="card-subtitle">
+            İlk kez başlıyorsan Basit modla başla, sonra Gelişmiş’e geç.
+          </div>
+        </div>
+        <div class="mode-toggle">
+          <button class="mode-btn" data-mode-button="basic">Basit Mod</button>
+          <button class="mode-btn is-active" data-mode-button="advanced">
+            Gelişmiş Mod <span class="mode-star">✦</span>
+          </button>
+        </div>
+      </div>
+    </div>
 
-                  <!-- Şarkı Sözleri -->
-                  <div class="form-field full">
-                    <label for="lyrics">Şarkı Sözleri (isteğe bağlı)</label>
-                    <textarea
-                      id="lyrics"
-                      rows="3"
-                      placeholder="Şarkı sözlerini buraya yazın veya boş bırakın..."
-                    ></textarea>
-                  </div>
+    <!-- ŞARKI FORMU -->
+    <div class="card">
+      <div class="form-grid">
 
-                  <!-- Ek Açıklama / Prompt -->
-                  <div class="form-field full">
-                    <label for="prompt">Ek Açıklama / Prompt</label>
-                    <textarea
-                      id="prompt"
-                      rows="3"
-                      placeholder="Müzikte özellikle vurgulamak istediğin detayları yaz..."
-                    ></textarea>
-                  </div>
+        <!-- Şarkı Adı -->
+        <div class="form-field full">
+          <label for="songName">Şarkı Adı</label>
+          <input
+            type="text"
+            id="songName"
+            placeholder="Örn: Kül Bahçesi, Midnight Drive..."
+          />
+        </div>
 
-                  <!-- Şarkı Açıklaması -->
-                  <div class="form-field full">
-                    <label for="songDesc">Şarkı Açıklaması (max 200 karakter)</label>
-                    <textarea
-                      id="songDesc"
-                      maxlength="200"
-                      rows="2"
-                      placeholder="Şarkının genel havasını kısaca anlat..."
-                    ></textarea>
-                  </div>
+        <!-- Şarkı Sözleri -->
+        <div class="form-field full">
+          <label for="lyrics">Şarkı Sözleri (isteğe bağlı)</label>
+          <textarea
+            id="lyrics"
+            rows="3"
+            placeholder="Şarkı sözlerini buraya yazın veya boş bırakın..."
+          ></textarea>
+        </div>
 
-                  <!-- REFERANS SES YÜKLE -->
-                  <div class="form-field full">
-                    <label>Referans Ses Yükle (opsiyonel)</label>
+        <!-- Ek Açıklama -->
+        <div class="form-field full">
+          <label for="prompt">Ek Açıklama / Prompt</label>
+          <textarea
+            id="prompt"
+            rows="3"
+            placeholder="Müzikte özellikle vurgulamak istediğin detayları yaz..."
+          ></textarea>
+        </div>
 
-                    <div
-                      class="upload-box"
-                      onclick="document.getElementById('refAudio').click()"
-                    >
-                      <input
-                        type="file"
-                        id="refAudio"
-                        accept=".mp3,.wav,.m4a"
-                        style="display:none"
-                      />
-                      <div>
-                        <strong>Ses dosyası seç veya sürükleyip bırak</strong><br />
-                        <span style="font-size:12px;color:#9aa4d7;"
-                          >MP3, WAV, M4A — maksimum 10MB</span
-                        >
-                      </div>
-                    </div>
-                  </div>
+        <!-- Şarkı Açıklaması -->
+        <div class="form-field full">
+          <label for="songDesc">Şarkı Açıklaması (max 200 karakter)</label>
+          <textarea
+            id="songDesc"
+            maxlength="200"
+            rows="2"
+            placeholder="Şarkının genel havasını kısaca anlat..."
+          ></textarea>
+        </div>
+
+        <!-- REFERANS SES YÜKLE (ÇALIŞAN BLOK) -->
+        <div class="form-field full">
+          <label>Referans Ses Yükle (opsiyonel)</label>
+
+          <div
+            class="upload-box"
+            onclick="document.getElementById('refAudio').click()"
+          >
+            <input
+              type="file"
+              id="refAudio"
+              accept=".mp3,.wav,.m4a"
+              style="display:none"
+            />
+            <div>
+              <strong>Ses dosyası seç veya sürükleyip bırak</strong><br />
+              <span style="font-size:12px;color:#9aa4d7;">
+                MP3, WAV, M4A — maksimum 10MB
+              </span>
+            </div>
+          </div>
+        </div>
+
+   
+
 
                  <!-- Mood & Vokal Tipi -->
 <div class="form-field half" data-visible-in="advanced">
