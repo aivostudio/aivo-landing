@@ -1197,3 +1197,65 @@ input:focus, select:focus, textarea:focus{
 .music-view[data-music-view="ses-kaydi"] .result-icon-btn:active{
   transform:scale(0.96);
 }
+/* =========================================
+   SES KAYDI – SON DÜZELTME (İKON + YÜKSEKLİK)
+   Bunu studio.css EN ALTINA yapıştır
+   ========================================= */
+
+/* 1) Sayfanın gereksiz uzamasını azalt */
+.music-view[data-music-view="ses-kaydi"] .record-main-card{
+  min-height: 0 !important;                 /* 760px gibi zorlamayı iptal et */
+  padding-bottom: 80px !important;          /* 120px çok boşluk bırakıyordu */
+}
+
+/* Drawer için açtığımız boşluğu küçült (sayfa uzamasının ana kaynağı buydu) */
+.music-view[data-music-view="ses-kaydi"] .record-bottom-shell{
+  margin-top: 110px !important;             /* 140px -> 110px */
+}
+
+/* Drawer’ı biraz yukarı al ki boşluk gerekməsin */
+.music-view[data-music-view="ses-kaydi"] .record-result-layer{
+  top: 400px !important;                    /* 420px -> 400px */
+}
+
+/* 2) İkonlar: cam + glow kesin uygula (spesifik + !important) */
+.music-view[data-music-view="ses-kaydi"] #recordResult .result-icon-btn{
+  width: 52px !important;
+  height: 52px !important;
+
+  border-radius: 50% !important;
+  border: none !important;
+
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 60%),
+    rgba(255,255,255,0.08) !important;
+
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+
+  box-shadow: none !important;
+  color: #fff !important;
+  font-size: 20px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease !important;
+}
+
+.music-view[data-music-view="ses-kaydi"] #recordResult .result-icon-btn:hover{
+  transform: translateY(-2px) scale(1.08) !important;
+
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 60%),
+    rgba(166,107,255,0.22) !important;
+
+  box-shadow:
+    0 0 0 6px rgba(166,107,255,0.18),
+    0 0 24px rgba(166,107,255,0.55) !important;
+}
+
+.music-view[data-music-view="ses-kaydi"] #recordResult .result-icon-btn:active{
+  transform: scale(0.96) !important;
+}
