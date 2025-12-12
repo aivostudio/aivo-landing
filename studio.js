@@ -205,93 +205,147 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
- /* =========================================
-   SES KAYDI – GÖRSEL KAYIT DURUMU
-   (Circle + Waveform + Süre + Sonuç Kartı)
-   ========================================= */
-const sesView = document.querySelector('.music-view[data-music-view="ses-kaydi"]');
-if (sesView) {
-  const mainCard = sesView.querySelector(".record-main-card");
-  const circle = sesView.querySelector(".record-circle");
-  const button = sesView.querySelector(".record-btn");
-  const title = sesView.querySelector(".record-main-title"); // varsa
-  const timerEl = sesView.querySelector(".record-timer");
-  const resultWrapper = sesView.querySelector(".record-result-wrapper");
-  const recordedDurationEl = sesView.querySelector("#recordedDuration");
-  const bodyEl = document.body;
+  /* =========================================
+     SES KAYDI – GÖRSEL KAYIT DURUMU
+     (Circle + Waveform + Süre + Sonuç Kartı)
+     ========================================= */
+  const sesView = document.querySelector('.music-view[data-music-view="ses-kaydi"]');
+  if (sesView) {
+    const mainCard = sesView.querySelector(".record-main-card");
+    const circle = sesView.querySelector(".record-circle");
+    const button = sesView.querySelector(".record-btn");
+    const title = sesView.querySelector(".record-main-title");
+    const timerEl = sesView.querySelector(".record-timer");
+    const resultCard = sesView.querySelector("#recordResult");
+    const resultTimeEl = sesView.querySelector("#recordResultTime");
+    const bodyEl = document.body;
 
-  let isRecording = false;
-  let timerInterval = null;
-  let startTime = 0;
+    // Sonuç kartındaki butonlar
+    const playBtn = sesView.querySelector('[data-record-action="play"]');
+    const downloadBtn = sesView.querySelector('[data-record-action="download"]');
+    const toMusicBtn = sesView.querySelector('[data-record-action="to-music"]');
+    const deleteBtn = sesView.querySelector('[data-record-action="delete"]');
 
-  function formatTime(ms) {
-    const totalSec = Math.floor(ms / 1000);
-    const min = String(Math.floor(totalSec / 60)).padStart(2, "0");
-    const sec = String(totalSec % 60).padStart(2, "0");
-    return `${min}:${sec}`;
-  }
+    let isRecording = false;
+    let timerInterval = null;
+    let startTime = 0;
+    let lastDurationMs = 0;
 
-  function startTimer() {
-    if (!timerEl) return;
-    startTime = Date.now();
-    timerEl.textContent = "00:00";
-
-    timerInterval = setInterval(() => {
-      const diff = Date.now() - startTime;
-      timerEl.textContent = formatTime(diff);
-    }, 200);
-  }
-
-  function stopTimer() {
-    if (timerInterval) {
-      clearInterval(timerInterval);
-      timerInterval = null;
+    function formatTime(ms) {
+      const totalSec = Math.floor(ms / 1000);
+      const min = String(Math.floor(totalSec / 60)).padStart(2, "0");
+      const sec = String(totalSec % 60).padStart(2, "0");
+      return `${min}:${sec}`;
     }
-  }
 
-  function toggleRecordingVisual() {
-    isRecording = !isRecording;
+    function startTimer() {
+      if (!timerEl) return;
+      startTime = Date.now();
+      timerEl.textContent = "00:00";
+
+      if (timerInterval) {
+        clearInterval(timerInterval);
+      }
+      timerInterval = setInterval(() => {
+        const diff = Date.now() - startTime;
+        timerEl.textContent = formatTime(diff);
+      }, 200);
+    }
+
+    function stopTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+      if (startTime) {
+        lastDurationMs = Date.now() - startTime;
+      } else {
+        lastDurationMs = 0;
+      }
+    }
+
+    function showResultCard() {
+      if (!resultCard || !resultTimeEl) return;
+      if (lastDurationMs < 500) {
+        // 0.5 saniyeden kısa kayıtları göstermeyelim
+        return;
+      }
+      resultTimeEl.textContent = formatTime(lastDurationMs);
+      resultCard.style.display = "flex";
+    }
+
+    function hideResultCardWhileRecording() {
+      if (!resultCard) return;
+      resultCard.style.display = "none";
+    }
+
+    function toggleRecordingVisual() {
+      isRecording = !isRecording;
+
+      if (circle) {
+        circle.classList.toggle("is-recording", isRecording);
+      }
+      if (mainCard) {
+        mainCard.classList.toggle("is-recording", isRecording);
+      }
+      if (title) {
+        title.textContent = isRecording
+          ? "Kayıt Devam Ediyor"
+          : "Ses Kaydetmeye Başlayın";
+      }
+      if (button) {
+        button.textContent = isRecording
+          ? "⏹ Kaydı Durdur"
+          : "⏺ Kaydı Başlat";
+      }
+
+      if (isRecording) {
+        bodyEl.classList.add("is-recording");
+        hideResultCardWhileRecording();
+        startTimer();
+      } else {
+        bodyEl.classList.remove("is-recording");
+        stopTimer();
+        showResultCard();
+      }
+    }
 
     if (circle) {
-      circle.classList.toggle("is-recording", isRecording);
+      circle.style.cursor = "pointer";
+      circle.addEventListener("click", toggleRecordingVisual);
     }
-    if (mainCard) {
-      mainCard.classList.toggle("is-recording", isRecording);
-    }
-    if (title) {
-      title.textContent = isRecording ? "Kayıt Devam Ediyor" : "Ses Kaydetmeye Başlayın";
-    }
+
     if (button) {
-      button.textContent = isRecording ? "⏹ Kaydı Durdur" : "⏺ Kaydı Başlat";
+      button.addEventListener("click", toggleRecordingVisual);
     }
 
-    if (isRecording) {
-      bodyEl.classList.add("is-recording");
-      startTimer();
-      // kayıt başlarken sonuç kartı gizlensin
-      if (resultWrapper) {
-        resultWrapper.classList.remove("is-visible");
-      }
-    } else {
-      bodyEl.classList.remove("is-recording");
-      stopTimer();
-
-      // kayıt bitti → sonuç kartını göster + süreyi yaz
-      if (resultWrapper) {
-        resultWrapper.classList.add("is-visible");
-      }
-      if (recordedDurationEl && timerEl) {
-        recordedDurationEl.textContent = `Süre: ${timerEl.textContent}`;
-      }
+    // Şimdilik butonlar sadece konsola log yazıyor, API bağlandığında doldurulur
+    if (playBtn) {
+      playBtn.addEventListener("click", () => {
+        console.log("Kayıtlı sesi çal (buraya audio player gelecek).");
+      });
+    }
+    if (downloadBtn) {
+      downloadBtn.addEventListener("click", () => {
+        console.log("Kayıtlı sesi indir (buraya download logic gelecek).");
+      });
+    }
+    if (toMusicBtn) {
+      toMusicBtn.addEventListener("click", () => {
+        console.log("Kayıtlı sesi Müzik Üret formuna gönder (ileride).");
+      });
+    }
+    if (deleteBtn) {
+      deleteBtn.addEventListener("click", () => {
+        console.log("Kaydı sil (ileride).");
+        if (resultCard) {
+          resultCard.style.display = "none";
+        }
+      });
     }
   }
 
-  if (circle) {
-    circle.style.cursor = "pointer";
-    circle.addEventListener("click", toggleRecordingVisual);
-  }
-
-  if (button) {
-    button.addEventListener("click", toggleRecordingVisual);
-  }
-}
+  // Not: Şu anda gerçek mikrofon / MediaRecorder yok.
+  // Sadece görsel kayıt simülasyonu yapıyoruz. Gerçek kayıt için
+  // ileride navigator.mediaDevices.getUserMedia + MediaRecorder eklenebilir.
+});
