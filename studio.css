@@ -1303,3 +1303,5 @@ body.is-recording .record-neon-pulse{
   70%  { transform:scaleX(.9); opacity:.8; }
   100% { transform:scaleX(.6); opacity:.4; }
 }
+/* JS (Basit/Gelişmiş) görünürlük helper */
+.hidden { display: none !important; }
