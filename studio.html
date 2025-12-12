@@ -379,24 +379,32 @@
 
       </div>
 
-      <!-- SAĞ BLOK -->
-      <div class="record-main-right">
+     <!-- SAĞ BLOK -->
+<div class="record-main-right">
 
-        <h4 class="record-upload-title">MP3 Dosyası Yükle</h4>
+  <h4 class="record-upload-title">MP3 Dosyası Yükle</h4>
 
-        <p class="record-upload-text">
-          Mikrofondan kayıt almak yerine daha önce kaydettiğin bir MP3 dosyasını da kullanabilirsin.
-        </p>
+  <p class="record-upload-text">
+    Mikrofondan kayıt almak yerine daha önce kaydettiğin bir MP3 dosyasını da kullanabilirsin.
+  </p>
 
-        <div class="upload-box">
-          <strong>Ses dosyası seç veya sürükleyip bırak</strong>
-          <p class="record-upload-hint">Maksimum 10 MB</p>
-        </div>
+  <!-- MP3 UPLOAD (TIKLAYINCA DOSYA SEÇ AÇAR) -->
+  <input
+    type="file"
+    id="recordMp3Input"
+    accept=".mp3,.wav,.m4a"
+    style="display:none"
+  />
 
-      </div>
+  <label class="upload-box record-upload-box" for="recordMp3Input">
+    <strong>Ses dosyası seç veya sürükleyip bırak</strong>
+    <p class="record-upload-hint">MP3 / WAV / M4A • Maksimum 10 MB</p>
+  </label>
 
-    </div>
-  </div>
+</div>
+
+</div>
+</div>
 
 </div>
 
