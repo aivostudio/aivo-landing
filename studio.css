@@ -914,3 +914,112 @@ input:focus, select:focus, textarea:focus{
   .cover-grid{ grid-template-columns:minmax(0,1fr); }
   .music-view[data-music-view="ses-kaydi"] #recordResult.record-result-card{ top:500px; }
 }
+/* =========================================
+   SES KAYDI – MERKEZ SAHNEYİ GERİ GETİR (OVERRIDE)
+   Bunu studio.css EN ALTINA yapıştır
+   ========================================= */
+
+/* 1) Ana kart: merkez hizalama + üst boşluk */
+.music-view[data-music-view="ses-kaydi"] .record-main-card{
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+
+  padding-top: 60px !important;   /* yuvarlağa yer aç */
+  overflow: hidden !important;
+}
+
+/* 2) Eğer HTML’de .record-center varsa: tam merkeze al */
+.music-view[data-music-view="ses-kaydi"] .record-center{
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-top: 10px !important;
+  margin-bottom: 20px !important;
+}
+
+/* 3) Yuvarlak mikrofonu ZORLA görünür yap */
+.music-view[data-music-view="ses-kaydi"] .record-circle{
+  display: flex !important;
+  width: 260px !important;
+  height: 260px !important;
+  border-radius: 50% !important;
+  margin: 0 auto 16px !important;
+  position: relative !important;
+  z-index: 10 !important;
+
+  background: conic-gradient(from 0deg,#ff7675,#fd79a8,#ffeaa7,#55efc4,#74b9ff,#a29bfe,#ff7675) !important;
+  box-shadow: 0 0 40px rgba(255,255,255,0.14), 0 0 80px rgba(132,94,247,0.55) !important;
+}
+
+/* İç disk */
+.music-view[data-music-view="ses-kaydi"] .record-circle::after{
+  content:"" !important;
+  position:absolute !important;
+  inset:26px !important;
+  border-radius:inherit !important;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.14), transparent 60%),
+    radial-gradient(circle at bottom, #3b206b, #05020c) !important;
+}
+
+/* Mikrofon ikonunu öne al */
+.music-view[data-music-view="ses-kaydi"] .record-icon{
+  position: relative !important;
+  z-index: 11 !important;
+  font-size: 54px !important;
+}
+
+/* 4) Butonu yuvarlağın altına ORTALA */
+.music-view[data-music-view="ses-kaydi"] .ses-button-under-circle{
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  margin: 8px 0 0 !important;
+  position: relative !important;
+  z-index: 12 !important;
+}
+
+.music-view[data-music-view="ses-kaydi"] .ses-button-under-circle .record-btn{
+  padding: 18px 46px !important;
+  border-radius: 999px !important;
+}
+
+/* 5) Alt panel (bilgilendirme kartı) yuvarlağın altına gelsin */
+.music-view[data-music-view="ses-kaydi"] .record-bottom-shell{
+  width: 100% !important;
+  max-width: 1100px !important;
+  margin-top: 26px !important;     /* yuvarlağın altında düzgün dursun */
+  z-index: 2 !important;
+}
+
+/* 6) 4 ikon çekmecesi: BUTONUN HEMEN ALTINA sabitle */
+.music-view[data-music-view="ses-kaydi"] .record-result-layer{
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+
+  /* Butonun altı: yuvarlak(260) + aralıklar ≈ 340-420 */
+  top: 410px !important;
+
+  width: min(640px, 92%) !important;
+  z-index: 80 !important;
+}
+
+/* Çekmece kartı: üstte dursun, alttaki kutunun “içinde” görünmesin */
+.music-view[data-music-view="ses-kaydi"] #recordResult.record-result-card{
+  position: relative !important;
+  margin: 0 !important;
+}
+
+/* Mobilde top ayarı (yuvarlak daha yukarı kayar) */
+@media (max-width: 860px){
+  .music-view[data-music-view="ses-kaydi"] .record-result-layer{
+    top: 380px !important;
+  }
+}
+
