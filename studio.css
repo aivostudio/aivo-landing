@@ -1385,3 +1385,120 @@ body.is-recording .record-neon-pulse{
   color: var(--text-soft);
   line-height: 1.55;
 }
+/* ======================================================
+   VOKALE GÖRE – HERO + UPLOAD CENTER + WATERMARK
+   ====================================================== */
+
+.music-view[data-music-view="vokale-gore"] .vokal-hero{
+  text-align:center;
+  padding-top: 6px;
+}
+
+.music-view[data-music-view="vokale-gore"] .vokal-hero-icon{
+  font-size: 26px;
+  opacity: .9;
+  margin-bottom: 6px;
+}
+
+.music-view[data-music-view="vokale-gore"] .vokal-glow-line{
+  width: min(520px, 70%);
+  height: 2px;
+  margin: 14px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg,
+    rgba(253,121,168,0),
+    rgba(162,155,254,.85),
+    rgba(116,185,255,.85),
+    rgba(253,121,168,.75),
+    rgba(253,121,168,0)
+  );
+  filter: drop-shadow(0 0 10px rgba(162,155,254,.35));
+  opacity: .85;
+  animation: vokalLineBreath 2.6s ease-in-out infinite;
+}
+
+@keyframes vokalLineBreath{
+  0%{ transform: scaleX(.92); opacity:.65; }
+  50%{ transform: scaleX(1); opacity:1; }
+  100%{ transform: scaleX(.92); opacity:.65; }
+}
+
+/* Kart içini düzenle */
+.music-view[data-music-view="vokale-gore"] .vokal-upload-card{
+  position: relative;
+  padding: 22px 22px 18px;
+  overflow: hidden;
+}
+
+.music-view[data-music-view="vokale-gore"] .vokal-upload-title{
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* Upload alanını tam ortaya al */
+.music-view[data-music-view="vokale-gore"] .vokal-upload-box{
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.music-view[data-music-view="vokale-gore"] .vokal-upload-center{
+  display:flex;
+  align-items:center;
+  gap: 14px;
+}
+
+.music-view[data-music-view="vokale-gore"] .vokal-upload-badge{
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.6);
+}
+
+.music-view[data-music-view="vokale-gore"] .vokal-upload-texts{
+  display:flex;
+  flex-direction:column;
+  gap: 4px;
+  text-align: left;
+}
+
+.music-view[data-music-view="vokale-gore"] .vokal-upload-main{
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.music-view[data-music-view="vokale-gore"] .vokal-upload-sub{
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+/* Not satırı */
+.music-view[data-music-view="vokale-gore"] .vokal-note{
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: var(--text-soft);
+  opacity: .9;
+}
+
+/* AIVO watermark (çok silik) */
+.music-view[data-music-view="vokale-gore"] .vokal-watermark{
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  opacity: .10;
+  pointer-events: none;
+  filter: blur(.2px);
+}
+
+.music-view[data-music-view="vokale-gore"] .vokal-watermark img{
+  height: 28px;
+  width: auto;
+}
