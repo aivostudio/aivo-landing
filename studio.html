@@ -276,42 +276,138 @@
               </div>
             </div>
 
-<!-- ========================= -->
-<!-- SES KAYDI — TAM BÖLÜM     -->
-<!-- ========================= -->
+<!-- ============================================================
+     ******   SES KAYDI (FULL BLOK)   ******
+     ============================================================ -->
 
-<div class="music-view is-active" data-music-view="ses-kaydi">
+<div class="music-view" data-music-view="ses-kaydi">
 
-  <!-- ÜST BİLGİ PANELİ -->
-  <div class="top-info-card">
-    <h2>Ses Kaydetme Stüdyosu</h2>
-    <p>Müzik üretiminde kullanmak istediğin vokali veya rehber melodiyi burada kaydedebilirsin.</p>
-
-    <ul class="info-list">
-      <li>🎤 Yüksek kalite kayıt</li>
-      <li>⏱️ Maksimum 120 saniye</li>
-      <li>🎵 MP3 desteği</li>
-    </ul>
-
-    <button class="mic-upload-btn">Mikrofon + Dosya Yükleme</button>
+  <!-- Üst Başlık -->
+  <div class="panel-header">
+    <h1 class="panel-title">Ses Kaydı</h1>
+    <p class="panel-subtitle">
+      Mikrofonundan ses kaydet ya da hazır ses dosyası yükle; AIVO müziğini buna göre şekillendirsin.
+    </p>
   </div>
 
-  <!-- ANA KART (ÇEMBER + BUTON + WAVEFORM + SONUÇ 4 İKON) -->
-  <div class="card record-main-card">
+  <!-- Üst bilgi kartı -->
+  <div class="card record-intro-card">
+    <div class="record-intro-left">
+      <h3 class="record-intro-title">Ses Kaydetme Stüdyosu</h3>
+      <p class="record-intro-text">
+        Müzik üretiminde kullanmak istediğin vokali veya rehber melodiyi burada kaydedebilirsin.
+      </p>
 
-    <!-- ÇEMBER -->
-    <div class="record-circle">
-      <div class="record-icon">🎙️</div>
+      <ul class="record-badges">
+        <li>🎧 Yüksek kalite kayıt</li>
+        <li>⏱ Maksimum 120 saniye</li>
+        <li>🎵 MP3 desteği</li>
+      </ul>
     </div>
 
-    <!-- ALTINDAKİ BUTON -->
+    <div class="record-intro-right">
+      <span class="record-pill">Mikrofon + Dosya Yükleme</span>
+    </div>
+  </div>
+
+   <!-- ANA KAYIT KARTI -->
+  <div class="card record-main-card">
+
+    <!-- Kayıt çemberi -->
+    <div class="record-circle">
+      <div class="record-icon">🎙</div>
+    </div>
+
+    <!-- Çember altındaki buton -->
     <div class="ses-button-under-circle">
-      <button type="button" class="primary-btn record-btn">
-        ● Kaydı Başlat
+      <button class="primary-btn record-btn" id="recordToggleBtn" type="button">
+        ⏺ Kaydı Başlat
       </button>
     </div>
 
-    <!-- WAVEFORM -->
+    <!-- KAYITTAN SONRA ÇIKAN SONUÇ KARTI (4 BUTON) – BUTONUN HEMEN ALTINDA -->
+    <div class="record-result-card" id="recordResult" style="display:none;">
+      <div class="record-result-header">
+        <span class="record-result-title">Kaydedilen Ses (MP3)</span>
+        <span class="record-result-duration">
+          Süre: <span id="recordResultTime">00:00</span>
+        </span>
+      </div>
+
+      <div class="record-result-actions">
+        <button class="result-icon-btn play" data-record-action="play" title="Çal">
+          ▶
+        </button>
+        <button class="result-icon-btn download" data-record-action="download" title="İndir">
+          ⭳
+        </button>
+        <button class="result-icon-btn to-music" data-record-action="to-music" title="Müzik Üretime Gönder">
+          ♪
+        </button>
+        <button class="result-icon-btn delete" data-record-action="delete" title="Sil">
+          🗑
+        </button>
+      </div>
+    </div>
+
+    <!-- Alt kayıt paneli -->
+    <div class="record-bottom-shell">
+
+      <!-- Sol blok -->
+      <div class="record-main-left">
+        <h3 class="record-main-title">Ses Kaydetmeye Başlayın</h3>
+        <p class="record-main-text">
+          Butona tıklayarak kayıt modunu aç. İlk kullanımda tarayıcı mikrofon izni isteyebilir; “izin ver” demeyi unutma.
+        </p>
+
+        <div class="record-wave-row">
+          <div class="record-timer" id="recordTimer">00:00</div>
+
+          <!-- Saniye altı mini efekt -->
+          <div class="record-mini-wave">
+            <div class="mini-bar" style="--i:1"></div>
+            <div class="mini-bar" style="--i:2"></div>
+            <div class="mini-bar" style="--i:3"></div>
+            <div class="mini-bar" style="--i:4"></div>
+            <div class="mini-bar" style="--i:5"></div>
+          </div>
+        </div>
+
+        <p class="record-hint">
+          Kayıt tamamlandığında sesi indirip AIVO Müzik Üret ekranında referans olarak kullanabileceksin.
+        </p>
+      </div>
+
+      <!-- Sağ blok -->
+      <div class="record-main-right">
+        <h3 class="record-upload-title">MP3 Dosyası Yükle</h3>
+        <p class="record-upload-text">
+          Mikrofondan kayıt almak yerine daha önce kaydettiğin bir MP3 ses dosyasını da kullanabilirsin.
+        </p>
+
+        <label class="upload-dropzone record-upload-dropzone">
+          <div class="upload-icon">⬆️</div>
+          <div class="upload-text">
+            <strong>Ses dosyası seç veya sürükleyip bırak</strong>
+            <span>MP3 — maksimum 10MB</span>
+          </div>
+
+          <input
+            class="upload-input"
+            type="file"
+            accept="audio/mpeg,audio/mp3"
+            id="record-file-input"
+          />
+        </label>
+
+        <p class="record-upload-hint">
+          Yüklediğin ses dosyası analiz edilerek ritim, tempo ve vokal karakteri AIVO üretimine yansıtılır.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Alt büyük waveform (sadece görsel) -->
     <div class="record-wave" id="recordWave">
       <div class="wave-bar" style="--i:1"></div>
       <div class="wave-bar" style="--i:2"></div>
@@ -325,48 +421,7 @@
       <div class="wave-bar" style="--i:10"></div>
     </div>
 
-    <!-- SONUÇ KARTI — ANA KARTA GÖMÜLÜ -->
-    <div class="record-result-wrapper">
-      <div class="record-result-card">
-        <div class="record-result-header">
-          Kaydedilen Ses (MP3)
-          <span id="recordedDuration">Süre: 00:00</span>
-        </div>
-
-        <div class="record-result-actions">
-          <button class="record-result-btn play">▶</button>
-          <button class="record-result-btn download">⬇</button>
-          <button class="record-result-btn to-music">♫</button>
-          <button class="record-result-btn delete">🗑</button>
-        </div>
-      </div>
-    </div>
-
   </div>
-
-  <!-- ALT PANEL -->
-  <div class="record-bottom-shell">
-
-    <div class="record-text-side">
-      <h3>Ses Kaydetmeye Başlayın</h3>
-      <p>Butona tıklayarak kayıt modunu aç. Tarayıcı mikrofon izni isteyebilir, “izin ver” demeyi unutma.</p>
-
-      <div class="record-timer">00:00</div>
-
-      <p>Kayıt tamamlandığında sesi indirip AIVO Müzik Üret ekranında referans olarak kullanabileceksin.</p>
-    </div>
-
-    <div class="record-upload-side">
-      <h3>MP3 Dosyası Yükle</h3>
-      <p>Daha önce kaydettiğin bir MP3 dosyasını burada kullanabilirsin.</p>
-
-      <input type="file" accept="audio/mp3" />
-      <p>Yüklediğin MP3 analiz edilerek tempo, ritim ve vokal karakteri otomatik çıkarılır.</p>
-    </div>
-
-  </div>
-
-</div>
 
 
 
@@ -375,7 +430,7 @@
           
 
 
-       <!-- ****** VOKALE GÖRE ****** -->
+          <!-- ****** VOKALE GÖRE ****** -->
             <div class="music-view" data-music-view="vokale-gore">
               <div class="panel-header">
                 <h1 class="panel-title">Vokale Göre (Yakında)</h1>
