@@ -649,25 +649,86 @@ textarea:focus {
   flex: 1;
 }
 /* =========================================
-   SES KAYDI – ANA KART + ALT PANEL
+   SES KAYDI – TAM BLOK (AIVO VERSİYON)
    ========================================= */
+
+.music-view[data-music-view="ses-kaydi"] {
+  position: relative;
+}
+
+/* ÜST BİLGİ KARTI ----------------------------------------- */
+
+.music-view[data-music-view="ses-kaydi"] .record-intro-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 10px;
+  margin-bottom: 22px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 121, 198, 0.25), transparent 60%),
+    radial-gradient(circle at bottom right, rgba(9, 132, 227, 0.18), transparent 60%),
+    var(--bg-card-soft);
+}
+
+.record-intro-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.record-intro-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.record-intro-text {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.record-badges {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.record-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.16), transparent 60%),
+    rgba(10, 10, 40, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* ANA KART (ÇEMBER + BUTON + ALT PANEL) ------------------ */
 
 .music-view[data-music-view="ses-kaydi"] .record-main-card {
   position: relative;
-  padding: 80px 60px 220px; /* alt kısımda sonuç kartı için boşluk */
-  min-height: 720px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  padding: 80px 60px 80px;
+  min-height: 760px;
+  overflow: visible;
   background:
     radial-gradient(circle at top, rgba(120, 82, 255, 0.35), transparent 70%),
     radial-gradient(circle at bottom right, rgba(0, 184, 148, 0.22), transparent 70%),
-    #0d1024;
+    var(--bg-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* ÇEMBER (idle) */
+/* ÇEMBER (NORMAL HAL) ------------------------------------ */
+
 .music-view[data-music-view="ses-kaydi"] .record-circle {
   width: 260px;
   height: 260px;
@@ -705,11 +766,12 @@ textarea:focus {
 
 .music-view[data-music-view="ses-kaydi"] .record-icon {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   font-size: 54px;
 }
 
-/* KAYIT HALİNDE ÇEMBER – LİLA/Pembe */
+/* ÇEMBER – KAYIT HALİ ------------------------------------ */
+
 .music-view[data-music-view="ses-kaydi"] .record-circle.is-recording {
   background: conic-gradient(
     from 0deg,
@@ -733,9 +795,11 @@ textarea:focus {
     radial-gradient(circle at bottom, #532e91, #0a0514);
 }
 
-/* Çember altındaki buton */
+/* ÇEMBER ALTINDAKİ BUTON -------------------------------- */
+
 .ses-button-under-circle {
-  margin-top: 36px;
+  margin-top: 40px;
+  margin-bottom: 8px;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -758,7 +822,8 @@ textarea:focus {
   box-shadow: 0 18px 55px rgba(108, 92, 231, 0.8) !important;
 }
 
-/* Kayıt modunda buton rengi */
+/* KAYIT HALİNDE BUTON ----------------------------------- */
+
 body.is-recording .ses-button-under-circle .record-btn {
   background: linear-gradient(135deg, #a66bff, #ff9ff3) !important;
   box-shadow:
@@ -767,10 +832,188 @@ body.is-recording .ses-button-under-circle .record-btn {
   animation: recordBtnRecording 1s ease-in-out infinite;
 }
 
-/* Waveform – saniyenin altındaki efekt */
+/* KAYDEDİLEN SES KARTI (4 BUTON) ------------------------ */
+
+.music-view[data-music-view="ses-kaydi"] .record-result-card {
+  margin-top: 18px;
+  margin-bottom: 4px;
+  padding: 16px 20px;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at top left, rgba(108, 92, 231, 0.18), transparent 60%),
+    rgba(5, 7, 30, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 520px;
+  align-self: center;
+}
+
+.record-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #f5f5ff;
+}
+
+.record-result-title {
+  font-weight: 600;
+}
+
+.record-result-duration {
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.record-result-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 4 yuvarlak ikon */
+
+.result-icon-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #fff;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, filter 0.2s ease-out;
+}
+
+/* AIVO renk paleti – yeşil/turuncu YOK */
+.result-icon-btn.play {
+  background: linear-gradient(135deg, #4b7bec, #74b9ff);
+}
+
+.result-icon-btn.download {
+  background: linear-gradient(135deg, #6c5ce7, #a55eea);
+}
+
+.result-icon-btn.to-music {
+  background: linear-gradient(135deg, #fd79a8, #ffeaa7);
+}
+
+.result-icon-btn.delete {
+  background: linear-gradient(135deg, #ff7675, #fd79a8);
+}
+
+.result-icon-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.9);
+  filter: brightness(1.05);
+}
+
+/* ALT PANEL (YAZILAR) ----------------------------------- */
+
+.music-view[data-music-view="ses-kaydi"] .record-bottom-shell {
+  width: 100%;
+  max-width: 1100px;
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.04), transparent 65%),
+    rgba(5, 7, 30, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.85);
+  padding: 42px 46px 34px;
+  min-height: 260px;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 36px;
+  margin-top: 40px; /* buton / sonuç kartı ile aralık */
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-left,
+.music-view[data-music-view="ses-kaydi"] .record-main-right {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-main-title {
+  margin: 0 0 12px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.music-view[data-music-view="ses-kaydi"] .record-upload-title {
+  margin: 0 0 12px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.music-view[data-music-view="ses-kaydi"]
+.record-main-text,
+.music-view[data-music-view="ses-kaydi"]
+.record-upload-text,
+.music-view[data-music-view="ses-kaydi"]
+.record-upload-hint,
+.music-view[data-music-view="ses-kaydi"]
+.record-hint {
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-soft);
+}
+
+/* Sayaç + mini efekt ------------------------------------ */
+
+.record-wave-row {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.record-timer {
+  min-width: 56px;
+  font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(5, 7, 30, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: center;
+  color: #f5f5ff;
+}
+
+/* Mini wave – saniyenin altında */
+
+.record-mini-wave {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 16px;
+  opacity: 0.45;
+}
+
+.record-mini-wave .mini-bar {
+  width: 3px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #74b9ff, #a29bfe);
+  transform-origin: bottom;
+  animation: miniWave 0.7s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * 0.05s);
+}
+
+body.is-recording .record-mini-wave {
+  opacity: 1;
+}
+
+/* BÜYÜK WAVEFORM (KARTIN ALTINDA) ----------------------- */
+
 .record-wave {
   position: absolute;
-  bottom: 120px;
+  bottom: 32px;
   left: 50%;
   transform: translateX(-50%);
   width: min(520px, 82%);
@@ -778,8 +1021,8 @@ body.is-recording .ses-button-under-circle .record-btn {
   display: flex;
   align-items: flex-end;
   gap: 4px;
-  opacity: 0;
   pointer-events: none;
+  opacity: 0;
   z-index: 1;
 }
 
@@ -798,96 +1041,8 @@ body.is-recording #recordWave {
   opacity: 1;
 }
 
-/* KAYDEDİLEN SES – 4 İKONLU KART  */
-/* Ana kartın içinde, bottom padding sayesinde sayfayı uzatmıyor */
-.music-view[data-music-view="ses-kaydi"] .record-result-wrapper {
-  position: absolute;
-  left: 50%;
-  bottom: 48px;
-  transform: translateX(-50%) translateY(20px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
-  z-index: 3;
-}
+/* ANİMASYONLAR ------------------------------------------ */
 
-/* Kayıt bittikten sonra JS ile bu class eklenecek */
-.music-view[data-music-view="ses-kaydi"] .record-result-wrapper.is-visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-result-card {
-  padding: 8px 18px 12px;
-  border-radius: 16px;
-  background: rgba(8, 10, 32, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.78);
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-result-header {
-  font-size: 12px;
-  color: #f5f5ff;
-  margin-bottom: 6px;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-result-header span {
-  margin-left: 6px;
-  font-size: 11px;
-  color: #c8d0ff;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-result-actions {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-result-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  cursor: pointer;
-  font-size: 17px;
-  color: #ffffff;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6);
-  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, filter 0.2s ease-out;
-}
-
-/* AIVO renk paleti */
-.music-view[data-music-view="ses-kaydi"] .record-result-btn.play {
-  background: linear-gradient(135deg, #6c5ce7, #00cec9);
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-result-btn.download {
-  background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-result-btn.to-music {
-  background: linear-gradient(135deg, #fd79a8, #ffeaa7);
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-result-btn.delete {
-  background: linear-gradient(135deg, #ff7675, #fd79a8);
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-result-btn:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
-  filter: brightness(1.05);
-}
-
-/* Alt panel – biraz daha yukarı */
-.music-view[data-music-view="ses-kaydi"] .record-bottom-shell {
-  margin-top: 32px;
-}
-
-/* Animasyonlar (eski haller) */
 @keyframes pulseIdle {
   0%   { transform: scale(1); }
   30%  { transform: scale(1.05); }
@@ -927,6 +1082,11 @@ body.is-recording #recordWave {
 
 @keyframes wavePulse {
   from { transform: scaleY(0.2); }
+  to   { transform: scaleY(1); }
+}
+
+@keyframes miniWave {
+  from { transform: scaleY(0.3); }
   to   { transform: scaleY(1); }
 }
 
@@ -1642,147 +1802,5 @@ body.is-recording .record-mini-wave {
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
   filter: brightness(1.05);
 }
-/* ==== AIVO OVERRIDE – Ses Kaydı kart yüksekliği kısaltma ==== */
 
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  padding: 70px 60px 60px;  /* üst–yan–alt padding biraz küçüldü */
-  min-height: auto;         /* sabit 760px yüksekliği iptal */
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-bottom-shell {
-  margin-top: 26px;         /* buton / sonuç kartı ile arayı biraz daralt */
-  margin-bottom: 18px;      /* kartın sayfa altına fazla yaklaşmaması için */
-  min-height: 220px;        /* biraz daha kısa alt panel */
-}
-/* =========================================
-   AIVO – Ses Kaydı sonuç kartı konumu (SON)
-   ========================================= */
-
-/* Ana kayıt kartını referans yap */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  position: relative !important;
-  padding-bottom: 260px !important;  /* altta kart için boşluk */
-}
-
-/* Kaydedilen Ses (MP3) kartını butonun altına GÖM,
-   alttaki büyük paneli AŞAĞI İTMESİN */
-.music-view[data-music-view="ses-kaydi"] .record-result-wrapper {
-  position: absolute !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-
-  top: 58% !important;          /* ikonların yüksekliği – gerekirse 55 / 60 yapabilirsin */
-  margin-top: 0 !important;
-  z-index: 5 !important;
-}
-
-/* Alt panel (Ses Kaydetmeye Başlayın) sabit kalsın */
-.music-view[data-music-view="ses-kaydi"] .record-bottom-shell {
-  margin-top: 46px !important;
-}
-/* =========================================
-   AIVO – Ses Kaydı kart yüksekliği (FINAL)
-   ========================================= */
-
-/* Ana kayıt kartını kısalt */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  min-height: 620px !important;          /* 850 / 760 yerine daha kısa */
-  padding: 70px 60px 40px !important;    /* alt padding azaltıldı */
-}
-
-/* Alt paneli biraz yukarı çek, aşağı taşmasın */
-.music-view[data-music-view="ses-kaydi"] .record-bottom-shell {
-  margin-top: 32px !important;           /* butonla arayı koru ama çok açma */
-  margin-bottom: 0 !important;           /* ekstra boşluk bırakma */
-  min-height: 220px !important;          /* daha kompakt panel */
-}
-/* =========================================================
-   AIVO – KAYDEDİLEN SES KARTI (SAYFAYI UZATMA)
-   ========================================================= */
-
-/* Kayıt sonrası kartı main-card içine sabitle */
-.music-view[data-music-view="ses-kaydi"] .record-main-card {
-  position: relative; /* absolute eleman için referans */
-}
-
-/* Wrapper: dairenin altına, panelin üstüne oturur */
-.music-view[data-music-view="ses-kaydi"] .record-result-wrapper {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 62%;                 /* Kartın dikey konumu – gerekirse 60 / 64 yapabilirsin */
-  margin-top: 0;
-  z-index: 4;
-}
-
-/* Kartın kendisi – daha kompakt */
-.music-view[data-music-view="ses-kaydi"] .record-result-card {
-  padding: 6px 18px 10px;
-  border-radius: 16px;
-  background: rgba(8, 10, 32, 0.96);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75);
-}
-
-/* Başlık ve süre satırı */
-.music-view[data-music-view="ses-kaydi"] .record-result-header {
-  font-size: 12px;
-  color: #f5f5ff;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-result-header span {
-  font-size: 11px;
-  color: #c8d0ff;
-}
-
-/* İkon satırı – daha küçük daireler */
-.music-view[data-music-view="ses-kaydi"] .record-result-actions {
-  margin-top: 6px;
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-}
-
-.music-view[data-music-view="ses-kaydi"] .record-result-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  cursor: pointer;
-  font-size: 17px;
-  color: #ffffff;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6);
-  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, filter 0.2s ease-out;
-}
-
-/* AIVO renk paleti – play / indir / nota / çöp */
-.music-view[data-music-view="ses-kaydi"] .record-result-btn.play {
-  background: linear-gradient(135deg, #6c5ce7, #00cec9);
-}
-.music-view[data-music-view="ses-kaydi"] .record-result-btn.download {
-  background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-}
-.music-view[data-music-view="ses-kaydi"] .record-result-btn.to-music {
-  background: linear-gradient(135deg, #fd79a8, #ffeaa7);
-}
-.music-view[data-music-view="ses-kaydi"] .record-result-btn.delete {
-  background: linear-gradient(135deg, #ff7675, #fd79a8);
-}
-
-/* Hover efekti */
-.music-view[data-music-view="ses-kaydi"] .record-result-btn:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
-  filter: brightness(1.05);
-}
-
-/* Daha dar ekranlar için kartı biraz aşağı çek */
-@media (max-width: 1200px) {
-  .music-view[data-music-view="ses-kaydi"] .record-result-wrapper {
-    top: 66%;
-  }
-}
 
