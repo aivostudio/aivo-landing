@@ -401,24 +401,49 @@
 </div>
 
 
-            <!-- ****** VOKALE GÖRE ****** -->
-            <div class="music-view" data-music-view="vokale-gore">
-              <div class="panel-header">
-                <h1 class="panel-title">Vokale Göre (Yakında)</h1>
-                <p class="panel-subtitle">
-                  Vokal analizine göre otomatik enstrümantasyon ve miks ayarları burada
-                  tasarlanacak.
-                </p>
-              </div>
+          <!-- ****** VOKALE GÖRE ****** -->
+<div class="music-view" data-music-view="vokale-gore">
+  <div class="panel-header vocale-header">
+    <div class="vocale-icon">🎵</div>
+    <h1 class="panel-title">Vokale Göre Müzik Üret</h1>
+    <p class="panel-subtitle">
+      Vokal kaydınıza uygun enstrümantal müzik oluşturun.
+    </p>
+  </div>
 
-              <div class="card">
-                <p>
-                  Bu bölüm MVP sonrasında eklenecek. Şimdilik Geleneksel ve Ses Kaydı sekmelerini
-                  kullanabilirsin.
-                </p>
-              </div>
-            </div>
-          </section>
+  <div class="card vocale-card">
+    <div class="vocale-card-title">Ses Dosyası Yükle</div>
+
+    <!-- Upload alanı -->
+    <div
+      class="upload-box vocale-upload"
+      onclick="document.getElementById('vocaleAudio').click()"
+    >
+      <input
+        type="file"
+        id="vocaleAudio"
+        accept=".mp3,.wav,.m4a"
+        style="display:none"
+      />
+
+      <div class="vocale-upload-inner">
+        <div class="vocale-upload-icon">⬆</div>
+        <div class="vocale-upload-text">
+          <div class="vocale-upload-head">Ses dosyası yüklemek için tıklayın</div>
+          <div class="vocale-upload-sub">
+            MP3, WAV veya M4A (Maksimum 10MB)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- İstersen sonra buraya “Analiz Et / Üret” butonu ekleriz -->
+    <div class="vocale-footnote">
+      Not: Şimdilik yükleme arayüzü. Bir sonraki adımda “vokal analizi + enstrümantal üretim”
+      akışını ekleyeceğiz.
+    </div>
+  </div>
+</div>
 
           <!-- ========== SAĞ PANEL ========== -->
           <aside class="right-panel">
