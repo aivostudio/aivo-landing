@@ -1803,4 +1803,53 @@ body.is-recording .record-mini-wave {
   filter: brightness(1.05);
 }
 
+/* ==========================================================
+   AIVO FINAL OVERRIDE – Ses Kaydı: sayfa uzamasını engelle
+   (CSS’in EN ALTINDA tek blok olarak dursun)
+   ========================================================== */
+
+/* Ana kart: içeride absolute elemanlar var, taşmayı kontrol et */
+.music-view[data-music-view="ses-kaydi"] .record-main-card{
+  position: relative;
+  overflow: hidden;              /* alt waveform / absolute kartlar taşırmasın */
+  padding-bottom: 130px;         /* alt waveform için güvenli boşluk */
+  min-height: 760px;             /* 850 gibi aşırı büyütme: sayfayı gereksiz uzatır */
+}
+
+/* Alt koyu kutu: normal akışta kalsın, aşırı margin ile sayfayı uzatma */
+.music-view[data-music-view="ses-kaydi"] .record-bottom-shell{
+  position: relative !important;
+  margin-top: 42px !important;   /* 160px yerine */
+}
+
+/* KAYIT SONRASI 4 İKON KARTI:
+   - Akıştan çıkar (absolute)
+   - Görünse bile sayfayı uzatmaz */
+.music-view[data-music-view="ses-kaydi"] #recordResult.record-result-card{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 470px;                    /* ÇEMBER + BUTON altına oturur */
+  width: min(520px, 92%);
+  margin: 0 !important;
+  z-index: 30;
+}
+
+/* Buton alanı: absolute kartla çakışmasın */
+.music-view[data-music-view="ses-kaydi"] .ses-button-under-circle{
+  margin-top: 22px;
+  margin-bottom: 18px;
+}
+
+/* Büyük waveform altta sabit duruyor (z-index düşük), sorun yok */
+.music-view[data-music-view="ses-kaydi"] #recordWave{
+  z-index: 1;
+}
+
+/* Mobilde top değerini biraz aşağı al */
+@media (max-width: 768px){
+  .music-view[data-music-view="ses-kaydi"] #recordResult.record-result-card{
+    top: 500px;
+  }
+}
 
