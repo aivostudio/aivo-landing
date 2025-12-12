@@ -1,4 +1,5 @@
 
+
 // AIVO STUDIO – STUDIO.JS (FULL CLEAN + STABLE)
 
 document.addEventListener("DOMContentLoaded", () => {
