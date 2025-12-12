@@ -618,4 +618,99 @@ document.querySelectorAll("[data-page-link]").forEach(link => {
     page.classList.add("is-active");
   });
 });
+/* =========================================================
+   VIDEO OUTPUT – RIGHT PANEL (SMALL CARDS ONLY)
+   ========================================================= */
+
+(function () {
+  const list = document.getElementById("rightOutputList");
+  const empty = document.getElementById("rightEmptyState");
+
+  // Eğer ID'ler yoksa, hiçbir şey çalışmaz. Bu yüzden net log atalım.
+  if (!list) {
+    console.warn("[AIVO] rightOutputList bulunamadı. Sağ panel HTML bloğunu ID'lerle güncelle.");
+    return;
+  }
+
+  function truncate(t, n) {
+    const s = (t || "").trim();
+    if (!s) return "";
+    return s.length > n ? s.slice(0, n - 1) + "…" : s;
+  }
+
+  function currentCreditFromButton(btn) {
+    // Buton text: "Video Oluştur (15 Kredi)" gibi
+    const m = (btn?.textContent || "").match(/(\d+)\s*Kredi/i);
+    return m ? `${m[1]} kredi` : "15 kredi";
+  }
+
+  function addCard({ title, desc, resolution = "1080p", credit = "15 kredi" }) {
+    if (empty) empty.style.display = "none";
+
+    const card = document.createElement("div");
+    card.className = "output-card";
+    card.innerHTML = `
+      <div class="output-top">
+        <div class="output-status"><span class="status-dot"></span><span>Tamamlandı</span></div>
+        <div class="output-meta">${resolution} • ${credit}</div>
+      </div>
+
+      <div class="output-preview">
+        <button class="output-play" type="button" aria-label="Oynat">▶</button>
+      </div>
+
+      <div class="output-title">${title}</div>
+      <div class="output-desc">${desc}</div>
+
+      <div class="output-actions">
+        <button class="output-btn" type="button">İndir</button>
+        <button class="output-btn" type="button">İzle</button>
+        <button class="output-btn danger" type="button">🗑</button>
+      </div>
+    `;
+
+    card.querySelector(".output-play")?.addEventListener("click", () => console.log("Play (placeholder)"));
+    card.querySelector(".output-btn.danger")?.addEventListener("click", () => {
+      card.remove();
+      if (empty && list.children.length === 0) empty.style.display = "block";
+    });
+
+    list.prepend(card);
+  }
+
+  function bind(btnId, getTitleDesc) {
+    const btn = document.getElementById(btnId);
+    if (!btn) return;
+
+    btn.addEventListener("click", () => {
+      // Senin sisteminde zaten loading var; ona karışmıyoruz.
+      const { title, desc } = getTitleDesc();
+      addCard({
+        title: truncate(title || "Yeni Video", 48),
+        desc: truncate(desc || "Çıktı hazır (mock).", 90),
+        resolution: "1080p",
+        credit: currentCreditFromButton(btn),
+      });
+    });
+  }
+
+  bind("videoGenerateTextBtn", () => {
+    const p = document.getElementById("videoPrompt")?.value || "";
+    return {
+      title: p || "Yazıdan Video",
+      desc: p || "Prompt boş (örnek çıktı).",
+    };
+  });
+
+  bind("videoGenerateImageBtn", () => {
+    const p = document.getElementById("videoImagePrompt")?.value || "";
+    const f = document.getElementById("videoImageInput")?.files?.[0]?.name || "";
+    return {
+      title: f ? `Resim: ${f}` : "Resimden Video",
+      desc: [f, p].filter(Boolean).join(" • ") || "Resim seçilmedi (örnek çıktı).",
+    };
+  });
+
+  console.log("[AIVO] Right panel video cards aktif.");
+})();
 
