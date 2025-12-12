@@ -519,3 +519,103 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   });
 });
+/* =========================================================
+   AIVO – VIDEO ÇIKTI KARTLARI (SAĞ PANEL FIX)
+   ========================================================= */
+
+const rightOutputList = document.getElementById("rightOutputList");
+const rightEmptyState = document.getElementById("rightEmptyState");
+
+/* Video kartı oluştur */
+function addVideoOutputCard({
+  title = "Yeni Video",
+  resolution = "1080p",
+  credit = "15 kredi"
+}) {
+  if (!rightOutputList) return;
+
+  if (rightEmptyState) rightEmptyState.style.display = "none";
+
+  const card = document.createElement("div");
+  card.className = "output-card";
+
+  card.innerHTML = `
+    <div class="output-top">
+      <div class="output-status">
+        <span class="status-dot"></span>
+        Tamamlandı
+      </div>
+      <div class="output-meta">${resolution} • ${credit}</div>
+    </div>
+
+    <div class="output-preview">
+      <button class="output-play">▶</button>
+    </div>
+
+    <div class="output-title">${title}</div>
+
+    <div class="output-actions">
+      <button class="output-btn">⬇ İndir</button>
+      <button class="output-btn">🔍 İzle</button>
+      <button class="output-btn danger">🗑 Sil</button>
+    </div>
+  `;
+
+  rightOutputList.prepend(card);
+}
+
+/* =========================================================
+   VIDEO OLUŞTUR BUTONLARI – BÜYÜK RENDER ENGELİ
+   ========================================================= */
+
+function bindVideoGenerate(btnId) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+
+  btn.addEventListener("click", () => {
+    if (btn.classList.contains("is-loading")) return;
+
+    btn.classList.add("is-loading");
+    const original = btn.textContent;
+    btn.textContent = "⏳ Video Oluşturuluyor...";
+
+    setTimeout(() => {
+      btn.classList.remove("is-loading");
+      btn.textContent = original;
+
+      addVideoOutputCard({
+        title: "Pembe, mor ve mavi neon ışıkların dans ettiği sahne",
+        resolution: "1080p",
+        credit: btn.textContent.includes("18") ? "18 kredi" : "15 kredi"
+      });
+
+      console.log("Video üretildi (mock)");
+    }, 1400);
+  });
+}
+
+bindVideoGenerate("videoGenerateTextBtn");
+bindVideoGenerate("videoGenerateImageBtn");
+
+/* =========================================================
+   SAYFA GEÇİŞİ – KAPAK ÜRET FIX
+   ========================================================= */
+
+document.querySelectorAll("[data-page-link]").forEach(link => {
+  link.addEventListener("click", e => {
+    const target = link.dataset.pageLink;
+    if (!target) return;
+
+    const page = document.querySelector(`.page[data-page="${target}"]`);
+    if (!page) {
+      console.warn("Sayfa bulunamadı:", target);
+      return;
+    }
+
+    document.querySelectorAll(".page").forEach(p =>
+      p.classList.remove("is-active")
+    );
+    page.classList.add("is-active");
+  });
+});
+
