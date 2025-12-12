@@ -202,41 +202,39 @@
                 </div>
               </div>
             </div>
-
-<!-- ****** SES KAYDI ****** -->
+<!-- ======================================================
+     SES KAYDI (TEK VE DOĞRU BLOK)
+     ====================================================== -->
 <div class="music-view" data-music-view="ses-kaydi">
 
-  <!-- SAYFA BAŞLIĞI -->
+  <!-- ÜST BAŞLIK -->
   <div class="panel-header">
     <h1 class="panel-title">Ses Kaydı</h1>
     <p class="panel-subtitle">
-      Mikrofonundan ses kaydet ya da hazır ses dosyası yükle; AIVO müziğini buna göre şekillendirsin.
+      Mikrofondan ses kaydet ya da hazır ses dosyası yükle; AIVO müziğini buna göre şekillendirsin.
     </p>
   </div>
 
-  <!-- ANA KAYIT ALANI -->
+  <!-- ANA KART -->
   <div class="card record-main-card">
 
-    <!-- MERKEZ SAHNE -->
+    <!-- MERKEZ ALAN -->
     <div class="record-center">
       <div class="record-circle">
         <div class="record-icon">🎙</div>
       </div>
 
       <div class="ses-button-under-circle">
-        <button
-          class="primary-btn record-btn"
-          id="recordToggleBtn"
-          type="button"
-        >
+        <button id="recordToggleBtn" class="primary-btn record-btn" type="button">
           ● Kaydı Başlat
         </button>
       </div>
     </div>
 
-    <!-- KAYDEDİLEN SES – DRAWER -->
+    <!-- KAYIT SONUCU (DRAWER) -->
     <div class="record-result-layer">
       <div class="record-result-card" id="recordResult">
+
         <div class="record-result-header">
           <span class="record-result-title">Kaydedilen Ses (MP3)</span>
           <span class="record-result-duration">
@@ -245,20 +243,22 @@
         </div>
 
         <div class="record-result-actions">
-          <button class="result-icon-btn play" title="Çal" type="button">▶</button>
-          <button class="result-icon-btn list" title="Liste" type="button">☰</button>
-          <button class="result-icon-btn music" title="Müzik Üretime Gönder" type="button">♪</button>
-          <button class="result-icon-btn delete" title="Sil" type="button">🗑</button>
+          <button class="result-icon-btn play" type="button">▶</button>
+          <button class="result-icon-btn list" type="button">☰</button>
+          <button class="result-icon-btn music" type="button">♪</button>
+          <button class="result-icon-btn delete" type="button">🗑</button>
         </div>
+
       </div>
     </div>
 
-    <!-- ALT BİLGİ + YÜKLEME PANELİ -->
+    <!-- ALT BİLGİ PANELİ -->
     <div class="record-bottom-shell">
 
       <!-- SOL -->
       <div class="record-main-left">
         <h3 class="record-main-title">Ses Kaydetmeye Başlayın</h3>
+
         <p class="record-main-text">
           Butona tıklayarak kayıt modunu aç. İlk kullanımda tarayıcı mikrofon izni isteyebilir;
           “izin ver” demeyi unutma.
@@ -285,6 +285,7 @@
       <!-- SAĞ -->
       <div class="record-main-right">
         <h3 class="record-upload-title">MP3 Dosyası Yükle</h3>
+
         <p class="record-upload-text">
           Mikrofondan kayıt almak yerine daha önce kaydettiğin bir MP3
           ses dosyasını da kullanabilirsin.
@@ -296,11 +297,12 @@
             <strong>Ses dosyası seç veya sürükleyip bırak</strong>
             <span>MP3 — maksimum 10MB</span>
           </div>
+
           <input
+            id="record-file-input"
             class="upload-input"
             type="file"
             accept="audio/mpeg,audio/mp3"
-            id="record-file-input"
           />
         </label>
 
@@ -313,7 +315,8 @@
     </div>
   </div>
 </div>
-<!-- / ****** SES KAYDI ****** -->
+<!-- / SES KAYDI -->
+
 
 
   <!-- SAYFA BAŞLIĞI -->
