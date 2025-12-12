@@ -1106,3 +1106,50 @@ input:focus, select:focus, textarea:focus{
     top:400px;
   }
 }
+/* =========================================
+   SES KAYDI – İKON BUTONLARI (CAM + GLOW)
+   ========================================= */
+
+.music-view[data-music-view="ses-kaydi"] .result-icon-btn{
+  width:52px;
+  height:52px;
+  border-radius:50%;              /* TAM YUVARLAK */
+  border:none;                    /* ÇERÇEVEYİ KALDIR */
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 60%),
+    rgba(255,255,255,0.08);       /* CAM HİSSİ */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  color:#fff;
+  font-size:20px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  box-shadow:
+    0 0 0 rgba(0,0,0,0);           /* NORMALDE GÖLGE YOK */
+
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease,
+    background .18s ease;
+}
+
+/* Hover = sadece IŞIK */
+.music-view[data-music-view="ses-kaydi"] .result-icon-btn:hover{
+  transform:translateY(-2px) scale(1.08);
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 60%),
+    rgba(166,107,255,0.22);
+
+  box-shadow:
+    0 0 0 6px rgba(166,107,255,0.18),
+    0 0 24px rgba(166,107,255,0.55);
+}
+
+/* Aktif (basılı) */
+.music-view[data-music-view="ses-kaydi"] .result-icon-btn:active{
+  transform:scale(0.96);
+}
