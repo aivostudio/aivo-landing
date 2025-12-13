@@ -607,107 +607,67 @@ input:focus,select:focus,textarea:focus{
   transform:none !important;
 }
 
-/* =================================
-   DETAIL PANEL (Right slide-in)
-   ================================= */
-.detail-panel{
-  position:fixed;
-  top:0;
-  right:0;
-  height:100vh;
-  width:min(420px, 92vw);
-  background: rgba(12,15,40,0.98);
-  border-left:1px solid rgba(255,255,255,0.10);
-  box-shadow: -26px 0 80px rgba(0,0,0,0.85);
-  transform: translateX(110%);
-  transition: transform .25s ease-out;
-  z-index:20000;
-  display:flex;
-  flex-direction:column;
-}
-.detail-panel.is-open{ transform: translateX(0); }
+/* =========================================================
+   DETAIL DRAWER (Right Slide-in) - PATCH
+   HTML:
+   #detailDrawer
+   .detail-backdrop [data-detail-close]
+   .detail-panel
+   #detailTitle #detailBody
+   #detailDownloadBtn #detailDeleteBtn
+   ========================================================= */
+const detailDrawer = $("#detailDrawer");
+const detailPanel = detailDrawer ? $(".detail-panel", detailDrawer) : null;
+const detailBackdrop = detailDrawer ? $(".detail-backdrop", detailDrawer) : null;
 
-.detail-head{
-  padding:16px 16px 12px;
-  border-bottom:1px solid rgba(255,255,255,0.08);
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:12px;
-}
-.detail-title{
-  margin:0;
-  font-size:14px;
-  font-weight:800;
-}
-.detail-sub{
-  margin:6px 0 0;
-  font-size:12px;
-  color:var(--text-soft);
-}
-.detail-close{
-  width:38px;
-  height:38px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,0.14);
-  background: rgba(0,0,0,0.28);
-  color:#fff;
-  cursor:pointer;
+const detailTitle = $("#detailTitle");
+const detailBody = $("#detailBody");
+const detailDownloadBtn = $("#detailDownloadBtn");
+const detailDeleteBtn = $("#detailDeleteBtn");
+
+let lastOpenedCard = null;
+
+function openDetail({ kind }) {
+  if (!detailDrawer || !detailPanel || !detailBackdrop) return;
+
+  safeText(detailTitle, kind === "video" ? "Video Önizleme" : "Görsel Önizleme");
+
+  if (detailBody) {
+    detailBody.innerHTML = `
+      <div class="detail-preview ${kind === "cover" ? "cover" : ""}">
+        <div style="width:100%;height:100%;background:radial-gradient(circle at top left, rgba(108,92,231,0.55), rgba(0,206,201,0.25));"></div>
+      </div>
+      <div style="margin-top:12px;color:rgba(255,255,255,0.65);font-size:12px;">
+        MVP: önizleme placeholder. Gerçek medya entegrasyonu sonra.
+      </div>
+    `;
+  }
+
+  detailBackdrop.classList.add("is-open");
+  detailPanel.classList.add("is-open");
+  detailDrawer.setAttribute("aria-hidden", "false");
 }
 
-.detail-body{
-  padding:14px 16px 90px;
-  overflow:auto;
+function closeDetail() {
+  if (!detailDrawer || !detailPanel || !detailBackdrop) return;
+  detailPanel.classList.remove("is-open");
+  detailBackdrop.classList.remove("is-open");
+  detailDrawer.setAttribute("aria-hidden", "true");
+  lastOpenedCard = null;
 }
-.detail-preview{
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,0.10);
-  background: rgba(0,0,0,0.22);
-  overflow:hidden;
-  aspect-ratio: 3 / 4;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.detail-preview.cover{ aspect-ratio: 1 / 1; }
 
-.detail-actions{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  padding:14px 16px;
-  border-top:1px solid rgba(255,255,255,0.08);
-  background: rgba(12,15,40,0.98);
-  display:flex;
-  gap:10px;
+if (detailDrawer) {
+  $$("[data-detail-close]", detailDrawer).forEach((btn) => btn.addEventListener("click", closeDetail));
+  detailBackdrop?.addEventListener("click", closeDetail);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeDetail(); });
 }
-.detail-actions .primary-btn{ flex:1; }
-.detail-actions .ghost-btn{
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,0.18);
-  background: rgba(255,255,255,0.04);
-  color:#fff;
-  cursor:pointer;
-  padding:12px 14px;
-  font-weight:700;
-  transition: transform var(--transition-fast);
-}
-.detail-actions .ghost-btn:hover{ transform: translateY(-1px); }
 
-.detail-backdrop{
-  position:fixed;
-  inset:0;
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(6px);
-  opacity:0;
-  pointer-events:none;
-  transition: opacity .2s ease-out;
-  z-index:19999;
-}
-.detail-backdrop.is-open{
-  opacity:1;
-  pointer-events:auto;
+if (detailDownloadBtn) detailDownloadBtn.addEventListener("click", () => console.log("Download (placeholder)"));
+if (detailDeleteBtn) {
+  detailDeleteBtn.addEventListener("click", () => {
+    if (lastOpenedCard) lastOpenedCard.remove();
+    closeDetail();
+  });
 }
 
 /* =================================
