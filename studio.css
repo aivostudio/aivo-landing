@@ -1,11 +1,10 @@
 /* ================================
-   AIVO STUDIO – STUDIO.CSS (FINAL v2)
-   - Video Üret ayrı page: sağ panel yok
-   - Video/Kapak/Ürettiklerim: 3 kolon galeri
-   - Kartlar: sadece görsel + ikonlar
-   - Sağdan açılan Detay Panel (EITA)
-   - Kullanıcı dropdown (top-right)
-   - Alt player bar (UI placeholder)
+   AIVO STUDIO – STUDIO.CSS (FINAL)
+   - Bölüm çıktıları ayrıldı
+   - Sağ panel tek sütun + sade kartlar
+   - "Üretiliyor" placeholder metinsiz
+   - Animasyon minimum (sadece play hover)
+   - Performans: gradient/shadow/blur düşürüldü
    ================================ */
 
 *,
@@ -44,9 +43,6 @@ html,body{
 
 .hidden{ display:none !important; }
 
-/* =================================
-   APP SHELL
-   ================================= */
 .app-shell{
   width:100%;
   min-height:100vh;
@@ -60,17 +56,13 @@ html,body{
   overflow:hidden;
 }
 
-/* =================================
-   TOPBAR
-   ================================= */
+/* TOPBAR */
 .topbar{
   display:flex;
   align-items:center;
   padding:12px 24px;
   border-bottom:1px solid rgba(255,255,255,0.06);
   background: linear-gradient(90deg, rgba(23,32,78,0.92), rgba(10,16,52,0.92));
-  position:relative;
-  z-index:30;
 }
 
 .topbar-left{ display:flex; align-items:center; gap:16px; }
@@ -152,56 +144,12 @@ html,body{
   transform: translateY(-1px);
 }
 
-/* USER DROPDOWN – HTML class uyumu */
-.user-dd-header{
-  padding:10px 10px 12px;
-  border-bottom:1px solid rgba(255,255,255,0.08);
-  margin-bottom:10px;
-}
-.user-dd-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  padding:6px 0;
-}
-.user-dd-label{ font-size:12px; color:var(--text-soft); }
-.user-dd-value{ font-size:12px; color:var(--text); }
-
-.user-dd-actions{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.dd-btn{
-  width:100%;
-  border:none;
-  border-radius:12px;
-  padding:10px 12px;
-  background: rgba(255,255,255,0.04);
-  color: var(--text);
-  cursor:pointer;
-  text-align:left;
-  transition: background var(--transition-fast), transform var(--transition-fast);
-  font-size:13px;
-}
-.dd-btn:hover{
-  background: rgba(255,255,255,0.08);
-  transform: translateY(-1px);
-}
-.dd-btn.danger{ color:#ff7675; }
-
-
-/* =================================
-   PAGES
-   ================================= */
+/* PAGES */
 .main-pages{ position:relative; flex:1; }
 .page{ display:none; }
 .page.is-active{ display:block; }
 
-/* =================================
-   LAYOUTS
-   ================================= */
+/* LAYOUT */
 .layout{
   display:grid;
   grid-template-columns: 250px minmax(0, 1.7fr) 320px;
@@ -211,18 +159,7 @@ html,body{
 }
 .page-cover .layout{ grid-template-columns: 250px minmax(0,1fr); }
 
-/* Video / Studio / Ürettiklerim: sağ panel yok */
-.page-video .layout,
-.page-studio .layout,
-.page-myworks .layout,
-.page-settings .layout,
-.page-profile .layout{
-  grid-template-columns: 250px minmax(0, 1fr);
-}
-
-/* =================================
-   SIDEBAR
-   ================================= */
+/* SIDEBAR */
 .sidebar{ display:flex; flex-direction:column; gap:16px; height:100%; }
 
 .sidebar-section{
@@ -347,7 +284,9 @@ html,body{
   transform: translateY(-1px);
 }
 
-.hint-card{ background: rgba(5,7,30,0.98); }
+.hint-card{
+  background: rgba(5,7,30,0.98);
+}
 .hint-text{ margin:0; font-size:12px; color:var(--text-soft); }
 .sidebar-section.hint-card{
   flex:1;
@@ -356,10 +295,8 @@ html,body{
   justify-content:space-between;
 }
 
-/* =================================
-   MAIN
-   ================================= */
-.main-panel,.cover-main,.video-main,.studio-main,.myworks-main,.settings-main,.profile-main{
+/* MAIN */
+.main-panel,.cover-main{
   display:flex;
   flex-direction:column;
   gap:10px;
@@ -370,6 +307,7 @@ html,body{
 .panel-title{ font-size:22px; margin:0 0 4px; }
 .panel-subtitle{ margin:0; font-size:13px; color:var(--text-soft); }
 
+/* CARD (performans: tek katman) */
 .card{
   background: rgba(13,16,36,0.92);
   border-radius: var(--radius-xl);
@@ -409,6 +347,9 @@ html,body{
   background: linear-gradient(135deg, #6c5ce7, #a55eea);
   color:#fff;
 }
+
+body[data-mode="basic"] .card{ background: rgba(18,22,50,0.92); }
+body[data-mode="advanced"] .card{ background: rgba(13,16,36,0.92); }
 
 /* FORMS */
 .form-grid{
@@ -468,10 +409,11 @@ input:focus,select:focus,textarea:focus{
   background: linear-gradient(135deg, #6c5ce7, #fd79a8);
   color:#fff;
   cursor:pointer;
-  transition: transform var(--transition-fast), opacity var(--transition-fast);
+  transition: transform var(--transition-fast);
 }
-.primary-btn:hover{ transform: translateY(-1px); }
-.primary-btn.is-loading{ opacity:.75; cursor: wait; }
+.primary-btn:hover{
+  transform: translateY(-1px);
+}
 .full-width{ width:100%; }
 
 /* MUSIC VIEWS */
@@ -483,7 +425,7 @@ input:focus,select:focus,textarea:focus{
   flex:1;
 }
 
-/* RIGHT PANEL (Music page only) */
+/* RIGHT PANEL (tek sütun listeler) */
 .right-panel{ display:flex; flex-direction:column; height:100%; }
 .right-card{ flex:1; display:flex; flex-direction:column; }
 
@@ -505,68 +447,39 @@ input:focus,select:focus,textarea:focus{
 }
 .right-empty-icon{ font-size:18px; opacity:.9; }
 
-/* =================================
-   GALLERY (Video / Cover / MyWorks)
-   ================================= */
-.gallery-head{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:12px;
-}
-.gallery-tools{
-  display:flex;
-  gap:10px;
-  align-items:center;
-}
-.segment{
-  display:inline-flex;
-  gap:6px;
-  padding:5px;
-  border-radius:999px;
-  background: rgba(7,9,40,0.70);
-  border:1px solid rgba(255,255,255,0.10);
-}
-.segment button{
-  border:none;
-  background:transparent;
-  color:var(--text-soft);
-  padding:8px 14px;
-  border-radius:999px;
-  cursor:pointer;
-  font-size:13px;
-  transition: background var(--transition-fast), color var(--transition-fast);
-}
-.segment button:hover{ background: rgba(255,255,255,0.06); color:var(--text); }
-.segment button.is-active{
-  background: linear-gradient(135deg, #6c5ce7, #fd79a8);
-  color:#fff;
-}
-
-.gallery-grid-3{
-  display:grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap:12px;
-  margin-top:12px;
-}
-
-.media-card{
+/* MEDIA ITEMS (Sade, metinsiz) */
+.media-item{
   position:relative;
   border-radius:16px;
-  overflow:hidden;
   border:1px solid rgba(255,255,255,0.10);
   background: rgba(5,7,30,0.70);
+  overflow:hidden;
+}
+
+/* VIDEO ITEM: dengeli dikey oran (premium, reels değil) */
+.video-item{
   aspect-ratio: 3 / 4;
 }
-.media-card.cover{ aspect-ratio: 1 / 1; }
 
-.media-thumb{
-  position:absolute;
-  inset:0;
-  background: radial-gradient(circle at top left, #6c5ce7, #22a6b3);
-  filter: saturate(1.1);
+/* MUSIC ITEM: kompakt */
+.music-item{
+  padding:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
 }
 
+/* RECORD ITEM: kompakt */
+.record-item{
+  padding:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+/* Sade overlay */
 .media-overlay{
   position:absolute;
   inset:0;
@@ -576,11 +489,31 @@ input:focus,select:focus,textarea:focus{
   justify-content:center;
   gap:12px;
   background: radial-gradient(circle at center, rgba(0,0,0,0.28), rgba(0,0,0,0.60));
-  opacity:0;
-  transition: opacity var(--transition-fast);
+  opacity:1;
 }
-.media-card:hover .media-overlay{ opacity:1; }
 
+/* Play overlay butonu (tek animasyon: hafif hover) */
+.play-overlay{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,0.22);
+  background: rgba(0,0,0,0.30);
+  color:#fff;
+  font-size:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+.play-overlay:hover{ transform: scale(1.05); }
+.play-overlay.is-disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+/* icon row */
 .icon-row{
   display:flex;
   gap:10px;
@@ -607,72 +540,7 @@ input:focus,select:focus,textarea:focus{
   transform:none !important;
 }
 
-/* =========================================================
-   DETAIL DRAWER (Right Slide-in) - PATCH
-   HTML:
-   #detailDrawer
-   .detail-backdrop [data-detail-close]
-   .detail-panel
-   #detailTitle #detailBody
-   #detailDownloadBtn #detailDeleteBtn
-   ========================================================= */
-const detailDrawer = $("#detailDrawer");
-const detailPanel = detailDrawer ? $(".detail-panel", detailDrawer) : null;
-const detailBackdrop = detailDrawer ? $(".detail-backdrop", detailDrawer) : null;
-
-const detailTitle = $("#detailTitle");
-const detailBody = $("#detailBody");
-const detailDownloadBtn = $("#detailDownloadBtn");
-const detailDeleteBtn = $("#detailDeleteBtn");
-
-let lastOpenedCard = null;
-
-function openDetail({ kind }) {
-  if (!detailDrawer || !detailPanel || !detailBackdrop) return;
-
-  safeText(detailTitle, kind === "video" ? "Video Önizleme" : "Görsel Önizleme");
-
-  if (detailBody) {
-    detailBody.innerHTML = `
-      <div class="detail-preview ${kind === "cover" ? "cover" : ""}">
-        <div style="width:100%;height:100%;background:radial-gradient(circle at top left, rgba(108,92,231,0.55), rgba(0,206,201,0.25));"></div>
-      </div>
-      <div style="margin-top:12px;color:rgba(255,255,255,0.65);font-size:12px;">
-        MVP: önizleme placeholder. Gerçek medya entegrasyonu sonra.
-      </div>
-    `;
-  }
-
-  detailBackdrop.classList.add("is-open");
-  detailPanel.classList.add("is-open");
-  detailDrawer.setAttribute("aria-hidden", "false");
-}
-
-function closeDetail() {
-  if (!detailDrawer || !detailPanel || !detailBackdrop) return;
-  detailPanel.classList.remove("is-open");
-  detailBackdrop.classList.remove("is-open");
-  detailDrawer.setAttribute("aria-hidden", "true");
-  lastOpenedCard = null;
-}
-
-if (detailDrawer) {
-  $$("[data-detail-close]", detailDrawer).forEach((btn) => btn.addEventListener("click", closeDetail));
-  detailBackdrop?.addEventListener("click", closeDetail);
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeDetail(); });
-}
-
-if (detailDownloadBtn) detailDownloadBtn.addEventListener("click", () => console.log("Download (placeholder)"));
-if (detailDeleteBtn) {
-  detailDeleteBtn.addEventListener("click", () => {
-    if (lastOpenedCard) lastOpenedCard.remove();
-    closeDetail();
-  });
-}
-
-/* =================================
-   AI VIDEO tabs (form section)
-   ================================= */
+/* AI VIDEO */
 .video-tabs{
   display:flex;
   gap:10px;
@@ -693,17 +561,26 @@ if (detailDeleteBtn) {
   cursor:pointer;
   transition: background .2s ease-out, color .2s ease-out;
 }
-.video-tab:hover{ background: rgba(255,255,255,0.06); color:var(--text); }
+.video-tab:hover{
+  background: rgba(255,255,255,0.06);
+  color:var(--text);
+}
 .video-tab.is-active{
   background: linear-gradient(135deg, #6c5ce7, #fd79a8);
   color:#fff;
 }
+
 .video-view{ display:none; }
 .video-view.is-active{ display:flex; flex-direction:column; gap:12px; }
 
 .big-video-btn{ padding:18px 18px; font-size:17px; border-radius:16px; }
 
-.video-prompt-wrapper{ position:relative; width:100%; margin-top:10px; }
+/* AI VIDEO – PROMPT TEXTAREA */
+.video-prompt-wrapper{
+  position:relative;
+  width:100%;
+  margin-top:10px;
+}
 .video-prompt-wrapper textarea{
   width:100%;
   min-height:140px;
@@ -730,9 +607,9 @@ if (detailDeleteBtn) {
   border:1px solid rgba(255,255,255,0.08);
 }
 
-/* =================================
-   RECORD (existing)
-   ================================= */
+/* =========================
+   SES KAYDI (idle anim yok)
+   ========================= */
 .record-main-card{
   position:relative;
   padding:60px 46px 70px;
@@ -763,9 +640,11 @@ if (detailDeleteBtn) {
   background: radial-gradient(circle at bottom, #3b206b, #05020c);
 }
 .record-icon{ position:relative; z-index:3; font-size:54px; }
+
 .record-circle.is-recording{
   box-shadow: 0 0 32px rgba(168,107,255,0.45), 0 0 70px rgba(253,121,168,0.35);
 }
+
 .ses-button-under-circle{
   margin-top:26px;
   margin-bottom:8px;
@@ -919,14 +798,26 @@ body.is-recording .record-neon-pulse{ opacity:1; }
 
 .record-upload-box{ display:block; }
 
-/* =================================
-   COVER (existing gallery upgraded to 3 cols on cover page optional)
-   ================================= */
+/* COVER */
+.cover-main{ gap:16px; }
 .cover-grid{
   display:grid;
   grid-template-columns: minmax(0,1.25fr) minmax(0,1.4fr);
   gap:16px;
 }
+.cover-form-grid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap:12px 18px;
+}
+.badge-beta{
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:11px;
+  background: rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.14);
+}
+
 .style-grid{ display:flex; flex-wrap:wrap; gap:6px; }
 .style-pill{
   padding:5px 10px;
@@ -944,9 +835,93 @@ body.is-recording .record-neon-pulse{ opacity:1; }
   color:#fff;
 }
 
-/* =================================
-   PRICING MODAL (existing)
-   ================================= */
+.advanced-box{
+  background: rgba(7,9,34,0.75);
+  border-radius:14px;
+  padding:10px 12px;
+  border:1px dashed rgba(255,255,255,0.16);
+}
+.advanced-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:12px;
+}
+.advanced-credit{ font-size:11px; }
+.advanced-desc{ margin:6px 0 0; font-size:11px; color:var(--text-soft); }
+
+.cover-right{ display:flex; flex-direction:column; }
+.cover-gallery-card{ height:100%; display:flex; flex-direction:column; }
+.gallery-filter{
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.18);
+  padding:6px 10px;
+  background: rgba(0,0,0,0.28);
+  color:var(--text-soft);
+  font-size:12px;
+}
+.gallery-grid{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap:10px;
+}
+.gallery-card{
+  position:relative;
+  border-radius:14px;
+  overflow:hidden;
+  background: rgba(5,7,30,0.85);
+  border:1px solid rgba(255,255,255,0.08);
+  aspect-ratio: 1 / 1;
+}
+.gallery-thumb{
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at top left, #6c5ce7, #22a6b3);
+}
+.fake-thumb.thumb-1{ background-image: linear-gradient(135deg, #6c5ce7, #00cec9); }
+
+/* Kapakta overlay ikonlar hover ile görünür */
+.gallery-card .media-overlay{
+  opacity:0;
+  transition: opacity var(--transition-fast);
+}
+.gallery-card:hover .media-overlay{
+  opacity:1;
+}
+.gallery-card .media-overlay{
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+}
+
+.gallery-footer{
+  margin-top:auto;
+  padding-top:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:11px;
+  color:var(--text-soft);
+}
+.gallery-pagination{ display:inline-flex; gap:6px; }
+.page-btn{
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.22);
+  background: rgba(0,0,0,0.30);
+  color:var(--text-soft);
+  padding:4px 9px;
+  font-size:11px;
+  cursor:pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.page-btn.is-active{
+  background: linear-gradient(135deg, #6c5ce7, #a55eea);
+  color:#fff;
+}
+
+/* PRICING MODAL (blur düşürüldü) */
 .pricing-modal{
   position:fixed;
   inset:0;
@@ -983,6 +958,17 @@ body.is-recording .record-neon-pulse{ opacity:1; }
 }
 .pricing-modal.is-open .pricing-dialog{ transform: translateY(0); }
 
+.pricing-header{
+  position:relative;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:30px;
+}
+.pricing-header h2{ margin:0 0 4px; font-size:26px; color:#fff; }
+.pricing-header p{ margin:0; font-size:14px; color:#b9c2ff; }
+
 .icon-button{
   background: rgba(255,255,255,0.08);
   border:none;
@@ -999,9 +985,66 @@ body.is-recording .record-neon-pulse{ opacity:1; }
   transform: translateY(-1px);
 }
 
-/* =================================
-   MEDIA MODAL (kept as optional, but detail panel is primary)
-   ================================= */
+.pricing-grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:26px;
+  margin-bottom:35px;
+}
+.pricing-card{
+  padding:38px 30px;
+  border-radius:24px;
+  background: rgba(16,20,48,0.72);
+  box-shadow:0 22px 62px rgba(0,0,0,0.50);
+  border:1px solid rgba(255,255,255,0.06);
+  transition: transform .25s ease-out;
+  min-height:340px;
+  display:flex;
+  flex-direction:column;
+}
+.pricing-card:hover{ transform: translateY(-6px); }
+.pricing-card.is-popular{
+  background: linear-gradient(to bottom right, rgba(255,136,210,0.18), rgba(80,120,255,0.12)), rgba(16,20,48,0.8);
+  border:1px solid rgba(255,136,210,0.30);
+}
+.pricing-badge{
+  align-self:flex-start;
+  padding:4px 12px;
+  border-radius:999px;
+  font-size:11px;
+  background: rgba(255,255,255,0.16);
+  color:#fff;
+  margin-bottom:10px;
+}
+.pricing-badge.small{ background: rgba(108,92,231,0.65); }
+.pricing-card h3{ font-size:21px; margin:0 0 14px; }
+.pricing-price{ font-size:28px; font-weight:700; margin:0 0 18px; }
+.pricing-list{
+  margin:0 0 20px;
+  padding:0;
+  list-style:none;
+  color:#d6dcff;
+}
+.pricing-list li{ font-size:15px; margin-bottom:8px; }
+.pricing-card .primary-btn{ margin-top:auto; height:48px; font-size:16px; }
+
+/* FAQ */
+.faq-title{ font-size:20px; margin:0 0 18px; color:#fff; }
+.faq-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:16px; }
+.faq-item{
+  padding:18px 22px;
+  border-radius:16px;
+  background: rgba(16,18,42,0.72);
+  font-size:14px;
+  color:#e2e6ff;
+  border:1px solid rgba(255,255,255,0.05);
+  transition: transform .25s ease-out;
+}
+.faq-item:hover{ transform: translateY(-2px); }
+.faq-question{ font-size:15px; font-weight:600; margin:0 0 6px; color:#fff; }
+.faq-answer{ font-size:14px; margin:0; color:#c6c9e9; }
+
+/* MEDIA MODAL (Video + Kapak preview) */
 .media-modal{
   position:fixed;
   inset:0;
@@ -1057,106 +1100,7 @@ body.is-recording .record-neon-pulse{ opacity:1; }
   border:1px solid rgba(255,255,255,0.10);
 }
 
-/* =================================
-   BOTTOM PLAYER BAR (UI placeholder)
-   ================================= */
-.playerbar{
-  position:fixed;
-  left:0;
-  right:0;
-  bottom:0;
-  height:76px;
-  background: rgba(8,10,40,0.92);
-  border-top:1px solid rgba(255,255,255,0.10);
-  box-shadow: 0 -18px 60px rgba(0,0,0,0.65);
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:10px 18px;
-  z-index:12000;
-}
-.playerbar.hidden{ display:none !important; }
-.player-left{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-width:240px;
-}
-.player-thumb{
-  width:48px;
-  height:48px;
-  border-radius:12px;
-  background: linear-gradient(135deg, rgba(108,92,231,0.85), rgba(0,206,201,0.75));
-  border:1px solid rgba(255,255,255,0.10);
-}
-.player-meta{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-.player-title{ font-size:13px; font-weight:800; }
-.player-sub{ font-size:12px; color:var(--text-soft); }
-
-.player-center{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.player-controls{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  justify-content:center;
-}
-.player-btn{
-  width:40px;
-  height:40px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,0.16);
-  background: rgba(255,255,255,0.04);
-  color:#fff;
-  cursor:not-allowed; /* locked UI */
-  opacity:.75;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:16px;
-}
-.player-progress{
-  height:6px;
-  border-radius:999px;
-  background: rgba(255,255,255,0.08);
-  overflow:hidden;
-}
-.player-progress > span{
-  display:block;
-  height:100%;
-  width:18%;
-  background: linear-gradient(90deg, #6c5ce7, #fd79a8);
-  border-radius:inherit;
-  opacity:.9;
-}
-
-.player-right{
-  min-width:220px;
-  display:flex;
-  justify-content:flex-end;
-  gap:10px;
-  align-items:center;
-}
-.lock-chip{
-  padding:7px 10px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.04);
-  color: var(--text-soft);
-  font-size:12px;
-}
-
-/* =================================
-   ANIMS
-   ================================= */
+/* ANIMS (minimal) */
 @keyframes wavePulse{
   from{ transform: scaleY(.2); }
   to{ transform: scaleY(1); }
@@ -1168,103 +1112,21 @@ body.is-recording .record-neon-pulse{ opacity:1; }
   100%{ transform: scaleX(.6); opacity:.4; }
 }
 
-/* =================================
-   RESPONSIVE
-   ================================= */
+/* RESPONSIVE */
 @media (max-width: 1200px){
   .layout{ grid-template-columns: 230px minmax(0,1.6fr); }
   .right-panel{ display:none; }
-  .gallery-grid-3{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .pricing-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
 @media (max-width: 992px){
   .layout{ grid-template-columns: minmax(0,1fr); }
   .sidebar{ display:none; }
   .topnav{ display:none; }
   .page-cover .layout{ grid-template-columns: minmax(0,1fr); }
+  .pricing-grid{ grid-template-columns: minmax(0,1fr); }
+  .gallery-grid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+@media (max-width: 768px){
   .cover-grid{ grid-template-columns: minmax(0,1fr); }
-  .gallery-grid-3{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-  .player-left{ min-width:200px; }
-  .player-right{ min-width:160px; }
-}
-@media (max-width: 768px){
-  .gallery-grid-3{ grid-template-columns: minmax(0,1fr); }
-  .player-right{ display:none; }
-}
-.media-grid{
-  display:grid;
-  gap:12px;
-  margin-top:12px;
-}
-.media-grid-3{
-  grid-template-columns: repeat(3, minmax(0,1fr));
-}
-@media (max-width:1200px){
-  .media-grid-3{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-}
-@media (max-width:768px){
-  .media-grid-3{ grid-template-columns: minmax(0,1fr); }
-}
-/* =========================
-   PATCH: HTML sınıflarıyla CSS'i eşitle
-   ========================= */
-
-/* Dropdown içeriği (senin HTML: user-dd-*) */
-.user-dd-header{
-  padding:10px 10px 12px;
-  border-bottom:1px solid rgba(255,255,255,0.08);
-  margin-bottom:10px;
-}
-.user-dd-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  padding:6px 2px;
-}
-.user-dd-label{ font-size:12px; color:var(--text-soft); }
-.user-dd-value{ font-size:12px; color:var(--text); }
-
-.user-dd-actions{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.dd-btn{
-  width:100%;
-  border:none;
-  border-radius:12px;
-  padding:10px 12px;
-  background: rgba(255,255,255,0.04);
-  color: var(--text);
-  cursor:pointer;
-  text-align:left;
-  transition: background var(--transition-fast), transform var(--transition-fast);
-  font-size:13px;
-}
-.dd-btn:hover{
-  background: rgba(255,255,255,0.08);
-  transform: translateY(-1px);
-}
-.dd-btn.danger{ color:#ff7675; }
-
-/* media-grid sınıfları (senin HTML: media-grid-3) */
-.media-grid{
-  display:grid;
-  gap:12px;
-  margin-top:12px;
-}
-.media-grid-3{
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-/* thumb helper'lar (HTML'de var) */
-.thumb-video{ background: radial-gradient(circle at top left, rgba(253,121,168,0.9), rgba(108,92,231,0.55)); }
-.thumb-cover{ background: radial-gradient(circle at top left, #6c5ce7, #22a6b3); }
-
-/* Responsive: media-grid-3 */
-@media (max-width: 1200px){
-  .media-grid-3{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-}
-@media (max-width: 768px){
-  .media-grid-3{ grid-template-columns: minmax(0,1fr); }
+  .gallery-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
