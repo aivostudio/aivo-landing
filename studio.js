@@ -766,35 +766,30 @@ if (detailDeleteBtn) {
     });
   }
 
-  /* =========================================================
-     MYWORKS (Ürettiklerim): segment switch + gallery
-     - Requires:
-       #myworksGallery
-       #myworksSegVideo, #myworksSegCover
-     ========================================================= */
-  const myworksGallery = $("#myworksGallery");
-  const segVideo = $("#myworksSegVideo");
-  const segCover = $("#myworksSegCover");
+ /* =========================================================
+   MYWORKS: data-myworks-filter ile filtrele
+   ========================================================= */
+const myworksGallery = $("#myworksGallery");
+const myworksBtns = $$("[data-myworks-filter]");
 
-  let myworksMode = "video"; // default
+function applyMyworksFilter(mode){
+  if (!myworksGallery) return;
 
-  function setMyworksMode(mode) {
-    myworksMode = mode;
-    if (segVideo) segVideo.classList.toggle("is-active", mode === "video");
-    if (segCover) segCover.classList.toggle("is-active", mode === "cover");
+  myworksBtns.forEach((b) => b.classList.toggle("is-active", b.dataset.myworksFilter === mode));
 
-    // For MVP: filter by dataset.kind
-    if (!myworksGallery) return;
-    $$(".media-card", myworksGallery).forEach((card) => {
-      card.style.display = (card.dataset.kind === mode) ? "" : "none";
-    });
-  }
+  $$(".media-card", myworksGallery).forEach((card) => {
+    if (mode === "all") { card.style.display = ""; return; }
+    card.style.display = (card.dataset.kind === mode) ? "" : "none";
+  });
+}
 
-  if (segVideo && segCover) {
-    segVideo.addEventListener("click", () => setMyworksMode("video"));
-    segCover.addEventListener("click", () => setMyworksMode("cover"));
-    setMyworksMode("video");
-  }
+myworksBtns.forEach((btn) => {
+  btn.addEventListener("click", () => applyMyworksFilter(btn.dataset.myworksFilter));
+});
+
+// default
+applyMyworksFilter("all");
+
 
   /* =========================================================
      BOTTOM PLAYER BAR (UI only)
