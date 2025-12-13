@@ -132,35 +132,39 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* =========================================================
-     USER DROPDOWN (Top-right)
-     - Requires:
-       #userPill  (button)
-       #userDropdown (panel)
-     ========================================================= */
-  const userPill = $("#userPill");
-  const userDropdown = $("#userDropdown");
+ /* =========================================================
+   USER DROPDOWN (Top-right) - PATCH
+   HTML:
+   #userButton, #userDropdown
+   ========================================================= */
+const userPill = $("#userButton");
+const userDropdown = $("#userDropdown");
 
-  function closeUserDropdown() {
-    if (!userDropdown) return;
-    userDropdown.classList.remove("is-open");
-  }
-  function toggleUserDropdown() {
-    if (!userDropdown) return;
-    userDropdown.classList.toggle("is-open");
-  }
+function closeUserDropdown() {
+  if (!userDropdown) return;
+  userDropdown.classList.remove("is-open");
+  userPill?.setAttribute("aria-expanded", "false");
+  userDropdown.setAttribute("aria-hidden", "true");
+}
+function toggleUserDropdown() {
+  if (!userDropdown) return;
+  const willOpen = !userDropdown.classList.contains("is-open");
+  userDropdown.classList.toggle("is-open", willOpen);
+  userPill?.setAttribute("aria-expanded", String(willOpen));
+  userDropdown.setAttribute("aria-hidden", String(!willOpen));
+}
 
-  if (userPill && userDropdown) {
-    userPill.addEventListener("click", (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      toggleUserDropdown();
-    });
+if (userPill && userDropdown) {
+  userPill.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleUserDropdown();
+  });
 
-    // click outside
-    document.addEventListener("click", () => closeUserDropdown());
-    userDropdown.addEventListener("click", (e) => e.stopPropagation());
-  }
+  document.addEventListener("click", closeUserDropdown);
+  userDropdown.addEventListener("click", (e) => e.stopPropagation());
+}
+
 
   /* =========================================================
      MUSIC VIEWS: Geleneksel / Ses Kaydı
