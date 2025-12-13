@@ -1270,3 +1270,17 @@ body.is-recording .record-neon-pulse{ opacity:1; }
   .gallery-grid-3{ grid-template-columns: minmax(0,1fr); }
   .player-right{ display:none; }
 }
+.media-grid{
+  display:grid;
+  gap:12px;
+  margin-top:12px;
+}
+.media-grid-3{
+  grid-template-columns: repeat(3, minmax(0,1fr));
+}
+@media (max-width:1200px){
+  .media-grid-3{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width:768px){
+  .media-grid-3{ grid-template-columns: minmax(0,1fr); }
+}
