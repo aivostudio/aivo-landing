@@ -16,17 +16,16 @@
         <div class="logo">
           <img src="aivo-logo1.png" alt="AIVO logo" class="logo-img" />
           <span class="logo-text">AIVO Studio</span>
+          <span class="beta-chip">BETA</span>
         </div>
       </div>
 
-      <!-- ÜST MENÜ: sade + tutarlı -->
       <nav class="topnav">
-        <a href="#" class="topnav-link is-active" data-page-link="music">Anasayfa</a>
-        <a href="#" class="topnav-link" data-page-link="music">Müzik Üret</a>
-        <a href="#" class="topnav-link" data-page-link="music" data-music-tab="ai-video">Video Üret</a>
+        <a href="#" class="topnav-link is-active" data-page-link="music">Müzik Üret</a>
+        <a href="#" class="topnav-link" data-page-link="video">Video Üret</a>
         <a href="#" class="topnav-link" data-page-link="cover">Kapak / Görsel</a>
-        <a href="#" class="topnav-link" data-page-link="my">Ürettiklerim</a>
-        <a href="#" class="topnav-link" data-page-link="studio-beta">AIVO Studio (Beta)</a>
+        <a href="#" class="topnav-link" data-page-link="myworks">Ürettiklerim</a>
+        <a href="#" class="topnav-link" data-page-link="studio">AIVO Studio (Beta)</a>
         <a href="#" class="topnav-link" data-open-pricing>Kredi Al</a>
       </nav>
 
@@ -36,31 +35,34 @@
           <span class="credits-value" id="creditsValue">78</span>
         </button>
 
-        <!-- Canlı destek kaldırıldı -> Geri Bildirim (pasif) -->
-        <button class="top-btn ghost" type="button" id="feedbackBtn" aria-label="Geri bildirim">Geri Bildirim</button>
-
-        <!-- Kullanıcı Dropdown -->
+        <!-- USER DROPDOWN -->
         <div class="user-menu">
-          <button class="user-pill" id="userMenuBtn" type="button" aria-haspopup="true" aria-expanded="false">
-            <span class="user-dot" aria-hidden="true"></span>
-            <span class="user-name" id="userNameText">Kullanıcı</span>
-            <span class="user-caret" aria-hidden="true">▾</span>
+          <button class="user-pill" id="userButton" type="button" aria-haspopup="true" aria-expanded="false">
+            <span class="user-avatar">H</span>
+            <span class="user-name">Harun</span>
+            <span class="user-caret">▾</span>
           </button>
 
           <div class="user-dropdown" id="userDropdown" aria-hidden="true">
-            <div class="user-card">
-              <div class="user-card-title" id="userDropdownName">Kullanıcı</div>
-              <div class="user-card-meta">
-                <span>Kredi: <strong id="userDropdownCredits">78</strong></span>
-                <span>Paket: <strong id="userDropdownPlan">Standart</strong></span>
+            <div class="user-dd-header">
+              <div class="user-dd-row">
+                <span class="user-dd-label">Kullanıcı</span>
+                <span class="user-dd-value">Harun</span>
+              </div>
+              <div class="user-dd-row">
+                <span class="user-dd-label">Kredi</span>
+                <span class="user-dd-value"><strong id="userCredits">78</strong></span>
+              </div>
+              <div class="user-dd-row">
+                <span class="user-dd-label">Paket</span>
+                <span class="user-dd-value">Standart</span>
               </div>
             </div>
 
-            <div class="user-dropdown-links">
-              <button class="user-dd-link" type="button" data-page-link="profile">Profil</button>
-              <button class="user-dd-link" type="button" data-page-link="settings">Ayarlar</button>
-              <button class="user-dd-link" type="button" data-open-pricing>Kredi / Faturalar</button>
-              <button class="user-dd-link danger" type="button" id="logoutBtn">Çıkış Yap</button>
+            <div class="user-dd-actions">
+              <button class="dd-btn" type="button" data-page-link="profile">Profil</button>
+              <button class="dd-btn" type="button" data-page-link="settings">Ayarlar</button>
+              <button class="dd-btn danger" type="button">Çıkış Yap</button>
             </div>
           </div>
         </div>
@@ -70,17 +72,16 @@
     <!-- ================= MAIN PAGES ================= -->
     <main class="main-pages">
 
-      <!-- ========== 1) MÜZİK SAYFASI ========== -->
+      <!-- ========== MÜZİK SAYFASI ========== -->
       <div class="page page-music is-active" data-page="music">
-        <div class="layout">
+        <div class="layout layout-3col">
 
-          <!-- ========== SOL PANEL ========== -->
+          <!-- ========== SOL PANEL (CHECKLIST MENÜ) ========== -->
           <aside class="sidebar">
-
             <div class="sidebar-section">
               <div class="sidebar-title">Paneller</div>
 
-              <!-- MÜZİK ÜRET -->
+              <!-- MÜZİK ÜRET (submenu) -->
               <div class="sidebar-group">
                 <button type="button" class="sidebar-link-main is-open" data-submenu-toggle="music">
                   <span>🎵 Müzik Üret</span>
@@ -97,37 +98,18 @@
                 </div>
               </div>
 
-              <!-- VIDEO ÜRET (ana menü) -->
-              <button class="sidebar-link" type="button" data-page-link="music" data-music-tab="ai-video">
-                <span>Video Üret</span>
+              <!-- VIDEO / COVER ana kalem -->
+              <button class="sidebar-link" data-page-link="video" type="button"><span>🎬 Video Üret</span></button>
+              <button class="sidebar-link" data-page-link="cover" type="button"><span>🖼️ Kapak / Görsel Üret</span></button>
+
+              <button class="sidebar-link" data-page-link="myworks" type="button"><span>Ürettiklerim</span></button>
+              <button class="sidebar-link" data-page-link="studio" type="button">
+                <span>AIVO Studio</span><span class="mini-badge">BETA</span>
               </button>
 
-              <!-- KAPAK / GÖRSEL (ana menü) -->
-              <button class="sidebar-link" data-page-link="cover" type="button">
-                <span>Kapak / Görsel Üret</span>
-              </button>
-
-              <!-- ÜRETTİKLERİM -->
-              <button class="sidebar-link" data-page-link="my" type="button">
-                <span>Ürettiklerim</span>
-              </button>
-
-              <!-- AIVO STUDIO BETA -->
-              <button class="sidebar-link" data-page-link="studio-beta" type="button">
-                <span>AIVO Studio (Beta)</span>
-              </button>
-
-              <button class="sidebar-link" data-open-pricing type="button">
-                <span>Kredi / Faturalarım</span>
-              </button>
-
-              <button class="sidebar-link" data-page-link="settings" type="button">
-                <span>Ayarlar</span>
-              </button>
-
-              <button class="sidebar-link sidebar-link-danger" data-page-link="music" type="button" id="sidebarLogout">
-                <span>Çıkış Yap</span>
-              </button>
+              <button class="sidebar-link" data-open-pricing type="button"><span>Kredi / Faturalarım</span></button>
+              <button class="sidebar-link" data-page-link="settings" type="button"><span>Ayarlar</span></button>
+              <button class="sidebar-link sidebar-link-danger" type="button"><span>Çıkış Yap</span></button>
             </div>
 
             <div class="sidebar-section">
@@ -145,8 +127,7 @@
             <div class="sidebar-section hint-card">
               <div class="sidebar-title">İpucu</div>
               <p class="hint-text">
-                Önce şarkının duygusunu ve temposunu seç. Presetlerden biriyle başla,
-                kalan ayarları AIVO senin için doldursun.
+                Basit modla başla. İlk sonuçtan sonra Gelişmiş’e geçip mood/tempo/vokal gibi ayarları rafine et.
               </p>
             </div>
           </aside>
@@ -168,14 +149,12 @@
                 <div class="card-header">
                   <div>
                     <div class="card-title">Çalışma Modu</div>
-                    <div class="card-subtitle">
-                      İlk kez başlıyorsan Basit modla başla, sonra Gelişmiş’e geç.
-                    </div>
+                    <div class="card-subtitle">Basit mod hızlı sonuç, Gelişmiş mod daha kontrol.</div>
                   </div>
                   <div class="mode-toggle">
-                    <button class="mode-btn" type="button" data-mode-button="basic">Basit Mod</button>
+                    <button class="mode-btn" type="button" data-mode-button="basic">Basit</button>
                     <button class="mode-btn is-active" type="button" data-mode-button="advanced">
-                      Gelişmiş Mod <span class="mode-star" aria-hidden="true">✦</span>
+                      Gelişmiş <span class="mode-star" aria-hidden="true">✦</span>
                     </button>
                   </div>
                 </div>
@@ -207,7 +186,6 @@
                   <!-- Referans ses -->
                   <div class="form-field full">
                     <label>Referans Ses Yükle (opsiyonel)</label>
-
                     <div class="upload-box" onclick="document.getElementById('refAudio').click()">
                       <input type="file" id="refAudio" accept=".mp3,.wav,.m4a" hidden />
                       <div>
@@ -262,9 +240,7 @@
 
               <div class="card">
                 <div class="form-field full">
-                  <button class="primary-btn full-width" id="musicGenerateBtn" type="button">
-                    🎵 Müzik Üret
-                  </button>
+                  <button class="primary-btn full-width" id="musicGenerateBtn" type="button">🎵 Müzik Üret</button>
                 </div>
               </div>
             </div>
@@ -313,10 +289,8 @@
                 <div class="record-bottom-shell">
                   <div class="record-main-left">
                     <h3 class="record-main-title">Ses Kaydetmeye Başlayın</h3>
-
                     <p class="record-main-text">
-                      Butona tıklayarak kayıt modunu aç. İlk kullanımda tarayıcı mikrofon izni isteyebilir;
-                      “İzin ver” demeyi unutma.
+                      Butona tıklayarak kayıt modunu aç. İlk kullanımda tarayıcı mikrofon izni isteyebilir; “İzin ver” demeyi unutma.
                     </p>
 
                     <div class="record-timer-wrap">
@@ -329,6 +303,12 @@
                     <p class="record-hint">
                       Kayıt tamamlandığında sesi indirip AIVO Müzik Üret ekranında referans olarak kullanabilirsin.
                     </p>
+
+                    <!-- Suno benzeri alt bar (kilitli / placeholder) -->
+                    <div class="locked-note">
+                      <span class="lock-ico">🔒</span>
+                      <span>Alt oynatıcı (Studio) yakında aktif olacak.</span>
+                    </div>
                   </div>
 
                   <div class="record-main-right">
@@ -347,80 +327,9 @@
               </div>
             </div>
 
-            <!-- ****** AI VIDEO ÜRET ****** -->
-            <div class="music-view" data-music-view="ai-video">
-              <div class="panel-header">
-                <h1 class="panel-title">Video Üret</h1>
-                <p class="panel-subtitle">
-                  Yazıdan veya görselden sinematik videolar oluştur.
-                </p>
-              </div>
-
-              <div class="video-tabs">
-                <button class="video-tab is-active" type="button" data-video-tab="text">Yazıdan Video</button>
-                <button class="video-tab" type="button" data-video-tab="image">Resimden Video</button>
-              </div>
-
-              <!-- TEXT -> VIDEO -->
-              <div class="video-view is-active" data-video-view="text">
-                <div class="card">
-                  <div class="card-header">
-                    <div>
-                      <div class="card-title">Video Açıklaması</div>
-                      <div class="card-subtitle">Max 1000 karakter</div>
-                    </div>
-                    <div class="badge-beta">15 Kredi</div>
-                  </div>
-
-                  <div class="video-prompt-wrapper">
-                    <div class="video-prompt-tip">
-                      Örn: Gece neon şehir, mor-mavi tonlar, yavaş kamera hareketi, hafif sis, sinematik.
-                    </div>
-                    <textarea id="videoPrompt" maxlength="1000" placeholder="Video açıklaması (max 1000 karakter)..."></textarea>
-                    <div class="video-prompt-counter" id="videoPromptCounter">0 / 1000</div>
-                  </div>
-
-                  <button class="primary-btn big-video-btn full-width" id="videoGenerateTextBtn" type="button">
-                    🎬 Video Oluştur (15 Kredi)
-                  </button>
-                </div>
-              </div>
-
-              <!-- IMAGE -> VIDEO -->
-              <div class="video-view" data-video-view="image">
-                <div class="card">
-                  <div class="card-header">
-                    <div>
-                      <div class="card-title">Resim Yükle</div>
-                      <div class="card-subtitle">PNG / JPG – Max 10MB</div>
-                    </div>
-                    <div class="badge-beta">25 Kredi</div>
-                  </div>
-
-                  <div class="upload-box" onclick="document.getElementById('videoImageInput').click()">
-                    <strong>Resim seç veya sürükleyip bırak</strong>
-                    <p class="record-upload-hint">PNG / JPG • Maks 10MB</p>
-                    <input type="file" id="videoImageInput" accept="image/*" hidden />
-                  </div>
-
-                  <div class="video-prompt-wrapper">
-                    <div class="video-prompt-tip">
-                      Örn: Kamera yaklaşsın, hafif parallax ve ışık geçişleri olsun.
-                    </div>
-                    <textarea id="videoImagePrompt" maxlength="500" placeholder="Resim nasıl canlansın? (opsiyonel)"></textarea>
-                    <div class="video-prompt-counter" id="videoImagePromptCounter">0 / 500</div>
-                  </div>
-
-                  <button class="primary-btn big-video-btn full-width" id="videoGenerateImageBtn" type="button">
-                    🎞 Video Oluştur (25 Kredi)
-                  </button>
-                </div>
-              </div>
-            </div>
-
           </section>
 
-          <!-- ========== SAĞ PANEL (Müzik sayfasında: aktif bölümün çıktısı) ========== -->
+          <!-- ========== SAĞ PANEL (SADECE MÜZİK SAYFASINDA) ========== -->
           <aside class="right-panel">
             <div class="card right-card">
               <div class="card-header">
@@ -430,54 +339,171 @@
                 </div>
               </div>
 
-              <!-- MUSIC LIST -->
               <div class="right-list" id="musicList">
                 <div class="right-empty" id="musicEmpty">
                   <div class="right-empty-icon">✨</div>
                 </div>
               </div>
 
-              <!-- VIDEO LIST -->
-              <div class="right-list hidden" id="videoList">
-                <div class="right-empty" id="videoEmpty">
-                  <div class="right-empty-icon">✨</div>
-                </div>
-              </div>
-
-              <!-- RECORDS LIST -->
               <div class="right-list hidden" id="recordList">
                 <div class="right-empty" id="recordEmpty">
                   <div class="right-empty-icon">✨</div>
                 </div>
               </div>
-
             </div>
           </aside>
 
         </div>
       </div>
 
-      <!-- ========== 2) KAPAK SAYFASI ========== -->
+      <!-- ========== VIDEO SAYFASI (AYRI PAGE) ========== -->
+      <div class="page page-video" data-page="video">
+        <div class="layout layout-2col">
+
+          <!-- SOL MENÜ (aynı) -->
+          <aside class="sidebar">
+            <div class="sidebar-section">
+              <div class="sidebar-title">Paneller</div>
+
+              <div class="sidebar-group">
+                <button type="button" class="sidebar-link-main" data-submenu-toggle="music">
+                  <span>🎵 Müzik Üret</span>
+                  <span class="sidebar-arrow">▾</span>
+                </button>
+                <div class="sidebar-submenu" data-submenu="music">
+                  <button type="button" class="sidebar-sublink" data-music-tab="geleneksel" data-page-link="music">Geleneksel</button>
+                  <button type="button" class="sidebar-sublink" data-music-tab="ses-kaydi" data-page-link="music">Ses Kaydı</button>
+                </div>
+              </div>
+
+              <button class="sidebar-link is-active" data-page-link="video" type="button"><span>🎬 Video Üret</span></button>
+              <button class="sidebar-link" data-page-link="cover" type="button"><span>🖼️ Kapak / Görsel Üret</span></button>
+              <button class="sidebar-link" data-page-link="myworks" type="button"><span>Ürettiklerim</span></button>
+              <button class="sidebar-link" data-page-link="studio" type="button"><span>AIVO Studio</span><span class="mini-badge">BETA</span></button>
+              <button class="sidebar-link" data-open-pricing type="button"><span>Kredi / Faturalarım</span></button>
+              <button class="sidebar-link" data-page-link="settings" type="button"><span>Ayarlar</span></button>
+              <button class="sidebar-link sidebar-link-danger" type="button"><span>Çıkış Yap</span></button>
+            </div>
+          </aside>
+
+          <!-- ORTA PANEL (form üstte, galeri altta, 3 kolon) -->
+          <section class="main-panel">
+
+            <div class="panel-header">
+              <h1 class="panel-title">Video Üret</h1>
+              <p class="panel-subtitle">Yazıdan veya görselden sinematik videolar oluştur.</p>
+            </div>
+
+            <div class="video-tabs">
+              <button class="video-tab is-active" type="button" data-video-tab="text">Yazıdan Video</button>
+              <button class="video-tab" type="button" data-video-tab="image">Resimden Video</button>
+            </div>
+
+            <!-- TEXT -->
+            <div class="video-view is-active" data-video-view="text">
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <div class="card-title">Video Açıklaması</div>
+                    <div class="card-subtitle">Max 1000 karakter</div>
+                  </div>
+                  <div class="badge-beta">15 Kredi</div>
+                </div>
+
+                <div class="video-prompt-wrapper">
+                  <div class="video-prompt-tip">
+                    Örn: Gece neon şehir, mor-mavi tonlar, yavaş kamera hareketi, hafif sis, sinematik.
+                  </div>
+                  <textarea id="videoPrompt" maxlength="1000" placeholder="Video açıklaması (max 1000 karakter)..."></textarea>
+                  <div class="video-prompt-counter" id="videoPromptCounter">0 / 1000</div>
+                </div>
+
+                <button class="primary-btn big-video-btn full-width" id="videoGenerateTextBtn" type="button">
+                  🎬 Video Oluştur (15 Kredi)
+                </button>
+              </div>
+            </div>
+
+            <!-- IMAGE -->
+            <div class="video-view" data-video-view="image">
+              <div class="card">
+                <div class="card-header">
+                  <div>
+                    <div class="card-title">Resim Yükle</div>
+                    <div class="card-subtitle">PNG / JPG – Max 10MB</div>
+                  </div>
+                  <div class="badge-beta">25 Kredi</div>
+                </div>
+
+                <div class="upload-box" onclick="document.getElementById('videoImageInput').click()">
+                  <strong>Resim seç veya sürükleyip bırak</strong>
+                  <p class="record-upload-hint">PNG / JPG • Maks 10MB</p>
+                  <input type="file" id="videoImageInput" accept="image/*" hidden />
+                </div>
+
+                <div class="video-prompt-wrapper">
+                  <div class="video-prompt-tip">Örn: Kamera yaklaşsın, hafif parallax ve ışık geçişleri olsun.</div>
+                  <textarea id="videoImagePrompt" maxlength="500" placeholder="Resim nasıl canlansın? (opsiyonel)"></textarea>
+                  <div class="video-prompt-counter" id="videoImagePromptCounter">0 / 500</div>
+                </div>
+
+                <button class="primary-btn big-video-btn full-width" id="videoGenerateImageBtn" type="button">
+                  🎞 Video Oluştur (25 Kredi)
+                </button>
+              </div>
+            </div>
+
+            <!-- GALERİ (3 kolon) -->
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Video Galeriniz</div>
+                  <div class="card-subtitle">Ürettiğin videolar burada listelenir.</div>
+                </div>
+                <select class="gallery-filter" id="videoGalleryFilter">
+                  <option value="all">Tümü</option>
+                  <option value="text">Yazıdan</option>
+                  <option value="image">Resimden</option>
+                </select>
+              </div>
+
+              <div class="media-grid media-grid-3" id="videoGallery">
+                <!-- örnek -->
+                <div class="media-card" data-kind="video" data-origin="text">
+                  <div class="media-thumb thumb-video"></div>
+                  <div class="media-overlay">
+                    <button class="media-ico" type="button" data-action="preview" aria-label="Önizle">🔍</button>
+                    <button class="media-ico" type="button" data-action="download" aria-label="İndir">⬇</button>
+                    <button class="media-ico danger" type="button" data-action="delete" aria-label="Sil">✖</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </section>
+        </div>
+      </div>
+
+      <!-- ========== KAPAK SAYFASI ========== -->
       <div class="page page-cover" data-page="cover">
-        <div class="layout">
+        <div class="layout layout-2col">
 
           <aside class="sidebar">
             <div class="sidebar-section">
               <div class="sidebar-title">Paneller</div>
-              <button class="sidebar-link" data-page-link="music" type="button"><span>Müzik Üret</span></button>
-              <button class="sidebar-link" data-page-link="music" data-music-tab="ai-video" type="button"><span>Video Üret</span></button>
-              <button class="sidebar-link is-active" data-page-link="cover" type="button"><span>Kapak / Görsel Üret</span></button>
-              <button class="sidebar-link" data-page-link="my" type="button"><span>Ürettiklerim</span></button>
-              <button class="sidebar-link" data-page-link="studio-beta" type="button"><span>AIVO Studio (Beta)</span></button>
+              <button class="sidebar-link" data-page-link="music" type="button"><span>🎵 Müzik Üret</span></button>
+              <button class="sidebar-link" data-page-link="video" type="button"><span>🎬 Video Üret</span></button>
+              <button class="sidebar-link is-active" data-page-link="cover" type="button"><span>🖼️ Kapak / Görsel Üret</span></button>
+              <button class="sidebar-link" data-page-link="myworks" type="button"><span>Ürettiklerim</span></button>
+              <button class="sidebar-link" data-page-link="studio" type="button"><span>AIVO Studio</span><span class="mini-badge">BETA</span></button>
               <button class="sidebar-link" data-open-pricing type="button"><span>Kredi / Faturalarım</span></button>
               <button class="sidebar-link" data-page-link="settings" type="button"><span>Ayarlar</span></button>
+              <button class="sidebar-link sidebar-link-danger" type="button"><span>Çıkış Yap</span></button>
             </div>
 
             <div class="sidebar-section hint-card">
               <div class="sidebar-title">İpucu</div>
-              <p class="hint-text">
-                Kapak stilini, renklerini ve oranını seç; gerisini AIVO halletsin.
-              </p>
+              <p class="hint-text">Kapak stilini, renklerini ve oranını seç; gerisini AIVO halletsin.</p>
             </div>
           </aside>
 
@@ -538,20 +564,16 @@
                       <span>AIVO Kapak Motoru</span>
                       <span class="advanced-credit">Gerekli Kredi: <strong>6</strong></span>
                     </div>
-                    <p class="advanced-desc">
-                      6 kredi ile 1 kapak üretilir. Kalite artırımı daha fazla kredi tüketebilir.
-                    </p>
+                    <p class="advanced-desc">6 kredi ile 1 kapak üretilir. Kalite artırımı daha fazla kredi tüketebilir.</p>
                   </div>
 
                   <div class="form-field full">
-                    <button class="primary-btn full-width" id="coverGenerateBtn" type="button">
-                      🖼️ Kapak Üret
-                    </button>
+                    <button class="primary-btn full-width" id="coverGenerateBtn" type="button">🖼️ Kapak Üret</button>
                   </div>
                 </div>
               </div>
 
-              <!-- TEK GALERİ (Sadece kapaklar) -> Kartlar sadece görsel + ikonlar -->
+              <!-- GALERİ: kartlar sadece görsel + ikon -->
               <div class="cover-right">
                 <div class="card cover-gallery-card">
                   <div class="card-header">
@@ -559,16 +581,23 @@
                       <div class="card-title">Görsel Galeriniz</div>
                       <div class="card-subtitle">Ürettiğin kapaklar burada listelenir.</div>
                     </div>
-                    <select class="gallery-filter">
-                      <option>Tümü</option>
-                      <option>Spotify</option>
-                      <option>YouTube</option>
-                      <option>Instagram</option>
+                    <select class="gallery-filter" id="coverGalleryFilter">
+                      <option value="all">Tümü</option>
+                      <option value="spotify">Spotify</option>
+                      <option value="youtube">YouTube</option>
+                      <option value="instagram">Instagram</option>
                     </select>
                   </div>
 
-                  <div class="gallery-grid" id="coverGallery">
-                    <!-- JS üretir / prepend eder -->
+                  <div class="media-grid media-grid-3" id="coverGallery">
+                    <div class="media-card" data-kind="cover">
+                      <div class="media-thumb thumb-cover"></div>
+                      <div class="media-overlay">
+                        <button class="media-ico" type="button" data-action="preview" aria-label="Önizle">🔍</button>
+                        <button class="media-ico" type="button" data-action="download" aria-label="İndir">⬇</button>
+                        <button class="media-ico danger" type="button" data-action="delete" aria-label="Sil">✖</button>
+                      </div>
+                    </div>
                   </div>
 
                   <div class="gallery-footer">
@@ -581,236 +610,236 @@
                   </div>
                 </div>
               </div>
-
             </div>
-          </section>
 
+          </section>
         </div>
       </div>
 
-      <!-- ========== 3) ÜRETTİKLERİM (Sadece Video + Kapak) ========== -->
-      <div class="page page-my" data-page="my">
-        <div class="layout layout-my">
+      <!-- ========== ÜRETTİKLERİM (Sadece Video + Kapak) ========== -->
+      <div class="page page-myworks" data-page="myworks">
+        <div class="layout layout-2col">
 
           <aside class="sidebar">
             <div class="sidebar-section">
               <div class="sidebar-title">Paneller</div>
-              <button class="sidebar-link" data-page-link="music" type="button"><span>Müzik Üret</span></button>
-              <button class="sidebar-link" data-page-link="music" data-music-tab="ai-video" type="button"><span>Video Üret</span></button>
-              <button class="sidebar-link" data-page-link="cover" type="button"><span>Kapak / Görsel Üret</span></button>
-              <button class="sidebar-link is-active" data-page-link="my" type="button"><span>Ürettiklerim</span></button>
-              <button class="sidebar-link" data-page-link="studio-beta" type="button"><span>AIVO Studio (Beta)</span></button>
+              <button class="sidebar-link" data-page-link="music" type="button"><span>🎵 Müzik Üret</span></button>
+              <button class="sidebar-link" data-page-link="video" type="button"><span>🎬 Video Üret</span></button>
+              <button class="sidebar-link" data-page-link="cover" type="button"><span>🖼️ Kapak / Görsel Üret</span></button>
+              <button class="sidebar-link is-active" data-page-link="myworks" type="button"><span>Ürettiklerim</span></button>
+              <button class="sidebar-link" data-page-link="studio" type="button"><span>AIVO Studio</span><span class="mini-badge">BETA</span></button>
               <button class="sidebar-link" data-open-pricing type="button"><span>Kredi / Faturalarım</span></button>
               <button class="sidebar-link" data-page-link="settings" type="button"><span>Ayarlar</span></button>
-            </div>
-
-            <div class="sidebar-section hint-card">
-              <div class="sidebar-title">İpucu</div>
-              <p class="hint-text">
-                Yeni üretilen içerikler her zaman en üstte görünür. Kartlara tıklayarak detayları aç.
-              </p>
+              <button class="sidebar-link sidebar-link-danger" type="button"><span>Çıkış Yap</span></button>
             </div>
           </aside>
 
-          <section class="my-main">
+          <section class="main-panel">
             <div class="panel-header">
               <h1 class="panel-title">Ürettiklerim</h1>
-              <p class="panel-subtitle">Bu sayfada yalnızca Video ve Kapaklar listelenir.</p>
+              <p class="panel-subtitle">Burada sadece video ve kapaklar listelenir.</p>
             </div>
 
-            <div class="my-tabs">
-              <button class="my-tab is-active" type="button" data-my-tab="video">Videolar</button>
-              <button class="my-tab" type="button" data-my-tab="cover">Kapaklar</button>
+            <div class="tabs-row">
+              <button class="seg-btn is-active" type="button" data-myworks-filter="all">Tümü</button>
+              <button class="seg-btn" type="button" data-myworks-filter="video">Videolar</button>
+              <button class="seg-btn" type="button" data-myworks-filter="cover">Kapaklar</button>
             </div>
 
-            <div class="my-grid-shell">
-              <!-- GALERİ -->
-              <div class="card my-gallery-card">
-                <div class="card-header">
-                  <div>
-                    <div class="card-title" id="myGalleryTitle">Videolar</div>
-                    <div class="card-subtitle" id="myGallerySubtitle">Son üretilen videolar</div>
+            <div class="card">
+              <div class="media-grid media-grid-3" id="myworksGallery">
+                <!-- örnekler -->
+                <div class="media-card" data-kind="video">
+                  <div class="media-thumb thumb-video"></div>
+                  <div class="media-overlay">
+                    <button class="media-ico" type="button" data-action="preview" aria-label="Önizle">🔍</button>
+                    <button class="media-ico" type="button" data-action="download" aria-label="İndir">⬇</button>
+                    <button class="media-ico danger" type="button" data-action="delete" aria-label="Sil">✖</button>
                   </div>
                 </div>
-
-                <div class="my-gallery-grid" id="myGalleryGrid">
-                  <!-- JS doldurur -->
-                </div>
-
-                <div class="my-empty" id="myEmpty">
-                  <div class="my-empty-icon">✨</div>
-                  <div class="my-empty-text">Henüz içerik yok. Video veya kapak üret ve burada gör.</div>
+                <div class="media-card" data-kind="cover">
+                  <div class="media-thumb thumb-cover"></div>
+                  <div class="media-overlay">
+                    <button class="media-ico" type="button" data-action="preview" aria-label="Önizle">🔍</button>
+                    <button class="media-ico" type="button" data-action="download" aria-label="İndir">⬇</button>
+                    <button class="media-ico danger" type="button" data-action="delete" aria-label="Sil">✖</button>
+                  </div>
                 </div>
               </div>
-
-              <!-- DETAY / YAN PANEL (EITA mantığı) -->
-              <aside class="card my-detail-card" id="myDetailCard">
-                <div class="my-detail-head">
-                  <div>
-                    <div class="card-title" id="myDetailTitle">Detay</div>
-                    <div class="card-subtitle" id="myDetailSub">Bir karta tıklayınca burada açılır.</div>
-                  </div>
-                  <button class="icon-button small" type="button" id="myDetailClose" aria-label="Kapat">✕</button>
-                </div>
-
-                <div class="my-detail-stage" id="myDetailStage">
-                  <div class="my-detail-placeholder">
-                    <div class="my-detail-icon">↗</div>
-                    <div class="my-detail-text">Galeriden bir içerik seç.</div>
-                  </div>
-                </div>
-
-                <div class="my-detail-actions">
-                  <button class="primary-btn full-width" type="button" id="myDetailPreviewBtn">Büyüt / Önizle</button>
-                  <div class="my-detail-actions-row">
-                    <button class="top-btn ghost full-width" type="button" id="myDetailDownloadBtn">İndir</button>
-                    <button class="top-btn ghost danger full-width" type="button" id="myDetailDeleteBtn">Sil</button>
-                  </div>
-                </div>
-              </aside>
             </div>
-          </section>
 
+          </section>
         </div>
       </div>
 
-      <!-- ========== 4) AIVO STUDIO (BETA) ========== -->
-      <div class="page page-beta" data-page="studio-beta">
-        <div class="layout layout-simple">
+      <!-- ========== AIVO STUDIO (BETA) VİZYON SAYFASI ========== -->
+      <div class="page page-studio" data-page="studio">
+        <div class="layout layout-2col">
 
           <aside class="sidebar">
             <div class="sidebar-section">
               <div class="sidebar-title">Paneller</div>
-              <button class="sidebar-link" data-page-link="music" type="button"><span>Müzik Üret</span></button>
-              <button class="sidebar-link" data-page-link="music" data-music-tab="ai-video" type="button"><span>Video Üret</span></button>
-              <button class="sidebar-link" data-page-link="cover" type="button"><span>Kapak / Görsel Üret</span></button>
-              <button class="sidebar-link" data-page-link="my" type="button"><span>Ürettiklerim</span></button>
-              <button class="sidebar-link is-active" data-page-link="studio-beta" type="button"><span>AIVO Studio (Beta)</span></button>
+              <button class="sidebar-link" data-page-link="music" type="button"><span>🎵 Müzik Üret</span></button>
+              <button class="sidebar-link" data-page-link="video" type="button"><span>🎬 Video Üret</span></button>
+              <button class="sidebar-link" data-page-link="cover" type="button"><span>🖼️ Kapak / Görsel Üret</span></button>
+              <button class="sidebar-link" data-page-link="myworks" type="button"><span>Ürettiklerim</span></button>
+              <button class="sidebar-link is-active" data-page-link="studio" type="button"><span>AIVO Studio</span><span class="mini-badge">BETA</span></button>
               <button class="sidebar-link" data-open-pricing type="button"><span>Kredi / Faturalarım</span></button>
               <button class="sidebar-link" data-page-link="settings" type="button"><span>Ayarlar</span></button>
+              <button class="sidebar-link sidebar-link-danger" type="button"><span>Çıkış Yap</span></button>
             </div>
           </aside>
 
-          <section class="simple-page">
-            <div class="panel-header">
-              <h1 class="panel-title">AIVO Studio</h1>
-              <p class="panel-subtitle">Üretimin yeni standardı.</p>
+          <section class="studio-beta">
+            <div class="studio-hero">
+              <div class="studio-hero-icon">⚗️</div>
+              <h1 class="studio-hero-title">AIVO Studio</h1>
+              <div class="studio-hero-badge">BETA AŞAMASINDA</div>
+              <p class="studio-hero-sub">
+                Profesyonel düzenleme araçları burada birleşiyor. Yakında herkes için açılacak.
+              </p>
             </div>
 
-            <div class="card beta-hero">
-              <div class="beta-badge">BETA</div>
-              <h2 class="beta-title">Daha hızlı. Daha net. Daha güçlü.</h2>
-              <p class="beta-text">
-                AIVO Studio; müzik, kapak ve video üretimini tek akışta birleştirir. Karmaşık ayarları gizler,
-                doğru sonucu öne çıkarır.
-              </p>
-
-              <div class="beta-points">
-                <div class="beta-point">Tek tık üretim akışı</div>
-                <div class="beta-point">Daha anlaşılır arayüz</div>
-                <div class="beta-point">İçerik yönetimi: galeri + detay</div>
-                <div class="beta-point">MVP: sade, hızlı, net</div>
+            <div class="studio-status card">
+              <div class="studio-status-title">Beta Test Aşamasında</div>
+              <div class="studio-status-sub">AIVO Studio şu an geliştirme aşamasında.</div>
+              <div class="studio-status-dots">
+                <span class="dot yellow"></span><span>Aktif Geliştirme</span>
+                <span class="dot blue"></span><span>Test Sürümü</span>
+                <span class="dot green"></span><span>Yakında Açılacak</span>
               </div>
+            </div>
 
-              <button class="primary-btn" type="button" data-page-link="music">Üretime Başla</button>
+            <div class="studio-grid">
+              <div class="studio-feature card">
+                <div class="feat-ico">🎚️</div>
+                <div class="feat-title">Stem Ayrıştırma</div>
+                <div class="feat-sub">Vokal ve enstrümanları katmanlara ayır.</div>
+              </div>
+              <div class="studio-feature card">
+                <div class="feat-ico">📈</div>
+                <div class="feat-title">Waveform</div>
+                <div class="feat-sub">Dalgayı gör, kes, hizala.</div>
+              </div>
+              <div class="studio-feature card">
+                <div class="feat-ico">🎛️</div>
+                <div class="feat-title">Volume & Pan</div>
+                <div class="feat-sub">Dengeyi hızlıca kur.</div>
+              </div>
+              <div class="studio-feature card">
+                <div class="feat-ico">▶️</div>
+                <div class="feat-title">Playback</div>
+                <div class="feat-sub">Play/pause, loop, timeline.</div>
+              </div>
+              <div class="studio-feature card">
+                <div class="feat-ico">✨</div>
+                <div class="feat-title">Basic Effects</div>
+                <div class="feat-sub">EQ, reverb, delay.</div>
+              </div>
+              <div class="studio-feature card">
+                <div class="feat-ico">📤</div>
+                <div class="feat-title">Export</div>
+                <div class="feat-sub">Tek dosya olarak indir.</div>
+              </div>
+            </div>
+
+            <div class="studio-footer card">
+              <div class="studio-footer-title">Çok Yakında</div>
+              <div class="studio-footer-sub">Geri bildirim butonu yakında aktif edilecek.</div>
+              <button class="top-btn ghost" type="button" disabled>Geri Bildirim / Sorun Bildir</button>
             </div>
           </section>
-
         </div>
       </div>
 
-      <!-- ========== 5) PROFİL (minimal) ========== -->
-      <div class="page page-profile" data-page="profile">
-        <div class="layout layout-simple">
-
+      <!-- ========== AYARLAR (BOŞ AMA HAZIR) ========== -->
+      <div class="page page-settings" data-page="settings">
+        <div class="layout layout-2col">
           <aside class="sidebar">
             <div class="sidebar-section">
-              <div class="sidebar-title">Hesabım</div>
-              <button class="sidebar-link is-active" data-page-link="profile" type="button"><span>Profil</span></button>
-              <button class="sidebar-link" data-page-link="settings" type="button"><span>Ayarlar</span></button>
+              <div class="sidebar-title">Paneller</div>
+              <button class="sidebar-link" data-page-link="music" type="button"><span>🎵 Müzik Üret</span></button>
+              <button class="sidebar-link" data-page-link="video" type="button"><span>🎬 Video Üret</span></button>
+              <button class="sidebar-link" data-page-link="cover" type="button"><span>🖼️ Kapak / Görsel Üret</span></button>
+              <button class="sidebar-link" data-page-link="myworks" type="button"><span>Ürettiklerim</span></button>
+              <button class="sidebar-link" data-page-link="studio" type="button"><span>AIVO Studio</span><span class="mini-badge">BETA</span></button>
               <button class="sidebar-link" data-open-pricing type="button"><span>Kredi / Faturalarım</span></button>
-              <button class="sidebar-link sidebar-link-danger" type="button" id="profileLogout"><span>Çıkış Yap</span></button>
+              <button class="sidebar-link is-active" data-page-link="settings" type="button"><span>Ayarlar</span></button>
+              <button class="sidebar-link sidebar-link-danger" type="button"><span>Çıkış Yap</span></button>
             </div>
           </aside>
 
-          <section class="simple-page">
+          <section class="main-panel">
+            <div class="panel-header">
+              <h1 class="panel-title">Ayarlar</h1>
+              <p class="panel-subtitle">MVP: sayfa boş görünmez, kritik KVKK öncelikli.</p>
+            </div>
+
+            <div class="card">
+              <div class="card-title">Gizlilik / KVKK</div>
+              <div class="card-subtitle">Öncelikli — yakında içerik eklenecek.</div>
+              <div class="placeholder-lines">
+                <div class="ph"></div><div class="ph"></div><div class="ph"></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">Bildirimler</div>
+              <div class="card-subtitle">Placeholder — yakında.</div>
+              <div class="placeholder-lines">
+                <div class="ph"></div><div class="ph"></div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-title">Hesap & Güvenlik</div>
+              <div class="card-subtitle">Yakında.</div>
+              <div class="placeholder-lines">
+                <div class="ph"></div><div class="ph"></div><div class="ph"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- ========== PROFİL (Minimal) ========== -->
+      <div class="page page-profile" data-page="profile">
+        <div class="layout layout-2col">
+          <aside class="sidebar">
+            <div class="sidebar-section">
+              <div class="sidebar-title">Paneller</div>
+              <button class="sidebar-link" data-page-link="music" type="button"><span>🎵 Müzik Üret</span></button>
+              <button class="sidebar-link" data-page-link="video" type="button"><span>🎬 Video Üret</span></button>
+              <button class="sidebar-link" data-page-link="cover" type="button"><span>🖼️ Kapak / Görsel Üret</span></button>
+              <button class="sidebar-link" data-page-link="myworks" type="button"><span>Ürettiklerim</span></button>
+              <button class="sidebar-link" data-page-link="studio" type="button"><span>AIVO Studio</span><span class="mini-badge">BETA</span></button>
+              <button class="sidebar-link" data-open-pricing type="button"><span>Kredi / Faturalarım</span></button>
+              <button class="sidebar-link" data-page-link="settings" type="button"><span>Ayarlar</span></button>
+              <button class="sidebar-link sidebar-link-danger" type="button"><span>Çıkış Yap</span></button>
+            </div>
+          </aside>
+
+          <section class="main-panel">
             <div class="panel-header">
               <h1 class="panel-title">Profil</h1>
-              <p class="panel-subtitle">Minimal hesap bilgileri.</p>
+              <p class="panel-subtitle">Minimal — e-posta + paket bilgisi.</p>
             </div>
 
             <div class="card">
               <div class="profile-row">
-                <div class="profile-label">E-posta</div>
-                <div class="profile-value" id="profileEmail">kullanici@aivo.tr</div>
+                <span class="profile-k">E-posta</span>
+                <span class="profile-v">harun@example.com</span>
               </div>
               <div class="profile-row">
-                <div class="profile-label">Paket</div>
-                <div class="profile-value" id="profilePlan">Standart</div>
+                <span class="profile-k">Paket</span>
+                <span class="profile-v">Standart</span>
               </div>
               <div class="profile-row">
-                <div class="profile-label">Kredi</div>
-                <div class="profile-value"><strong id="profileCredits">78</strong></div>
+                <span class="profile-k">Kredi</span>
+                <span class="profile-v"><strong>78</strong></span>
               </div>
             </div>
           </section>
-
-        </div>
-      </div>
-
-      <!-- ========== 6) AYARLAR (boş ama hazır) ========== -->
-      <div class="page page-settings" data-page="settings">
-        <div class="layout layout-simple">
-
-          <aside class="sidebar">
-            <div class="sidebar-section">
-              <div class="sidebar-title">Ayarlar</div>
-              <button class="sidebar-link" data-page-link="profile" type="button"><span>Profil</span></button>
-              <button class="sidebar-link is-active" data-page-link="settings" type="button"><span>Ayarlar</span></button>
-              <button class="sidebar-link" data-open-pricing type="button"><span>Kredi / Faturalarım</span></button>
-              <button class="sidebar-link sidebar-link-danger" type="button" id="settingsLogout"><span>Çıkış Yap</span></button>
-            </div>
-          </aside>
-
-          <section class="simple-page">
-            <div class="panel-header">
-              <h1 class="panel-title">Ayarlar</h1>
-              <p class="panel-subtitle">Bu bölüm boş görünmez; yakında gerçek ayarlar eklenecek.</p>
-            </div>
-
-            <div class="settings-grid">
-              <div class="card setting-card">
-                <div class="setting-title">Bildirimler</div>
-                <div class="setting-sub">Placeholder</div>
-                <div class="setting-note">Yakında: e-posta bildirimleri, üretim tamamlandı uyarıları.</div>
-              </div>
-
-              <div class="card setting-card">
-                <div class="setting-title">Hesap & Güvenlik</div>
-                <div class="setting-sub">Yakında</div>
-                <div class="setting-note">Şifre, 2FA ve cihaz yönetimi bu bölümde olacak.</div>
-              </div>
-
-              <div class="card setting-card is-priority">
-                <div class="setting-title">Gizlilik / KVKK</div>
-                <div class="setting-sub">Öncelikli</div>
-                <div class="setting-note">
-                  KVKK metni, veri saklama politikası ve kullanım koşulları burada yayınlanacak.
-                </div>
-                <button class="top-btn primary" type="button" id="kvkkBtn">KVKK Metnini Gör</button>
-              </div>
-            </div>
-
-            <div class="card feedback-card">
-              <div class="card-title">Geri Bildirim / Sorun Bildir</div>
-              <div class="card-subtitle">Pasif (MVP)</div>
-              <p class="hint-text">
-                Bu buton MVP’de pasif. Canlı destek yok. İleride bildirim/feedback akışı eklenecek.
-              </p>
-              <button class="top-btn ghost" type="button" disabled>Geri Bildirim Gönder (Yakında)</button>
-            </div>
-          </section>
-
         </div>
       </div>
 
@@ -896,15 +925,24 @@
     </div>
   </div>
 
-  <!-- ========== MEDIA PREVIEW MODAL (Video + Kapak) ========== -->
-  <div class="media-modal" id="mediaModal" aria-hidden="true">
-    <div class="media-backdrop" data-media-close></div>
-    <div class="media-dialog" role="dialog" aria-modal="true">
-      <button class="media-close" type="button" data-media-close aria-label="Kapat">✕</button>
-      <div class="media-stage" id="mediaStage">
+  <!-- ========== SAĞDAN DETAY PANEL (EITA mantığı) ========== -->
+  <div class="detail-drawer" id="detailDrawer" aria-hidden="true">
+    <div class="detail-backdrop" data-detail-close></div>
+    <aside class="detail-panel" role="dialog" aria-modal="true">
+      <div class="detail-top">
+        <div class="detail-title" id="detailTitle">Önizleme</div>
+        <button class="detail-close" type="button" data-detail-close aria-label="Kapat">✕</button>
+      </div>
+
+      <div class="detail-body" id="detailBody">
         <!-- JS doldurur -->
       </div>
-    </div>
+
+      <div class="detail-actions">
+        <button class="top-btn ghost" type="button" id="detailDownloadBtn">İndir</button>
+        <button class="top-btn ghost danger" type="button" id="detailDeleteBtn">Sil</button>
+      </div>
+    </aside>
   </div>
 
   <script src="studio.js"></script>
