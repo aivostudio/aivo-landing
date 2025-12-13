@@ -1,10 +1,7 @@
 /* ================================
-   AIVO STUDIO – STUDIO.CSS (FINAL)
-   - Bölüm çıktıları ayrıldı
-   - Sağ panel tek sütun + sade kartlar
-   - "Üretiliyor" placeholder metinsiz
-   - Animasyon minimum (sadece play hover)
-   - Performans: gradient/shadow/blur düşürüldü
+   AIVO STUDIO – STUDIO.CSS (SINGLE FILE)
+   - Tek dosya: base + video + cover + modal + fixes
+   - Performans: blur/gradient/shadow kontrollü
    ================================ */
 
 *,
@@ -307,7 +304,7 @@ html,body{
 .panel-title{ font-size:22px; margin:0 0 4px; }
 .panel-subtitle{ margin:0; font-size:13px; color:var(--text-soft); }
 
-/* CARD (performans: tek katman) */
+/* CARD */
 .card{
   background: rgba(13,16,36,0.92);
   border-radius: var(--radius-xl);
@@ -411,9 +408,7 @@ input:focus,select:focus,textarea:focus{
   cursor:pointer;
   transition: transform var(--transition-fast);
 }
-.primary-btn:hover{
-  transform: translateY(-1px);
-}
+.primary-btn:hover{ transform: translateY(-1px); }
 .full-width{ width:100%; }
 
 /* MUSIC VIEWS */
@@ -447,7 +442,7 @@ input:focus,select:focus,textarea:focus{
 }
 .right-empty-icon{ font-size:18px; opacity:.9; }
 
-/* MEDIA ITEMS (Sade, metinsiz) */
+/* MEDIA ITEMS (Sade) */
 .media-item{
   position:relative;
   border-radius:16px;
@@ -456,10 +451,8 @@ input:focus,select:focus,textarea:focus{
   overflow:hidden;
 }
 
-/* VIDEO ITEM: dengeli dikey oran (premium, reels değil) */
-.video-item{
-  aspect-ratio: 3 / 4;
-}
+/* VIDEO ITEM: dengeli dikey oran */
+.video-item{ aspect-ratio: 3 / 4; }
 
 /* MUSIC ITEM: kompakt */
 .music-item{
@@ -492,7 +485,7 @@ input:focus,select:focus,textarea:focus{
   opacity:1;
 }
 
-/* Play overlay butonu (tek animasyon: hafif hover) */
+/* Play overlay butonu */
 .play-overlay{
   width:64px;
   height:64px;
@@ -514,10 +507,7 @@ input:focus,select:focus,textarea:focus{
 }
 
 /* icon row */
-.icon-row{
-  display:flex;
-  gap:10px;
-}
+.icon-row{ display:flex; gap:10px; }
 .media-ico{
   width:42px;
   height:42px;
@@ -607,8 +597,16 @@ input:focus,select:focus,textarea:focus{
   border:1px solid rgba(255,255,255,0.08);
 }
 
+.badge-beta{
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:11px;
+  background: rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.14);
+}
+
 /* =========================
-   SES KAYDI (idle anim yok)
+   SES KAYDI
    ========================= */
 .record-main-card{
   position:relative;
@@ -755,7 +753,6 @@ body.is-recording #recordWave{ opacity:1; }
   line-height:1.55;
   color:var(--text-soft);
 }
-
 .record-timer-wrap{
   margin-top:14px;
   display:flex;
@@ -809,13 +806,6 @@ body.is-recording .record-neon-pulse{ opacity:1; }
   display:grid;
   grid-template-columns: repeat(2, minmax(0,1fr));
   gap:12px 18px;
-}
-.badge-beta{
-  padding:4px 10px;
-  border-radius:999px;
-  font-size:11px;
-  background: rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.14);
 }
 
 .style-grid{ display:flex; flex-wrap:wrap; gap:6px; }
@@ -886,9 +876,7 @@ body.is-recording .record-neon-pulse{ opacity:1; }
   opacity:0;
   transition: opacity var(--transition-fast);
 }
-.gallery-card:hover .media-overlay{
-  opacity:1;
-}
+.gallery-card:hover .media-overlay{ opacity:1; }
 .gallery-card .media-overlay{
   flex-direction:row;
   justify-content:center;
@@ -921,7 +909,7 @@ body.is-recording .record-neon-pulse{ opacity:1; }
   color:#fff;
 }
 
-/* PRICING MODAL (blur düşürüldü) */
+/* PRICING MODAL */
 .pricing-modal{
   position:fixed;
   inset:0;
@@ -1100,7 +1088,19 @@ body.is-recording .record-neon-pulse{ opacity:1; }
   border:1px solid rgba(255,255,255,0.10);
 }
 
-/* ANIMS (minimal) */
+/* FIX: bazı eski/new versiyonlarda kullanılan grid classları yoksa layout çökmesin */
+.media-grid{ display:grid; gap:12px; }
+.media-grid-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+.media-grid-4{ grid-template-columns: repeat(4, minmax(0,1fr)); }
+@media (max-width: 1100px){
+  .media-grid-4{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+  .media-grid-3{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 640px){
+  .media-grid-4,.media-grid-3{ grid-template-columns: repeat(1, minmax(0,1fr)); }
+}
+
+/* ANIMS */
 @keyframes wavePulse{
   from{ transform: scaleY(.2); }
   to{ transform: scaleY(1); }
