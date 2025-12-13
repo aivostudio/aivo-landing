@@ -1244,3 +1244,67 @@ body.is-recording .record-neon-pulse{ opacity:1; }
 @media (max-width:768px){
   .media-grid-3{ grid-template-columns: minmax(0,1fr); }
 }
+/* =========================
+   PATCH: HTML sınıflarıyla CSS'i eşitle
+   ========================= */
+
+/* Dropdown içeriği (senin HTML: user-dd-*) */
+.user-dd-header{
+  padding:10px 10px 12px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  margin-bottom:10px;
+}
+.user-dd-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:6px 2px;
+}
+.user-dd-label{ font-size:12px; color:var(--text-soft); }
+.user-dd-value{ font-size:12px; color:var(--text); }
+
+.user-dd-actions{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.dd-btn{
+  width:100%;
+  border:none;
+  border-radius:12px;
+  padding:10px 12px;
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  cursor:pointer;
+  text-align:left;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+  font-size:13px;
+}
+.dd-btn:hover{
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-1px);
+}
+.dd-btn.danger{ color:#ff7675; }
+
+/* media-grid sınıfları (senin HTML: media-grid-3) */
+.media-grid{
+  display:grid;
+  gap:12px;
+  margin-top:12px;
+}
+.media-grid-3{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* thumb helper'lar (HTML'de var) */
+.thumb-video{ background: radial-gradient(circle at top left, rgba(253,121,168,0.9), rgba(108,92,231,0.55)); }
+.thumb-cover{ background: radial-gradient(circle at top left, #6c5ce7, #22a6b3); }
+
+/* Responsive: media-grid-3 */
+@media (max-width: 1200px){
+  .media-grid-3{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 768px){
+  .media-grid-3{ grid-template-columns: minmax(0,1fr); }
+}
