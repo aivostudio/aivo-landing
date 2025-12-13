@@ -770,29 +770,32 @@ if (detailDeleteBtn) {
     });
   }
 
- /* =========================================================
-   MYWORKS: data-myworks-filter ile filtrele
+/* =========================================================
+   MYWORKS (Ürettiklerim) - PATCH
+   HTML:
+   [data-myworks-filter="all|video|cover"]
+   #myworksGallery .media-card[data-kind]
    ========================================================= */
 const myworksGallery = $("#myworksGallery");
-const myworksBtns = $$("[data-myworks-filter]");
+const myworksBtns = $$('[data-myworks-filter]');
 
-function applyMyworksFilter(mode){
+function setMyworksFilter(mode) {
+  myworksBtns.forEach((b) => b.classList.toggle("is-active", b.dataset.myworksFilter === mode));
   if (!myworksGallery) return;
 
-  myworksBtns.forEach((b) => b.classList.toggle("is-active", b.dataset.myworksFilter === mode));
-
   $$(".media-card", myworksGallery).forEach((card) => {
-    if (mode === "all") { card.style.display = ""; return; }
-    card.style.display = (card.dataset.kind === mode) ? "" : "none";
+    const kind = card.dataset.kind;
+    card.style.display = (mode === "all" || kind === mode) ? "" : "none";
   });
 }
 
-myworksBtns.forEach((btn) => {
-  btn.addEventListener("click", () => applyMyworksFilter(btn.dataset.myworksFilter));
-});
+if (myworksBtns.length) {
+  myworksBtns.forEach((btn) => {
+    btn.addEventListener("click", () => setMyworksFilter(btn.dataset.myworksFilter || "all"));
+  });
+  setMyworksFilter("all");
+}
 
-// default
-applyMyworksFilter("all");
 
 
   /* =========================================================
