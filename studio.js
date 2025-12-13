@@ -1,9 +1,8 @@
-// AIVO STUDIO – STUDIO.JS (FINAL)
+// AIVO STUDIO – STUDIO.JS (FINAL SINGLE FILE)
 // - Sayfa geçişleri stabil
 // - Sol menü sekmeleri: Geleneksel / Ses Kaydı / AI Video
 // - Sağ panel sadece aktif bölümün çıktısını gösterir (müzik/video/kayıt ayrı)
-// - "Üretiliyor" placeholder metinsiz: aynı kart aktifleşir
-// - Animasyon minimum (CSS tarafında)
+// - "Üretiliyor" placeholder metinsiz
 // - Media preview modal (video + kapak)
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -166,7 +165,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const recordEmpty = document.getElementById("recordEmpty");
 
   function setRightPanelMode(mode) {
-    // mode: "music" | "video" | "record"
     const isMusic = mode === "music";
     const isVideo = mode === "video";
     const isRecord = mode === "record";
@@ -210,7 +208,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return btn;
   }
 
-  // MUSIC ITEM: play/pause + download + delete
   function createMusicItem({ placeholder = false } = {}) {
     const item = document.createElement("div");
     item.className = "media-item music-item";
@@ -226,14 +223,12 @@ document.addEventListener("DOMContentLoaded", () => {
     left.style.gap = "10px";
     left.style.alignItems = "center";
 
-    // Play/Pause sadece ikon: ▶ / ❚❚
     playBtn.style.width = "46px";
     playBtn.style.height = "46px";
     playBtn.style.borderRadius = "999px";
 
     const right = document.createElement("div");
     right.className = "icon-row";
-
     right.appendChild(downloadBtn);
     right.appendChild(delBtn);
 
@@ -241,7 +236,6 @@ document.addEventListener("DOMContentLoaded", () => {
     item.appendChild(left);
     item.appendChild(right);
 
-    // Placeholder ise pasif
     if (placeholder) {
       playBtn.classList.add("is-disabled");
       downloadBtn.classList.add("is-disabled");
@@ -251,13 +245,9 @@ document.addEventListener("DOMContentLoaded", () => {
       playBtn.addEventListener("click", () => {
         isPlaying = !isPlaying;
         playBtn.textContent = isPlaying ? "❚❚" : "▶";
-        // Gerçek audio src API'den gelince burada bağlanır
       });
 
-      downloadBtn.addEventListener("click", () => {
-        console.log("Music download (placeholder)");
-      });
-
+      downloadBtn.addEventListener("click", () => console.log("Music download (placeholder)"));
       delBtn.addEventListener("click", () => {
         item.remove();
         refreshEmptyStates();
@@ -267,7 +257,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return item;
   }
 
-  // VIDEO ITEM: play overlay + download + expand + delete
   function createVideoItem({ placeholder = false } = {}) {
     const item = document.createElement("div");
     item.className = "media-item video-item";
@@ -305,12 +294,10 @@ document.addEventListener("DOMContentLoaded", () => {
       delBtn.classList.add("is-disabled");
     } else {
       play.addEventListener("click", () => {
-        // Gerçek video src API'den gelince burada video element açılır.
         const v = document.createElement("video");
         v.controls = true;
         v.autoplay = true;
         v.muted = true;
-        // v.src = item.dataset.src; // backend entegrasyonunda doldur
         openMediaModal(v);
       });
 
@@ -322,10 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
         openMediaModal(v);
       });
 
-      downloadBtn.addEventListener("click", () => {
-        console.log("Video download (placeholder)");
-      });
-
+      downloadBtn.addEventListener("click", () => console.log("Video download (placeholder)"));
       delBtn.addEventListener("click", () => {
         item.remove();
         refreshEmptyStates();
@@ -335,7 +319,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return item;
   }
 
-  // RECORD ITEM: play + download + to-music + delete (sağ panel kayıt listesi)
   function createRecordItem({ placeholder = false } = {}) {
     const item = document.createElement("div");
     item.className = "media-item record-item";
@@ -367,13 +350,6 @@ document.addEventListener("DOMContentLoaded", () => {
       downloadBtn.addEventListener("click", () => console.log("Record download (placeholder)"));
 
       toMusicBtn.addEventListener("click", () => {
-        // Kayıt → müzik formuna referans taşımak (MVP)
-        const refInput = document.getElementById("refAudio");
-        if (refInput) {
-          // Gerçekte dosya set edilemez; burada UX akışını temsil ediyoruz.
-          console.log("Kayıt, müzik referansına taşınacak (backend ile).");
-        }
-        // Müzik sekmesine geç
         switchMusicView("geleneksel");
         setRightPanelMode("music");
       });
@@ -387,7 +363,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return item;
   }
 
-  // Placeholder ekle + aynı kartı aktive et (metin yok)
   function addPlaceholderAndActivate(listEl, itemFactory, activateDelay = 1400) {
     if (!listEl) return;
 
@@ -396,7 +371,6 @@ document.addEventListener("DOMContentLoaded", () => {
     refreshEmptyStates();
 
     setTimeout(() => {
-      // placeholder'ı "ready" item ile aynı konumda değiştir
       const ready = itemFactory({ placeholder: false });
       placeholder.replaceWith(ready);
       refreshEmptyStates();
@@ -405,7 +379,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* =========================================
      SOL MENÜ – MÜZİK ALT SEKME GEÇİŞLERİ
-     (Geleneksel / Ses Kaydı / AI Video)
      ========================================= */
   const musicViews = document.querySelectorAll(".music-view");
   const musicTabButtons = document.querySelectorAll(".sidebar-sublink[data-music-tab]");
@@ -418,7 +391,6 @@ document.addEventListener("DOMContentLoaded", () => {
       view.classList.toggle("is-active", key === targetKey);
     });
 
-    // Sağ panel sadece ilgili çıktı
     if (targetKey === "geleneksel") setRightPanelMode("music");
     if (targetKey === "ai-video") setRightPanelMode("video");
     if (targetKey === "ses-kaydi") setRightPanelMode("record");
@@ -445,15 +417,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================================
-     MÜZİK ÜRET – "Üretiliyor" sağ panele düşer
+     MÜZİK ÜRET
      ========================================= */
   const musicGenerateBtn = document.getElementById("musicGenerateBtn");
   if (musicGenerateBtn) {
     musicGenerateBtn.addEventListener("click", () => {
-      // doğru panelde olduğundan emin ol
       setRightPanelMode("music");
 
-      // buton UI (metin değişimi burada kalabilir)
       if (musicGenerateBtn.classList.contains("is-loading")) return;
       const originalText = musicGenerateBtn.textContent;
       musicGenerateBtn.classList.add("is-loading");
@@ -464,13 +434,12 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         musicGenerateBtn.classList.remove("is-loading");
         musicGenerateBtn.textContent = originalText;
-        console.log("Müzik üretim isteği burada API'ye gidecek.");
       }, 1200);
     });
   }
 
   /* =========================================
-     SES KAYDI – GÖRSEL KAYIT DURUMU + sağ panele kayıt ekleme
+     SES KAYDI
      ========================================= */
   const sesView = document.querySelector('.music-view[data-music-view="ses-kaydi"]');
   if (sesView) {
@@ -547,7 +516,6 @@ document.addEventListener("DOMContentLoaded", () => {
           resultTimeEl.textContent = formatTime(lastDurationMs);
           setResultVisible(true);
 
-          // Sağ panelde kayıt listesi: placeholder değil, "ready" gibi ekle
           setRightPanelMode("record");
           if (recordList) {
             recordList.prepend(createRecordItem({ placeholder: false }));
@@ -581,7 +549,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (toMusicBtn) toMusicBtn.addEventListener("click", () => {
       switchMusicView("geleneksel");
       setRightPanelMode("music");
-      console.log("Kayıt, müzik referansına taşınacak (backend ile).");
     });
     if (deleteBtn) deleteBtn.addEventListener("click", () => setResultVisible(false));
 
@@ -653,13 +620,11 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.classList.add("is-loading");
       btn.textContent = loadingText;
 
-      // Sağ panel en üste placeholder video kartı (metinsiz)
       addPlaceholderAndActivate(videoList, createVideoItem, delay);
 
       setTimeout(() => {
         btn.classList.remove("is-loading");
         btn.textContent = original;
-        console.log("AI Video isteği burada API'ye gidecek.");
       }, delay);
     });
   }
@@ -676,7 +641,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* =========================================
-     KAPAK – Galeride placeholder + sade ikon aksiyonları
+     KAPAK – Galeri placeholder
      ========================================= */
   const coverGenerateBtn = document.getElementById("coverGenerateBtn");
   const coverGallery = document.getElementById("coverGallery");
@@ -688,11 +653,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const thumb = document.createElement("div");
     thumb.className = "gallery-thumb";
-    // Placeholder ise daha karanlık
     if (placeholder) {
       thumb.style.background = "rgba(108,92,231,0.18)";
     } else {
-      // basit örnek gradient
       thumb.style.backgroundImage = "linear-gradient(135deg, rgba(108,92,231,0.85), rgba(0,206,201,0.75))";
     }
 
@@ -730,14 +693,10 @@ document.addEventListener("DOMContentLoaded", () => {
       delBtn.classList.add("is-disabled");
     } else {
       expandBtn.addEventListener("click", () => {
-        // Gerçek görsel URL API'den gelince img.src bağlanır
         const img = document.createElement("img");
-        // img.src = card.dataset.src;
         openMediaModal(img);
       });
-
       downloadBtn.addEventListener("click", () => console.log("Cover download (placeholder)"));
-
       delBtn.addEventListener("click", () => card.remove());
     }
 
@@ -759,21 +718,4 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
           const ready = createCoverGalleryItem({ placeholder: false });
           placeholder.replaceWith(ready);
-          coverGenerateBtn.classList.remove("is-loading");
-          coverGenerateBtn.textContent = originalText;
-          console.log("Kapak üretim isteği burada görsel AI API'ye gidecek.");
-        }, 1400);
-      } else {
-        setTimeout(() => {
-          coverGenerateBtn.classList.remove("is-loading");
-          coverGenerateBtn.textContent = originalText;
-        }, 1000);
-      }
-    });
-  }
-
-  /* =========================================
-     İlk boş durumları ayarla
-     ========================================= */
-  refreshEmptyStates();
-});
+          coverGenerateBtn.classList.remove("is
