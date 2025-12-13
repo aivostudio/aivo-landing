@@ -1,7 +1,10 @@
 /* ================================
    AIVO STUDIO – STUDIO.CSS (FINAL)
-   - Tek dosya: Müzik + Kayıt + Video + Kapak + Modal + Sağ panel
-   - Performans: blur/gradient ölçülü
+   - Bölüm çıktıları ayrıldı
+   - Sağ panel tek sütun + sade kartlar
+   - "Üretiliyor" placeholder metinsiz
+   - Animasyon minimum (sadece play hover)
+   - Performans: gradient/shadow/blur düşürüldü
    ================================ */
 
 *,
@@ -40,9 +43,6 @@ html,body{
 
 .hidden{ display:none !important; }
 
-a{ color:inherit; }
-button{ font-family:inherit; }
-
 .app-shell{
   width:100%;
   min-height:100vh;
@@ -56,7 +56,7 @@ button{ font-family:inherit; }
   overflow:hidden;
 }
 
-/* ================= TOPBAR ================= */
+/* TOPBAR */
 .topbar{
   display:flex;
   align-items:center;
@@ -144,12 +144,12 @@ button{ font-family:inherit; }
   transform: translateY(-1px);
 }
 
-/* ================= PAGES ================= */
+/* PAGES */
 .main-pages{ position:relative; flex:1; }
 .page{ display:none; }
 .page.is-active{ display:block; }
 
-/* ================= LAYOUT ================= */
+/* LAYOUT */
 .layout{
   display:grid;
   grid-template-columns: 250px minmax(0, 1.7fr) 320px;
@@ -159,7 +159,7 @@ button{ font-family:inherit; }
 }
 .page-cover .layout{ grid-template-columns: 250px minmax(0,1fr); }
 
-/* ================= SIDEBAR ================= */
+/* SIDEBAR */
 .sidebar{ display:flex; flex-direction:column; gap:16px; height:100%; }
 
 .sidebar-section{
@@ -284,7 +284,9 @@ button{ font-family:inherit; }
   transform: translateY(-1px);
 }
 
-.hint-card{ background: rgba(5,7,30,0.98); }
+.hint-card{
+  background: rgba(5,7,30,0.98);
+}
 .hint-text{ margin:0; font-size:12px; color:var(--text-soft); }
 .sidebar-section.hint-card{
   flex:1;
@@ -293,7 +295,7 @@ button{ font-family:inherit; }
   justify-content:space-between;
 }
 
-/* ================= MAIN ================= */
+/* MAIN */
 .main-panel,.cover-main{
   display:flex;
   flex-direction:column;
@@ -305,7 +307,7 @@ button{ font-family:inherit; }
 .panel-title{ font-size:22px; margin:0 0 4px; }
 .panel-subtitle{ margin:0; font-size:13px; color:var(--text-soft); }
 
-/* CARD */
+/* CARD (performans: tek katman) */
 .card{
   background: rgba(13,16,36,0.92);
   border-radius: var(--radius-xl);
@@ -346,6 +348,9 @@ button{ font-family:inherit; }
   color:#fff;
 }
 
+body[data-mode="basic"] .card{ background: rgba(18,22,50,0.92); }
+body[data-mode="advanced"] .card{ background: rgba(13,16,36,0.92); }
+
 /* FORMS */
 .form-grid{
   display:grid;
@@ -354,7 +359,6 @@ button{ font-family:inherit; }
 }
 .form-field{ display:flex; flex-direction:column; gap:6px; font-size:13px; }
 .form-field.full{ grid-column:1 / -1; }
-
 label{ font-size:12px; color:var(--text-soft); }
 
 input[type="text"],
@@ -407,8 +411,9 @@ input:focus,select:focus,textarea:focus{
   cursor:pointer;
   transition: transform var(--transition-fast);
 }
-.primary-btn:hover{ transform: translateY(-1px); }
-
+.primary-btn:hover{
+  transform: translateY(-1px);
+}
 .full-width{ width:100%; }
 
 /* MUSIC VIEWS */
@@ -420,7 +425,7 @@ input:focus,select:focus,textarea:focus{
   flex:1;
 }
 
-/* ================= RIGHT PANEL ================= */
+/* RIGHT PANEL (tek sütun listeler) */
 .right-panel{ display:flex; flex-direction:column; height:100%; }
 .right-card{ flex:1; display:flex; flex-direction:column; }
 
@@ -431,7 +436,6 @@ input:focus,select:focus,textarea:focus{
   gap:10px;
   min-height:140px;
 }
-
 .right-empty{
   border-radius:16px;
   border:1px dashed rgba(255,255,255,0.14);
@@ -443,7 +447,7 @@ input:focus,select:focus,textarea:focus{
 }
 .right-empty-icon{ font-size:18px; opacity:.9; }
 
-/* MEDIA ITEMS (sade) */
+/* MEDIA ITEMS (Sade, metinsiz) */
 .media-item{
   position:relative;
   border-radius:16px;
@@ -452,10 +456,12 @@ input:focus,select:focus,textarea:focus{
   overflow:hidden;
 }
 
-/* VIDEO ITEM */
-.video-item{ aspect-ratio: 3 / 4; }
+/* VIDEO ITEM: dengeli dikey oran (premium, reels değil) */
+.video-item{
+  aspect-ratio: 3 / 4;
+}
 
-/* MUSIC ITEM */
+/* MUSIC ITEM: kompakt */
 .music-item{
   padding:14px;
   display:flex;
@@ -464,7 +470,7 @@ input:focus,select:focus,textarea:focus{
   gap:10px;
 }
 
-/* RECORD ITEM */
+/* RECORD ITEM: kompakt */
 .record-item{
   padding:14px;
   display:flex;
@@ -473,13 +479,7 @@ input:focus,select:focus,textarea:focus{
   gap:10px;
 }
 
-/* COVER ITEM (sağ panel için yedek) */
-.cover-item{
-  aspect-ratio: 1 / 1;
-  min-height:120px;
-}
-
-/* overlay */
+/* Sade overlay */
 .media-overlay{
   position:absolute;
   inset:0;
@@ -492,7 +492,7 @@ input:focus,select:focus,textarea:focus{
   opacity:1;
 }
 
-/* play overlay */
+/* Play overlay butonu (tek animasyon: hafif hover) */
 .play-overlay{
   width:64px;
   height:64px;
@@ -514,7 +514,10 @@ input:focus,select:focus,textarea:focus{
 }
 
 /* icon row */
-.icon-row{ display:flex; gap:10px; }
+.icon-row{
+  display:flex;
+  gap:10px;
+}
 .media-ico{
   width:42px;
   height:42px;
@@ -537,7 +540,7 @@ input:focus,select:focus,textarea:focus{
   transform:none !important;
 }
 
-/* ================= AI VIDEO ================= */
+/* AI VIDEO */
 .video-tabs{
   display:flex;
   gap:10px;
@@ -572,6 +575,7 @@ input:focus,select:focus,textarea:focus{
 
 .big-video-btn{ padding:18px 18px; font-size:17px; border-radius:16px; }
 
+/* AI VIDEO – PROMPT TEXTAREA */
 .video-prompt-wrapper{
   position:relative;
   width:100%;
@@ -603,7 +607,9 @@ input:focus,select:focus,textarea:focus{
   border:1px solid rgba(255,255,255,0.08);
 }
 
-/* ================= SES KAYDI ================= */
+/* =========================
+   SES KAYDI (idle anim yok)
+   ========================= */
 .record-main-card{
   position:relative;
   padding:60px 46px 70px;
@@ -792,7 +798,7 @@ body.is-recording .record-neon-pulse{ opacity:1; }
 
 .record-upload-box{ display:block; }
 
-/* ================= COVER ================= */
+/* COVER */
 .cover-main{ gap:16px; }
 .cover-grid{
   display:grid;
@@ -846,7 +852,6 @@ body.is-recording .record-neon-pulse{ opacity:1; }
 
 .cover-right{ display:flex; flex-direction:column; }
 .cover-gallery-card{ height:100%; display:flex; flex-direction:column; }
-
 .gallery-filter{
   border-radius:999px;
   border:1px solid rgba(255,255,255,0.18);
@@ -855,7 +860,6 @@ body.is-recording .record-neon-pulse{ opacity:1; }
   color:var(--text-soft);
   font-size:12px;
 }
-
 .gallery-grid{
   margin-top:14px;
   display:grid;
@@ -877,15 +881,20 @@ body.is-recording .record-neon-pulse{ opacity:1; }
 }
 .fake-thumb.thumb-1{ background-image: linear-gradient(135deg, #6c5ce7, #00cec9); }
 
+/* Kapakta overlay ikonlar hover ile görünür */
 .gallery-card .media-overlay{
   opacity:0;
   transition: opacity var(--transition-fast);
+}
+.gallery-card:hover .media-overlay{
+  opacity:1;
+}
+.gallery-card .media-overlay{
   flex-direction:row;
   justify-content:center;
   align-items:center;
   gap:10px;
 }
-.gallery-card:hover .media-overlay{ opacity:1; }
 
 .gallery-footer{
   margin-top:auto;
@@ -912,7 +921,7 @@ body.is-recording .record-neon-pulse{ opacity:1; }
   color:#fff;
 }
 
-/* ================= PRICING MODAL ================= */
+/* PRICING MODAL (blur düşürüldü) */
 .pricing-modal{
   position:fixed;
   inset:0;
@@ -1035,7 +1044,7 @@ body.is-recording .record-neon-pulse{ opacity:1; }
 .faq-question{ font-size:15px; font-weight:600; margin:0 0 6px; color:#fff; }
 .faq-answer{ font-size:14px; margin:0; color:#c6c9e9; }
 
-/* ================= MEDIA MODAL ================= */
+/* MEDIA MODAL (Video + Kapak preview) */
 .media-modal{
   position:fixed;
   inset:0;
@@ -1091,7 +1100,7 @@ body.is-recording .record-neon-pulse{ opacity:1; }
   border:1px solid rgba(255,255,255,0.10);
 }
 
-/* ================= ANIMS ================= */
+/* ANIMS (minimal) */
 @keyframes wavePulse{
   from{ transform: scaleY(.2); }
   to{ transform: scaleY(1); }
@@ -1103,7 +1112,7 @@ body.is-recording .record-neon-pulse{ opacity:1; }
   100%{ transform: scaleX(.6); opacity:.4; }
 }
 
-/* ================= RESPONSIVE ================= */
+/* RESPONSIVE */
 @media (max-width: 1200px){
   .layout{ grid-template-columns: 230px minmax(0,1.6fr); }
   .right-panel{ display:none; }
