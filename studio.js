@@ -498,79 +498,72 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  /* =========================================================
-     DETAIL PANEL (Right Slide-in)
-     - Requires in HTML:
-       #detailBackdrop
-       #detailPanel
-       #detailClose
-       #detailTitle
-       #detailSub
-       #detailPreview
-       #detailDownload
-       #detailDelete
-     ========================================================= */
-  const detailBackdrop = $("#detailBackdrop");
-  const detailPanel = $("#detailPanel");
-  const detailClose = $("#detailClose");
-  const detailTitle = $("#detailTitle");
-  const detailSub = $("#detailSub");
-  const detailPreview = $("#detailPreview");
-  const detailDownload = $("#detailDownload");
-  const detailDelete = $("#detailDelete");
+ /* =========================================================
+   DETAIL DRAWER (senin HTML'ine uyumlu)
+   ========================================================= */
+const detailDrawer = $("#detailDrawer");
+const detailBackdrop2 = detailDrawer ? $("[data-detail-close]", detailDrawer) : null;
+const detailCloseBtns = detailDrawer ? $$("[data-detail-close]", detailDrawer) : [];
+const detailTitle2 = $("#detailTitle");
+const detailBody2 = $("#detailBody");
+const detailDownloadBtn = $("#detailDownloadBtn");
+const detailDeleteBtn = $("#detailDeleteBtn");
 
-  let lastOpenedCard = null;
+let lastOpenedCard = null;
 
-  function openDetail({ kind, title, subtitle, previewKind }) {
-    if (!detailPanel || !detailBackdrop) return;
+function openDetailDrawer({ title = "Önizleme", kind = "video" } = {}) {
+  if (!detailDrawer) return;
 
-    safeText(detailTitle, title || (kind === "video" ? "Video" : "Görsel"));
-    safeText(detailSub, subtitle || "Detaylar yakında");
+  if (detailTitle2) detailTitle2.textContent = title;
 
-    // preview box class
-    if (detailPreview) {
-      detailPreview.classList.toggle("cover", previewKind === "cover");
-      detailPreview.innerHTML = "";
-
-      // Placeholder preview
-      const box = document.createElement("div");
-      box.style.width = "100%";
-      box.style.height = "100%";
-      box.style.background = "radial-gradient(circle at top left, rgba(108,92,231,0.55), rgba(0,206,201,0.25))";
-      detailPreview.appendChild(box);
-    }
-
-    detailBackdrop.classList.add("is-open");
-    detailPanel.classList.add("is-open");
+  if (detailBody2) {
+    // MVP placeholder preview
+    detailBody2.innerHTML = `
+      <div style="
+        border-radius:16px;
+        border:1px solid rgba(255,255,255,0.10);
+        background: radial-gradient(circle at top left, rgba(108,92,231,0.55), rgba(0,206,201,0.25));
+        aspect-ratio:${kind === "cover" ? "1 / 1" : "16 / 9"};
+        width:100%;
+      "></div>
+      <div style="margin-top:12px; color: rgba(255,255,255,0.70); font-size:13px;">
+        Detaylar (MVP) – indirme/silme aksiyonları bağlandı.
+      </div>
+    `;
   }
 
-  function closeDetail() {
-    if (!detailPanel || !detailBackdrop) return;
-    detailPanel.classList.remove("is-open");
-    detailBackdrop.classList.remove("is-open");
-    lastOpenedCard = null;
-  }
+  detailDrawer.setAttribute("aria-hidden", "false");
+  detailDrawer.classList.add("is-open");
+}
 
-  if (detailClose) detailClose.addEventListener("click", closeDetail);
-  if (detailBackdrop) detailBackdrop.addEventListener("click", closeDetail);
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeDetail();
+function closeDetailDrawer() {
+  if (!detailDrawer) return;
+  detailDrawer.setAttribute("aria-hidden", "true");
+  detailDrawer.classList.remove("is-open");
+  lastOpenedCard = null;
+}
+
+if (detailCloseBtns.length) {
+  detailCloseBtns.forEach((btn) => btn.addEventListener("click", closeDetailDrawer));
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeDetailDrawer();
+});
+
+if (detailDownloadBtn) {
+  detailDownloadBtn.addEventListener("click", () => {
+    console.log("Download (placeholder)");
   });
+}
 
-  if (detailDownload) {
-    detailDownload.addEventListener("click", () => {
-      console.log("Download from detail (placeholder)");
-    });
-  }
-  if (detailDelete) {
-    detailDelete.addEventListener("click", () => {
-      if (lastOpenedCard) {
-        lastOpenedCard.remove();
-        lastOpenedCard = null;
-      }
-      closeDetail();
-    });
-  }
+if (detailDeleteBtn) {
+  detailDeleteBtn.addEventListener("click", () => {
+    if (lastOpenedCard) lastOpenedCard.remove();
+    closeDetailDrawer();
+  });
+}
+
 
   /* =========================================================
      GALLERY CARD FACTORY (Video/Cover/MyWorks)
