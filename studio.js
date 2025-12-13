@@ -1,45 +1,63 @@
-// AIVO STUDIO – STUDIO.JS (FINAL)
-// - Sayfa geçişleri stabil
-// - Sol menü sekmeleri: Geleneksel / Ses Kaydı / AI Video
-// - Sağ panel sadece aktif bölümün çıktısını gösterir (müzik/video/kayıt ayrı)
-// - "Üretiliyor" placeholder metinsiz: aynı kart aktifleşir
-// - Animasyon minimum (CSS tarafında)
-// - Media preview modal (video + kapak)
+// AIVO STUDIO – STUDIO.JS (FINAL v2)
+// - Sayfa geçişleri: music / cover / video / myworks / studio / settings / profile
+// - Sol menü: Müzik (Geleneksel/Ses Kaydı) + Video + Kapak + Ürettiklerim + Studio(Beta) + Ayarlar + Çıkış
+// - Video sayfası: üstte form, altta 3 kolon galeri (sağ panel YOK)
+// - Kartlar: sadece görsel + ikonlar (preview/detail, download, delete)
+// - Detay Panel: sağdan açılır (EITA)
+// - Kullanıcı dropdown: top-right
+// - Bottom player bar: sadece UI (locked)
 
 document.addEventListener("DOMContentLoaded", () => {
-  /* =========================================
-     SAYFA GEÇİŞLERİ (MÜZİK / KAPAK)
-     ========================================= */
-  const pages = document.querySelectorAll(".page");
-  const pageLinks = document.querySelectorAll("[data-page-link]");
+  /* =========================================================
+     UTIL
+     ========================================================= */
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+  function safeText(el, txt) { if (el) el.textContent = txt; }
+
+  /* =========================================================
+     PAGE SWITCHING
+     ========================================================= */
+  const pages = $$(".page");
+  const pageLinks = $$("[data-page-link]");
 
   function switchPage(target) {
     pages.forEach((p) => p.classList.toggle("is-active", p.dataset.page === target));
     window.scrollTo({ top: 0, behavior: "smooth" });
+    syncPlayerVisibility(target);
   }
 
   pageLinks.forEach((link) => {
     link.addEventListener("click", (e) => {
       const target = link.getAttribute("data-page-link");
       if (!target) return;
+
+      // Pricing link separate
+      if (link.hasAttribute("data-open-pricing")) return;
+
       e.preventDefault();
 
+      // Active class only for actual page links in topnav (anchors)
       pageLinks.forEach((l) => {
-        if (!l.hasAttribute("data-open-pricing")) l.classList.remove("is-active");
+        if (l.matches(".topnav-link") && !l.hasAttribute("data-open-pricing")) {
+          l.classList.remove("is-active");
+        }
       });
 
-      if (!link.hasAttribute("data-open-pricing")) link.classList.add("is-active");
+      if (link.matches(".topnav-link")) link.classList.add("is-active");
+
       switchPage(target);
     });
   });
 
-  /* =========================================
-     ÇALIŞMA MODU (BASİT / GELİŞMİŞ)
-     ========================================= */
+  /* =========================================================
+     MODE TOGGLE (BASIC / ADVANCED) – only on music form
+     ========================================================= */
   const body = document.body;
-  const modeButtons = document.querySelectorAll("[data-mode-button]");
-  const advancedSections = document.querySelectorAll("[data-visible-in='advanced']");
-  const basicSections = document.querySelectorAll("[data-visible-in='basic']");
+  const modeButtons = $$("[data-mode-button]");
+  const advancedSections = $$("[data-visible-in='advanced']");
+  const basicSections = $$("[data-visible-in='basic']");
 
   function updateMode(mode) {
     body.setAttribute("data-mode", mode);
@@ -66,16 +84,15 @@ document.addEventListener("DOMContentLoaded", () => {
       updateMode(mode);
     });
   });
-
   updateMode("advanced");
 
-  /* =========================================
-     KREDİ MODALI
-     ========================================= */
-  const pricingModal = document.getElementById("pricingModal");
-  const creditsButton = document.getElementById("creditsButton");
-  const closePricing = document.getElementById("closePricing");
-  const openPricingLinks = document.querySelectorAll("[data-open-pricing]");
+  /* =========================================================
+     PRICING MODAL
+     ========================================================= */
+  const pricingModal = $("#pricingModal");
+  const creditsButton = $("#creditsButton");
+  const closePricing = $("#closePricing");
+  const openPricingLinks = $$("[data-open-pricing]");
 
   function openPricing() {
     if (!pricingModal) return;
@@ -105,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   if (pricingModal) {
-    const backdrop = pricingModal.querySelector(".pricing-backdrop");
+    const backdrop = $(".pricing-backdrop", pricingModal);
     if (backdrop) backdrop.addEventListener("click", closePricingModal);
 
     document.addEventListener("keydown", (e) => {
@@ -115,71 +132,95 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* =========================================
-     MEDIA MODAL (Video + Kapak)
-     ========================================= */
-  const mediaModal = document.getElementById("mediaModal");
-  const mediaStage = document.getElementById("mediaStage");
+  /* =========================================================
+     USER DROPDOWN (Top-right)
+     - Requires:
+       #userPill  (button)
+       #userDropdown (panel)
+     ========================================================= */
+  const userPill = $("#userPill");
+  const userDropdown = $("#userDropdown");
 
-  function openMediaModal(node) {
-    if (!mediaModal || !mediaStage) return;
-    mediaStage.innerHTML = "";
-    mediaStage.appendChild(node);
-    mediaModal.classList.add("is-open");
-    mediaModal.setAttribute("aria-hidden", "false");
+  function closeUserDropdown() {
+    if (!userDropdown) return;
+    userDropdown.classList.remove("is-open");
+  }
+  function toggleUserDropdown() {
+    if (!userDropdown) return;
+    userDropdown.classList.toggle("is-open");
   }
 
-  function closeMediaModal() {
-    if (!mediaModal || !mediaStage) return;
-    mediaModal.classList.remove("is-open");
-    mediaModal.setAttribute("aria-hidden", "true");
-    mediaStage.innerHTML = "";
+  if (userPill && userDropdown) {
+    userPill.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleUserDropdown();
+    });
+
+    // click outside
+    document.addEventListener("click", () => closeUserDropdown());
+    userDropdown.addEventListener("click", (e) => e.stopPropagation());
   }
 
-  if (mediaModal) {
-    mediaModal.querySelectorAll("[data-media-close]").forEach((el) => {
-      el.addEventListener("click", (e) => {
-        e.preventDefault();
-        closeMediaModal();
+  /* =========================================================
+     MUSIC VIEWS: Geleneksel / Ses Kaydı
+     - AI Video view removed from music tabs in new structure
+     ========================================================= */
+  const musicViews = $$(".music-view");
+  const musicTabButtons = $$(".sidebar-sublink[data-music-tab]");
+
+  let recordController = null;
+
+  function switchMusicView(targetKey) {
+    musicViews.forEach((view) => {
+      const key = view.getAttribute("data-music-view");
+      view.classList.toggle("is-active", key === targetKey);
+    });
+
+    // right panel mode only for music page
+    if (targetKey === "geleneksel") setRightPanelMode("music");
+    if (targetKey === "ses-kaydi") setRightPanelMode("record");
+
+    if (recordController && targetKey !== "ses-kaydi") recordController.forceStopAndReset();
+
+    refreshEmptyStates();
+    syncPlayerVisibility("music");
+  }
+
+  if (musicViews.length && musicTabButtons.length) {
+    musicTabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-music-tab");
+        if (!target) return;
+
+        musicTabButtons.forEach((b) => b.classList.toggle("is-active", b === btn));
+        switchMusicView(target);
       });
     });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && mediaModal.classList.contains("is-open")) {
-        closeMediaModal();
-      }
-    });
+    switchMusicView("geleneksel");
   }
 
-  /* =========================================
-     SAĞ PANEL (Müzik / Video / Kayıt listeleri)
-     ========================================= */
-  const rightTitle = document.getElementById("rightPanelTitle");
-  const rightSubtitle = document.getElementById("rightPanelSubtitle");
+  /* =========================================================
+     RIGHT PANEL (Music Page only): music / record
+     ========================================================= */
+  const rightTitle = $("#rightPanelTitle");
+  const rightSubtitle = $("#rightPanelSubtitle");
 
-  const musicList = document.getElementById("musicList");
-  const videoList = document.getElementById("videoList");
-  const recordList = document.getElementById("recordList");
+  const musicList = $("#musicList");
+  const recordList = $("#recordList");
 
-  const musicEmpty = document.getElementById("musicEmpty");
-  const videoEmpty = document.getElementById("videoEmpty");
-  const recordEmpty = document.getElementById("recordEmpty");
+  const musicEmpty = $("#musicEmpty");
+  const recordEmpty = $("#recordEmpty");
 
   function setRightPanelMode(mode) {
-    // mode: "music" | "video" | "record"
+    // mode: "music" | "record"
     const isMusic = mode === "music";
-    const isVideo = mode === "video";
     const isRecord = mode === "record";
 
-    if (rightTitle) {
-      rightTitle.textContent = isMusic ? "Müziklerim" : isVideo ? "Videolarım" : "Kayıtlarım";
-    }
-    if (rightSubtitle) {
-      rightSubtitle.textContent = isMusic ? "Son üretilen müzikler" : isVideo ? "Son üretilen videolar" : "Son kayıtlar";
-    }
+    if (rightTitle) rightTitle.textContent = isMusic ? "Müziklerim" : "Kayıtlarım";
+    if (rightSubtitle) rightSubtitle.textContent = isMusic ? "Son üretilen müzikler" : "Son kayıtlar";
 
     if (musicList) musicList.classList.toggle("hidden", !isMusic);
-    if (videoList) videoList.classList.toggle("hidden", !isVideo);
     if (recordList) recordList.classList.toggle("hidden", !isRecord);
   }
 
@@ -188,19 +229,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const hasItem = !!musicList.querySelector(".media-item");
       musicEmpty.style.display = hasItem ? "none" : "flex";
     }
-    if (videoEmpty && videoList) {
-      const hasItem = !!videoList.querySelector(".media-item");
-      videoEmpty.style.display = hasItem ? "none" : "flex";
-    }
     if (recordEmpty && recordList) {
       const hasItem = !!recordList.querySelector(".media-item");
       recordEmpty.style.display = hasItem ? "none" : "flex";
     }
   }
 
-  /* =========================================
-     ÜRETİM KARTLARI (metinsiz)
-     ========================================= */
   function createIconButton(symbol, aria, extraClass = "") {
     const btn = document.createElement("button");
     btn.type = "button";
@@ -210,7 +244,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return btn;
   }
 
-  // MUSIC ITEM: play/pause + download + delete
   function createMusicItem({ placeholder = false } = {}) {
     const item = document.createElement("div");
     item.className = "media-item music-item";
@@ -226,14 +259,12 @@ document.addEventListener("DOMContentLoaded", () => {
     left.style.gap = "10px";
     left.style.alignItems = "center";
 
-    // Play/Pause sadece ikon: ▶ / ❚❚
     playBtn.style.width = "46px";
     playBtn.style.height = "46px";
     playBtn.style.borderRadius = "999px";
 
     const right = document.createElement("div");
     right.className = "icon-row";
-
     right.appendChild(downloadBtn);
     right.appendChild(delBtn);
 
@@ -241,7 +272,6 @@ document.addEventListener("DOMContentLoaded", () => {
     item.appendChild(left);
     item.appendChild(right);
 
-    // Placeholder ise pasif
     if (placeholder) {
       playBtn.classList.add("is-disabled");
       downloadBtn.classList.add("is-disabled");
@@ -251,91 +281,14 @@ document.addEventListener("DOMContentLoaded", () => {
       playBtn.addEventListener("click", () => {
         isPlaying = !isPlaying;
         playBtn.textContent = isPlaying ? "❚❚" : "▶";
-        // Gerçek audio src API'den gelince burada bağlanır
       });
-
-      downloadBtn.addEventListener("click", () => {
-        console.log("Music download (placeholder)");
-      });
-
-      delBtn.addEventListener("click", () => {
-        item.remove();
-        refreshEmptyStates();
-      });
+      downloadBtn.addEventListener("click", () => console.log("Music download (placeholder)"));
+      delBtn.addEventListener("click", () => { item.remove(); refreshEmptyStates(); });
     }
 
     return item;
   }
 
-  // VIDEO ITEM: play overlay + download + expand + delete
-  function createVideoItem({ placeholder = false } = {}) {
-    const item = document.createElement("div");
-    item.className = "media-item video-item";
-    item.dataset.kind = "video";
-    item.dataset.status = placeholder ? "pending" : "ready";
-
-    const overlay = document.createElement("div");
-    overlay.className = "media-overlay";
-
-    const play = document.createElement("button");
-    play.type = "button";
-    play.className = "play-overlay";
-    play.textContent = "▶";
-    play.setAttribute("aria-label", "Oynat");
-
-    const row = document.createElement("div");
-    row.className = "icon-row";
-
-    const downloadBtn = createIconButton("⬇", "İndir");
-    const expandBtn = createIconButton("🔍", "Büyüt");
-    const delBtn = createIconButton("✖", "Sil", "danger");
-
-    row.appendChild(downloadBtn);
-    row.appendChild(expandBtn);
-    row.appendChild(delBtn);
-
-    overlay.appendChild(play);
-    overlay.appendChild(row);
-    item.appendChild(overlay);
-
-    if (placeholder) {
-      play.classList.add("is-disabled");
-      downloadBtn.classList.add("is-disabled");
-      expandBtn.classList.add("is-disabled");
-      delBtn.classList.add("is-disabled");
-    } else {
-      play.addEventListener("click", () => {
-        // Gerçek video src API'den gelince burada video element açılır.
-        const v = document.createElement("video");
-        v.controls = true;
-        v.autoplay = true;
-        v.muted = true;
-        // v.src = item.dataset.src; // backend entegrasyonunda doldur
-        openMediaModal(v);
-      });
-
-      expandBtn.addEventListener("click", () => {
-        const v = document.createElement("video");
-        v.controls = true;
-        v.autoplay = true;
-        v.muted = true;
-        openMediaModal(v);
-      });
-
-      downloadBtn.addEventListener("click", () => {
-        console.log("Video download (placeholder)");
-      });
-
-      delBtn.addEventListener("click", () => {
-        item.remove();
-        refreshEmptyStates();
-      });
-    }
-
-    return item;
-  }
-
-  // RECORD ITEM: play + download + to-music + delete (sağ panel kayıt listesi)
   function createRecordItem({ placeholder = false } = {}) {
     const item = document.createElement("div");
     item.className = "media-item record-item";
@@ -365,96 +318,38 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       playBtn.addEventListener("click", () => console.log("Record play (placeholder)"));
       downloadBtn.addEventListener("click", () => console.log("Record download (placeholder)"));
-
       toMusicBtn.addEventListener("click", () => {
-        // Kayıt → müzik formuna referans taşımak (MVP)
-        const refInput = document.getElementById("refAudio");
-        if (refInput) {
-          // Gerçekte dosya set edilemez; burada UX akışını temsil ediyoruz.
-          console.log("Kayıt, müzik referansına taşınacak (backend ile).");
-        }
-        // Müzik sekmesine geç
         switchMusicView("geleneksel");
         setRightPanelMode("music");
       });
-
-      delBtn.addEventListener("click", () => {
-        item.remove();
-        refreshEmptyStates();
-      });
+      delBtn.addEventListener("click", () => { item.remove(); refreshEmptyStates(); });
     }
 
     return item;
   }
 
-  // Placeholder ekle + aynı kartı aktive et (metin yok)
   function addPlaceholderAndActivate(listEl, itemFactory, activateDelay = 1400) {
     if (!listEl) return;
-
     const placeholder = itemFactory({ placeholder: true });
     listEl.prepend(placeholder);
     refreshEmptyStates();
 
     setTimeout(() => {
-      // placeholder'ı "ready" item ile aynı konumda değiştir
       const ready = itemFactory({ placeholder: false });
       placeholder.replaceWith(ready);
       refreshEmptyStates();
     }, activateDelay);
   }
 
-  /* =========================================
-     SOL MENÜ – MÜZİK ALT SEKME GEÇİŞLERİ
-     (Geleneksel / Ses Kaydı / AI Video)
-     ========================================= */
-  const musicViews = document.querySelectorAll(".music-view");
-  const musicTabButtons = document.querySelectorAll(".sidebar-sublink[data-music-tab]");
-
-  let recordController = null;
-
-  function switchMusicView(targetKey) {
-    musicViews.forEach((view) => {
-      const key = view.getAttribute("data-music-view");
-      view.classList.toggle("is-active", key === targetKey);
-    });
-
-    // Sağ panel sadece ilgili çıktı
-    if (targetKey === "geleneksel") setRightPanelMode("music");
-    if (targetKey === "ai-video") setRightPanelMode("video");
-    if (targetKey === "ses-kaydi") setRightPanelMode("record");
-
-    if (recordController && targetKey !== "ses-kaydi") {
-      recordController.forceStopAndReset();
-    }
-
-    refreshEmptyStates();
-  }
-
-  if (musicViews.length && musicTabButtons.length) {
-    musicTabButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const target = btn.getAttribute("data-music-tab");
-        if (!target) return;
-
-        musicTabButtons.forEach((b) => b.classList.toggle("is-active", b === btn));
-        switchMusicView(target);
-      });
-    });
-
-    switchMusicView("geleneksel");
-  }
-
-  /* =========================================
-     MÜZİK ÜRET – "Üretiliyor" sağ panele düşer
-     ========================================= */
-  const musicGenerateBtn = document.getElementById("musicGenerateBtn");
+  /* =========================================================
+     MUSIC GENERATE
+     ========================================================= */
+  const musicGenerateBtn = $("#musicGenerateBtn");
   if (musicGenerateBtn) {
     musicGenerateBtn.addEventListener("click", () => {
-      // doğru panelde olduğundan emin ol
       setRightPanelMode("music");
-
-      // buton UI (metin değişimi burada kalabilir)
       if (musicGenerateBtn.classList.contains("is-loading")) return;
+
       const originalText = musicGenerateBtn.textContent;
       musicGenerateBtn.classList.add("is-loading");
       musicGenerateBtn.textContent = "Üretiliyor...";
@@ -464,29 +359,28 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         musicGenerateBtn.classList.remove("is-loading");
         musicGenerateBtn.textContent = originalText;
-        console.log("Müzik üretim isteği burada API'ye gidecek.");
       }, 1200);
     });
   }
 
-  /* =========================================
-     SES KAYDI – GÖRSEL KAYIT DURUMU + sağ panele kayıt ekleme
-     ========================================= */
+  /* =========================================================
+     RECORD UI (existing logic)
+     ========================================================= */
   const sesView = document.querySelector('.music-view[data-music-view="ses-kaydi"]');
   if (sesView) {
-    const mainCard = sesView.querySelector(".record-main-card");
-    const circle = sesView.querySelector(".record-circle");
-    const button = sesView.querySelector(".record-btn");
-    const title = sesView.querySelector(".record-main-title");
-    const timerEl = sesView.querySelector(".record-timer");
+    const mainCard = $(".record-main-card", sesView);
+    const circle = $(".record-circle", sesView);
+    const button = $(".record-btn", sesView);
+    const title = $(".record-main-title", sesView);
+    const timerEl = $(".record-timer", sesView);
 
-    const resultCard = sesView.querySelector("#recordResult");
-    const resultTimeEl = sesView.querySelector("#recordResultTime");
+    const resultCard = $("#recordResult");
+    const resultTimeEl = $("#recordResultTime");
 
-    const playBtn = sesView.querySelector('[data-record-action="play"]');
-    const downloadBtn = sesView.querySelector('[data-record-action="download"]');
-    const toMusicBtn = sesView.querySelector('[data-record-action="to-music"]');
-    const deleteBtn = sesView.querySelector('[data-record-action="delete"]');
+    const playBtn = $('[data-record-action="play"]', sesView);
+    const downloadBtn = $('[data-record-action="download"]', sesView);
+    const toMusicBtn = $('[data-record-action="to-music"]', sesView);
+    const deleteBtn = $('[data-record-action="delete"]', sesView);
 
     let isRecording = false;
     let timerInterval = null;
@@ -547,7 +441,6 @@ document.addEventListener("DOMContentLoaded", () => {
           resultTimeEl.textContent = formatTime(lastDurationMs);
           setResultVisible(true);
 
-          // Sağ panelde kayıt listesi: placeholder değil, "ready" gibi ekle
           setRightPanelMode("record");
           if (recordList) {
             recordList.prepend(createRecordItem({ placeholder: false }));
@@ -581,7 +474,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (toMusicBtn) toMusicBtn.addEventListener("click", () => {
       switchMusicView("geleneksel");
       setRightPanelMode("music");
-      console.log("Kayıt, müzik referansına taşınacak (backend ile).");
     });
     if (deleteBtn) deleteBtn.addEventListener("click", () => setResultVisible(false));
 
@@ -606,11 +498,185 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  /* =========================================
-     AI VIDEO – TAB + COUNTER + ÜRETİM PLACEHOLDER
-     ========================================= */
-  const videoTabs = document.querySelectorAll(".video-tab[data-video-tab]");
-  const videoViews = document.querySelectorAll(".video-view[data-video-view]");
+  /* =========================================================
+     DETAIL PANEL (Right Slide-in)
+     - Requires in HTML:
+       #detailBackdrop
+       #detailPanel
+       #detailClose
+       #detailTitle
+       #detailSub
+       #detailPreview
+       #detailDownload
+       #detailDelete
+     ========================================================= */
+  const detailBackdrop = $("#detailBackdrop");
+  const detailPanel = $("#detailPanel");
+  const detailClose = $("#detailClose");
+  const detailTitle = $("#detailTitle");
+  const detailSub = $("#detailSub");
+  const detailPreview = $("#detailPreview");
+  const detailDownload = $("#detailDownload");
+  const detailDelete = $("#detailDelete");
+
+  let lastOpenedCard = null;
+
+  function openDetail({ kind, title, subtitle, previewKind }) {
+    if (!detailPanel || !detailBackdrop) return;
+
+    safeText(detailTitle, title || (kind === "video" ? "Video" : "Görsel"));
+    safeText(detailSub, subtitle || "Detaylar yakında");
+
+    // preview box class
+    if (detailPreview) {
+      detailPreview.classList.toggle("cover", previewKind === "cover");
+      detailPreview.innerHTML = "";
+
+      // Placeholder preview
+      const box = document.createElement("div");
+      box.style.width = "100%";
+      box.style.height = "100%";
+      box.style.background = "radial-gradient(circle at top left, rgba(108,92,231,0.55), rgba(0,206,201,0.25))";
+      detailPreview.appendChild(box);
+    }
+
+    detailBackdrop.classList.add("is-open");
+    detailPanel.classList.add("is-open");
+  }
+
+  function closeDetail() {
+    if (!detailPanel || !detailBackdrop) return;
+    detailPanel.classList.remove("is-open");
+    detailBackdrop.classList.remove("is-open");
+    lastOpenedCard = null;
+  }
+
+  if (detailClose) detailClose.addEventListener("click", closeDetail);
+  if (detailBackdrop) detailBackdrop.addEventListener("click", closeDetail);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeDetail();
+  });
+
+  if (detailDownload) {
+    detailDownload.addEventListener("click", () => {
+      console.log("Download from detail (placeholder)");
+    });
+  }
+  if (detailDelete) {
+    detailDelete.addEventListener("click", () => {
+      if (lastOpenedCard) {
+        lastOpenedCard.remove();
+        lastOpenedCard = null;
+      }
+      closeDetail();
+    });
+  }
+
+  /* =========================================================
+     GALLERY CARD FACTORY (Video/Cover/MyWorks)
+     - Requires containers:
+       #videoGallery (page-video)
+       #coverGallery (page-cover)
+       #myworksGallery (page-myworks)
+     ========================================================= */
+  function createMediaCard({ kind = "video", placeholder = false } = {}) {
+    const card = document.createElement("div");
+    card.className = `media-card ${kind === "cover" ? "cover" : ""}`.trim();
+    card.dataset.kind = kind;
+    card.dataset.status = placeholder ? "pending" : "ready";
+
+    const thumb = document.createElement("div");
+    thumb.className = "media-thumb";
+    if (kind === "cover") {
+      thumb.style.background = "radial-gradient(circle at top left, #6c5ce7, #22a6b3)";
+    } else {
+      thumb.style.background = "radial-gradient(circle at top left, rgba(253,121,168,0.9), rgba(108,92,231,0.55))";
+    }
+    if (placeholder) thumb.style.opacity = "0.55";
+
+    const overlay = document.createElement("div");
+    overlay.className = "media-overlay";
+
+    const row = document.createElement("div");
+    row.className = "icon-row";
+
+    const previewBtn = createIconButton("🔍", "Önizle");
+    const downloadBtn = createIconButton("⬇", "İndir");
+    const delBtn = createIconButton("✖", "Sil", "danger");
+
+    row.appendChild(previewBtn);
+    row.appendChild(downloadBtn);
+    row.appendChild(delBtn);
+
+    overlay.appendChild(row);
+    card.appendChild(thumb);
+    card.appendChild(overlay);
+
+    function disableAll() {
+      previewBtn.classList.add("is-disabled");
+      downloadBtn.classList.add("is-disabled");
+      delBtn.classList.add("is-disabled");
+    }
+
+    if (placeholder) {
+      disableAll();
+      return card;
+    }
+
+    // Click card opens detail too (EITA)
+    card.addEventListener("click", (e) => {
+      // if user clicked icon, still open detail but avoid double
+      e.preventDefault();
+      lastOpenedCard = card;
+      openDetail({
+        kind,
+        title: kind === "video" ? "Video Detayı" : "Görsel Detayı",
+        subtitle: "Önizleme ve işlemler",
+        previewKind: kind === "cover" ? "cover" : "video",
+      });
+    });
+
+    previewBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      lastOpenedCard = card;
+      openDetail({
+        kind,
+        title: kind === "video" ? "Video Detayı" : "Görsel Detayı",
+        subtitle: "Önizleme ve işlemler",
+        previewKind: kind === "cover" ? "cover" : "video",
+      });
+    });
+
+    downloadBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      console.log("Download card (placeholder)");
+    });
+
+    delBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      card.remove();
+    });
+
+    return card;
+  }
+
+  function addGalleryPlaceholderThenReady(galleryEl, kind, delay = 1400) {
+    if (!galleryEl) return;
+
+    const ph = createMediaCard({ kind, placeholder: true });
+    galleryEl.prepend(ph);
+
+    setTimeout(() => {
+      const ready = createMediaCard({ kind, placeholder: false });
+      ph.replaceWith(ready);
+    }, delay);
+  }
+
+  /* =========================================================
+     VIDEO PAGE: tabs + counters + generate -> gallery
+     ========================================================= */
+  const videoTabs = $$(".video-tab[data-video-tab]");
+  const videoViews = $$(".video-view[data-video-view]");
 
   function switchVideoTab(target) {
     videoTabs.forEach((tab) => tab.classList.toggle("is-active", tab.dataset.videoTab === target));
@@ -626,8 +692,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function bindCounter(textareaId, counterId, max) {
-    const textarea = document.getElementById(textareaId);
-    const counter = document.getElementById(counterId);
+    const textarea = $("#" + textareaId);
+    const counter = $("#" + counterId);
     if (!textarea || !counter) return;
 
     const update = () => {
@@ -640,26 +706,24 @@ document.addEventListener("DOMContentLoaded", () => {
   bindCounter("videoPrompt", "videoPromptCounter", 1000);
   bindCounter("videoImagePrompt", "videoImagePromptCounter", 500);
 
+  const videoGallery = $("#videoGallery");
+
   function attachVideoGenerate(btnId, loadingText, delay = 1400) {
-    const btn = document.getElementById(btnId);
+    const btn = $("#" + btnId);
     if (!btn) return;
 
     btn.addEventListener("click", () => {
-      setRightPanelMode("video");
-
       if (btn.classList.contains("is-loading")) return;
 
       const original = btn.textContent;
       btn.classList.add("is-loading");
       btn.textContent = loadingText;
 
-      // Sağ panel en üste placeholder video kartı (metinsiz)
-      addPlaceholderAndActivate(videoList, createVideoItem, delay);
+      addGalleryPlaceholderThenReady(videoGallery, "video", delay);
 
       setTimeout(() => {
         btn.classList.remove("is-loading");
         btn.textContent = original;
-        console.log("AI Video isteği burada API'ye gidecek.");
       }, delay);
     });
   }
@@ -667,7 +731,7 @@ document.addEventListener("DOMContentLoaded", () => {
   attachVideoGenerate("videoGenerateTextBtn", "🎬 Video Oluşturuluyor...", 1400);
   attachVideoGenerate("videoGenerateImageBtn", "🎞 Video Oluşturuluyor...", 1600);
 
-  const imageInput = document.getElementById("videoImageInput");
+  const imageInput = $("#videoImageInput");
   if (imageInput) {
     imageInput.addEventListener("change", () => {
       if (!imageInput.files || !imageInput.files[0]) return;
@@ -675,75 +739,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* =========================================
-     KAPAK – Galeride placeholder + sade ikon aksiyonları
-     ========================================= */
-  const coverGenerateBtn = document.getElementById("coverGenerateBtn");
-  const coverGallery = document.getElementById("coverGallery");
-
-  function createCoverGalleryItem({ placeholder = false } = {}) {
-    const card = document.createElement("div");
-    card.className = "gallery-card";
-    card.dataset.status = placeholder ? "pending" : "ready";
-
-    const thumb = document.createElement("div");
-    thumb.className = "gallery-thumb";
-    // Placeholder ise daha karanlık
-    if (placeholder) {
-      thumb.style.background = "rgba(108,92,231,0.18)";
-    } else {
-      // basit örnek gradient
-      thumb.style.backgroundImage =
-        "linear-gradient(135deg, rgba(108,92,231,0.85), rgba(0,206,201,0.75))";
-    }
-
-    const overlay = document.createElement("div");
-    overlay.className = "media-overlay";
-
-    const expandBtn = document.createElement("button");
-    expandBtn.className = "media-ico";
-    expandBtn.type = "button";
-    expandBtn.textContent = "🔍";
-    expandBtn.setAttribute("aria-label", "Büyüt");
-
-    const downloadBtn = document.createElement("button");
-    downloadBtn.className = "media-ico";
-    downloadBtn.type = "button";
-    downloadBtn.textContent = "⬇";
-    downloadBtn.setAttribute("aria-label", "İndir");
-
-    const delBtn = document.createElement("button");
-    delBtn.className = "media-ico danger";
-    delBtn.type = "button";
-    delBtn.textContent = "✖";
-    delBtn.setAttribute("aria-label", "Sil");
-
-    overlay.appendChild(expandBtn);
-    overlay.appendChild(downloadBtn);
-    overlay.appendChild(delBtn);
-
-    card.appendChild(thumb);
-    card.appendChild(overlay);
-
-    if (placeholder) {
-      expandBtn.classList.add("is-disabled");
-      downloadBtn.classList.add("is-disabled");
-      delBtn.classList.add("is-disabled");
-    } else {
-      expandBtn.addEventListener("click", () => {
-        // Gerçek görsel URL API'den gelince img.src bağlanır
-        const img = document.createElement("img");
-        // img.src = card.dataset.src;
-        openMediaModal(img);
-      });
-
-      downloadBtn.addEventListener("click", () => console.log("Cover download (placeholder)"));
-
-      delBtn.addEventListener("click", () => card.remove());
-    }
-
-    return card;
-  }
+  /* =========================================================
+     COVER: generate -> cover gallery (existing #coverGallery)
+     ========================================================= */
+  const coverGenerateBtn = $("#coverGenerateBtn");
+  const coverGallery = $("#coverGallery");
 
   if (coverGenerateBtn) {
     coverGenerateBtn.addEventListener("click", () => {
@@ -754,15 +754,15 @@ document.addEventListener("DOMContentLoaded", () => {
       coverGenerateBtn.textContent = "Üretiliyor...";
 
       if (coverGallery) {
-        const placeholder = createCoverGalleryItem({ placeholder: true });
+        // cover gallery uses 1:1 cards; but we can still prepend
+        const placeholder = createMediaCard({ kind: "cover", placeholder: true });
         coverGallery.prepend(placeholder);
 
         setTimeout(() => {
-          const ready = createCoverGalleryItem({ placeholder: false });
+          const ready = createMediaCard({ kind: "cover", placeholder: false });
           placeholder.replaceWith(ready);
           coverGenerateBtn.classList.remove("is-loading");
           coverGenerateBtn.textContent = originalText;
-          console.log("Kapak üretim isteği burada görsel AI API'ye gidecek.");
         }, 1400);
       } else {
         setTimeout(() => {
@@ -773,8 +773,53 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* =========================================
-     İlk boş durumları ayarla
-     ========================================= */
+  /* =========================================================
+     MYWORKS (Ürettiklerim): segment switch + gallery
+     - Requires:
+       #myworksGallery
+       #myworksSegVideo, #myworksSegCover
+     ========================================================= */
+  const myworksGallery = $("#myworksGallery");
+  const segVideo = $("#myworksSegVideo");
+  const segCover = $("#myworksSegCover");
+
+  let myworksMode = "video"; // default
+
+  function setMyworksMode(mode) {
+    myworksMode = mode;
+    if (segVideo) segVideo.classList.toggle("is-active", mode === "video");
+    if (segCover) segCover.classList.toggle("is-active", mode === "cover");
+
+    // For MVP: filter by dataset.kind
+    if (!myworksGallery) return;
+    $$(".media-card", myworksGallery).forEach((card) => {
+      card.style.display = (card.dataset.kind === mode) ? "" : "none";
+    });
+  }
+
+  if (segVideo && segCover) {
+    segVideo.addEventListener("click", () => setMyworksMode("video"));
+    segCover.addEventListener("click", () => setMyworksMode("cover"));
+    setMyworksMode("video");
+  }
+
+  /* =========================================================
+     BOTTOM PLAYER BAR (UI only)
+     - Requires: #playerBar
+     - Visible only on music page
+     ========================================================= */
+  const playerBar = $("#playerBar");
+  function syncPlayerVisibility(activePage) {
+    if (!playerBar) return;
+    // Show only on music page
+    playerBar.classList.toggle("hidden", activePage !== "music");
+  }
+
+  /* =========================================================
+     INITIAL STATE
+     ========================================================= */
   refreshEmptyStates();
+  // default: music page active (HTML sets), sync player
+  const active = $(".page.is-active");
+  syncPlayerVisibility(active ? active.dataset.page : "music");
 });
