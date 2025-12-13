@@ -693,7 +693,8 @@ document.addEventListener("DOMContentLoaded", () => {
       thumb.style.background = "rgba(108,92,231,0.18)";
     } else {
       // basit örnek gradient
-      thumb.style.backgroundImage = "linear-gradient(135deg, rgba(108,92,231,0.85), rgba(0,206,201,0.75))";
+      thumb.style.backgroundImage =
+        "linear-gradient(135deg, rgba(108,92,231,0.85), rgba(0,206,201,0.75))";
     }
 
     const overlay = document.createElement("div");
